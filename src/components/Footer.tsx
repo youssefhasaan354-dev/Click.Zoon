@@ -1,0 +1,122 @@
+import { Phone, Mail, MessageCircle, Facebook, Instagram, MapPin } from 'lucide-react';
+import { telLink, mailLink, waLinkIntl, useSiteConfig } from '@/siteConfig';
+import { trackEvent } from '@/lib/analytics';
+
+const quickLinks = [
+  { href: '#home', label: 'الرئيسية' },
+  { href: '#demo', label: 'الديمو المجاني' },
+  { href: '#services', label: 'الخدمات' },
+  { href: '#pricing', label: 'الباقات' },
+  { href: '#portfolio', label: 'معرض الأعمال' },
+  { href: '#process', label: 'خطوات العمل' },
+  { href: '#faq', label: 'الأسئلة الشائعة' },
+  { href: '#contact', label: 'تواصل معنا' },
+];
+
+export default function Footer() {
+  const cfg = useSiteConfig();
+
+  return (
+    <footer className="bg-navy-950 border-t border-navy-700/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-3xl font-extrabold text-gradient-gold">{cfg.logoText}</span>
+              <span className="text-xl font-bold text-navy-50">{cfg.agencyName}</span>
+            </div>
+            <p className="text-navy-300 leading-relaxed max-w-md mb-6">
+              {cfg.footerText}
+            </p>
+            <div className="flex gap-3">
+              <a
+                href={cfg.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent({ category: 'social', action: 'click', label: 'footer_facebook' })}
+                className="w-10 h-10 rounded-lg bg-navy-800/50 hover:bg-blue-600/20 flex items-center justify-center transition-colors"
+                aria-label="فيسبوك"
+              >
+                <Facebook size={18} className="text-blue-400" />
+              </a>
+              <a
+                href={cfg.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent({ category: 'social', action: 'click', label: 'footer_instagram' })}
+                className="w-10 h-10 rounded-lg bg-navy-800/50 hover:bg-pink-600/20 flex items-center justify-center transition-colors"
+                aria-label="إنستجرام"
+              >
+                <Instagram size={18} className="text-pink-400" />
+              </a>
+              <a
+                href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.general)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'footer_whatsapp' })}
+                className="w-10 h-10 rounded-lg bg-navy-800/50 hover:bg-green-600/20 flex items-center justify-center transition-colors"
+                aria-label="واتساب"
+              >
+                <MessageCircle size={18} className="text-green-400" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick links */}
+          <div>
+            <h4 className="text-navy-50 font-bold mb-4">روابط سريعة</h4>
+            <ul className="space-y-2.5">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-navy-300 hover:text-gold-400 transition-colors text-sm"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-navy-50 font-bold mb-4">تواصل معنا</h4>
+            <ul className="space-y-3">
+              <li>
+                <a href={`tel:${cfg.phone}`} onClick={() => trackEvent({ category: 'call', action: 'click', label: 'footer_call' })} className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm">
+                  <Phone size={16} className="text-gold-400" />
+                  <span dir="ltr">{cfg.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${cfg.email}`} onClick={() => trackEvent({ category: 'email', action: 'click', label: 'footer_email' })} className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm break-all">
+                  <Mail size={16} className="text-gold-400" />
+                  <span dir="ltr">{cfg.email}</span>
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-navy-300 text-sm">
+                <MapPin size={16} className="text-gold-400" />
+                {cfg.location}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-navy-700/30 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-navy-400 text-sm">
+            © {new Date().getFullYear()} {cfg.agencyName} — جميع الحقوق محفوظة
+          </p>
+          <div className="flex items-center gap-4">
+            <a href="/privacy" className="text-navy-500 hover:text-gold-400 text-xs transition-colors">سياسة الخصوصية</a>
+            <p className="text-navy-500 text-xs">
+              تصميم وتطوير <span className="text-gold-400 font-semibold">{cfg.agencyName}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
