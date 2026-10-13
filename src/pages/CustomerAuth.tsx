@@ -3,13 +3,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Lock, Mail, LogIn, Loader2, UserPlus, User, Phone, Eye, EyeOff, Check, AlertCircle, KeyRound, MailQuestion } from 'lucide-react';
 import { useCustomer } from '@/lib/customer-context';
 import { supabase } from '@/lib/supabase';
-import { useSiteConfig } from '@/siteConfig';
 
 export default function CustomerAuth() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { signIn, signUp, user } = useCustomer();
-  const cfg = useSiteConfig();
   const [mode, setMode] = useState<'login' | 'signup'>(
     searchParams.get('mode') === 'signup' ? 'signup' : 'login'
   );

@@ -18,8 +18,9 @@ const CustomerRequestsPage = lazy(() => import('@/pages/CustomerRequests'));
 
 function FullScreenLoader() {
   return (
-    <div className="min-h-screen bg-navy-950 flex items-center justify-center">
+    <div className="min-h-screen bg-navy-950 flex flex-col items-center justify-center gap-3" dir="rtl">
       <Loader2 size={40} className="animate-spin text-gold-400" />
+      <span className="text-navy-300 text-sm font-medium">جارٍ التحميل...</span>
     </div>
   );
 }

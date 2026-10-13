@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { AdminPageHeader, AdminCard, AdminInput, AdminTextarea, AddButton, DeleteButton, OrderButton } from '@/admin/ui';
+import { AVAILABLE_ICON_NAMES, getIcon } from '@/lib/icons';
 
 interface TextItem {
   id: string;
@@ -99,7 +100,32 @@ export default function TextItemsPanel({ table, title, subtitle, hasIcon }: Prop
         <AdminCard className="mb-4 border-gold-500/30">
           <div className="space-y-4">
             {hasIcon && (
-              <AdminInput label="اسم الأيقونة (lucide-react)" value={editing.icon || ''} onChange={(v) => setEditing({ ...editing, icon: v })} dir="ltr" />
+              <div>
+                <label className="text-navy-200 text-sm font-semibold mb-2 block">الأيقونة (lucide-react)</label>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-navy-800/80 border border-navy-600/40 flex items-center justify-center shrink-0">
+                    {(() => {
+                      const Icon = getIcon(editing.icon || '');
+                      return <Icon size={20} className="text-gold-400" />;
+                    })()}
+                  </div>
+                  <select
+                    value={editing.icon || 'Award'}
+                    onChange={(e) => setEditing({ ...editing, icon: e.target.value })}
+                    className="w-full bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-2.5 text-navy-50 focus:border-gold-500/50 focus:outline-none focus:ring-1 focus:ring-gold-500/30 transition-all text-sm"
+                    dir="ltr"
+                  >
+                    {AVAILABLE_ICON_NAMES.map((name) => (
+                      <option key={name} value={name} className="bg-navy-900 text-navy-50">
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <p className="text-navy-500 text-xs mt-1.5">
+                  الأيقونات المتاحة: {AVAILABLE_ICON_NAMES.join('، ')}
+                </p>
+              </div>
             )}
             <AdminInput label="العنوان" value={editing.title} onChange={(v) => setEditing({ ...editing, title: v })} />
             <AdminTextarea label="الوصف" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} rows={2} />
@@ -114,25 +140,28 @@ export default function TextItemsPanel({ table, title, subtitle, hasIcon }: Prop
       )}
 
       <div className="space-y-3">
-        {items.map((item) => (
-          <AdminCard key={item.id} className="flex items-center gap-3">
-            {hasIcon && (
-              <div className="w-10 h-10 rounded-lg bg-gold-500/10 flex items-center justify-center shrink-0">
-                <span className="text-gold-400 text-xs font-mono">{item.icon}</span>
+        {items.map((item) => {
+          const ItemIcon = hasIcon ? getIcon(item.icon || '') : null;
+          return (
+            <AdminCard key={item.id} className="flex items-center gap-3">
+              {ItemIcon && (
+                <div className="w-10 h-10 rounded-lg bg-gold-500/10 flex items-center justify-center shrink-0">
+                  <ItemIcon size={20} className="text-gold-400" />
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="text-navy-50 font-bold text-sm">{item.title}</div>
+                <div className="text-navy-400 text-xs truncate">{item.description}</div>
               </div>
-            )}
-            <div className="flex-1 min-w-0">
-              <div className="text-navy-50 font-bold text-sm">{item.title}</div>
-              <div className="text-navy-400 text-xs truncate">{item.description}</div>
-            </div>
-            <div className="flex items-center gap-1">
-              <OrderButton direction="up" onClick={() => move(item, 'up')} />
-              <OrderButton direction="down" onClick={() => move(item, 'down')} />
-              <button onClick={() => setEditing(item)} className="text-navy-300 hover:text-gold-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">تعديل</button>
-              <DeleteButton onDelete={() => remove(item.id)} />
-            </div>
-          </AdminCard>
-        ))}
+              <div className="flex items-center gap-1">
+                <OrderButton direction="up" onClick={() => move(item, 'up')} />
+                <OrderButton direction="down" onClick={() => move(item, 'down')} />
+                <button onClick={() => setEditing(item)} className="text-navy-300 hover:text-gold-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">تعديل</button>
+                <DeleteButton onDelete={() => remove(item.id)} />
+              </div>
+            </AdminCard>
+          );
+        })}
       </div>
     </div>
   );

@@ -52,12 +52,14 @@ export function AdminTextarea({
   onChange,
   rows = 3,
   placeholder = '',
+  dir,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   rows?: number;
   placeholder?: string;
+  dir?: 'ltr' | 'rtl';
 }) {
   return (
     <div>
@@ -67,6 +69,7 @@ export function AdminTextarea({
         onChange={(e) => onChange(e.target.value)}
         rows={rows}
         placeholder={placeholder}
+        dir={dir}
         className="w-full bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-2.5 text-navy-50 placeholder-navy-400 focus:border-gold-500/50 focus:outline-none focus:ring-1 focus:ring-gold-500/30 transition-all text-sm resize-none"
       />
     </div>

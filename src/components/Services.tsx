@@ -1,8 +1,6 @@
-import * as LucideIcons from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
 import { useSiteData } from '@/lib/site-data-context';
-
-type IconType = LucideIcons.LucideIcon;
+import { getIcon } from '@/lib/icons';
 
 const fallbackServices = [
   { icon: 'Globe', title: 'تصميم وتطوير المواقع', desc: 'موقع احترافي يعكس هوية نشاطك ويسهّل على عملائك الوصول لمعلوماتك في أي وقت.' },
@@ -12,10 +10,6 @@ const fallbackServices = [
   { icon: 'Search', title: 'تحسين SEO', desc: 'خلي نشاطك يظهر في نتائج جوجل وقت ما عميلك يبحث عنك، بدل ما يروح للمنافس.' },
   { icon: 'Server', title: 'حجز الدومين والاستضافة', desc: 'نتكفّل بحجز اسم موقعك وإعداده على استضافة سريعة وآمنة — من البداية للنهاية.' },
 ];
-
-function getIcon(name: string): IconType {
-  return (LucideIcons as unknown as Record<string, IconType>)[name] ?? LucideIcons.Globe;
-}
 
 export default function Services() {
   const { ref, revealed } = useReveal();

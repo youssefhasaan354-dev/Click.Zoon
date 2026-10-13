@@ -1,5 +1,5 @@
 import { Phone, Mail, MessageCircle, Facebook, Instagram, MapPin } from 'lucide-react';
-import { telLink, mailLink, waLinkIntl, useSiteConfig } from '@/siteConfig';
+import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
 
 const quickLinks = [

@@ -7,6 +7,29 @@
 - Node.js 18 أو أحدث
 - npm
 
+## إعداد متغيرات البيئة وقاعدة البيانات (Supabase)
+
+1. انسخ ملف `.env.example` إلى ملف `.env`:
+```bash
+cp .env.example .env
+```
+2. املأ قيمتي Supabase داخل ملف `.env`:
+   - `VITE_SUPABASE_URL`: رابط مشروع Supabase الخاص بك.
+   - `VITE_SUPABASE_ANON_KEY`: المفتاح العام لمشروعك (Anon Key).
+
+3. في حال إنشاء مشروع Supabase جديد، شغّل ملفات الـ SQL الموجودة داخل مجلد `supabase/migrations` بالترتيب:
+   - `20261010200404_create_demo_requests.sql`
+   - `20261010201926_create_admin_dashboard_tables.sql`
+   - `20261010202205_create_portfolio_storage_bucket.sql`
+   - `20261011065632_fix_rls_infinite_recursion.sql`
+   - `20261011084044_add_backup_restore_policies.sql`
+   - `20261011194748_add_about_map_ga_fields.sql`
+   - `20261011200224_create_profiles_and_customer_auth.sql`
+   - `20261012080932_create_admin_profile.sql`
+   - `20261012080951_restrict_trigger_function_access.sql`
+   - `20261012082027_fix_trigger_phone_constraint.sql`
+   - `20261012085206_add_message_source_to_demo_requests.sql`
+
 ## تشغيل المشروع على جهازك
 
 1. ثبّت الحزم:
@@ -103,15 +126,14 @@ project/
 
 1. أنشئ مشروع Supabase جديد
 2. حدّث المتغيرات في ملف `.env`:
-   - `SUPABASE_URL` — رابط المشروع الجديد
-   - `SUPABASE_ANON_KEY` — المفتاح العام
-   - `SUPABASE_SERVICE_ROLE_KEY` — مفتاح الخدمة
+   - `VITE_SUPABASE_URL` — رابط المشروع الجديد
+   - `VITE_SUPABASE_ANON_KEY` — المفتاح العام
 3. شغّل ملفات الـ migrations بالترتيب:
    - `20261010200404_create_demo_requests.sql`
    - `20261010201926_create_admin_dashboard_tables.sql`
    - `20261010202205_create_portfolio_storage_bucket.sql`
    - `20261011065632_fix_rls_infinite_recursion.sql`
-   - `add_backup_restore_policies.sql`
+   - `20261011084044_add_backup_restore_policies.sql`
 4. أنشئ مستخدم admin في Supabase:
    - افتح Supabase Dashboard → Authentication → Users → Add user
    - استخدم نفس البريد الإلكتروني المسجل في جدول `admins`

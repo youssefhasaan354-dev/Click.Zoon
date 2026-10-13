@@ -1,8 +1,6 @@
-import * as LucideIcons from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
 import { useSiteData } from '@/lib/site-data-context';
-
-type IconType = LucideIcons.LucideIcon;
+import { getIcon } from '@/lib/icons';
 
 const fallbackSteps = [
   { icon: 'MessageSquare', title: 'اطلب الديمو', desc: 'ابعت لنا بيانات نشاطك من النموذج أو عبر واتساب.' },
@@ -10,10 +8,6 @@ const fallbackSteps = [
   { icon: 'Rocket', title: 'اعتمد وعدّل', desc: 'راجع النموذج واطلب التعديلات التي تحتاجها قبل التنفيذ.' },
   { icon: 'Award', title: 'نطلق الموقع', desc: 'نجهّز الموقع للنشر ونسلّمه لك حسب متطلبات مشروعك.' },
 ];
-
-function getIcon(name: string): IconType {
-  return (LucideIcons as unknown as Record<string, IconType>)[name] ?? LucideIcons.Award;
-}
 
 export default function Process() {
   const { ref, revealed } = useReveal();

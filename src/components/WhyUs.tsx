@@ -1,9 +1,7 @@
-import * as LucideIcons from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
 import { useSiteData } from '@/lib/site-data-context';
 import { siteConfig } from '@/siteConfig';
-
-type IconType = LucideIcons.LucideIcon;
+import { getIcon } from '@/lib/icons';
 
 const fallbackFeatures = [
   { icon: 'Award', title: 'تصميم احترافي', desc: 'كل موقع مصمم خصيصاً ليُعبّر عن هوية نشاطك.' },
@@ -13,10 +11,6 @@ const fallbackFeatures = [
   { icon: 'Search', title: 'جاهز لـ SEO', desc: 'مهيّأ لظهور جوجل من اليوم الأول.' },
   { icon: 'ShieldCheck', title: 'بدون عمولات', desc: 'طلباتك بتوصلك مباشرة — بدون عمولات تطبيقات التوصيل.' },
 ];
-
-function getIcon(name: string): IconType {
-  return (LucideIcons as unknown as Record<string, IconType>)[name] ?? LucideIcons.Award;
-}
 
 export default function WhyUs() {
   const { ref: featRef, revealed: featRevealed } = useReveal();

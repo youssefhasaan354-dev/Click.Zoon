@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { SiteSettings, AboutStat } from '@/lib/types';
+import { SiteSettings } from '@/lib/types';
 import { AdminPageHeader, AdminCard, AdminInput, AdminTextarea, AdminToggle, SaveButton, SaveIndicator } from '@/admin/ui';
 
 export default function AdminSettings() {

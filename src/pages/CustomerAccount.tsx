@@ -132,7 +132,7 @@ export default function CustomerAccount() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold mb-1">حسابي</h1>
-            <p className="text-navy-400 text-sm">{profile.email || user.email}</p>
+            <p className="text-navy-400 text-sm">{user.email}</p>
           </div>
           <div className="flex items-center gap-3">
             <Link to="/my-requests" className="text-gold-400 hover:text-gold-300 text-sm font-semibold flex items-center gap-1.5">

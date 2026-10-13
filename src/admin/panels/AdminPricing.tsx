@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { PricingPlan } from '@/lib/types';
-import { AdminPageHeader, AdminCard, AdminInput, AdminTextarea, AdminToggle, AddButton, DeleteButton, OrderButton } from '@/admin/ui';
+import { AdminPageHeader, AdminCard, AdminInput, AdminToggle, AddButton, DeleteButton, OrderButton } from '@/admin/ui';
 
 export default function AdminPricing() {
   const [items, setItems] = useState<PricingPlan[]>([]);
