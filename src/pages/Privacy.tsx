@@ -1,8 +1,10 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MobileBottomBar from '@/components/MobileBottomBar';
+import { useDocumentTitle } from '@/hooks/useNoIndex';
 
 export default function Privacy() {
+  useDocumentTitle('سياسة الخصوصية | Click Zoon');
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
       <Header />

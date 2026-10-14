@@ -8,6 +8,7 @@ import AdminHero from '@/admin/panels/AdminHero';
 import AdminFaqs from '@/admin/panels/AdminFaqs';
 import AdminPortfolio from '@/admin/panels/AdminPortfolio';
 import AdminPricing from '@/admin/panels/AdminPricing';
+import AdminTestimonials from '@/admin/panels/AdminTestimonials';
 import AdminSections from '@/admin/panels/AdminSections';
 import AdminRequests from '@/admin/panels/AdminRequests';
 import AdminCustomers from '@/admin/panels/AdminCustomers';
@@ -16,6 +17,7 @@ import AdminChangePassword from '@/admin/panels/AdminChangePassword';
 import AdminBackup from '@/admin/panels/AdminBackup';
 import { Loader2, AlertCircle, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
+import { useNoIndex } from '@/hooks/useNoIndex';
 
 function FullScreenLoader() {
   return (
@@ -46,15 +48,16 @@ function ErrorScreen({ message }: { message: string }) {
 }
 
 function AdminGuard({ children }: { children: React.ReactNode }) {
-  const { loading, isAdmin, authError } = useAdmin();
+  const { loading, checkingAdmin, isAdmin, authError } = useAdmin();
 
-  if (loading) return <FullScreenLoader />;
+  if (loading || checkingAdmin) return <FullScreenLoader />;
   if (authError) return <ErrorScreen message={authError} />;
   if (!isAdmin) return <Navigate to="/" replace />;
   return <AdminLayout>{children}</AdminLayout>;
 }
 
 export default function AdminApp() {
+  useNoIndex('لوحة التحكم | Click Zoon');
   return (
     <Routes>
       <Route path="login" element={<AdminLogin />} />
@@ -66,6 +69,7 @@ export default function AdminApp() {
       <Route path="portfolio" element={<AdminGuard><AdminPortfolio /></AdminGuard>} />
       <Route path="process" element={<AdminGuard><TextItemsPanel table="process_steps" title="إزاي بنشتغل" subtitle="خطوات العمل" hasIcon /></AdminGuard>} />
       <Route path="pricing" element={<AdminGuard><AdminPricing /></AdminGuard>} />
+      <Route path="testimonials" element={<AdminGuard><AdminTestimonials /></AdminGuard>} />
       <Route path="faqs" element={<AdminGuard><AdminFaqs /></AdminGuard>} />
       <Route path="sections" element={<AdminGuard><AdminSections /></AdminGuard>} />
       <Route path="requests" element={<AdminGuard><AdminRequests /></AdminGuard>} />

@@ -1,6 +1,18 @@
 import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
-import { SiteData, SiteSettings, HeroContent, Feature, Service, PortfolioItem, ProcessStep, PricingPlan, Faq, SectionVisibility } from '@/lib/types';
+import {
+  SiteData,
+  SiteSettings,
+  HeroContent,
+  Feature,
+  Service,
+  PortfolioItem,
+  ProcessStep,
+  PricingPlan,
+  Faq,
+  Testimonial,
+  SectionVisibility,
+} from '@/lib/types';
 
 interface SiteDataContextValue {
   data: SiteData;
@@ -17,6 +29,7 @@ const emptyData: SiteData = {
   processSteps: [],
   pricingPlans: [],
   faqs: [],
+  testimonials: [],
   sectionVisibility: [],
 };
 
@@ -36,6 +49,7 @@ export function SiteDataProvider({ children }: { children: ReactNode }) {
       processRes,
       pricingRes,
       faqsRes,
+      testimonialsRes,
       sectionsRes,
     ] = await Promise.allSettled([
       supabase.from('site_settings').select('*').eq('id', 1).maybeSingle(),
@@ -46,6 +60,7 @@ export function SiteDataProvider({ children }: { children: ReactNode }) {
       supabase.from('process_steps').select('*').order('sort_order'),
       supabase.from('pricing_plans').select('*').eq('visible', true).order('sort_order'),
       supabase.from('faqs').select('*').order('sort_order'),
+      supabase.from('testimonials').select('*').eq('visible', true).order('sort_order'),
       supabase.from('section_visibility').select('*'),
     ]);
 
@@ -61,6 +76,7 @@ export function SiteDataProvider({ children }: { children: ReactNode }) {
       processSteps: (unwrap<ProcessStep[]>(processRes as PromiseSettledResult<{ data: ProcessStep[] | null }>)) ?? [],
       pricingPlans: (unwrap<PricingPlan[]>(pricingRes as PromiseSettledResult<{ data: PricingPlan[] | null }>)) ?? [],
       faqs: (unwrap<Faq[]>(faqsRes as PromiseSettledResult<{ data: Faq[] | null }>)) ?? [],
+      testimonials: (unwrap<Testimonial[]>(testimonialsRes as PromiseSettledResult<{ data: Testimonial[] | null }>)) ?? [],
       sectionVisibility: (unwrap<SectionVisibility[]>(sectionsRes as PromiseSettledResult<{ data: SectionVisibility[] | null }>)) ?? [],
     });
     setLoading(false);
@@ -87,4 +103,9 @@ export function useSectionVisibility(sectionId: string): boolean {
   const { data } = useSiteData();
   const section = data.sectionVisibility.find((s) => s.id === sectionId);
   return section ? section.visible : true;
+}
+
+export function useTestimonials(): Testimonial[] {
+  const { data } = useSiteData();
+  return data.testimonials;
 }

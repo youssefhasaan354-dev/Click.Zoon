@@ -14,20 +14,29 @@ export default function AdminSections() {
     if (error) {
       setError('فشل تحميل البيانات. حاول مرة أخرى.');
     } else {
-      setSections((data as SectionVisibility[]) ?? []);
+      let list = (data as SectionVisibility[]) ?? [];
+      if (!list.some((s) => s.id === 'testimonials')) {
+        list = [...list, { id: 'testimonials', label: 'آراء العملاء', visible: true }];
+      }
+      setSections(list);
     }
     setLoading(false);
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const toggle = async (id: string, visible: boolean) => {
     setError(null);
-    setSections(sections.map((s) => s.id === id ? { ...s, visible } : s));
-    const { error } = await supabase.from('section_visibility').update({ visible }).eq('id', id);
+    setSections((prev) => prev.map((s) => (s.id === id ? { ...s, visible } : s)));
+    const currentSection = sections.find((s) => s.id === id);
+    const { error } = await supabase
+      .from('section_visibility')
+      .upsert({ id, label: currentSection?.label ?? id, visible });
     if (error) {
       setError(`فشل حفظ التغيير: ${error.message}`);
-      setSections(sections.map((s) => s.id === id ? { ...s, visible: !visible } : s));
+      setSections((prev) => prev.map((s) => (s.id === id ? { ...s, visible: !visible } : s)));
     }
   };
 
@@ -46,7 +55,11 @@ export default function AdminSections() {
         {sections.map((section) => (
           <AdminCard key={section.id} className="flex items-center justify-between">
             <span className="text-navy-50 font-bold text-sm">{section.label}</span>
-            <AdminToggle label={section.visible ? 'ظاهر' : 'مخفي'} checked={section.visible} onChange={(v) => toggle(section.id, v)} />
+            <AdminToggle
+              label={section.visible ? 'ظاهر' : 'مخفي'}
+              checked={section.visible}
+              onChange={(v) => toggle(section.id, v)}
+            />
           </AdminCard>
         ))}
       </div>

@@ -15,11 +15,13 @@ const TABLES = [
   'pricing_plans',
   'faqs',
   'section_visibility',
+  'testimonials',
   'demo_requests',
 ] as const;
 
 type TableName = (typeof TABLES)[number];
 
+const SINGLE_ROW_TABLES = new Set<TableName>(['site_settings', 'hero_content']);
 const SKIP_CREATED_AT = new Set<TableName>(['demo_requests']);
 
 export default function AdminBackup() {
@@ -60,19 +62,79 @@ export default function AdminBackup() {
     setMessage(null);
     try {
       const text = await file.text();
-      const parsed = JSON.parse(text);
-      if (!parsed.data || typeof parsed.data !== 'object') {
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(text);
+      } catch {
+        throw new Error('ملف غير صالح: تعذّرت قراءة ملف JSON');
+      }
+
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
         throw new Error('ملف غير صالح: التنسيق غير صحيح');
       }
-      const backupData = parsed.data as Record<string, Json[]>;
+
+      const parsedObj = parsed as Record<string, unknown>;
+      if (!parsedObj.data || typeof parsedObj.data !== 'object' || Array.isArray(parsedObj.data)) {
+        throw new Error('ملف غير صالح: كائن البيانات (data) غير موجود أو غير صحيح');
+      }
+
+      const backupData = parsedObj.data as Record<string, unknown>;
+
+      // Validate that each present table in backupData is an array
+      for (const [key, val] of Object.entries(backupData)) {
+        if (val !== undefined && val !== null && !Array.isArray(val)) {
+          throw new Error(`ملف غير صالح: بيانات جدول ${key} ليست مصفوفة`);
+        }
+      }
 
       for (const table of TABLES) {
+        // Skip tables missing from the backup (e.g. older Bolt backups without 'testimonials')
+        if (!(table in backupData)) {
+          continue;
+        }
+
         const rows = backupData[table];
         if (!Array.isArray(rows)) continue;
 
-        // Delete existing rows
-        const { error: delErr } = await supabase.from(table).delete().neq('id', '00000000-0000-0000-0000-000000000000');
-        if (delErr) throw new Error(`خطأ في مسح جدول ${table}: ${delErr.message}`);
+        // Safety net: read current rows into memory before modifying the table
+        const { data: currentRows, error: fetchErr } = await supabase.from(table).select('*');
+        if (fetchErr) {
+          throw new Error(`خطأ في قراءة بيانات جدول ${table} الحالية: ${fetchErr.message}`);
+        }
+
+        // Single-row tables (site_settings, hero_content): upsert on id
+        if (SINGLE_ROW_TABLES.has(table)) {
+          if (rows.length === 0) continue;
+
+          const { error: upsertErr } = await supabase
+            .from(table)
+            .upsert(rows as Record<string, unknown>[], { onConflict: 'id' });
+
+          if (upsertErr) {
+            let restored = false;
+            if (currentRows && currentRows.length > 0) {
+              const { error: restoreErr } = await supabase
+                .from(table)
+                .upsert(currentRows as Record<string, unknown>[], { onConflict: 'id' });
+              restored = !restoreErr;
+            }
+            const restoreMsg = restored
+              ? 'تمت استعادة البيانات السابقة للجدول بنجاح'
+              : 'تعذرت استعادة البيانات السابقة للجدول';
+            throw new Error(`خطأ في تحديث جدول ${table}: ${upsertErr.message} (${restoreMsg})`);
+          }
+          continue;
+        }
+
+        // Multi-row tables: delete using filter that works for any id type
+        const { error: delErr } = await supabase
+          .from(table)
+          .delete()
+          .not('id', 'is', null);
+
+        if (delErr) {
+          throw new Error(`خطأ في مسح جدول ${table}: ${delErr.message} (البيانات السابقة لم تتأثر)`);
+        }
 
         if (rows.length === 0) continue;
 
@@ -85,8 +147,36 @@ export default function AdminBackup() {
             })
           : rows;
 
-        const { error: insErr } = await supabase.from(table).insert(cleaned as Record<string, unknown>[]);
-        if (insErr) throw new Error(`خطأ في استيراد جدول ${table}: ${insErr.message}`);
+        const { error: insErr } = await supabase
+          .from(table)
+          .insert(cleaned as Record<string, unknown>[]);
+
+        if (insErr) {
+          // Safety net: try to re-insert the previously saved rows
+          let restored = false;
+          if (currentRows && currentRows.length > 0) {
+            await supabase.from(table).delete().not('id', 'is', null);
+            const cleanedCurrent = SKIP_CREATED_AT.has(table)
+              ? currentRows.map((r) => {
+                  const { created_at: _cc, ...rest } = r as Record<string, unknown>;
+                  void _cc;
+                  return rest;
+                })
+              : currentRows;
+
+            const { error: restoreErr } = await supabase
+              .from(table)
+              .insert(cleanedCurrent as Record<string, unknown>[]);
+            restored = !restoreErr;
+          } else {
+            restored = true;
+          }
+
+          const restoreMsg = restored
+            ? 'تمت استعادة البيانات السابقة للجدول بنجاح'
+            : 'تعذرت استعادة البيانات السابقة للجدول';
+          throw new Error(`خطأ في استيراد بيانات جدول ${table}: ${insErr.message} (${restoreMsg})`);
+        }
       }
 
       setMessage({ type: 'success', text: 'تم استيراد النسخة الاحتياطية بنجاح — أعد تحميل الصفحة لرؤية التغييرات' });

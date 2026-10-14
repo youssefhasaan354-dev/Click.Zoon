@@ -20,6 +20,7 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [rateLimited, setRateLimited] = useState(false);
+  const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
   const lastSubmitRef = useRef<number>(0);
   const [form, setForm] = useState({
     name: '',
@@ -57,10 +58,12 @@ export default function Contact() {
 
     const now = Date.now();
     if (now - lastSubmitRef.current < RATE_LIMIT_MS) {
+      setRateLimitMsg('لقد أرسلت طلباً للتو. انتظر 30 ثانية قبل إرسال طلب آخر.');
       setRateLimited(true);
       return;
     }
     setRateLimited(false);
+    setRateLimitMsg(null);
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -92,15 +95,30 @@ ${businessTypeMsg}${trimmedUrl ? `
 
     lastSubmitRef.current = Date.now();
 
+    const isRateLimited = Boolean(
+      error &&
+        (error.message?.includes('rate_limit') ||
+          (typeof error.details === 'string' && error.details.includes('rate_limit')))
+    );
+
     if (error) {
       console.error('Demo request save failed:', error.code, error.message);
     } else {
       trackEvent({ category: 'form', action: 'submit', label: 'demo_request' });
     }
 
-    window.open(waLinkIntl(cfg.phoneIntl, msg), '_blank', 'noopener,noreferrer');
+    if (!isRateLimited) {
+      window.open(waLinkIntl(cfg.phoneIntl, msg), '_blank', 'noopener,noreferrer');
+    }
 
     setIsSubmitting(false);
+
+    if (isRateLimited) {
+      setRateLimitMsg('لقد تجاوزت الحد المسموح من الطلبات مؤقتاً. يرجى الانتظار والمحاولة لاحقاً.');
+      setRateLimited(true);
+      setSubmitStatus('idle');
+      return;
+    }
 
     if (error) {
       setSubmitStatus('error');
@@ -118,6 +136,7 @@ ${businessTypeMsg}${trimmedUrl ? `
   const handlePhoneChange = (v: string) => {
     setForm({ ...form, phone: v });
     if (phoneError) setPhoneError(null);
+    if (rateLimited) setRateLimited(false);
   };
 
   const inputClass =
@@ -234,7 +253,7 @@ ${businessTypeMsg}${trimmedUrl ? `
               </p>
               {rateLimited && (
                 <p className="text-amber-300 text-sm text-center" role="alert">
-                  لقد أرسلت طلباً للتو. انتظر 30 ثانية قبل إرسال طلب آخر.
+                  {rateLimitMsg || 'لقد أرسلت طلباً للتو. انتظر قليلاً قبل إرسال طلب آخر.'}
                 </p>
               )}
               {submitStatus === 'success' && (

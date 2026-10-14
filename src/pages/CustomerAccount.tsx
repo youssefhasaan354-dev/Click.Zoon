@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { User, Mail, Phone, Lock, Save, Loader2, Check, AlertCircle, Eye, EyeOff, ArrowRight, Inbox } from 'lucide-react';
 import { useCustomer } from '@/lib/customer-context';
 import { supabase } from '@/lib/supabase';
+import { useNoIndex } from '@/hooks/useNoIndex';
 
 const statusLabels: Record<string, string> = {
   new: 'جديد',
@@ -19,6 +20,7 @@ const statusColors: Record<string, string> = {
 };
 
 export default function CustomerAccount() {
+  useNoIndex('حسابي | Click Zoon');
   const navigate = useNavigate();
   const { user, profile, loading, signOut, refreshProfile } = useCustomer();
 

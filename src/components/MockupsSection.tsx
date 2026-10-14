@@ -101,8 +101,11 @@ export default function MockupsSection() {
                   <div className="relative rounded-lg overflow-hidden bg-navy-800 aspect-[16/9]">
                     <img
                       src={mockupImages[index].src}
-                      alt={mockupImages[index].label}
+                      alt={`تصميم ${mockupImages[index].label} على شاشة كمبيوتر`}
                       loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={450}
                       className="w-full h-full object-cover object-center transition-opacity duration-500"
                       key={index}
                     />
@@ -132,8 +135,11 @@ export default function MockupsSection() {
                 <div className="relative rounded-[1.5rem] overflow-hidden bg-navy-800 aspect-[9/18]">
                   <img
                     src={mockupImages[index].src}
-                    alt={mockupImages[index].label}
+                    alt={`تصميم ${mockupImages[index].label} على شاشة موبايل`}
                     loading="lazy"
+                    decoding="async"
+                    width={320}
+                    height={640}
                     className="w-full h-full object-cover transition-opacity duration-500"
                     key={index}
                   />

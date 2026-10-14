@@ -68,6 +68,7 @@ export default function Header() {
           href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.demo)}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'promo_bar_demo' })}
           className="underline mr-1 text-gray-900 font-bold hover:text-black transition-colors whitespace-nowrap"
         >
           اطلب الآن

@@ -1,1 +1,3 @@
 # Edge functions configuration
+[functions.notify-new-request]
+verify_jwt = false

@@ -10,8 +10,9 @@ interface AdminContextValue {
   user: User | null;
   loading: boolean;
   isAdmin: boolean;
+  checkingAdmin: boolean;
   authError: string | null;
-  signIn: (email: string, password: string) => Promise<{ error: string | null }>;
+  signIn: (email: string, password: string) => Promise<{ error: string | null; isAdmin: boolean }>;
   signOut: () => Promise<void>;
 }
 
@@ -22,12 +23,13 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [checkingAdmin, setCheckingAdmin] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
-  const checkAdmin = useCallback(async (email: string | undefined, uid: string | undefined) => {
+  const checkAdmin = useCallback(async (email: string | undefined, uid: string | undefined): Promise<boolean> => {
     if (!email) {
       setIsAdmin(false);
-      return;
+      return false;
     }
     // First check the legacy admins table
     const { data: adminData } = await supabase
@@ -37,40 +39,51 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       .maybeSingle();
     if (adminData) {
       setIsAdmin(true);
-      return;
+      return true;
     }
     // Then check profiles.role via is_admin() RPC
     if (uid) {
       const { data: rpcResult } = await supabase.rpc('is_admin');
       if (rpcResult === true) {
         setIsAdmin(true);
-        return;
+        return true;
       }
     }
     setIsAdmin(false);
+    return false;
   }, []);
 
   useEffect(() => {
     let mounted = true;
 
     const timeout = setTimeout(() => {
-      if (mounted && loading) {
+      if (mounted) {
         setLoading(false);
+        setCheckingAdmin(false);
       }
     }, AUTH_TIMEOUT_MS);
 
+    setCheckingAdmin(true);
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
         if (!mounted) return;
         setSession(session);
         setUser(session?.user ?? null);
-        checkAdmin(session?.user?.email, session?.user?.id).finally(() => {
-          if (mounted) setLoading(false);
-        });
+        if (session?.user) {
+          return checkAdmin(session.user.email, session.user.id);
+        } else {
+          setIsAdmin(false);
+          return false;
+        }
       })
       .catch(() => {
         if (mounted) {
           setAuthError('تعذّر الاتصال بالخادم. تأكد من الاتصال بالإنترنت وحاول مرة أخرى.');
+        }
+      })
+      .finally(() => {
+        if (mounted) {
+          setCheckingAdmin(false);
           setLoading(false);
         }
       });
@@ -78,9 +91,20 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
-      (async () => {
-        await checkAdmin(session?.user?.email, session?.user?.id);
-      })();
+      if (!session?.user) {
+        setIsAdmin(false);
+        setCheckingAdmin(false);
+        return;
+      }
+      setCheckingAdmin(true);
+      setTimeout(() => {
+        if (!mounted) return;
+        checkAdmin(session.user.email, session.user.id).finally(() => {
+          if (mounted) {
+            setCheckingAdmin(false);
+          }
+        });
+      }, 0);
     });
 
     return () => {
@@ -99,6 +123,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     const resetTimer = () => {
       clearTimeout(timer);
       timer = setTimeout(() => {
+        setIsAdmin(false);
+        setCheckingAdmin(false);
         supabase.auth.signOut();
       }, IDLE_TIMEOUT_MS);
     };
@@ -113,18 +139,31 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     };
   }, [session]);
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) return { error: 'بيانات الدخول غير صحيحة' };
-    return { error: null };
+  const signIn = async (email: string, password: string): Promise<{ error: string | null; isAdmin: boolean }> => {
+    setCheckingAdmin(true);
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      setCheckingAdmin(false);
+      return { error: 'بيانات الدخول غير صحيحة', isAdmin: false };
+    }
+    setSession(data.session);
+    setUser(data.user);
+    try {
+      const adminStatus = await checkAdmin(data.user?.email, data.user?.id);
+      return { error: null, isAdmin: adminStatus };
+    } finally {
+      setCheckingAdmin(false);
+    }
   };
 
   const signOut = async () => {
+    setIsAdmin(false);
+    setCheckingAdmin(false);
     await supabase.auth.signOut();
   };
 
   return (
-    <AdminContext.Provider value={{ session, user, loading, isAdmin, authError, signIn, signOut }}>
+    <AdminContext.Provider value={{ session, user, loading, isAdmin, checkingAdmin, authError, signIn, signOut }}>
       {children}
     </AdminContext.Provider>
   );

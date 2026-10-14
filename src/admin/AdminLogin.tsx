@@ -74,10 +74,14 @@ export default function AdminLogin() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { error } = await signIn(email, password);
+    const { error, isAdmin } = await signIn(email, password);
     setLoading(false);
     if (error) {
       setError(error);
+      return;
+    }
+    if (!isAdmin) {
+      setError('هذا الحساب ليس لديه صلاحية الدخول للوحة التحكم');
       return;
     }
     navigate('/admin');

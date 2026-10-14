@@ -1,5 +1,5 @@
 import { useReveal } from '@/hooks/useReveal';
-import { useSiteData } from '@/lib/site-data-context';
+import { useSiteData, useSectionVisibility } from '@/lib/site-data-context';
 import { siteConfig } from '@/siteConfig';
 import { getIcon } from '@/lib/icons';
 
@@ -15,10 +15,14 @@ const fallbackFeatures = [
 export default function WhyUs() {
   const { ref: featRef, revealed: featRevealed } = useReveal();
   const { data } = useSiteData();
+  const isTestimonialsVisible = useSectionVisibility('testimonials');
 
   const features = data.features.length > 0
     ? data.features.map((f) => ({ icon: f.icon, title: f.title, desc: f.description }))
     : fallbackFeatures;
+
+  const testimonials = data.testimonials ?? [];
+  const shouldShowTestimonials = isTestimonialsVisible && testimonials.length > 0;
 
   return (
     <>
@@ -71,8 +75,9 @@ export default function WhyUs() {
         </div>
       </section>
 
-      {siteConfig.showReviews && siteConfig.reviews.length > 0 && (
-        <section className="py-20 lg:py-28 bg-navy-950/50">
+      {/* Testimonials */}
+      {shouldShowTestimonials && (
+        <section id="testimonials" className="py-20 lg:py-28 bg-navy-950/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">آراء عملائنا</div>
@@ -81,9 +86,9 @@ export default function WhyUs() {
               </h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {siteConfig.reviews.map((review, i) => (
+              {testimonials.map((review) => (
                 <div
-                  key={i}
+                  key={review.id}
                   className="glass-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="flex gap-1 mb-3">
@@ -103,7 +108,7 @@ export default function WhyUs() {
                     </div>
                     <div>
                       <div className="text-navy-50 font-bold text-sm">{review.name}</div>
-                      <div className="text-navy-400 text-xs">{review.business}</div>
+                      {review.business && <div className="text-navy-400 text-xs">{review.business}</div>}
                     </div>
                   </div>
                 </div>

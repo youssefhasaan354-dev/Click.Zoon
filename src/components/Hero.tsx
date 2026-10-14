@@ -20,7 +20,7 @@ export default function Hero() {
   const badgeText = hero?.badge_text ?? 'تصميم وتطوير مواقع ومتاجر إلكترونية باحتراف';
   const line1 = hero?.headline_line1 ?? 'خلّي موقع';
   const line2 = hero?.headline_line2 ?? 'أونلاين واحترافي';
-  const subtitle = hero?.subtitle ?? 'في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشاط التجارية في المنصورة والدقهلية، بداية مجانية بدون التزام وتسليم سريع بدعم مستمر.';
+  const subtitle = hero?.subtitle ?? 'في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصورة والدقهلية، بداية مجانية بدون التزام وتسليم سريع بدعم مستمر.';
   const ctaPrimary = hero?.cta_primary ?? 'اطلب ديمو مجاني';
   const ctaSecondary = hero?.cta_secondary ?? 'شاهد خدماتنا';
 
@@ -30,7 +30,11 @@ export default function Hero() {
       .from('demo_requests')
       .insert({ name: 'طلب من زرار الهيرو', phone: '—', business_type: 'غير محدد' })
       .then(({ error }) => {
-        if (error) console.error('Demo request could not be saved', error);
+        if (error) {
+          console.error('Demo request could not be saved', error);
+        } else {
+          trackEvent({ category: 'form', action: 'submit', label: 'hero_demo' });
+        }
       });
   };
 

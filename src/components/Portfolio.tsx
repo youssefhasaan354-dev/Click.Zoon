@@ -85,8 +85,11 @@ export default function Portfolio() {
               <div className="relative h-56 overflow-hidden">
                 <img
                   src={project.image_url}
-                  alt={project.title}
+                  alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}
                   loading="lazy"
+                  decoding="async"
+                  width={600}
+                  height={338}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/30 to-transparent" />
@@ -146,7 +149,11 @@ export default function Portfolio() {
           >
             <img
               src={filtered[lightboxIndex].image_url}
-              alt={filtered[lightboxIndex].title}
+              alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
+              loading="lazy"
+              decoding="async"
+              width={1200}
+              height={675}
               className="w-full max-h-[60vh] object-cover"
             />
             <div className="p-6">

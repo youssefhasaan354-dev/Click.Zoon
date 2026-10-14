@@ -19,6 +19,7 @@ import {
   KeyRound,
   DatabaseBackup,
   Users,
+  MessageSquareQuote,
 } from 'lucide-react';
 import { useAdmin } from '@/lib/admin-context';
 
@@ -31,6 +32,7 @@ const navItems = [
   { path: '/admin/portfolio', label: 'أعمالنا', icon: Image },
   { path: '/admin/process', label: 'إزاي بنشتغل', icon: ListOrdered },
   { path: '/admin/pricing', label: 'الباقات', icon: DollarSign },
+  { path: '/admin/testimonials', label: 'آراء العملاء', icon: MessageSquareQuote },
   { path: '/admin/faqs', label: 'الأسئلة الشائعة', icon: HelpCircle },
   { path: '/admin/sections', label: 'إظهار/إخفاء الأقسام', icon: Eye },
   { path: '/admin/requests', label: 'طلبات الديمو', icon: Inbox },

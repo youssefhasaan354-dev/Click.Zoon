@@ -95,6 +95,17 @@ export interface Faq {
   sort_order: number;
 }
 
+export interface Testimonial {
+  id: string;
+  name: string;
+  business: string;
+  text: string;
+  rating: number;
+  visible: boolean;
+  sort_order: number;
+  created_at?: string;
+}
+
 export interface SectionVisibility {
   id: string;
   label: string;
@@ -123,5 +134,6 @@ export interface SiteData {
   processSteps: ProcessStep[];
   pricingPlans: PricingPlan[];
   faqs: Faq[];
+  testimonials: Testimonial[];
   sectionVisibility: SectionVisibility[];
 }

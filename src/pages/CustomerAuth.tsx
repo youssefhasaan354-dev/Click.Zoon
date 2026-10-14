@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Lock, Mail, LogIn, Loader2, UserPlus, User, Phone, Eye, EyeOff, Check, AlertCircle, KeyRound, MailQuestion } from 'lucide-react';
 import { useCustomer } from '@/lib/customer-context';
 import { supabase } from '@/lib/supabase';
+import { useNoIndex } from '@/hooks/useNoIndex';
 
 export default function CustomerAuth() {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ export default function CustomerAuth() {
   const [mode, setMode] = useState<'login' | 'signup'>(
     searchParams.get('mode') === 'signup' ? 'signup' : 'login'
   );
+
+  useNoIndex(mode === 'signup' ? 'إنشاء حساب جديد | Click Zoon' : 'تسجيل الدخول | Click Zoon');
 
   // Login state
   const [email, setEmail] = useState('');

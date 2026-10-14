@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Inbox, ArrowRight, Loader2 } from 'lucide-react';
 import { useCustomer } from '@/lib/customer-context';
 import { supabase } from '@/lib/supabase';
+import { useNoIndex } from '@/hooks/useNoIndex';
 
 const statusLabels: Record<string, string> = {
   new: 'جديد',
@@ -29,6 +30,7 @@ interface CustomerRequest {
 }
 
 export default function CustomerRequests() {
+  useNoIndex('طلباتي | Click Zoon');
   const navigate = useNavigate();
   const { user, loading } = useCustomer();
   const [requests, setRequests] = useState<CustomerRequest[]>([]);
