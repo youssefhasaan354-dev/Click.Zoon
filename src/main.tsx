@@ -15,6 +15,7 @@ const PrivacyPage = lazy(() => import('@/pages/Privacy'));
 const CustomerAuthPage = lazy(() => import('@/pages/CustomerAuth'));
 const CustomerAccountPage = lazy(() => import('@/pages/CustomerAccount'));
 const CustomerRequestsPage = lazy(() => import('@/pages/CustomerRequests'));
+const ResetPasswordPage = lazy(() => import('@/pages/ResetPassword'));
 
 function FullScreenLoader() {
   return (
@@ -42,6 +43,7 @@ createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route path="/admin/*" element={<Suspense fallback={<FullScreenLoader />}><AdminApp /></Suspense>} />
             <Route path="/auth" element={<Suspense fallback={<FullScreenLoader />}><CustomerAuthPage /></Suspense>} />
+            <Route path="/reset-password" element={<Suspense fallback={<FullScreenLoader />}><ResetPasswordPage /></Suspense>} />
             <Route path="/account" element={<Suspense fallback={<FullScreenLoader />}><CustomerAccountPage /></Suspense>} />
             <Route path="/my-requests" element={<Suspense fallback={<FullScreenLoader />}><CustomerRequestsPage /></Suspense>} />
             <Route path="/privacy" element={<Suspense fallback={<FullScreenLoader />}><PrivacyPage /></Suspense>} />
