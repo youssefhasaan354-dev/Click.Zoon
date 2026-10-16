@@ -17,6 +17,7 @@ interface CustomerContextValue {
   isAdmin: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (email: string, password: string, fullName: string, phone: string) => Promise<{ error: string | null }>;
+  signInWithGoogle: () => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -108,6 +109,31 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
     return { error: null };
   };
 
+  const signInWithGoogle = async (): Promise<{ error: string | null }> => {
+    try {
+      const redirectUrl = typeof window !== 'undefined'
+        ? `${window.location.origin}/account`
+        : '/account';
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: redirectUrl,
+        },
+      });
+
+      if (error) {
+        console.error('Google sign-in error:', error.message);
+        return { error: 'تعذر تسجيل الدخول بحساب جوجل. حاول مرة أخرى.' };
+      }
+
+      return { error: null };
+    } catch (err) {
+      console.error('Google sign-in unexpected error:', err);
+      return { error: 'حدث خطأ غير متوقع أثناء تسجيل الدخول بجوجل.' };
+    }
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
     setProfile(null);
@@ -119,7 +145,7 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CustomerContext.Provider value={{ session, user, profile, loading, isAdmin, signIn, signUp, signOut, refreshProfile }}>
+    <CustomerContext.Provider value={{ session, user, profile, loading, isAdmin, signIn, signUp, signInWithGoogle, signOut, refreshProfile }}>
       {children}
     </CustomerContext.Provider>
   );
