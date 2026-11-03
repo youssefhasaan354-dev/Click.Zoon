@@ -50,11 +50,13 @@ export default function CommissionCalculator() {
             {/* Inputs */}
             <div className="grid sm:grid-cols-3 gap-5 mb-6">
               <div>
-                <label className="text-navy-200 text-sm font-semibold mb-2 block">
+                <label htmlFor="calc-orders" className="text-navy-200 text-sm font-semibold mb-2 block">
                   عدد الطلبات شهرياً
                 </label>
                 <input
+                  id="calc-orders"
                   type="number"
+                  inputMode="numeric"
                   min="0"
                   value={orders}
                   onChange={(e) => setOrders(e.target.value)}
@@ -63,11 +65,13 @@ export default function CommissionCalculator() {
                 />
               </div>
               <div>
-                <label className="text-navy-200 text-sm font-semibold mb-2 block">
+                <label htmlFor="calc-avg-order" className="text-navy-200 text-sm font-semibold mb-2 block">
                   متوسط قيمة الطلب (ج.م)
                 </label>
                 <input
+                  id="calc-avg-order"
                   type="number"
+                  inputMode="numeric"
                   min="0"
                   value={avgOrder}
                   onChange={(e) => setAvgOrder(e.target.value)}
@@ -76,11 +80,13 @@ export default function CommissionCalculator() {
                 />
               </div>
               <div>
-                <label className="text-navy-200 text-sm font-semibold mb-2 block">
+                <label htmlFor="calc-commission" className="text-navy-200 text-sm font-semibold mb-2 block">
                   نسبة العمولة (%)
                 </label>
                 <input
+                  id="calc-commission"
                   type="number"
+                  inputMode="numeric"
                   min="0"
                   max="100"
                   value={commission}

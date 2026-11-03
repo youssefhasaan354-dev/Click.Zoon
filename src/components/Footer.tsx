@@ -1,20 +1,23 @@
 import { Phone, Mail, MessageCircle, Facebook, Instagram, MapPin } from 'lucide-react';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
+import { Link } from 'react-router-dom';
+import { useToast } from '@/lib/toast-context';
 
 const quickLinks = [
-  { href: '#home', label: 'الرئيسية' },
-  { href: '#demo', label: 'الديمو المجاني' },
-  { href: '#services', label: 'الخدمات' },
-  { href: '#pricing', label: 'الباقات' },
-  { href: '#portfolio', label: 'معرض الأعمال' },
-  { href: '#process', label: 'خطوات العمل' },
-  { href: '#faq', label: 'الأسئلة الشائعة' },
-  { href: '#contact', label: 'تواصل معنا' },
+  { to: '/#home', label: 'الرئيسية' },
+  { to: '/#demo', label: 'الديمو المجاني' },
+  { to: '/#services', label: 'الخدمات' },
+  { to: '/#pricing', label: 'الباقات' },
+  { to: '/#portfolio', label: 'معرض الأعمال' },
+  { to: '/#process', label: 'خطوات العمل' },
+  { to: '/#faq', label: 'الأسئلة الشائعة' },
+  { to: '/#contact', label: 'تواصل معنا' },
 ];
 
 export default function Footer() {
   const cfg = useSiteConfig();
+  const { copyToClipboard } = useToast();
 
   return (
     <footer className="bg-navy-950 border-t border-navy-700/30">
@@ -35,7 +38,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent({ category: 'social', action: 'click', label: 'footer_facebook' })}
-                className="w-10 h-10 rounded-lg bg-navy-800/50 hover:bg-blue-600/20 flex items-center justify-center transition-colors"
+                className="w-11 h-11 rounded-lg bg-navy-800/50 hover:bg-blue-600/20 flex items-center justify-center transition-colors"
                 aria-label="فيسبوك"
               >
                 <Facebook size={18} className="text-blue-400" />
@@ -45,7 +48,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent({ category: 'social', action: 'click', label: 'footer_instagram' })}
-                className="w-10 h-10 rounded-lg bg-navy-800/50 hover:bg-pink-600/20 flex items-center justify-center transition-colors"
+                className="w-11 h-11 rounded-lg bg-navy-800/50 hover:bg-pink-600/20 flex items-center justify-center transition-colors"
                 aria-label="إنستجرام"
               >
                 <Instagram size={18} className="text-pink-400" />
@@ -55,7 +58,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'footer_whatsapp' })}
-                className="w-10 h-10 rounded-lg bg-navy-800/50 hover:bg-green-600/20 flex items-center justify-center transition-colors"
+                className="w-11 h-11 rounded-lg bg-navy-800/50 hover:bg-green-600/20 flex items-center justify-center transition-colors"
                 aria-label="واتساب"
               >
                 <MessageCircle size={18} className="text-green-400" />
@@ -68,13 +71,13 @@ export default function Footer() {
             <h4 className="text-navy-50 font-bold mb-4">روابط سريعة</h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-navy-300 hover:text-gold-400 transition-colors text-sm"
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-1"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -85,19 +88,33 @@ export default function Footer() {
             <h4 className="text-navy-50 font-bold mb-4">تواصل معنا</h4>
             <ul className="space-y-3">
               <li>
-                <a href={`tel:${cfg.phone}`} onClick={() => trackEvent({ category: 'call', action: 'click', label: 'footer_call' })} className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm">
-                  <Phone size={16} className="text-gold-400" />
+                <a
+                  href={`tel:${cfg.phone}`}
+                  onClick={() => {
+                    trackEvent({ category: 'call', action: 'click', label: 'footer_call' });
+                    copyToClipboard(cfg.phone, 'رقم الهاتف');
+                  }}
+                  className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm py-1"
+                >
+                  <Phone size={16} className="text-gold-400 shrink-0" />
                   <span dir="ltr">{cfg.phone}</span>
                 </a>
               </li>
               <li>
-                <a href={`mailto:${cfg.email}`} onClick={() => trackEvent({ category: 'email', action: 'click', label: 'footer_email' })} className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm break-all">
-                  <Mail size={16} className="text-gold-400" />
+                <a
+                  href={`mailto:${cfg.email}`}
+                  onClick={() => {
+                    trackEvent({ category: 'email', action: 'click', label: 'footer_email' });
+                    copyToClipboard(cfg.email, 'البريد الإلكتروني');
+                  }}
+                  className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm break-all py-1"
+                >
+                  <Mail size={16} className="text-gold-400 shrink-0" />
                   <span dir="ltr">{cfg.email}</span>
                 </a>
               </li>
-              <li className="flex items-center gap-2 text-navy-300 text-sm">
-                <MapPin size={16} className="text-gold-400" />
+              <li className="flex items-center gap-2 text-navy-300 text-sm py-1">
+                <MapPin size={16} className="text-gold-400 shrink-0" />
                 {cfg.location}
               </li>
             </ul>
@@ -106,12 +123,14 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-navy-700/30 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-navy-400 text-sm">
+          <p className="text-navy-300 text-sm">
             © {new Date().getFullYear()} {cfg.agencyName} — جميع الحقوق محفوظة
           </p>
           <div className="flex items-center gap-4">
-            <a href="/privacy" className="text-navy-500 hover:text-gold-400 text-xs transition-colors">سياسة الخصوصية</a>
-            <p className="text-navy-500 text-xs">
+            <Link to="/privacy" className="text-navy-300 hover:text-gold-400 text-xs transition-colors py-1">
+              سياسة الخصوصية
+            </Link>
+            <p className="text-navy-300 text-xs">
               تصميم وتطوير <span className="text-gold-400 font-semibold">{cfg.agencyName}</span>
             </p>
           </div>

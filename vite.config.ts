@@ -16,16 +16,21 @@ Sitemap: ${siteUrl}/sitemap.xml
 `;
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>${siteUrl}/</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/" />
   </url>
   <url>
     <loc>${siteUrl}/privacy</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/privacy" />
   </url>
 </urlset>
 `;
@@ -76,6 +81,7 @@ export default defineConfig(({ mode }) => {
           manualChunks: {
             'vendor-react': ['react', 'react-dom', 'react-router-dom'],
             'vendor-supabase': ['@supabase/supabase-js'],
+            'vendor-motion': ['framer-motion'],
           },
         },
       },

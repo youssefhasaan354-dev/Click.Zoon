@@ -1,161 +1,105 @@
-# Click Zoon — موقع وكالة تصميم وتطوير
+# Click Zoon — منصة وكالة تصميم وتطوير المواقع
 
-موقع تسويقي لوكالة Click Zoon المتخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية، مع لوحة تحكم لإدارة المحتوى وطلبات الديمو.
+موقع تسويقي متكامل لوكالة **Click Zoon** المتخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية للأنشطة التجارية في المنصورة والدقهلية وجميع أنحاء مصر، مع لوحة تحكم إدارية (`/admin`)، حسابات للعملاء (`/auth`, `/account`, `/my-requests`)، ونظام حماية ومتابعة لطلبات الديمو.
 
-## المتطلبات
+---
+
+## المتطلبات التقنية
 
 - Node.js 18 أو أحدث
-- npm
+- npm أو pnpm
+- حساب مشروع على [Supabase](https://supabase.com)
 
-## إعداد متغيرات البيئة وقاعدة البيانات (Supabase)
+---
 
-1. انسخ ملف `.env.example` إلى ملف `.env`:
+## إعداد متغيرات البيئة (`.env`)
+
+انسخ `.env.example` إلى `.env`:
 ```bash
 cp .env.example .env
 ```
-2. املأ قيمتي Supabase داخل ملف `.env`:
-   - `VITE_SUPABASE_URL`: رابط مشروع Supabase الخاص بك.
-   - `VITE_SUPABASE_ANON_KEY`: المفتاح العام لمشروعك (Anon Key).
 
-3. في حال إنشاء مشروع Supabase جديد، شغّل ملفات الـ SQL الموجودة داخل مجلد `supabase/migrations` بالترتيب:
-   - `20261010200404_create_demo_requests.sql`
-   - `20261010201926_create_admin_dashboard_tables.sql`
-   - `20261010202205_create_portfolio_storage_bucket.sql`
-   - `20261011065632_fix_rls_infinite_recursion.sql`
-   - `20261011084044_add_backup_restore_policies.sql`
-   - `20261011194748_add_about_map_ga_fields.sql`
-   - `20261011200224_create_profiles_and_customer_auth.sql`
-   - `20261012080932_create_admin_profile.sql`
-   - `20261012080951_restrict_trigger_function_access.sql`
-   - `20261012082027_fix_trigger_phone_constraint.sql`
-   - `20261012085206_add_message_source_to_demo_requests.sql`
+| المتغير | الوصف | إلزامي؟ |
+|---|---|---|
+| `VITE_SUPABASE_URL` | رابط مشروع Supabase الخاص بك | نعم |
+| `VITE_SUPABASE_ANON_KEY` | المفتاح العام (Anon Public Key) | نعم |
+| `VITE_SITE_URL` | الدومين النهائي (مثال: `https://click-zoon.vercel.app`) | نعم |
+| `VITE_TURNSTILE_SITE_KEY` | المفتاح العام لـ Cloudflare Turnstile لحماية النماذج من البوتات | اختياري (موصى به) |
+| `VITE_GA_ID` | معرّف Google Analytics (مثل `G-XXXXXXXXXX`) | اختياري |
 
-## تشغيل المشروع على جهازك
+### متغيرات بيئة الـ Supabase Edge Functions (Secrets):
+يتم ضبطها في لوحة تحكم Supabase (`Project Settings` -> `Edge Functions` -> `Secrets`):
+- `TURNSTILE_SECRET_KEY`: المفتاح السري لـ Cloudflare Turnstile للتحقق من التوكن server-side.
+- `WEBHOOK_SECRET`: كلمة سرية لتأمين استدعاء الـ webhook الخاصة بـ `notify-new-request` (يعمل بنظام Fail-Closed).
+- `TELEGRAM_BOT_TOKEN`: توكن بوت تيليجرام لإرسال إشعارات فورية بالطلبات الجديدة.
+- `TELEGRAM_CHAT_ID`: معرّف المحادثة أو القناة المستلمة للإشعارات.
 
-1. ثبّت الحزم:
+---
+
+## سجل الـ Migrations لقاعدة البيانات (بالترتيب)
+
+عند إعداد مشروع Supabase، شغّل ملفات الـ SQL الموجودة داخل `supabase/migrations/` بالترتيب:
+
+1. `20261010200404_create_demo_requests.sql` — إنشاء جدول طلبات الديمو والتواصل
+2. `20261010201926_create_admin_dashboard_tables.sql` — جداول المحتوى الديناميكي وجدول الإداريين
+3. `20261010202205_create_portfolio_storage_bucket.sql` — إعداد Storage Bucket لمعرض الأعمال
+4. `20261011065632_fix_rls_infinite_recursion.sql` — إصلاح استدعاءات RLS المتكررة عبر `is_admin()`
+5. `20261011084044_add_backup_restore_policies.sql` — سياسات النسخ الاحتياطي والاستعادة
+6. `20261011194748_add_about_map_ga_fields.sql` — إضافة حقول الخريطة والتحليلات وبيانات من نحن
+7. `20261011200224_create_profiles_and_customer_auth.sql` — حسابات العملاء وجدول profiles
+8. `20261012080932_create_admin_profile.sql` — إنشاء الملف الشخصي للإداري
+9. `20261012080951_restrict_trigger_function_access.sql` — تشديد أمان دوال الـ Triggers
+10. `20261012082027_fix_trigger_phone_constraint.sql` — ضبط قيود أرقام الهواتف
+11. `20261012085206_add_message_source_to_demo_requests.sql` — إضافة حقول مصادر الطلبات ورسائل الواتساب
+12. `20261014100000_fix_typo_in_site_settings.sql` — تصحيح حقول الإعدادات
+13. `20261014110000_add_demo_requests_spam_protection.sql` — حماية الطلبات ومعدل التكرار (Rate Limiting)
+14. `20261014120000_create_testimonials.sql` — جدول آراء وتقييمات العملاء
+15. `20261014130000_support_oauth_user_profiles.sql` — دعم تسجيل الدخول بحساب Google (OAuth)
+16. `20261016140000_secure_admin_user_id_check.sql` — تأمين صلاحيات الإدارة عبر `user_id` مع اشتراط تأكيد البريد الإلكتروني، وتوسيع مصادر الطلبات
+
+---
+
+## تشغيل المشروع محلياً
 
 ```bash
+# تثبيت الحزم
 npm install
-```
 
-2. شغّل خادم التطوير:
-
-```bash
+# تشغيل خادم التطوير
 npm run dev
-```
 
-الموقع هيشتغل على `http://localhost:5173`.
+# فحص الأنواع (TypeScript)
+npm run typecheck
 
-3. لبناء نسخة الإنتاج:
+# فحص الكود والتنسيق (ESLint)
+npm run lint
 
-```bash
+# بناء نسخة الإنتاج
 npm run build
 ```
 
-4. لمعاينة نسخة الإنتاج:
+---
 
-```bash
-npm run preview
-```
+## الحماية والأمان
 
-## هيكل المشروع
+1. **إدارة صلاحيات المشرفين (`is_admin`)**:
+   - الفحص يعتمد على `auth.uid()` ومطابقة `user_id` في جدول `admins`، مع اشتراط أن يكون البريد الإلكتروني مؤكداً (`email_confirmed_at IS NOT NULL`). هذا يمنع أي محاولة لانتحال إيميل المشرف عبر التسجيل الذاتي أو الـ OAuth.
+2. **حماية النماذج وطلبات الديمو**:
+   - حقل خفي فخ للبوتات (Honeypot).
+   - التحقق من صيغة أرقام الموبايل المصرية وتحويل الأرقام العربية-المشرقية (٠-٩) إلى أرقام لاتينية.
+   - دعم التحقق الذكي عبر Cloudflare Turnstile server-side عبر Supabase Edge Function (`submit-demo-request`).
+   - قيود معدل التكرار في قاعدة البيانات (Rate Limiting Trigger).
+3. **أمان الإشعارات (Fail-Closed)**:
+   - الدالة السحابية `notify-new-request` ترفض أي استدعاء عند عدم تعيين `WEBHOOK_SECRET` لضمان عدم تسريب الإشعارات.
+4. **أمان المتصفح (CSP & Security Headers)**:
+   - تفعيل `Content-Security-Policy`، `Strict-Transport-Security`، `X-Frame-Options`، وسياسات التخزين المؤقت للأصول والخطوط في `vercel.json`.
 
-```
-project/
-├── src/
-│   ├── components/       مكونات الصفحة الرئيسية (الهيرو، الخدمات، الباقات...)
-│   ├── admin/            لوحة التحكم
-│   │   ├── panels/       صفحات لوحة التحكم
-│   │   ├── AdminApp.tsx  مسارات لوحة التحكم
-│   │   └── AdminLayout.tsx  قائمة لوحة التحكم
-│   ├── lib/              إعداد Supabase والأنواع
-│   ├── hooks/            خطافات React مخصصة
-│   ├── siteConfig.ts     الإعدادات الافتراضية
-│   └── App.tsx           التطبيق الرئيسي
-├── supabase/
-│   ├── migrations/       ملفات قاعدة البيانات
-│   └── config.toml       إعداد Supabase
-├── public/               الملفات الثابتة (favicon, og-image)
-└── index.html            نقطة الدخول
-```
+---
 
-## لوحة التحكم
+## التقنيات المستخدمة
 
-لوحة التحكم على المسار `/admin`. بتستخدم بريد إلكتروني وكلمة مرور (Supabase Auth).
-
-المميزات:
-- تعديل محتوى الموقع (الهيرو، المميزات، الخدمات، الأعمال، الباقات، الأسئلة الشائعة)
-- إظهار وإخفاء أقسام الموقع
-- عرض وحذف طلبات الديمو
-- تغيير كلمة المرور
-- تصدير واستيراد نسخة احتياطية
-
-## النسخة الاحتياطية
-
-### تصدير نسخة احتياطية
-
-1. افتح لوحة التحكم على `/admin`
-2. من القائمة الجانبية، اختر "نسخة احتياطية"
-3. اضغط "تصدير الآن" — هيتم تنزيل ملف JSON فيه كل جداول المحتوى والطلبات
-
-الجداول المشمولة في النسخة:
-- `site_settings` — إعدادات الموقع العامة
-- `hero_content` — محتوى قسم الهيرو
-- `features` — مميزات "ليه تختارنا"
-- `services` — بطاقات الخدمات
-- `portfolio_items` — معرض الأعمال
-- `process_steps` — خطوات العمل
-- `pricing_plans` — الباقات
-- `faqs` — الأسئلة الشائعة
-- `section_visibility` — إظهار/إخفاء الأقسام
-- `demo_requests` — طلبات الديمو
-
-### استيراد نسخة احتياطية (استرجاع قاعدة البيانات)
-
-1. افتح لوحة التحكم على `/admin`
-2. من القائمة الجانبية، اختر "نسخة احتياطية"
-3. اضغط "اختر ملف" وحدد ملف JSON اللي صدرته قبل كده
-4. هيتم استبدال كل البيانات الحالية بالبيانات من الملف
-5. أعد تحميل الصفحة لرؤية التغييرات
-
-> **تحذير:** الاستيراد يستبدل كل البيانات الحالية. خد نسخة احتياطية قبل الاستيراد.
-
-### استرجاع قاعدة البيانات بالكامل (من السطر الخامس)
-
-لو محتاج تسترجع قاعدة البيانات على مشروع Supabase جديد:
-
-1. أنشئ مشروع Supabase جديد
-2. حدّث المتغيرات في ملف `.env`:
-   - `VITE_SUPABASE_URL` — رابط المشروع الجديد
-   - `VITE_SUPABASE_ANON_KEY` — المفتاح العام
-3. شغّل ملفات الـ migrations بالترتيب:
-   - `20261010200404_create_demo_requests.sql`
-   - `20261010201926_create_admin_dashboard_tables.sql`
-   - `20261010202205_create_portfolio_storage_bucket.sql`
-   - `20261011065632_fix_rls_infinite_recursion.sql`
-   - `20261011084044_add_backup_restore_policies.sql`
-4. أنشئ مستخدم admin في Supabase:
-   - افتح Supabase Dashboard → Authentication → Users → Add user
-   - استخدم نفس البريد الإلكتروني المسجل في جدول `admins`
-5. افتح لوحة التحكم → "نسخة احتياطية" → "اختر ملف" → حدد ملف JSON
-
-## الأمان
-
-- ملف `.env` مش مرفوع في المستودع (موجود في `.gitignore`)
-- التسجيل العام مقفول — مفيش صفحة إنشاء حساب للزوار
-- الدخول للوحة restricted لإيميلات مسجلة في جدول `admins` فقط
-- لوحة التحكم بتستخدم RLS (Row Level Security) من Supabase
-- مفيش أي مفاتيح سرية أو باسوردات في الكود
-
-## التقنيات
-
-- React 18 + TypeScript
-- Vite
-- Tailwind CSS
-- Supabase (قاعدة البيانات + المصادقة)
-- lucide-react (الأيقونات)
-
-## الرخصة
-
-هذا المشروع ملك Click Zoon — غير متاح للاستخدام أو التوزيع بدون إذن.
-<!-- تحديث: حسابات العملاء، نظام تسجيل الدخول، وحماية طلبات الديمو -->
+- **الواجهة الأمامية**: React 18, TypeScript, Vite
+- **التصميم والتنسيق**: Tailwind CSS, خط القاهرة (Cairo) مستضاف ذاتياً (Self-Hosted WOFF2)
+- **الحركة والتفاعلات**: Framer Motion
+- **قاعدة البيانات والمصادقة**: Supabase (PostgreSQL, Row Level Security, Edge Functions)
+- **الأيقونات**: Lucide React

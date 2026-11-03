@@ -65,6 +65,7 @@ export interface PortfolioItem {
   description: string;
   image_url: string;
   link: string | null;
+  live_url?: string | null;
   visible: boolean;
   sort_order: number;
 }
@@ -123,6 +124,7 @@ export interface DemoRequest {
   status: string;
   message_text: string | null;
   source: string;
+  notes?: string | null;
 }
 
 export interface SiteData {

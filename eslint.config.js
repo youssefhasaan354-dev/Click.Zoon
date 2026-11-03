@@ -24,5 +24,11 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
+  },
+  {
+    files: ['src/lib/**/*.{ts,tsx}', 'src/main.tsx', 'src/siteConfig.ts', 'scripts/**/*.{js,mjs}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
   }
 );

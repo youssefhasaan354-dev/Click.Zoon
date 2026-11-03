@@ -1,25 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { ArrowUp } from 'lucide-react';
 
 export default function BackToTop() {
+  const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 500);
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      setProgress(pct);
+      setVisible(scrollTop > 450);
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const circleRadius = 20;
+  const circumference = useMemo(() => 2 * Math.PI * circleRadius, [circleRadius]);
+  const strokeOffset = circumference - (circumference * progress) / 100;
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <button
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className={`fixed right-4 sm:right-6 z-40 w-12 h-12 rounded-full bg-gold-500 hover:bg-gold-400 text-navy-900 flex items-center justify-center shadow-lg shadow-gold-500/30 transition-all duration-300 hover:scale-110 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+      onClick={scrollToTop}
+      className={`fixed right-4 sm:right-6 z-40 w-12 h-12 rounded-full bg-navy-900/90 hover:bg-navy-800 text-gold-400 border border-gold-500/30 backdrop-blur-md flex items-center justify-center shadow-xl shadow-navy-950/60 floating-btn-pos transition-all duration-300 hover:scale-110 group ${
+        visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'
       }`}
-      style={{ bottom: 'calc(env(safe-area-inset-bottom) + 5rem)' }}
-      aria-label="رجوع للأعلى"
+      aria-label="الرجوع إلى أعلى الصفحة"
+      title="الرجوع للأعلى"
     >
-      <ArrowUp size={22} />
+      {/* Circular progress SVG */}
+      <svg
+        className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none p-1"
+        viewBox="0 0 48 48"
+        aria-hidden="true"
+      >
+        <circle
+          cx="24"
+          cy="24"
+          r={circleRadius}
+          className="text-navy-700/60"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          fill="transparent"
+        />
+        <circle
+          cx="24"
+          cy="24"
+          r={circleRadius}
+          className="text-gold-400 transition-[stroke-dashoffset] duration-100 ease-linear"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeOffset}
+          fill="transparent"
+        />
+      </svg>
+
+      <ArrowUp size={20} className="transition-transform group-hover:-translate-y-0.5 text-gold-400" />
     </button>
   );
 }
