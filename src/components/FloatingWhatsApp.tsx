@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
+import { trackInteractionClick } from '@/lib/demo-requests';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function FloatingWhatsApp() {
@@ -114,7 +115,10 @@ export default function FloatingWhatsApp() {
             href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.general)}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'floating_button' })}
+            onClick={() => {
+              trackEvent({ category: 'whatsapp', action: 'click', label: 'floating_button' });
+              trackInteractionClick('whatsapp_click', { business_type: 'زر واتساب العائم' });
+            }}
             className="absolute inset-0 rounded-full"
             aria-label="فتح محادثة واتساب مع Click Zoon"
           />

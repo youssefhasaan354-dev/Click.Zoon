@@ -14,7 +14,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import SectionHeader from '@/components/SectionHeader';
-import { supabase } from '@/lib/supabase';
+import { submitDemoRequest } from '@/lib/demo-requests';
 import { trackEvent } from '@/lib/analytics';
 import { cleanPhoneNumber, isValidEgyptianPhone } from '@/lib/phone';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
@@ -135,22 +135,22 @@ export default function QuoteWizard() {
       .filter(Boolean)
       .join('، ');
 
-    const payload = {
-      name: state.name.trim() || 'عميل حاسبة الأسعار',
-      phone: cleaned,
-      business_type: `${state.activityLabel} (${state.businessName || 'بدون اسم'})`,
-      source: 'wizard',
-      page_url: window.location.href,
-      notes: `المميزات: ${featureLabels} | التوقيت: ${selectedTimeline.label} | التقدير: ${estimatedPrice} ج.م`,
-    };
-
     try {
-      await supabase.from('demo_requests').insert([payload]);
-      trackEvent('generate_lead', {
-        event_category: 'wizard',
-        event_label: state.activityType,
-        value: estimatedPrice,
+      const res = await submitDemoRequest({
+        name: state.name.trim() || 'عميل حاسبة الأسعار',
+        phone: cleaned,
+        business_type: `${state.activityLabel} (${state.businessName || 'بدون اسم'})`,
+        source: 'wizard',
+        message_text: `المميزات: ${featureLabels} | التوقيت: ${selectedTimeline.label} | التقدير: ${estimatedPrice} ج.م`,
+        page_url: window.location.href,
       });
+      if (res.success) {
+        trackEvent('generate_lead', {
+          event_category: 'wizard',
+          event_label: state.activityType,
+          value: estimatedPrice,
+        });
+      }
       setSubmitted(true);
     } catch {
       // Fallback: still treat as submitted

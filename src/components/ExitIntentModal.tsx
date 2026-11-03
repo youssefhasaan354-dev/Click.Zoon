@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Gift, X, Send, MessageCircle, Check, Loader2 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { submitDemoRequest, trackInteractionClick } from '@/lib/demo-requests';
 import { cleanPhoneNumber, isValidEgyptianPhone } from '@/lib/phone';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
@@ -71,16 +71,17 @@ export default function ExitIntentModal() {
     setSubmitting(true);
 
     try {
-      await supabase.from('demo_requests').insert([
-        {
-          name: name.trim() || 'عميل نافذة الخروج',
-          phone: cleaned,
-          business_type: businessType.trim() || 'غير محدد',
-          source: 'exit_intent',
-          page_url: window.location.href,
-        },
-      ]);
-      trackEvent('generate_lead', { event_category: 'exit_intent', event_label: 'submitted' });
+      const res = await submitDemoRequest({
+        name: name.trim() || 'عميل نافذة الخروج',
+        phone: cleaned,
+        business_type: businessType.trim() || 'غير محدد (عرض الخروج)',
+        source: 'exit_intent',
+        page_url: window.location.href,
+      });
+
+      if (res.success) {
+        trackEvent('generate_lead', { event_category: 'exit_intent', event_label: 'submitted' });
+      }
       setSubmitted(true);
     } catch {
       setSubmitted(true);
@@ -90,6 +91,11 @@ export default function ExitIntentModal() {
   };
 
   const handleWhatsapp = () => {
+    trackInteractionClick('whatsapp_click', {
+      name: name.trim() || undefined,
+      phone: cleanPhoneNumber(phone) || undefined,
+      business_type: businessType.trim() || 'نافذة الخروج - واتساب',
+    });
     const msg = `مرحباً كليك زون 👋
 عايز استفسر عن الديمو المجاني لنشاطي (${businessType || 'نشاط جديد'})`;
     const url = waLinkIntl(cfg.phoneIntl, msg);

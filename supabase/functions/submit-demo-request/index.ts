@@ -1,6 +1,6 @@
 // Supabase Edge Function: submit-demo-request
 // Validates bot protection (Cloudflare Turnstile when configured), validates Egyptian phone format,
-// enforces IP & Phone rate limiting, and securely inserts leads into public.demo_requests using Service Role.
+// enforces IP & Phone rate limiting, verifies authenticated customer JWT, and securely inserts leads into public.demo_requests.
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
@@ -10,14 +10,24 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
+const ALLOWED_SOURCES = [
+  'form',
+  'wizard',
+  'exit_intent',
+  'floating_bar',
+  'whatsapp_click',
+  'call_click',
+] as const;
+
+type AllowedSource = typeof ALLOWED_SOURCES[number];
+
 interface SubmitRequestPayload {
-  name: string;
-  phone: string;
+  name?: string;
+  phone?: string;
   business_type?: string;
   page_url?: string | null;
-  user_id?: string | null;
   message_text?: string;
-  source?: string;
+  source: string;
   honeypot?: string;
   turnstile_token?: string;
 }
@@ -25,7 +35,7 @@ interface SubmitRequestPayload {
 // In-memory sliding window rate limiter per client IP
 // Protects endpoint when Turnstile is not configured or client lacks Turnstile token
 const ipRequestHistory = new Map<string, number[]>();
-const RATE_LIMIT_MAX_REQUESTS = 5;
+const RATE_LIMIT_MAX_REQUESTS = 12; // Allows form submits + interaction clicks within window
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 
 function isRateLimited(ip: string): boolean {
@@ -64,7 +74,7 @@ Deno.serve(async (req: Request) => {
       console.warn(`Rate limit exceeded for IP: ${clientIp}`);
       return new Response(
         JSON.stringify({
-          error: 'لقد تجاوزت الحد المسموح من الطلبات خلال وقت قصير. يرجى الانتظار بضع دقائق ثم المحاولة.',
+          error: 'لقد تم إرسال طلبات متعددة خلال وقت قصير. يرجى الانتظار بضع دقائق والمحاولة لاحقاً.',
           code: 'rate_limit',
         }),
         {
@@ -76,7 +86,23 @@ Deno.serve(async (req: Request) => {
 
     const body: SubmitRequestPayload = await req.json();
 
-    // 2. Honeypot check (client-side trap filled by bots)
+    // 2. Strict whitelist validation for 'source'
+    const source = (body.source || '').trim();
+    if (!source || !ALLOWED_SOURCES.includes(source as AllowedSource)) {
+      console.warn('Rejected invalid source:', source, 'from IP:', clientIp);
+      return new Response(
+        JSON.stringify({
+          error: `قيمة المصدر (source) غير صالحة. القيم المسموحة هي: ${ALLOWED_SOURCES.join(', ')}`,
+          code: 'invalid_source',
+        }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    // 3. Honeypot check (client-side trap filled by bots)
     if (body.honeypot && body.honeypot.trim().length > 0) {
       console.warn('Bot detected via honeypot from IP:', clientIp);
       return new Response(JSON.stringify({ error: 'Spam detected' }), {
@@ -85,7 +111,7 @@ Deno.serve(async (req: Request) => {
       });
     }
 
-    // 3. Cloudflare Turnstile verification:
+    // 4. Cloudflare Turnstile verification:
     // If TURNSTILE_SECRET_KEY is configured AND turnstile_token is supplied, verify it with Cloudflare.
     // If TURNSTILE_SECRET_KEY is NOT configured, or client lacks VITE_TURNSTILE_SITE_KEY (token missing),
     // allow the request through safely protected by IP rate limiting, honeypot, and phone validation.
@@ -115,22 +141,10 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // 4. Phone number validation (Egyptian format)
-    const rawPhone = (body.phone || '').trim();
-    // Normalize Arabic-Indic digits if any (٠١٢٣٤٥٦٧٨٩)
-    const normalizedDigits = rawPhone.replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString());
-    const cleanPhone = normalizedDigits.replace(/[\s\-()]/g, '');
-    const phoneValid = /^(\+?20|0)?1[0125]\d{8}$/.test(cleanPhone);
-    if (!phoneValid) {
-      return new Response(JSON.stringify({ error: 'رقم الهاتف غير صالح. يرجى إدخال رقم مصري صحيح.' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-    }
-
-    // 5. Supabase DB Insert using Service Role Key
+    // Initialize Supabase Admin client
     const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') || '';
 
     if (!supabaseUrl || !supabaseServiceKey) {
       throw new Error('Supabase environment variables not set');
@@ -138,16 +152,67 @@ Deno.serve(async (req: Request) => {
 
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
+    // 5. Verify Authenticated Customer JWT (preserving "Customers can read own requests" RLS)
+    // Never trust client-provided user_id directly; authenticate cryptographically via Supabase Auth
+    let verifiedUserId: string | null = null;
+    const authHeader = req.headers.get('authorization') || req.headers.get('Authorization');
+
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const jwt = authHeader.replace(/^Bearer\s+/i, '').trim();
+      if (jwt && jwt !== supabaseAnonKey && jwt !== supabaseServiceKey) {
+        try {
+          const { data: authData, error: authError } = await supabaseAdmin.auth.getUser(jwt);
+          if (!authError && authData?.user?.id) {
+            verifiedUserId = authData.user.id;
+          }
+        } catch (jwtErr) {
+          console.warn('Failed to verify customer JWT:', jwtErr);
+        }
+      }
+    }
+
+    // 6. Name, Phone, and Business Type Processing
+    const isClickTracking = source === 'whatsapp_click' || source === 'call_click' || source === 'floating_bar';
+    const rawPhone = (body.phone || '').trim();
+    // Normalize Arabic-Indic digits if any (٠١٢٣٤٥٦٧٨٩)
+    const normalizedDigits = rawPhone.replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString());
+    const cleanPhone = normalizedDigits.replace(/[\s\-()]/g, '');
+
+    let finalPhone = cleanPhone;
+    let finalName = (body.name || '').trim();
+    let finalBusiness = (body.business_type || '').trim();
+
+    if (isClickTracking && !cleanPhone) {
+      // For anonymous button clicks without an input form, supply valid defaults satisfying DB NOT NULL & length >= 5
+      finalPhone = '01000000000';
+      if (!finalName) finalName = 'زائر الموقع (نقرة تواصل)';
+      if (!finalBusiness) {
+        finalBusiness = source === 'call_click' ? 'نقرة زر اتصال مباشر' : source === 'floating_bar' ? 'نقرة الشريط العائم' : 'نقرة زر واتساب';
+      }
+    } else {
+      // For lead forms ('form', 'wizard', 'exit_intent') or clicks with phone: strictly validate Egyptian phone
+      const phoneValid = /^(\+?20|0)?1[0125]\d{8}$/.test(cleanPhone);
+      if (!phoneValid) {
+        return new Response(JSON.stringify({ error: 'رقم الهاتف غير صالح. يرجى إدخال رقم هاتف مصري صحيح (مثال: 01020095059).' }), {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+      if (!finalName) finalName = 'طلب موقع إلكتروني';
+      if (!finalBusiness) finalBusiness = 'طلب استشارة / ديمو';
+    }
+
+    // 7. Secure DB Insert via Service Role
     const { data, error } = await supabaseAdmin
       .from('demo_requests')
       .insert({
-        name: (body.name || '').trim().slice(0, 160),
-        phone: cleanPhone.slice(0, 40),
-        business_type: (body.business_type || '').trim().slice(0, 160),
+        name: finalName.slice(0, 160),
+        phone: finalPhone.slice(0, 40),
+        business_type: finalBusiness.slice(0, 160),
         page_url: body.page_url ? body.page_url.trim().slice(0, 500) : null,
-        user_id: body.user_id || null,
-        message_text: body.message_text || null,
-        source: body.source || 'form',
+        user_id: verifiedUserId,
+        message_text: body.message_text ? body.message_text.trim() : null,
+        source: source,
         status: 'new',
       })
       .select('id, created_at')
@@ -155,10 +220,17 @@ Deno.serve(async (req: Request) => {
 
     if (error) {
       console.error('Database insert error:', error.message);
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      const isDbRateLimit = error.message.includes('rate_limit');
+      return new Response(
+        JSON.stringify({
+          error: isDbRateLimit ? error.message : 'حدث خطأ أثناء حفظ الطلب. يرجى المحاولة مرة أخرى.',
+          code: isDbRateLimit ? 'rate_limit' : 'db_error',
+        }),
+        {
+          status: isDbRateLimit ? 429 : 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
     }
 
     return new Response(JSON.stringify({ success: true, data }), {
