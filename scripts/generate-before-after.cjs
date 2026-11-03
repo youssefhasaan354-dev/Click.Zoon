@@ -311,3 +311,4 @@ generate().catch(err => {
   console.error('Error generating before-after images:', err);
   process.exit(1);
 });
+
