@@ -1,16 +1,10 @@
 import { supabase } from '@/lib/supabase';
 
-export type DemoRequestSource =
-  | 'form'
-  | 'wizard'
-  | 'exit_intent'
-  | 'floating_bar'
-  | 'whatsapp_click'
-  | 'call_click';
+export type DemoRequestSource = 'form' | 'wizard' | 'exit_intent';
 
 export interface SubmitDemoRequestPayload {
-  name?: string;
-  phone?: string;
+  name: string;
+  phone: string;
   business_type?: string;
   page_url?: string | null;
   message_text?: string | null;
@@ -27,7 +21,7 @@ export interface SubmitDemoRequestResult {
 }
 
 /**
- * Submit lead or track interaction via the secure Supabase Edge Function 'submit-demo-request'.
+ * Submit genuine lead request (form, wizard, exit_intent) via the secure Supabase Edge Function 'submit-demo-request'.
  * Preserves customer session JWT so registered customers have user_id linked automatically.
  */
 export async function submitDemoRequest(
@@ -86,22 +80,4 @@ export async function submitDemoRequest(
       error: msg,
     };
   }
-}
-
-/**
- * Fire-and-forget interaction tracking for WhatsApp, Call, and Floating bar clicks
- */
-export function trackInteractionClick(
-  source: 'whatsapp_click' | 'call_click' | 'floating_bar',
-  details?: { name?: string; phone?: string; business_type?: string }
-): void {
-  submitDemoRequest({
-    source,
-    name: details?.name,
-    phone: details?.phone,
-    business_type: details?.business_type,
-    page_url: typeof window !== 'undefined' ? window.location.href : null,
-  }).catch((err) => {
-    console.debug('Click interaction tracking error:', err);
-  });
 }

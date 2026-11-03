@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, MessageCircle, ArrowLeft, X } from 'lucide-react';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
-import { trackInteractionClick } from '@/lib/demo-requests';
 
 export default function StickyMiniCta() {
   const cfg = useSiteConfig();
@@ -85,7 +84,6 @@ export default function StickyMiniCta() {
               rel="noopener noreferrer"
               onClick={() => {
                 trackEvent('generate_lead', { event_category: 'sticky_bar', event_label: 'whatsapp' });
-                trackInteractionClick('floating_bar', { business_type: 'طلب ديمو من الشريط العائم' });
               }}
               className="px-3.5 py-1.5 rounded-full bg-navy-800 text-gold-300 hover:bg-navy-700 border border-gold-500/30 text-xs font-bold inline-flex items-center gap-1.5 transition-colors"
             >

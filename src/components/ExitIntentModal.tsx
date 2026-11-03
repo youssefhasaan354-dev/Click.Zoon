@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Gift, X, Send, MessageCircle, Check, Loader2 } from 'lucide-react';
-import { submitDemoRequest, trackInteractionClick } from '@/lib/demo-requests';
+import { submitDemoRequest } from '@/lib/demo-requests';
 import { cleanPhoneNumber, isValidEgyptianPhone } from '@/lib/phone';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
@@ -91,11 +91,7 @@ export default function ExitIntentModal() {
   };
 
   const handleWhatsapp = () => {
-    trackInteractionClick('whatsapp_click', {
-      name: name.trim() || undefined,
-      phone: cleanPhoneNumber(phone) || undefined,
-      business_type: businessType.trim() || 'نافذة الخروج - واتساب',
-    });
+    trackEvent({ category: 'whatsapp', action: 'click', label: 'exit_intent_whatsapp' });
     const msg = `مرحباً كليك زون 👋
 عايز استفسر عن الديمو المجاني لنشاطي (${businessType || 'نشاط جديد'})`;
     const url = waLinkIntl(cfg.phoneIntl, msg);

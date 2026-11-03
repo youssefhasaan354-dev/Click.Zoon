@@ -1,7 +1,6 @@
 import { Phone, Mail, MessageCircle, Facebook, Instagram, MapPin } from 'lucide-react';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
-import { trackInteractionClick } from '@/lib/demo-requests';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/lib/toast-context';
 
@@ -60,7 +59,6 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 onClick={() => {
                   trackEvent({ category: 'whatsapp', action: 'click', label: 'footer_whatsapp' });
-                  trackInteractionClick('whatsapp_click', { business_type: 'فوتر الموقع - واتساب' });
                 }}
                 className="w-11 h-11 rounded-lg bg-navy-800/50 hover:bg-green-600/20 flex items-center justify-center transition-colors"
                 aria-label="واتساب"
@@ -96,7 +94,6 @@ export default function Footer() {
                   href={`tel:${cfg.phone}`}
                   onClick={() => {
                     trackEvent({ category: 'call', action: 'click', label: 'footer_call' });
-                    trackInteractionClick('call_click', { business_type: 'فوتر الموقع - اتصال' });
                     copyToClipboard(cfg.phone, 'رقم الهاتف');
                   }}
                   className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm py-1"

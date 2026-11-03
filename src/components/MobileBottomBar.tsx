@@ -1,7 +1,6 @@
 import { Phone, MessageCircle } from 'lucide-react';
 import { useSiteConfig, waLinkIntl } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
-import { trackInteractionClick } from '@/lib/demo-requests';
 
 export default function MobileBottomBar() {
   const cfg = useSiteConfig();
@@ -15,7 +14,6 @@ export default function MobileBottomBar() {
         href={`tel:${cfg.phone}`}
         onClick={() => {
           trackEvent({ category: 'call', action: 'click', label: 'mobile_bar' });
-          trackInteractionClick('call_click', { business_type: 'شريط الموبايل السفلي - اتصال' });
         }}
         className="flex-1 flex items-center justify-center gap-2 py-3 text-navy-50 font-bold border-l border-navy-700/40 active:bg-navy-800 transition-colors text-sm"
       >
@@ -28,7 +26,6 @@ export default function MobileBottomBar() {
         rel="noopener noreferrer"
         onClick={() => {
           trackEvent({ category: 'whatsapp', action: 'click', label: 'mobile_bar' });
-          trackInteractionClick('whatsapp_click', { business_type: 'شريط الموبايل السفلي - واتساب' });
         }}
         className="flex-1 flex items-center justify-center gap-2 py-3 bg-gold-500/10 text-gold-300 font-bold active:bg-gold-500/20 transition-colors text-sm"
       >

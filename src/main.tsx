@@ -68,7 +68,14 @@ class RootErrorBoundary extends Component<{ children: ReactNode }, { hasError: b
 function GAInitializer() {
   const cfg = useSiteConfig();
   useEffect(() => {
-    initGoogleAnalytics(cfg.googleAnalyticsId);
+    try {
+      const consent = typeof window !== 'undefined' ? localStorage.getItem('cz_cookie_consent') : null;
+      if (consent === 'accepted' && cfg.googleAnalyticsId) {
+        initGoogleAnalytics(cfg.googleAnalyticsId);
+      }
+    } catch {
+      // LocalStorage access may fail in private mode
+    }
   }, [cfg.googleAnalyticsId]);
   return null;
 }

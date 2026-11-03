@@ -40,6 +40,14 @@ export function trackEvent(
   }
 
   try {
+    if (localStorage.getItem('cz_cookie_consent') !== 'accepted') {
+      return;
+    }
+  } catch {
+    return;
+  }
+
+  try {
     if (typeof nameOrOptions === 'string') {
       window.gtag('event', nameOrOptions, params || {});
       if (import.meta.env.DEV) {
@@ -70,6 +78,12 @@ export function isAnalyticsInitialized(): boolean {
 
 export function initGoogleAnalytics(measurementId: string) {
   if (!measurementId || gaInjected || typeof document === 'undefined') return;
+
+  try {
+    if (localStorage.getItem('cz_cookie_consent') !== 'accepted') return;
+  } catch {
+    return;
+  }
 
   const script = document.createElement('script');
   script.async = true;

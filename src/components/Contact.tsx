@@ -3,7 +3,7 @@ import { Phone, Mail, MessageCircle, MapPin, Facebook, Instagram, Send, User, St
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { useReveal } from '@/hooks/useReveal';
 import { trackEvent } from '@/lib/analytics';
-import { submitDemoRequest, trackInteractionClick } from '@/lib/demo-requests';
+import { submitDemoRequest } from '@/lib/demo-requests';
 import { useCustomer } from '@/lib/customer-context';
 import { validateEgyptianPhone, cleanPhoneNumber } from '@/lib/phone';
 import SectionHeader from '@/components/SectionHeader';
@@ -363,7 +363,6 @@ ${businessTypeMsg}${trimmedUrl ? `
               rel="noopener noreferrer"
               onClick={() => {
                 trackEvent({ category: 'whatsapp', action: 'click', label: 'contact_whatsapp' });
-                trackInteractionClick('whatsapp_click', { business_type: 'واتساب الدعم الفني' });
               }}
               className="flex items-center gap-4 glass-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/40 group"
             >
@@ -380,7 +379,6 @@ ${businessTypeMsg}${trimmedUrl ? `
               href={`tel:${cfg.phone}`}
               onClick={() => {
                 trackEvent({ category: 'call', action: 'click', label: 'contact_call' });
-                trackInteractionClick('call_click', { business_type: 'اتصال هاتفي مباشر' });
               }}
               className="flex items-center gap-4 glass-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/40 group"
             >

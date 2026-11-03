@@ -1,6 +1,7 @@
 // Supabase Edge Function: submit-demo-request
 // Validates bot protection (Cloudflare Turnstile when configured), validates Egyptian phone format,
-// enforces IP & Phone rate limiting, verifies authenticated customer JWT, and securely inserts leads into public.demo_requests.
+// enforces IP & Phone rate limiting, verifies authenticated customer JWT, and securely inserts genuine leads
+// ('form', 'wizard', 'exit_intent') into public.demo_requests.
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
@@ -10,32 +11,29 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
+// Strict whitelist: only real lead submissions are stored as rows in demo_requests
 const ALLOWED_SOURCES = [
   'form',
   'wizard',
   'exit_intent',
-  'floating_bar',
-  'whatsapp_click',
-  'call_click',
 ] as const;
 
 type AllowedSource = typeof ALLOWED_SOURCES[number];
 
 interface SubmitRequestPayload {
-  name?: string;
-  phone?: string;
+  name: string;
+  phone: string;
   business_type?: string;
   page_url?: string | null;
-  message_text?: string;
+  message_text?: string | null;
   source: string;
   honeypot?: string;
   turnstile_token?: string;
 }
 
 // In-memory sliding window rate limiter per client IP
-// Protects endpoint when Turnstile is not configured or client lacks Turnstile token
 const ipRequestHistory = new Map<string, number[]>();
-const RATE_LIMIT_MAX_REQUESTS = 12; // Allows form submits + interaction clicks within window
+const RATE_LIMIT_MAX_REQUESTS = 6;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 
 function isRateLimited(ip: string): boolean {
@@ -141,7 +139,23 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // Initialize Supabase Admin client
+    // 5. Phone number validation (Egyptian format)
+    const rawPhone = (body.phone || '').trim();
+    // Normalize Arabic-Indic digits if any (٠١٢٣٤٥٦٧٨٩)
+    const normalizedDigits = rawPhone.replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString());
+    const cleanPhone = normalizedDigits.replace(/[\s\-()]/g, '');
+    const phoneValid = /^(\+?20|0)?1[0125]\d{8}$/.test(cleanPhone);
+    if (!phoneValid) {
+      return new Response(JSON.stringify({ error: 'رقم الهاتف غير صالح. يرجى إدخال رقم هاتف مصري صحيح (مثال: 01020095059).' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const finalName = (body.name || '').trim() || 'طلب موقع إلكتروني';
+    const finalBusiness = (body.business_type || '').trim() || 'طلب ديمو / استشارة';
+
+    // 6. Initialize Supabase Admin client
     const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
     const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') || '';
@@ -152,7 +166,7 @@ Deno.serve(async (req: Request) => {
 
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
-    // 5. Verify Authenticated Customer JWT (preserving "Customers can read own requests" RLS)
+    // 7. Verify Authenticated Customer JWT (preserving "Customers can read own requests" RLS)
     // Never trust client-provided user_id directly; authenticate cryptographically via Supabase Auth
     let verifiedUserId: string | null = null;
     const authHeader = req.headers.get('authorization') || req.headers.get('Authorization');
@@ -171,43 +185,12 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // 6. Name, Phone, and Business Type Processing
-    const isClickTracking = source === 'whatsapp_click' || source === 'call_click' || source === 'floating_bar';
-    const rawPhone = (body.phone || '').trim();
-    // Normalize Arabic-Indic digits if any (٠١٢٣٤٥٦٧٨٩)
-    const normalizedDigits = rawPhone.replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString());
-    const cleanPhone = normalizedDigits.replace(/[\s\-()]/g, '');
-
-    let finalPhone = cleanPhone;
-    let finalName = (body.name || '').trim();
-    let finalBusiness = (body.business_type || '').trim();
-
-    if (isClickTracking && !cleanPhone) {
-      // For anonymous button clicks without an input form, supply valid defaults satisfying DB NOT NULL & length >= 5
-      finalPhone = '01000000000';
-      if (!finalName) finalName = 'زائر الموقع (نقرة تواصل)';
-      if (!finalBusiness) {
-        finalBusiness = source === 'call_click' ? 'نقرة زر اتصال مباشر' : source === 'floating_bar' ? 'نقرة الشريط العائم' : 'نقرة زر واتساب';
-      }
-    } else {
-      // For lead forms ('form', 'wizard', 'exit_intent') or clicks with phone: strictly validate Egyptian phone
-      const phoneValid = /^(\+?20|0)?1[0125]\d{8}$/.test(cleanPhone);
-      if (!phoneValid) {
-        return new Response(JSON.stringify({ error: 'رقم الهاتف غير صالح. يرجى إدخال رقم هاتف مصري صحيح (مثال: 01020095059).' }), {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        });
-      }
-      if (!finalName) finalName = 'طلب موقع إلكتروني';
-      if (!finalBusiness) finalBusiness = 'طلب استشارة / ديمو';
-    }
-
-    // 7. Secure DB Insert via Service Role
+    // 8. Secure DB Insert via Service Role
     const { data, error } = await supabaseAdmin
       .from('demo_requests')
       .insert({
         name: finalName.slice(0, 160),
-        phone: finalPhone.slice(0, 40),
+        phone: cleanPhone.slice(0, 40),
         business_type: finalBusiness.slice(0, 160),
         page_url: body.page_url ? body.page_url.trim().slice(0, 500) : null,
         user_id: verifiedUserId,
