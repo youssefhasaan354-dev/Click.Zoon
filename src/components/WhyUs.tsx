@@ -45,15 +45,17 @@ export default function WhyUs() {
               return (
                 <div
                   key={feat.title}
-                  className={`reveal ${featRevealed ? 'revealed' : ''} flex items-start gap-4 glass-card rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold-500/30`}
-                  style={{ transitionDelay: `${i * 70}ms` }}
+                  className={`reveal ${featRevealed ? 'revealed' : ''}`}
+                  style={featRevealed ? undefined : { transitionDelay: `${i * 70}ms` }}
                 >
-                  <div className="w-11 h-11 rounded-lg bg-gold-500/10 flex items-center justify-center shrink-0">
-                    <Icon size={22} className="text-gold-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-navy-50 font-bold mb-1">{feat.title}</h3>
-                    <p className="text-navy-300 text-sm leading-relaxed">{feat.desc}</p>
+                  <div className="flex items-start gap-4 glass-card rounded-xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/30 h-full">
+                    <div className="w-11 h-11 rounded-lg bg-gold-500/10 flex items-center justify-center shrink-0">
+                      <Icon size={22} className="text-gold-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-navy-50 font-bold mb-1">{feat.title}</h3>
+                      <p className="text-navy-300 text-sm leading-relaxed">{feat.desc}</p>
+                    </div>
                   </div>
                 </div>
               );

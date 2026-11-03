@@ -39,7 +39,7 @@ export default function Process() {
                 <div
                   key={step.title}
                   className={`reveal ${revealed ? 'revealed' : ''} relative text-center`}
-                  style={{ transitionDelay: `${i * 100}ms` }}
+                  style={revealed ? undefined : { transitionDelay: `${i * 100}ms` }}
                 >
                   <div className="relative inline-flex w-24 h-24 rounded-full bg-navy-800 border-2 border-gold-500/30 items-center justify-center mb-4 transition-all duration-300 hover:border-gold-500/60 hover:scale-105">
                     <Icon size={28} className="text-gold-400" />

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import MockupsSection from '@/components/MockupsSection';
@@ -17,10 +18,40 @@ import ScrollProgress from '@/components/ScrollProgress';
 import MobileBottomBar from '@/components/MobileBottomBar';
 import BackToTop from '@/components/BackToTop';
 import NotFoundPage from '@/pages/NotFound';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useSectionVisibility } from '@/lib/site-data-context';
 
-function App() {
+export function ScrollToHash() {
+  const { hash, pathname } = useLocation();
+
+  useEffect(() => {
+    if (!hash) {
+      if (pathname !== '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    const id = hash.replace(/^#/, '');
+    const tryScroll = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return true;
+      }
+      return false;
+    };
+
+    if (!tryScroll()) {
+      const timer = setTimeout(tryScroll, 120);
+      return () => clearTimeout(timer);
+    }
+  }, [hash, pathname]);
+
+  return null;
+}
+
+function HomePage() {
   const showMockups = useSectionVisibility('mockups');
   const showDemo = useSectionVisibility('demo');
   const showServices = useSectionVisibility('services');
@@ -35,9 +66,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
+      <ScrollToHash />
       <ScrollProgress />
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         {showMockups && <MockupsSection />}
         {showDemo && <DemoSection />}
@@ -61,10 +93,13 @@ function App() {
 
 function AppWithRoutes() {
   return (
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <>
+      <ScrollToHash />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
   );
 }
 

@@ -40,20 +40,22 @@ export default function Services() {
             return (
               <div
                 key={service.title}
-                className={`reveal ${revealed ? 'revealed' : ''} group relative glass-card rounded-2xl p-7 transition-all duration-300 hover:-translate-y-2 hover:border-gold-500/40 glow-gold-hover`}
-                style={{ transitionDelay: `${i * 80}ms` }}
+                className={`reveal ${revealed ? 'revealed' : ''}`}
+                style={revealed ? undefined : { transitionDelay: `${i * 80}ms` }}
               >
-                {/* Gold glow on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold-500/0 to-gold-500/0 group-hover:from-gold-500/5 group-hover:to-transparent transition-all duration-500" />
+                <div className="group relative glass-card rounded-2xl p-7 transition-transform duration-300 hover:-translate-y-2 hover:border-gold-500/40 glow-gold-hover h-full flex flex-col justify-between">
+                  {/* Gold glow on hover */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold-500/0 to-gold-500/0 group-hover:from-gold-500/5 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
 
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-xl bg-navy-700/50 flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-gold-500/15 group-hover:scale-110">
-                    <Icon size={28} className="text-gold-400" />
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 rounded-xl bg-navy-700/50 flex items-center justify-center mb-5 transition-all duration-300 group-hover:bg-gold-500/15 group-hover:scale-110">
+                      <Icon size={28} className="text-gold-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-navy-50 mb-3 group-hover:text-gold-300 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-navy-300 leading-relaxed">{service.desc}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-navy-50 mb-3 group-hover:text-gold-300 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-navy-300 leading-relaxed">{service.desc}</p>
                 </div>
               </div>
             );

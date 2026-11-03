@@ -65,6 +65,7 @@ export interface PortfolioItem {
   description: string;
   image_url: string;
   link: string | null;
+  live_url?: string | null;
   visible: boolean;
   sort_order: number;
 }

@@ -30,7 +30,7 @@ export default function AboutUs() {
             )}
             <div className={`grid grid-cols-2 ${stats.length >= 4 ? 'lg:grid-cols-4' : stats.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'} gap-6 max-w-5xl mx-auto`}>
               {stats.map((stat) => (
-                <div key={stat.label} className="text-center glass-card rounded-xl p-6">
+                <div key={stat.label} className="text-center glass-card rounded-xl p-6 transition-transform duration-300 hover:-translate-y-1">
                   <div className="text-4xl font-extrabold text-gradient-gold mb-2">
                     {stat.value}{stat.suffix}
                   </div>
@@ -78,9 +78,9 @@ export default function AboutUs() {
             )}
 
             {hasStats && (
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {stats.map((stat) => (
-                  <div key={stat.label} className="text-center glass-card rounded-xl p-4">
+                  <div key={stat.label} className="text-center glass-card rounded-xl p-4 transition-transform duration-300 hover:-translate-y-1">
                     <div className="text-3xl font-extrabold text-gradient-gold mb-1">
                       {stat.value}{stat.suffix}
                     </div>

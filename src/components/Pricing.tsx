@@ -26,76 +26,83 @@ export default function Pricing() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
-          <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">الباقات</div>
+          <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">الباقات والأسعار</div>
           <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4">
             باقات تناسب <span className="text-gradient-gold">كل نشاط</span>
           </h2>
           <p className="text-navy-300 text-lg max-w-2xl mx-auto">
-            اختر الباقة المناسبة لك، أو اطلب عرض سعر مخصص لاحتياجاتك بالضبط.
+            اختر الباقة المناسبة لك، أو اطلب عرض سعر مخصص لاحتياجاتك بالضبط بدون أي التزام.
           </p>
         </div>
 
         {/* Plans grid */}
-        <div ref={ref} className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+        <div ref={ref} className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
           {plans.map((plan, i) => (
+            /* Reveal wrapper handles scroll reveal without interfering with card hover & scale */
             <div
               key={plan.name}
-              className={`reveal ${revealed ? 'revealed' : ''} relative rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 ${
-                plan.highlighted
-                  ? 'bg-gradient-to-b from-gold-500/10 to-navy-800/60 border-2 border-gold-500/40 glow-gold md:scale-105'
-                  : 'glass-card border border-navy-600/30'
-              }`}
-              style={{ transitionDelay: `${i * 100}ms` }}
+              className={`reveal ${revealed ? 'revealed' : ''} ${plan.highlighted ? 'z-10' : ''}`}
+              style={revealed ? undefined : { transitionDelay: `${i * 100}ms` }}
             >
-              {plan.highlighted && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-500 text-navy-900 text-sm font-bold px-4 py-1.5 rounded-full flex items-center gap-1">
-                  <Star size={14} className="fill-navy-900" />
-                  الأكثر طلباً
-                </div>
-              )}
-
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-extrabold text-navy-50 mb-1">{plan.name}</h3>
-                <p className="text-navy-300 text-sm">{plan.tagline}</p>
-              </div>
-
-              {/* Price — يظهر فقط إذا كان مفعّل في الإعدادات */}
-              {cfg.showPrices && plan.price ? (
-                <div className="text-center mb-6">
-                  <span className="text-3xl font-extrabold text-gold-400">ابتداءً من {plan.price}</span>
-                </div>
-              ) : (
-                <div className="text-center mb-6">
-                  <span className="text-xl font-bold text-navy-200">تبدأ من</span>
-                  <span className="block text-sm text-navy-400 mt-1">اطلب عرض سعر مخصص</span>
-                </div>
-              )}
-
-              {/* Features */}
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check size={18} className="text-gold-400 shrink-0 mt-0.5" />
-                    <span className="text-navy-200 text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA */}
-              <a
-                href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name}`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: `pricing_${plan.name}` })}
-                className={`w-full inline-flex items-center justify-center gap-2 font-bold px-6 py-3.5 rounded-xl transition-all duration-300 hover:scale-105 ${
+              <div
+                className={`relative rounded-2xl p-8 transition-transform duration-300 hover:-translate-y-2 h-full flex flex-col justify-between ${
                   plan.highlighted
-                    ? 'bg-gold-500 hover:bg-gold-400 text-navy-900'
-                    : 'bg-navy-700/50 hover:bg-navy-700 text-navy-50 border border-navy-600'
+                    ? 'bg-gradient-to-b from-gold-500/15 via-navy-800/80 to-navy-900/90 border-2 border-gold-500/50 glow-gold md:scale-105'
+                    : 'glass-card border border-navy-600/30'
                 }`}
               >
-                <MessageCircle size={18} />
-                اطلب عرض سعر
-              </a>
+                {plan.highlighted && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-500 text-navy-900 text-sm font-bold px-4 py-1.5 rounded-full flex items-center gap-1 shadow-lg shadow-gold-500/30">
+                    <Star size={14} className="fill-navy-900" />
+                    الأكثر طلباً
+                  </div>
+                )}
+
+                <div>
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-extrabold text-navy-50 mb-1">{plan.name}</h3>
+                    <p className="text-navy-300 text-sm">{plan.tagline}</p>
+                  </div>
+
+                  {/* Price — يظهر فقط إذا كان مفعّل في الإعدادات */}
+                  {cfg.showPrices && plan.price ? (
+                    <div className="text-center mb-6">
+                      <span className="text-3xl font-extrabold text-gold-400">ابتداءً من {plan.price}</span>
+                    </div>
+                  ) : (
+                    <div className="text-center mb-6">
+                      <span className="text-xl font-bold text-gradient-gold">السعر حسب احتياجك</span>
+                      <span className="block text-sm text-navy-300 mt-1">اطلب عرض سعر مخصص مجاناً</span>
+                    </div>
+                  )}
+
+                  {/* Features */}
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <Check size={18} className="text-gold-400 shrink-0 mt-0.5" />
+                        <span className="text-navy-200 text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* CTA */}
+                <a
+                  href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name}`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: `pricing_${plan.name}` })}
+                  className={`w-full inline-flex items-center justify-center gap-2 font-bold px-6 py-3.5 rounded-xl transition-all duration-300 hover:scale-105 ${
+                    plan.highlighted
+                      ? 'bg-gold-500 hover:bg-gold-400 text-navy-900 glow-gold-hover'
+                      : 'bg-navy-700/50 hover:bg-navy-700 text-navy-50 border border-navy-600'
+                  }`}
+                >
+                  <MessageCircle size={18} />
+                  اطلب عرض سعر
+                </a>
+              </div>
             </div>
           ))}
         </div>

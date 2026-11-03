@@ -5,6 +5,7 @@ import { useReveal } from '@/hooks/useReveal';
 import { trackEvent } from '@/lib/analytics';
 import { supabase } from '@/lib/supabase';
 import { useCustomer } from '@/lib/customer-context';
+import { validateEgyptianPhone, cleanPhoneNumber } from '@/lib/phone';
 
 const RATE_LIMIT_MS = 30_000;
 const MAX_NAME_LEN = 160;
@@ -22,6 +23,8 @@ export default function Contact() {
   const [rateLimited, setRateLimited] = useState(false);
   const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
   const lastSubmitRef = useRef<number>(0);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -40,18 +43,14 @@ export default function Contact() {
     }
   }, [user, profile]);
 
-  const validatePhone = (phone: string): boolean => {
-    const cleaned = phone.replace(/[\s\-()]/g, '');
-    return /^(\+?20|0)?1[0-2,5]\d{8}$/.test(cleaned);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (honeypot) return;
 
-    if (!validatePhone(form.phone)) {
+    if (!validateEgyptianPhone(form.phone)) {
       setPhoneError('رقم الموبايل غير صحيح. مثال صحيح: 01020095059');
+      phoneInputRef.current?.focus();
       return;
     }
     setPhoneError(null);
@@ -65,11 +64,8 @@ export default function Contact() {
     setRateLimited(false);
     setRateLimitMsg(null);
 
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
     const trimmedName = form.name.trim().slice(0, MAX_NAME_LEN);
-    const trimmedPhone = form.phone.trim().slice(0, MAX_PHONE_LEN);
+    const cleanedPhone = cleanPhoneNumber(form.phone).slice(0, MAX_PHONE_LEN);
     const trimmedBusiness = form.business.trim().slice(0, MAX_BUSINESS_LEN);
     const trimmedUrl = form.pageUrl.trim().slice(0, MAX_URL_LEN) || null;
 
@@ -77,59 +73,86 @@ export default function Contact() {
       ? `نوع النشاط: ${trimmedBusiness}`
       : 'نوع النشاط: غير محدد';
     const msg = `السلام عليكم، أنا ${trimmedName}
-رقم الهاتف: ${trimmedPhone}
+رقم الهاتف: ${cleanedPhone}
 ${businessTypeMsg}${trimmedUrl ? `
 رابط الصفحة: ${trimmedUrl}` : ''}
 عايز أطلب ديمو مجاني لموقع نشاطي.`;
 
-    const { error } = await supabase.from('demo_requests').insert({
-      name: trimmedName,
-      phone: trimmedPhone,
-      business_type: trimmedBusiness,
-      page_url: trimmedUrl,
-      user_id: user?.id ?? null,
-      message_text: msg,
-      source: 'form',
-      status: 'new',
-    });
+    const waUrl = waLinkIntl(cfg.phoneIntl, msg);
 
-    lastSubmitRef.current = Date.now();
-
-    const isRateLimited = Boolean(
-      error &&
-        (error.message?.includes('rate_limit') ||
-          (typeof error.details === 'string' && error.details.includes('rate_limit')))
-    );
-
-    if (error) {
-      console.error('Demo request save failed:', error.code, error.message);
-    } else {
-      trackEvent({ category: 'form', action: 'submit', label: 'demo_request' });
+    // Synchronously open blank window inside user click context to prevent iOS Safari popup blocker
+    let popupWindow: Window | null = null;
+    try {
+      popupWindow = window.open('about:blank', '_blank');
+    } catch {
+      // Browser blocked popup or in webview
     }
 
-    if (!isRateLimited) {
-      window.open(waLinkIntl(cfg.phoneIntl, msg), '_blank', 'noopener,noreferrer');
-    }
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
 
-    setIsSubmitting(false);
+    let isRateLimited = false;
+    let saveError = false;
+
+    try {
+      const { error } = await supabase.from('demo_requests').insert({
+        name: trimmedName,
+        phone: cleanedPhone,
+        business_type: trimmedBusiness,
+        page_url: trimmedUrl,
+        user_id: user?.id ?? null,
+        message_text: msg,
+        source: 'form',
+        status: 'new',
+      });
+
+      lastSubmitRef.current = Date.now();
+
+      isRateLimited = Boolean(
+        error &&
+          (error.message?.includes('rate_limit') ||
+            (typeof error.details === 'string' && error.details.includes('rate_limit')))
+      );
+
+      if (error) {
+        saveError = true;
+        console.error('Demo request save failed:', error.code, error.message);
+      } else {
+        trackEvent({ category: 'form', action: 'submit', label: 'demo_request' });
+      }
+    } catch (err) {
+      saveError = true;
+      console.error('Demo request submission exception:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
 
     if (isRateLimited) {
+      if (popupWindow && !popupWindow.closed) {
+        popupWindow.close();
+      }
       setRateLimitMsg('لقد تجاوزت الحد المسموح من الطلبات مؤقتاً. يرجى الانتظار والمحاولة لاحقاً.');
       setRateLimited(true);
       setSubmitStatus('idle');
       return;
     }
 
-    if (error) {
-      setSubmitStatus('error');
-      return;
+    // Direct the user to WhatsApp
+    if (popupWindow && !popupWindow.closed) {
+      popupWindow.location.href = waUrl;
+    } else {
+      window.location.href = waUrl;
     }
 
-    setSubmitStatus('success');
-    if (!user) {
-      setForm({ name: '', phone: '', business: '', pageUrl: '' });
+    if (saveError) {
+      setSubmitStatus('error');
     } else {
-      setForm((prev) => ({ ...prev, business: '', pageUrl: '' }));
+      setSubmitStatus('success');
+      if (!user) {
+        setForm({ name: '', phone: '', business: '', pageUrl: '' });
+      } else {
+        setForm((prev) => ({ ...prev, business: '', pageUrl: '' }));
+      }
     }
   };
 
@@ -140,7 +163,7 @@ ${businessTypeMsg}${trimmedUrl ? `
   };
 
   const inputClass =
-    'w-full bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-3 text-navy-50 placeholder-navy-400 focus:border-gold-500/50 focus:outline-none focus:ring-1 focus:ring-gold-500/30 transition-all';
+    'w-full bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-3 text-navy-50 placeholder-navy-300 focus:border-gold-500/50 focus:outline-none focus:ring-1 focus:ring-gold-500/30 transition-all';
 
   return (
     <section id="contact" className="py-20 lg:py-28 bg-navy-950/50">
@@ -158,7 +181,7 @@ ${businessTypeMsg}${trimmedUrl ? `
         <div ref={ref} className={`grid lg:grid-cols-2 gap-8 reveal ${revealed ? 'revealed' : ''}`}>
           {/* Form */}
           <div className="glass-card rounded-2xl p-8">
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               {/* Honeypot — hidden from users, bots fill it */}
               <input
                 type="text"
@@ -172,13 +195,15 @@ ${businessTypeMsg}${trimmedUrl ? `
               />
 
               <div>
-                <label className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
+                <label htmlFor="contact-name" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <User size={16} className="text-gold-400" />
-                  الاسم
+                  الاسم <span className="text-red-400">*</span>
                 </label>
                 <input
+                  id="contact-name"
                   type="text"
                   required
+                  autoComplete="name"
                   maxLength={MAX_NAME_LEN}
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -188,13 +213,15 @@ ${businessTypeMsg}${trimmedUrl ? `
               </div>
 
               <div>
-                <label className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
+                <label htmlFor="contact-business" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <Store size={16} className="text-gold-400" />
-                  نوع النشاط
+                  نوع النشاط <span className="text-red-400">*</span>
                 </label>
                 <input
+                  id="contact-business"
                   type="text"
                   required
+                  autoComplete="organization"
                   maxLength={MAX_BUSINESS_LEN}
                   value={form.business}
                   onChange={(e) => setForm({ ...form, business: e.target.value })}
@@ -204,12 +231,16 @@ ${businessTypeMsg}${trimmedUrl ? `
               </div>
 
               <div>
-                <label className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
+                <label htmlFor="contact-phone" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <Phone size={16} className="text-gold-400" />
-                  رقم الموبايل
+                  رقم الموبايل <span className="text-red-400">*</span>
                 </label>
                 <input
+                  ref={phoneInputRef}
+                  id="contact-phone"
                   type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
                   required
                   maxLength={MAX_PHONE_LEN}
                   value={form.phone}
@@ -217,19 +248,25 @@ ${businessTypeMsg}${trimmedUrl ? `
                   placeholder="01xxxxxxxxx"
                   className={inputClass}
                   dir="ltr"
+                  aria-invalid={Boolean(phoneError)}
+                  aria-describedby={phoneError ? 'contact-phone-error' : undefined}
                 />
                 {phoneError && (
-                  <p className="text-red-300 text-xs mt-1.5" role="alert">{phoneError}</p>
+                  <p id="contact-phone-error" className="text-red-300 text-xs mt-1.5" role="alert">
+                    {phoneError}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
+                <label htmlFor="contact-page-url" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <Link size={16} className="text-gold-400" />
-                  رابط الصفحة <span className="text-navy-400 font-normal">(اختياري)</span>
+                  رابط الصفحة أو النشاط <span className="text-navy-300 text-xs font-normal">(اختياري)</span>
                 </label>
                 <input
+                  id="contact-page-url"
                   type="url"
+                  autoComplete="url"
                   maxLength={MAX_URL_LEN}
                   value={form.pageUrl}
                   onChange={(e) => setForm({ ...form, pageUrl: e.target.value })}
@@ -245,11 +282,11 @@ ${businessTypeMsg}${trimmedUrl ? `
                 className="w-full inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 disabled:opacity-60 disabled:cursor-not-allowed text-navy-900 font-bold px-6 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] glow-gold-hover text-lg"
               >
                 <Send size={20} />
-                {isSubmitting ? 'جارٍ إرسال الطلب...' : 'اطلب الديمو عبر واتساب'}
+                {isSubmitting ? 'جارٍ تجهيز طلبك...' : 'اطلب الديمو عبر واتساب'}
               </button>
-              <p className="text-center text-navy-400 text-sm flex items-center justify-center gap-1.5">
+              <p className="text-center text-navy-300 text-sm flex items-center justify-center gap-1.5">
                 <CheckCircle2 size={14} className="text-gold-400" />
-                بدون التزام
+                ديمو مجاني بدون أي التزام
               </p>
               {rateLimited && (
                 <p className="text-amber-300 text-sm text-center" role="alert">
@@ -258,13 +295,13 @@ ${businessTypeMsg}${trimmedUrl ? `
               )}
               {submitStatus === 'success' && (
                 <div className="text-center space-y-1" role="status">
-                  <p className="text-green-400 text-sm font-semibold">تم إرسال طلبك بنجاح.</p>
-                  <p className="text-green-300/80 text-sm">هنرد عليك في أقرب وقت.</p>
+                  <p className="text-green-400 text-sm font-semibold">تم إرسال طلبك بنجاح وجارٍ نقلك لواتساب.</p>
+                  <p className="text-green-300/80 text-sm">هنرد عليك خلال 24 ساعة.</p>
                 </div>
               )}
               {submitStatus === 'error' && (
-                <p className="text-red-300 text-sm text-center" role="alert">
-                  تم فتح واتساب، لكن تعذر حفظ الطلب لدينا. يمكنك إرسال الرسالة من واتساب مباشرة.
+                <p className="text-amber-300 text-sm text-center" role="alert">
+                  تم فتح واتساب لتأكيد طلبك مباشرة مع فريق Click Zoon.
                 </p>
               )}
             </form>
@@ -284,7 +321,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <MessageCircle size={24} className="text-green-400" />
               </div>
               <div>
-                <div className="text-navy-400 text-sm">واتساب</div>
+                <div className="text-navy-300 text-sm">واتساب مباشر</div>
                 <div className="text-navy-50 font-bold" dir="ltr">{cfg.phone}</div>
               </div>
             </a>
@@ -298,7 +335,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <Phone size={24} className="text-gold-400" />
               </div>
               <div>
-                <div className="text-navy-400 text-sm">اتصال مباشر</div>
+                <div className="text-navy-300 text-sm">اتصال مباشر</div>
                 <div className="text-navy-50 font-bold" dir="ltr">{cfg.phone}</div>
               </div>
             </a>
@@ -312,7 +349,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <Mail size={24} className="text-teal-400" />
               </div>
               <div>
-                <div className="text-navy-400 text-sm">البريد الإلكتروني</div>
+                <div className="text-navy-300 text-sm">البريد الإلكتروني</div>
                 <div className="text-navy-50 font-bold text-sm" dir="ltr">{cfg.email}</div>
               </div>
             </a>
@@ -323,7 +360,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <MapPin size={24} className="text-gold-400" />
               </div>
               <div>
-                <div className="text-navy-400 text-sm">الموقع</div>
+                <div className="text-navy-300 text-sm">الموقع</div>
                 <div className="text-navy-50 font-bold">{cfg.location}</div>
               </div>
             </div>

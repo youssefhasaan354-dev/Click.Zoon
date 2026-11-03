@@ -28,49 +28,63 @@ export default function FAQ() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 text-gold-400 text-sm font-bold mb-3">
             <HelpCircle size={16} />
-            <span>أسئلة شائعة</span>
+            <span>إجابات واضحة</span>
           </div>
           <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4">
-            أسئلة <span className="text-gradient-gold">شائعة</span>
+            أسئلة <span className="text-gradient-gold">شائعة وإجاباتها</span>
           </h2>
           <p className="text-navy-300 text-lg">
-            كل اللي محتاج تعرفه قبل ما تبدأ معانا.
+            كل اللي محتاج تعرفه عن خطوات العمل، الأسعار، والدعم الفني قبل ما تبدأ.
           </p>
         </div>
 
         {/* Accordion */}
-        <div ref={ref} className={`space-y-3 reveal ${revealed ? 'revealed' : ''}`}>
-          {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className={`glass-card rounded-xl overflow-hidden transition-all duration-300 ${
-                openIndex === i ? 'border-gold-500/30' : ''
-              }`}
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 p-5 text-right"
-                aria-expanded={openIndex === i}
-              >
-                <span className="text-navy-50 font-bold flex-1">{faq.q}</span>
-                <ChevronDown
-                  size={22}
-                  className={`text-gold-400 shrink-0 transition-transform duration-300 ${
-                    openIndex === i ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
+        <div ref={ref} className={`space-y-3.5 reveal ${revealed ? 'revealed' : ''}`}>
+          {faqs.map((faq, i) => {
+            const isOpen = openIndex === i;
+            return (
               <div
-                className="overflow-hidden transition-all duration-300 ease-out"
-                style={{
-                  maxHeight: openIndex === i ? '500px' : '0px',
-                  opacity: openIndex === i ? '1' : '0',
-                }}
+                key={i}
+                className={`glass-card rounded-xl overflow-hidden transition-all duration-300 border ${
+                  isOpen ? 'border-gold-500/40 bg-navy-800/70 shadow-lg shadow-gold-500/5' : 'border-navy-700/40'
+                }`}
               >
-                <p className="px-5 pb-5 text-navy-300 leading-relaxed">{faq.a}</p>
+                <button
+                  id={`faq-btn-${i}`}
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full flex items-center justify-between gap-4 p-5 text-right transition-colors"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${i}`}
+                >
+                  <span className="text-navy-50 font-bold flex-1 text-base sm:text-lg">{faq.q}</span>
+                  <ChevronDown
+                    size={22}
+                    className={`text-gold-400 shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* CSS Grid-template-rows height animation */}
+                <div
+                  id={`faq-panel-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-btn-${i}`}
+                  aria-hidden={!isOpen}
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-5 text-navy-300 leading-relaxed text-sm sm:text-base border-t border-navy-700/30 pt-3">
+                      {faq.a}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

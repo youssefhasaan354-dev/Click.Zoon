@@ -4,6 +4,7 @@ import { Lock, Mail, LogIn, Loader2, UserPlus, User, Phone, Eye, EyeOff, Check, 
 import { useCustomer } from '@/lib/customer-context';
 import { supabase } from '@/lib/supabase';
 import { useNoIndex } from '@/hooks/useNoIndex';
+import { validateEgyptianPhone, cleanPhoneNumber } from '@/lib/phone';
 
 export default function CustomerAuth() {
   const navigate = useNavigate();
@@ -53,11 +54,6 @@ export default function CustomerAuth() {
     return () => listener.subscription.unsubscribe();
   }, [navigate]);
 
-  const validatePhone = (p: string): boolean => {
-    const cleaned = p.replace(/[\s\-()]/g, '');
-    return /^(\+?20|0)?1[0-2,5]\d{8}$/.test(cleaned);
-  };
-
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
     setGoogleError(null);
@@ -96,13 +92,13 @@ export default function CustomerAuth() {
       setError('كلمة المرور وتأكيدها غير متطابقين');
       return;
     }
-    if (!validatePhone(phone)) {
+    if (!validateEgyptianPhone(phone)) {
       setError('رقم الموبايل غير صحيح. مثال صحيح: 01020095059');
       return;
     }
 
     setLoading(true);
-    const { error } = await signUp(email, newPassword, fullName.trim(), phone.trim());
+    const { error } = await signUp(email, newPassword, fullName.trim(), cleanPhoneNumber(phone));
     setLoading(false);
     if (error) {
       setError(error);
@@ -117,7 +113,7 @@ export default function CustomerAuth() {
     setEmail(email);
   };
 
-  const handleReset = async (e: React.FormEvent) => {
+  const handleReset = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setResetLoading(true);
     setResetSuccess(null);
@@ -279,7 +275,7 @@ export default function CustomerAuth() {
             </button>
 
             {showReset && (
-              <form onSubmit={handleReset} className="space-y-3 pt-2 border-t border-navy-700/30">
+              <div className="space-y-3 pt-2 border-t border-navy-700/30">
                 <div>
                   <label className={labelClass}>
                     <Mail size={16} className="text-gold-400" />
@@ -287,7 +283,6 @@ export default function CustomerAuth() {
                   </label>
                   <input
                     type="email"
-                    required
                     value={resetEmail}
                     onChange={(e) => setResetEmail(e.target.value)}
                     placeholder="you@example.com"
@@ -296,8 +291,9 @@ export default function CustomerAuth() {
                   />
                 </div>
                 <button
-                  type="submit"
-                  disabled={resetLoading}
+                  type="button"
+                  onClick={handleReset}
+                  disabled={resetLoading || !resetEmail.trim()}
                   className="w-full inline-flex items-center justify-center gap-2 bg-navy-700 hover:bg-navy-600 disabled:opacity-60 text-navy-50 font-bold px-6 py-3 rounded-xl transition-all"
                 >
                   {resetLoading ? <Loader2 size={18} className="animate-spin" /> : <MailQuestion size={18} />}
@@ -313,7 +309,7 @@ export default function CustomerAuth() {
                     {resetSuccess}
                   </p>
                 )}
-              </form>
+              </div>
             )}
 
             <p className="text-center text-navy-400 text-sm">
