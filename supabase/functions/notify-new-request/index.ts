@@ -90,22 +90,28 @@ Deno.serve(async (req: Request) => {
     return new Response('Method Not Allowed', { status: 405 });
   }
 
-  // 1. Verify shared webhook secret
+  // 1. Verify shared webhook secret (fail closed: reject if secret is missing or mismatched)
   const configuredSecret = Deno.env.get('WEBHOOK_SECRET');
-  if (configuredSecret) {
-    const incomingSecret =
-      req.headers.get('x-webhook-secret') ||
-      req.headers.get('webhook-secret') ||
-      req.headers.get('x-secret') ||
-      req.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
+  if (!configuredSecret) {
+    console.error('WEBHOOK_SECRET is not configured on server');
+    return new Response(JSON.stringify({ error: 'Server misconfigured: WEBHOOK_SECRET required' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
-    if (incomingSecret !== configuredSecret) {
-      console.warn('Unauthorized webhook call: secret mismatch');
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
+  const incomingSecret =
+    req.headers.get('x-webhook-secret') ||
+    req.headers.get('webhook-secret') ||
+    req.headers.get('x-secret') ||
+    req.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
+
+  if (incomingSecret !== configuredSecret) {
+    console.warn('Unauthorized webhook call: secret mismatch');
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   // 2. Parse payload

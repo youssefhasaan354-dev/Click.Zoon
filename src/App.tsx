@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import MockupsSection from '@/components/MockupsSection';
@@ -18,8 +18,9 @@ import ScrollProgress from '@/components/ScrollProgress';
 import MobileBottomBar from '@/components/MobileBottomBar';
 import BackToTop from '@/components/BackToTop';
 import NotFoundPage from '@/pages/NotFound';
+import Seo from '@/components/Seo';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useSectionVisibility } from '@/lib/site-data-context';
+import { useSectionVisibility, useSiteData } from '@/lib/site-data-context';
 
 export function ScrollToHash() {
   const { hash, pathname } = useLocation();
@@ -51,7 +52,15 @@ export function ScrollToHash() {
   return null;
 }
 
+const defaultFaqs = [
+  { question: 'كم مدة تجهيز الديمو المجاني؟', answer: 'الديمو بيتجهز خلال 24 إلى 72 ساعة من وقت طلبك على أساس نشاطك قبل ما تدفع أي حاجة.' },
+  { question: 'كم مدة التسليم النهائي للموقع؟', answer: 'التسليم النهائي من 3 أيام إلى أسبوع حسب متطلبات المشروع.' },
+  { question: 'هل في أي التزام قبل ما أشوف الديمو؟', answer: 'لا، بدون أي التزام. الديمو مجاني بالكامل — تتطمن عليه، ولو عجبك نكمّل.' },
+  { question: 'من يملك الدومين والاستضافة؟', answer: 'أنت بتملك الدومين والاستضافة باسمك بالكامل وجميع بيانات الدخول بتتسلم لك.' },
+];
+
 function HomePage() {
+  const { data } = useSiteData();
   const showMockups = useSectionVisibility('mockups');
   const showDemo = useSectionVisibility('demo');
   const showServices = useSectionVisibility('services');
@@ -64,8 +73,30 @@ function HomePage() {
   const showFaq = useSectionVisibility('faq');
   const showContact = useSectionVisibility('contact');
 
+  const faqsForSchema = useMemo(() => {
+    return data.faqs && data.faqs.length > 0 ? data.faqs : defaultFaqs;
+  }, [data.faqs]);
+
+  const jsonLd = useMemo(() => {
+    return [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqsForSchema.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.answer,
+          },
+        })),
+      },
+    ];
+  }, [faqsForSchema]);
+
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
+      <Seo canonical="/" jsonLd={jsonLd} />
       <ScrollToHash />
       <ScrollProgress />
       <Header />
