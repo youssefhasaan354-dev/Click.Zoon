@@ -2,6 +2,7 @@ import { Phone, Mail, MessageCircle, Facebook, Instagram, MapPin } from 'lucide-
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
 import { Link } from 'react-router-dom';
+import { useToast } from '@/lib/toast-context';
 
 const quickLinks = [
   { to: '/#home', label: 'الرئيسية' },
@@ -16,6 +17,7 @@ const quickLinks = [
 
 export default function Footer() {
   const cfg = useSiteConfig();
+  const { copyToClipboard } = useToast();
 
   return (
     <footer className="bg-navy-950 border-t border-navy-700/30">
@@ -88,7 +90,10 @@ export default function Footer() {
               <li>
                 <a
                   href={`tel:${cfg.phone}`}
-                  onClick={() => trackEvent({ category: 'call', action: 'click', label: 'footer_call' })}
+                  onClick={() => {
+                    trackEvent({ category: 'call', action: 'click', label: 'footer_call' });
+                    copyToClipboard(cfg.phone, 'رقم الهاتف');
+                  }}
                   className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm py-1"
                 >
                   <Phone size={16} className="text-gold-400 shrink-0" />
@@ -98,7 +103,10 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${cfg.email}`}
-                  onClick={() => trackEvent({ category: 'email', action: 'click', label: 'footer_email' })}
+                  onClick={() => {
+                    trackEvent({ category: 'email', action: 'click', label: 'footer_email' });
+                    copyToClipboard(cfg.email, 'البريد الإلكتروني');
+                  }}
                   className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm break-all py-1"
                 >
                   <Mail size={16} className="text-gold-400 shrink-0" />

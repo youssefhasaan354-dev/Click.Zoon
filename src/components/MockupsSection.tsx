@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Smartphone, Monitor, ChevronRight, ChevronLeft, Pause, Play, Lock } from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
+import SectionHeader from '@/components/SectionHeader';
+import { motion } from 'framer-motion';
 
 // ==============================================================================
 // لقطات شاشة المشاريع المُنفذة — يمكنك استبدال هذه الملفات بلقطات شاشة مشاريعك الحقيقية
@@ -75,7 +77,6 @@ export default function MockupsSection() {
     if (touchStartXRef.current === null) return;
     const touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartXRef.current - touchEndX;
-    // In RTL layout, swipe left (diff > 40) moves to next, swipe right moves to prev
     if (diff > 40) {
       next();
     } else if (diff < -40) {
@@ -85,21 +86,15 @@ export default function MockupsSection() {
   };
 
   return (
-    <section id="mockups" className="py-20 lg:py-28">
+    <section id="mockups" className="py-20 lg:py-28 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 text-gold-400 text-sm font-bold mb-3">
-            <Monitor size={16} />
-            <span>معاينة حقيقية للمشاريع</span>
-          </div>
-          <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4 leading-[1.35]">
-            شوف تصور موقعك على <span className="text-gradient-gold block sm:inline">الموبايل واللابتوب</span>
-          </h2>
-          <p className="text-navy-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            نماذج بصرية حقيقية من مشاريع نفّذناها لعملائنا تساعدك تتخيل شكل موقعك وسرعته قبل البدء.
-          </p>
-        </div>
+        <SectionHeader
+          icon={Monitor}
+          badge="معاينة حقيقية للمشاريع"
+          title="شوف تصور موقعك على"
+          highlight="الموبايل واللابتوب"
+          subtitle="نماذج بصرية حقيقية من مشاريع نفّذناها لعملائنا تساعدك تتخيل شكل موقعك وسرعته قبل البدء."
+        />
 
         <div
           ref={ref}
@@ -136,7 +131,7 @@ export default function MockupsSection() {
                 >
                   <span
                     className={`block h-2 rounded-full transition-all duration-300 ${
-                      i === index ? 'w-8 bg-gold-500' : 'w-2.5 bg-navy-600 hover:bg-navy-500'
+                      i === index ? 'w-8 bg-gold-500 shadow-md shadow-gold-500/30' : 'w-2.5 bg-navy-600 hover:bg-navy-500'
                     }`}
                   />
                 </button>
@@ -166,15 +161,19 @@ export default function MockupsSection() {
 
           {/* Current project info pill */}
           <div className="text-center mb-8">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-navy-800/70 border border-gold-500/30 text-gold-300 text-sm font-bold shadow-sm">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-navy-800/80 border border-gold-500/30 text-gold-300 text-sm font-bold shadow-sm">
               {deliveredProjects[index].title} — <span className="text-navy-300 font-normal">{deliveredProjects[index].category}</span>
             </span>
           </div>
 
-          {/* Mockups display */}
+          {/* Mockups display with subtle floating animation */}
           <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-8">
             {/* Laptop frame */}
-            <div className="w-full max-w-2xl">
+            <motion.div
+              animate={{ y: [-3, 3, -3] }}
+              transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
+              className="w-full max-w-2xl"
+            >
               <div className="relative">
                 {/* Screen bezel */}
                 <div className="bg-navy-950 rounded-t-2xl border-2 border-navy-600/50 border-b-0 p-3 shadow-2xl">
@@ -216,10 +215,14 @@ export default function MockupsSection() {
                 <div className="bg-navy-700/70 rounded-b-2xl border-2 border-navy-600/50 border-t-0 h-3.5 w-full shadow-lg" />
                 <div className="bg-navy-600/50 h-1.5 w-1/3 mx-auto rounded-b-lg" />
               </div>
-            </div>
+            </motion.div>
 
             {/* Phone frame */}
-            <div className="shrink-0">
+            <motion.div
+              animate={{ y: [4, -4, 4] }}
+              transition={{ repeat: Infinity, duration: 5.5, ease: 'easeInOut' }}
+              className="shrink-0"
+            >
               <div className="relative bg-navy-950 rounded-[2.2rem] border-4 border-navy-600/50 p-2 shadow-2xl w-52 sm:w-56">
                 {/* Notch / Speaker */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-18 h-4 bg-navy-950 rounded-b-xl z-30 flex items-center justify-center">
@@ -259,7 +262,7 @@ export default function MockupsSection() {
                 <Smartphone size={14} className="text-gold-400" />
                 <span>عرض الموبايل المتجاوب</span>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useReveal } from '@/hooks/useReveal';
 import { useSiteConfig } from '@/siteConfig';
 import { useSectionVisibility } from '@/lib/site-data-context';
+import Counter from '@/components/Counter';
 
 export default function AboutUs() {
   const { ref, revealed } = useReveal();
@@ -32,7 +33,7 @@ export default function AboutUs() {
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center glass-card rounded-xl p-6 transition-transform duration-300 hover:-translate-y-1">
                   <div className="text-4xl font-extrabold text-gradient-gold mb-2">
-                    {stat.value}{stat.suffix}
+                    <Counter value={stat.value} suffix={stat.suffix} />
                   </div>
                   <div className="text-navy-300 text-sm">{stat.label}</div>
                 </div>
@@ -82,7 +83,7 @@ export default function AboutUs() {
                 {stats.map((stat) => (
                   <div key={stat.label} className="text-center glass-card rounded-xl p-4 transition-transform duration-300 hover:-translate-y-1">
                     <div className="text-3xl font-extrabold text-gradient-gold mb-1">
-                      {stat.value}{stat.suffix}
+                      <Counter value={stat.value} suffix={stat.suffix} />
                     </div>
                     <div className="text-navy-300 text-sm">{stat.label}</div>
                   </div>

@@ -5,6 +5,7 @@ import { trackEvent } from '@/lib/analytics';
 import { useSiteData } from '@/lib/site-data-context';
 import { useCustomer } from '@/lib/customer-context';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const allNavLinks = [
   { href: '/#home', id: 'home', label: 'الرئيسية', section: 'hero' },
@@ -173,16 +174,18 @@ export default function Header() {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className={`text-sm font-semibold relative py-2 transition-colors duration-200 ${
+                      className={`text-sm font-semibold relative py-2 transition-colors duration-200 block ${
                         isActive ? 'text-gold-400 font-bold' : 'text-navy-100 hover:text-gold-300'
                       }`}
                     >
                       {link.label}
-                      <span
-                        className={`absolute bottom-0 right-0 h-0.5 bg-gold-400 transition-all duration-300 ${
-                          isActive ? 'w-full' : 'w-0 hover:w-full'
-                        }`}
-                      />
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeNavUnderline"
+                          className="absolute bottom-0 right-0 left-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
                     </Link>
                   </li>
                 );
@@ -288,13 +291,18 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* Mobile menu drawer */}
-        {menuOpen && (
-          <div
-            id="mobile-nav-drawer"
-            ref={mobileMenuRef}
-            className="xl:hidden bg-navy-900/98 backdrop-blur-lg border-t border-navy-700/60 shadow-2xl max-h-[calc(100vh-4.5rem)] overflow-y-auto"
-          >
+        {/* Mobile menu drawer with smooth animation */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              id="mobile-nav-drawer"
+              ref={mobileMenuRef}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="xl:hidden bg-navy-900/98 backdrop-blur-lg border-t border-navy-700/60 shadow-2xl max-h-[calc(100vh-4.5rem)] overflow-y-auto"
+            >
             <div className="px-5 py-6 space-y-4">
               <ul className="space-y-1">
                 {navLinks.map((link) => {
@@ -369,8 +377,9 @@ export default function Header() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
+      </AnimatePresence>
       </header>
     </>
   );

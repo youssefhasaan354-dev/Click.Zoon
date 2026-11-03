@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import { Phone, Mail, MessageCircle, MapPin, Facebook, Instagram, Send, User, Store, Link, CheckCircle2 } from 'lucide-react';
+import { Phone, Mail, MessageCircle, MapPin, Facebook, Instagram, Send, User, Store, Link, CheckCircle2, Loader2, Sparkles } from 'lucide-react';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { useReveal } from '@/hooks/useReveal';
 import { trackEvent } from '@/lib/analytics';
 import { supabase } from '@/lib/supabase';
 import { useCustomer } from '@/lib/customer-context';
 import { validateEgyptianPhone, cleanPhoneNumber } from '@/lib/phone';
+import SectionHeader from '@/components/SectionHeader';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const RATE_LIMIT_MS = 30_000;
 const MAX_NAME_LEN = 160;
@@ -163,26 +165,42 @@ ${businessTypeMsg}${trimmedUrl ? `
   };
 
   const inputClass =
-    'w-full bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-3 text-navy-50 placeholder-navy-300 focus:border-gold-500/50 focus:outline-none focus:ring-1 focus:ring-gold-500/30 transition-all';
+    'w-full bg-navy-800/70 border border-navy-600/50 rounded-xl px-4 py-3 text-navy-50 placeholder-navy-400 focus:border-gold-500/60 focus:outline-none focus:ring-2 focus:ring-gold-500/30 transition-all';
 
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-navy-950/50">
+    <section id="contact" className="py-20 lg:py-28 bg-navy-950/60 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">تواصل معنا</div>
-          <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4">
-            اطلب ديمو مجاني <span className="text-gradient-gold">لنشاطك</span>
-          </h2>
-          <p className="text-navy-300 text-lg max-w-2xl mx-auto">
-            بنخدم الأنشطة التجارية في المنصورة والدقهلية وكل مصر. املأ بيانات نشاطك، وسنرسل طلبك مباشرة إلى واتساب للبدء في تجهيز الديمو.
-          </p>
-        </div>
+        <SectionHeader
+          icon={Sparkles}
+          badge="تواصل معنا"
+          title="اطلب ديمو مجاني"
+          highlight="مخصص لنشاطك التجاري"
+          subtitle="بنخدم الأنشطة التجارية في المنصورة والدقهلية وكل مصر. املأ بياناتك وسنرسل طلبك مباشرة إلى واتساب لنبدأ العمل فوراً."
+        />
 
         <div ref={ref} className={`grid lg:grid-cols-2 gap-8 reveal ${revealed ? 'revealed' : ''}`}>
-          {/* Form */}
-          <div className="glass-card rounded-2xl p-8">
+          {/* Form Card */}
+          <div className="glass-card rounded-2xl p-7 sm:p-9 relative overflow-hidden">
+            {/* CSS Celebration Gold Particles on submit success */}
+            {submitStatus === 'success' && (
+              <div className="absolute inset-0 pointer-events-none z-30 overflow-hidden" aria-hidden="true">
+                {Array.from({ length: 24 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className="absolute w-2 h-2 rounded-full bg-gold-400 opacity-90 animate-fade-out"
+                    style={{
+                      top: `${Math.random() * 80 + 10}%`,
+                      left: `${Math.random() * 80 + 10}%`,
+                      transform: `scale(${Math.random() * 1.5 + 0.5})`,
+                      animation: `shimmer 1.5s ease-out forwards ${i * 0.04}s`,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-              {/* Honeypot — hidden from users, bots fill it */}
+              {/* Honeypot for bots */}
               <input
                 type="text"
                 name="company_website"
@@ -197,7 +215,7 @@ ${businessTypeMsg}${trimmedUrl ? `
               <div>
                 <label htmlFor="contact-name" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <User size={16} className="text-gold-400" />
-                  الاسم <span className="text-red-400">*</span>
+                  الاسم الكريم <span className="text-red-400">*</span>
                 </label>
                 <input
                   id="contact-name"
@@ -207,7 +225,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                   maxLength={MAX_NAME_LEN}
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="اسمك الكريم"
+                  placeholder="مثال: أحمد محمد"
                   className={inputClass}
                 />
               </div>
@@ -225,12 +243,16 @@ ${businessTypeMsg}${trimmedUrl ? `
                   maxLength={MAX_BUSINESS_LEN}
                   value={form.business}
                   onChange={(e) => setForm({ ...form, business: e.target.value })}
-                  placeholder="مثال: شركة، متجر، عيادة، مطعم..."
+                  placeholder="مثال: مطعم، كافيه، متجر ملابس، عيادة..."
                   className={inputClass}
                 />
               </div>
 
-              <div>
+              {/* Phone Field with Shake animation on validation error */}
+              <motion.div
+                animate={phoneError ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
+                transition={{ duration: 0.4 }}
+              >
                 <label htmlFor="contact-phone" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <Phone size={16} className="text-gold-400" />
                   رقم الموبايل <span className="text-red-400">*</span>
@@ -246,17 +268,17 @@ ${businessTypeMsg}${trimmedUrl ? `
                   value={form.phone}
                   onChange={(e) => handlePhoneChange(e.target.value)}
                   placeholder="01xxxxxxxxx"
-                  className={inputClass}
+                  className={`${inputClass} ${phoneError ? 'border-red-500/70 focus:border-red-500' : ''}`}
                   dir="ltr"
                   aria-invalid={Boolean(phoneError)}
                   aria-describedby={phoneError ? 'contact-phone-error' : undefined}
                 />
                 {phoneError && (
-                  <p id="contact-phone-error" className="text-red-300 text-xs mt-1.5" role="alert">
+                  <p id="contact-phone-error" className="text-red-300 text-xs mt-1.5 font-medium" role="alert">
                     {phoneError}
                   </p>
                 )}
-              </div>
+              </motion.div>
 
               <div>
                 <label htmlFor="contact-page-url" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
@@ -270,58 +292,89 @@ ${businessTypeMsg}${trimmedUrl ? `
                   maxLength={MAX_URL_LEN}
                   value={form.pageUrl}
                   onChange={(e) => setForm({ ...form, pageUrl: e.target.value })}
-                  placeholder="https://example.com"
+                  placeholder="https://facebook.com/your-business"
                   className={inputClass}
                   dir="ltr"
                 />
               </div>
 
-              <button
+              {/* Button with State Morph: idle -> loading -> success */}
+              <motion.button
                 type="submit"
+                whileTap={{ scale: 0.98 }}
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 disabled:opacity-60 disabled:cursor-not-allowed text-navy-900 font-bold px-6 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] glow-gold-hover text-lg"
+                className="w-full inline-flex items-center justify-center gap-2.5 bg-gold-500 hover:bg-gold-400 disabled:opacity-70 disabled:cursor-not-allowed text-navy-950 font-bold px-6 py-4 rounded-xl transition-all duration-300 glow-gold-hover text-lg shadow-lg shadow-gold-500/20"
               >
-                <Send size={20} />
-                {isSubmitting ? 'جارٍ تجهيز طلبك...' : 'اطلب الديمو عبر واتساب'}
-              </button>
+                <AnimatePresence mode="wait">
+                  {isSubmitting ? (
+                    <motion.span
+                      key="submitting"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="inline-flex items-center gap-2"
+                    >
+                      <Loader2 size={20} className="animate-spin text-navy-950" />
+                      <span>جارٍ تجهيز طلبك...</span>
+                    </motion.span>
+                  ) : submitStatus === 'success' ? (
+                    <motion.span
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="inline-flex items-center gap-2 text-navy-950"
+                    >
+                      <CheckCircle2 size={22} className="text-navy-950" />
+                      <span>تم بنجاح — جارٍ فتح واتساب</span>
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="idle"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="inline-flex items-center gap-2"
+                    >
+                      <Send size={20} />
+                      <span>اطلب الديمو عبر واتساب</span>
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+
               <p className="text-center text-navy-300 text-sm flex items-center justify-center gap-1.5">
                 <CheckCircle2 size={14} className="text-gold-400" />
-                ديمو مجاني بدون أي التزام
+                ديمو مجاني خلال 24-72 ساعة بدون أي التزام مالي
               </p>
+
               {rateLimited && (
                 <p className="text-amber-300 text-sm text-center" role="alert">
                   {rateLimitMsg || 'لقد أرسلت طلباً للتو. انتظر قليلاً قبل إرسال طلب آخر.'}
                 </p>
               )}
-              {submitStatus === 'success' && (
-                <div className="text-center space-y-1" role="status">
-                  <p className="text-green-400 text-sm font-semibold">تم إرسال طلبك بنجاح وجارٍ نقلك لواتساب.</p>
-                  <p className="text-green-300/80 text-sm">هنرد عليك خلال 24 ساعة.</p>
-                </div>
-              )}
               {submitStatus === 'error' && (
                 <p className="text-amber-300 text-sm text-center" role="alert">
-                  تم فتح واتساب لتأكيد طلبك مباشرة مع فريق Click Zoon.
+                  تم فتح واتساب لتأكيد طلبك مباشرة مع فريق العمل.
                 </p>
               )}
             </form>
           </div>
 
-          {/* Contact info */}
+          {/* Contact Details Column */}
           <div className="space-y-5">
-            {/* Direct contact buttons */}
             <a
               href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.contact)}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'contact_whatsapp' })}
-              className="flex items-center gap-4 glass-card rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold-500/30 group"
+              className="flex items-center gap-4 glass-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/40 group"
             >
-              <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0 group-hover:bg-green-500/20 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-green-500/15 flex items-center justify-center shrink-0 group-hover:bg-green-500/25 transition-colors">
                 <MessageCircle size={24} className="text-green-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">واتساب مباشر</div>
+                <div className="text-navy-300 text-sm">واتساب الدعم الفني</div>
                 <div className="text-navy-50 font-bold" dir="ltr">{cfg.phone}</div>
               </div>
             </a>
@@ -329,13 +382,13 @@ ${businessTypeMsg}${trimmedUrl ? `
             <a
               href={`tel:${cfg.phone}`}
               onClick={() => trackEvent({ category: 'call', action: 'click', label: 'contact_call' })}
-              className="flex items-center gap-4 glass-card rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold-500/30 group"
+              className="flex items-center gap-4 glass-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/40 group"
             >
-              <div className="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center shrink-0 group-hover:bg-gold-500/20 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-gold-500/15 flex items-center justify-center shrink-0 group-hover:bg-gold-500/25 transition-colors">
                 <Phone size={24} className="text-gold-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">اتصال مباشر</div>
+                <div className="text-navy-300 text-sm">اتصال هاتفي مباشر</div>
                 <div className="text-navy-50 font-bold" dir="ltr">{cfg.phone}</div>
               </div>
             </a>
@@ -343,31 +396,30 @@ ${businessTypeMsg}${trimmedUrl ? `
             <a
               href={`mailto:${cfg.email}`}
               onClick={() => trackEvent({ category: 'email', action: 'click', label: 'contact_email' })}
-              className="flex items-center gap-4 glass-card rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold-500/30 group"
+              className="flex items-center gap-4 glass-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/40 group"
             >
-              <div className="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center shrink-0 group-hover:bg-teal-500/20 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-teal-500/15 flex items-center justify-center shrink-0 group-hover:bg-teal-500/25 transition-colors">
                 <Mail size={24} className="text-teal-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">البريد الإلكتروني</div>
+                <div className="text-navy-300 text-sm">البريد الإلكتروني الرسمي</div>
                 <div className="text-navy-50 font-bold text-sm" dir="ltr">{cfg.email}</div>
               </div>
             </a>
 
-            {/* Location */}
-            <div className="flex items-center gap-4 glass-card rounded-xl p-5">
-              <div className="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-4 glass-card rounded-2xl p-5">
+              <div className="w-12 h-12 rounded-xl bg-gold-500/15 flex items-center justify-center shrink-0">
                 <MapPin size={24} className="text-gold-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">الموقع</div>
-                <div className="text-navy-50 font-bold">{cfg.location}</div>
+                <div className="text-navy-300 text-sm">نطاق الخدمة</div>
+                <div className="text-navy-50 font-bold">{cfg.location} — المنصورة وكل مصر</div>
               </div>
             </div>
 
-            {/* Embedded map — only if URL is set in admin settings */}
+            {/* Embedded Google Map */}
             {cfg.mapEmbedUrl && (
-              <div className="rounded-xl overflow-hidden border border-navy-600/30 h-56">
+              <div className="rounded-2xl overflow-hidden border border-navy-700/50 h-56 shadow-lg">
                 <iframe
                   title="موقع Click Zoon على خرائط جوجل"
                   src={cfg.mapEmbedUrl}
@@ -380,16 +432,16 @@ ${businessTypeMsg}${trimmedUrl ? `
               </div>
             )}
 
-            {/* Social */}
+            {/* Social Links */}
             <div className="flex gap-4">
               <a
                 href={cfg.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent({ category: 'social', action: 'click', label: 'facebook' })}
-                className="flex-1 flex items-center justify-center gap-2 bg-navy-800/50 hover:bg-blue-600/20 border border-navy-600/30 hover:border-blue-500/30 rounded-xl py-3.5 transition-all duration-300 group"
+                className="flex-1 flex items-center justify-center gap-2 bg-navy-800/60 hover:bg-blue-600/20 border border-navy-700/50 hover:border-blue-500/40 rounded-xl py-3.5 transition-colors group"
               >
-                <Facebook size={22} className="text-blue-400" />
+                <Facebook size={20} className="text-blue-400" />
                 <span className="text-navy-200 font-semibold text-sm">فيسبوك</span>
               </a>
               <a
@@ -397,9 +449,9 @@ ${businessTypeMsg}${trimmedUrl ? `
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent({ category: 'social', action: 'click', label: 'instagram' })}
-                className="flex-1 flex items-center justify-center gap-2 bg-navy-800/50 hover:bg-pink-600/20 border border-navy-600/30 hover:border-pink-500/30 rounded-xl py-3.5 transition-all duration-300 group"
+                className="flex-1 flex items-center justify-center gap-2 bg-navy-800/60 hover:bg-pink-600/20 border border-navy-700/50 hover:border-pink-500/40 rounded-xl py-3.5 transition-colors group"
               >
-                <Instagram size={22} className="text-pink-400" />
+                <Instagram size={20} className="text-pink-400" />
                 <span className="text-navy-200 font-semibold text-sm">إنستجرام</span>
               </a>
             </div>

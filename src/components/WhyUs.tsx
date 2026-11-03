@@ -2,6 +2,8 @@ import { useReveal } from '@/hooks/useReveal';
 import { useSiteData, useSectionVisibility } from '@/lib/site-data-context';
 import { siteConfig } from '@/siteConfig';
 import { getIcon } from '@/lib/icons';
+import SectionHeader from '@/components/SectionHeader';
+import Counter from '@/components/Counter';
 
 const fallbackFeatures = [
   { icon: 'Award', title: 'تصميم احترافي', desc: 'كل موقع مصمم خصيصاً ليُعبّر عن هوية نشاطك.' },
@@ -29,15 +31,12 @@ export default function WhyUs() {
       {/* Why Us */}
       <section id="why-us" className="py-20 lg:py-28 bg-navy-950/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">ليه Click Zoon</div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4">
-              <span className="text-gradient-gold">ليه تختارنا</span> لتطوير نشاطك؟
-            </h2>
-            <p className="text-navy-300 text-lg max-w-2xl mx-auto">
-              مش بس بنعمل موقع — بنبني لك حضوراً رقمياً يخدم نشاطك.
-            </p>
-          </div>
+          <SectionHeader
+            badge="ليه Click Zoon"
+            title="ليه تختارنا"
+            highlight="لتطوير نشاطك؟"
+            subtitle="مش بس بنعمل موقع — بنبني لك حضوراً رقمياً يخدم نشاطك ويحقق لك عملاء حقيقيين."
+          />
 
           <div ref={featRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((feat, i) => {
@@ -65,9 +64,9 @@ export default function WhyUs() {
           {siteConfig.counters.length > 0 && (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
               {siteConfig.counters.map((counter) => (
-                <div key={counter.label} className="text-center glass-card rounded-xl p-6">
+                <div key={counter.label} className="text-center glass-card rounded-xl p-6 transition-transform duration-300 hover:-translate-y-1">
                   <div className="text-4xl font-extrabold text-gradient-gold mb-2">
-                    {counter.value}{counter.suffix}
+                    <Counter value={counter.value} suffix={counter.suffix} />
                   </div>
                   <div className="text-navy-300 text-sm">{counter.label}</div>
                 </div>
@@ -81,12 +80,12 @@ export default function WhyUs() {
       {shouldShowTestimonials && (
         <section id="testimonials" className="py-20 lg:py-28 bg-navy-950/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">آراء عملائنا</div>
-              <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4">
-                ماذا قال <span className="text-gradient-gold">عملاؤنا</span>؟
-              </h2>
-            </div>
+            <SectionHeader
+              badge="آراء عملائنا"
+              title="ماذا قال"
+              highlight="عملاؤنا عنا؟"
+              subtitle="قصص نجاح واقعية من أصحاب أنشطة تجارية اختاروا كليك زون."
+            />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {testimonials.map((review) => (
                 <div

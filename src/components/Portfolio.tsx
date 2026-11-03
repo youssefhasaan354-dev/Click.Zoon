@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { X, ChevronRight, ChevronLeft, ExternalLink } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, ExternalLink, Sparkles } from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
 import { useSiteData } from '@/lib/site-data-context';
+import SectionHeader from '@/components/SectionHeader';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const filters = [
   { key: 'all', label: 'الكل' },
@@ -46,7 +48,6 @@ export default function Portfolio() {
   useEffect(() => {
     if (lightboxIndex === null) return;
 
-    // Focus close button on open
     setTimeout(() => {
       closeButtonRef.current?.focus();
     }, 50);
@@ -56,15 +57,12 @@ export default function Portfolio() {
         e.preventDefault();
         closeLightbox();
       } else if (e.key === 'ArrowRight') {
-        // In RTL, right arrow navigates to the previous card on the right
         e.preventDefault();
         prevProject();
       } else if (e.key === 'ArrowLeft') {
-        // In RTL, left arrow navigates to the next card on the left
         e.preventDefault();
         nextProject();
       } else if (e.key === 'Tab') {
-        // Simple focus trap within lightbox dialog
         const dialog = document.getElementById('portfolio-lightbox-dialog');
         if (!dialog) return;
         const focusables = dialog.querySelectorAll<HTMLElement>(
@@ -101,7 +99,6 @@ export default function Portfolio() {
     if (touchStartXRef.current === null) return;
     const touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartXRef.current - touchEndX;
-    // In RTL, swipe left (diff > 50) means advancing to the next item
     if (diff > 50) {
       nextProject();
     } else if (diff < -50) {
@@ -115,16 +112,13 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">أعمالنا السابقة</div>
-          <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4">
-            نماذج من <span className="text-gradient-gold">أعمالنا ومشاريعنا</span>
-          </h2>
-          <p className="text-navy-300 text-lg max-w-2xl mx-auto">
-            مواقع ومتاجر إلكترونية حقيقية صمّمناها ونفّذناها لعملائنا في المنصورة ومصر.
-          </p>
-        </div>
+        <SectionHeader
+          icon={Sparkles}
+          badge="أعمالنا السابقة"
+          title="نماذج حقيقية من"
+          highlight="مشاريعنا وتصميماتنا المنفذة"
+          subtitle="مواقع ومتاجر إلكترونية حية صمّمناها ونفّذناها لعملائنا في المنصورة ومصر."
+        />
 
         {/* Filters */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
@@ -135,7 +129,7 @@ export default function Portfolio() {
               aria-pressed={activeFilter === f.key}
               className={`min-h-[44px] px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 ${
                 activeFilter === f.key
-                  ? 'bg-gold-500 text-navy-900 shadow-md shadow-gold-500/20 font-bold'
+                  ? 'bg-gold-500 text-navy-950 shadow-md shadow-gold-500/25 font-bold scale-105'
                   : 'bg-navy-800/60 text-navy-200 hover:bg-navy-700/60 hover:text-navy-50 border border-navy-700/50'
               }`}
             >
@@ -144,131 +138,148 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Projects grid */}
-        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((project, i) => (
-            <div
-              key={`${project.id}-${i}`}
-              className={`reveal ${revealed ? 'revealed' : ''}`}
-              style={revealed ? undefined : { transitionDelay: `${i * 80}ms` }}
-            >
-              <button
-                type="button"
-                onClick={(e) => openLightbox(i, e)}
-                className="w-full group relative overflow-hidden rounded-2xl glass-card text-right transition-transform duration-300 hover:-translate-y-2 hover:border-gold-500/40 h-full flex flex-col justify-between"
-                aria-label={`عرض تفاصيل مشروع ${project.title}`}
+        {/* Projects grid with smooth layout transition */}
+        <motion.div layout ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project, i) => (
+              <motion.div
+                key={project.id || `${project.title}-${i}`}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className={`reveal ${revealed ? 'revealed' : ''}`}
+                style={revealed ? undefined : { transitionDelay: `${i * 80}ms` }}
               >
-                {/* Image */}
-                <div className="relative h-56 w-full overflow-hidden bg-navy-950">
-                  <img
-                    src={project.image_url}
-                    alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}
-                    loading="lazy"
-                    decoding="async"
-                    width={600}
-                    height={338}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/30 to-transparent pointer-events-none" />
-                </div>
+                <button
+                  type="button"
+                  onClick={(e) => openLightbox(i, e)}
+                  className="w-full group relative overflow-hidden rounded-2xl glass-card text-right transition-transform duration-300 hover:-translate-y-2 hover:border-gold-500/40 h-full flex flex-col justify-between"
+                  aria-label={`عرض تفاصيل مشروع ${project.title}`}
+                >
+                  {/* Image with zoom and gentle overlay */}
+                  <div className="relative h-56 w-full overflow-hidden bg-navy-950">
+                    <img
+                      src={project.image_url}
+                      alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}
+                      loading="lazy"
+                      decoding="async"
+                      width={600}
+                      height={338}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/20 to-transparent pointer-events-none" />
+                  </div>
 
-                {/* Info */}
-                <div className="p-5 w-full">
-                  <h3 className="text-lg font-bold text-navy-50 mb-2 group-hover:text-gold-300 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-navy-300 text-sm leading-relaxed line-clamp-2">{project.description}</p>
-                </div>
-              </button>
-            </div>
-          ))}
-        </div>
+                  {/* Info */}
+                  <div className="p-5 w-full">
+                    <h3 className="text-lg font-bold text-navy-50 mb-2 group-hover:text-gold-300 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-navy-300 text-sm leading-relaxed line-clamp-2">{project.description}</p>
+                  </div>
+                </button>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Lightbox Modal */}
-      {lightboxIndex !== null && filtered[lightboxIndex] && (
-        <div
-          id="portfolio-lightbox-dialog"
-          role="dialog"
-          aria-modal="true"
-          aria-label={filtered[lightboxIndex].title || 'معاينة المشروع'}
-          className="fixed inset-0 z-[100] bg-navy-950/95 backdrop-blur-md flex items-center justify-center p-4"
-          onClick={closeLightbox}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Close button with min 44x44px tap target */}
-          <button
-            ref={closeButtonRef}
-            className="absolute top-5 right-5 text-navy-100 hover:text-gold-400 transition-colors w-11 h-11 rounded-full bg-navy-900/80 border border-navy-700/60 flex items-center justify-center z-10"
+      <AnimatePresence>
+        {lightboxIndex !== null && filtered[lightboxIndex] && (
+          <motion.div
+            id="portfolio-lightbox-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-label={filtered[lightboxIndex].title || 'معاينة المشروع'}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[100] bg-navy-950/95 backdrop-blur-md flex items-center justify-center p-4"
             onClick={closeLightbox}
-            aria-label="إغلاق المعاينة"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
-            <X size={24} />
-          </button>
+            {/* Close button with min 44x44px tap target */}
+            <button
+              ref={closeButtonRef}
+              className="absolute top-5 right-5 text-navy-100 hover:text-gold-400 transition-colors w-11 h-11 rounded-full bg-navy-900/80 border border-navy-700/60 flex items-center justify-center z-10"
+              onClick={closeLightbox}
+              aria-label="إغلاق المعاينة"
+            >
+              <X size={24} />
+            </button>
 
-          {/* Prev/Next buttons (RTL aware) */}
-          {filtered.length > 1 && (
-            <>
-              <button
-                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prevProject();
-                }}
-                aria-label="المشروع السابق"
-                title="السابق"
-              >
-                <ChevronRight size={28} />
-              </button>
-              <button
-                className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  nextProject();
-                }}
-                aria-label="المشروع التالي"
-                title="التالي"
-              >
-                <ChevronLeft size={28} />
-              </button>
-            </>
-          )}
+            {/* Prev/Next buttons (RTL aware) */}
+            {filtered.length > 1 && (
+              <>
+                <button
+                  className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevProject();
+                  }}
+                  aria-label="المشروع السابق"
+                  title="السابق"
+                >
+                  <ChevronRight size={28} />
+                </button>
+                <button
+                  className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextProject();
+                  }}
+                  aria-label="المشروع التالي"
+                  title="التالي"
+                >
+                  <ChevronLeft size={28} />
+                </button>
+              </>
+            )}
 
-          {/* Dialog Content */}
-          <div
-            className="max-w-3xl w-full bg-navy-900 rounded-2xl overflow-hidden border border-navy-700/60 shadow-2xl relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative bg-navy-950 max-h-[60vh] flex items-center justify-center overflow-hidden">
-              <img
-                src={filtered[lightboxIndex].image_url}
-                alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
-                width={1200}
-                height={675}
-                className="w-full max-h-[60vh] object-contain"
-              />
-            </div>
-            <div className="p-6">
-              <div className="flex items-start justify-between gap-4 mb-2">
-                <h3 className="text-xl font-bold text-navy-50">{filtered[lightboxIndex].title}</h3>
-                {(filtered[lightboxIndex].live_url || filtered[lightboxIndex].link) && (
-                  <a
-                    href={filtered[lightboxIndex].live_url || filtered[lightboxIndex].link || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 hover:text-gold-300 bg-gold-500/10 border border-gold-500/30 px-3 py-1.5 rounded-lg transition-colors"
-                  >
-                    <span>زيارة الموقع</span>
-                    <ExternalLink size={14} />
-                  </a>
-                )}
+            {/* Dialog Content with subtle spring zoom */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="max-w-3xl w-full bg-navy-900 rounded-2xl overflow-hidden border border-navy-700/60 shadow-2xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative bg-navy-950 max-h-[60vh] flex items-center justify-center overflow-hidden">
+                <img
+                  src={filtered[lightboxIndex].image_url}
+                  alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
+                  width={1200}
+                  height={675}
+                  className="w-full max-h-[60vh] object-contain"
+                />
               </div>
-              <p className="text-navy-300 leading-relaxed">{filtered[lightboxIndex].description}</p>
-            </div>
-          </div>
-        </div>
-      )}
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-4 mb-2">
+                  <h3 className="text-xl font-bold text-navy-50">{filtered[lightboxIndex].title}</h3>
+                  {(filtered[lightboxIndex].live_url || filtered[lightboxIndex].link) && (
+                    <a
+                      href={filtered[lightboxIndex].live_url || filtered[lightboxIndex].link || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 hover:text-gold-300 bg-gold-500/10 border border-gold-500/30 px-3 py-1.5 rounded-lg transition-colors"
+                    >
+                      <span>زيارة الموقع الحي</span>
+                      <ExternalLink size={14} />
+                    </a>
+                  )}
+                </div>
+                <p className="text-navy-300 leading-relaxed">{filtered[lightboxIndex].description}</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
