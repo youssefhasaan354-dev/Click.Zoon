@@ -124,6 +124,7 @@ export interface DemoRequest {
   status: string;
   message_text: string | null;
   source: string;
+  notes?: string | null;
 }
 
 export interface SiteData {

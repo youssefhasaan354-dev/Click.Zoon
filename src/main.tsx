@@ -19,6 +19,7 @@ const CustomerAuthPage = lazy(() => import('@/pages/CustomerAuth'));
 const CustomerAccountPage = lazy(() => import('@/pages/CustomerAccount'));
 const CustomerRequestsPage = lazy(() => import('@/pages/CustomerRequests'));
 const ResetPasswordPage = lazy(() => import('@/pages/ResetPassword'));
+const CaseStudyPage = lazy(() => import('@/pages/CaseStudy'));
 
 function GAInitializer() {
   const cfg = useSiteConfig();
@@ -52,6 +53,7 @@ function AnimatedAppRoutes() {
           <Route path="/account" element={<Suspense fallback={<BrandedLoader />}><CustomerAccountPage /></Suspense>} />
           <Route path="/my-requests" element={<Suspense fallback={<BrandedLoader />}><CustomerRequestsPage /></Suspense>} />
           <Route path="/privacy" element={<Suspense fallback={<BrandedLoader />}><PrivacyPage /></Suspense>} />
+          <Route path="/work/:slug" element={<Suspense fallback={<BrandedLoader />}><CaseStudyPage /></Suspense>} />
           <Route path="/*" element={<App />} />
         </Routes>
       </motion.div>

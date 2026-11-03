@@ -1,9 +1,64 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { X, ChevronRight, ChevronLeft, ExternalLink, Sparkles } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, ExternalLink, Sparkles, Monitor, Smartphone, BookOpen } from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
 import { useSiteData } from '@/lib/site-data-context';
 import SectionHeader from '@/components/SectionHeader';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { PortfolioItem } from '@/lib/types';
+
+interface ExtendedPortfolioItem extends PortfolioItem {
+  slug?: string;
+}
+
+const fallbackPortfolio: ExtendedPortfolioItem[] = [
+  {
+    id: 'f-1',
+    title: 'Delano Café & Bistro',
+    category: 'cafes',
+    description: 'منيو إلكتروني تفاعلي QR مع نظام طلب مباشر ودفع سريع عبر واتساب بدون أي عمولات وسيطة.',
+    image_url: '/mockups/mockup-2-cafe-desktop.webp',
+    link: 'https://delano-cafe.clickzoon.com',
+    live_url: 'https://delano-cafe.clickzoon.com',
+    slug: 'delano-cafe',
+    visible: true,
+    sort_order: 1,
+  },
+  {
+    id: 'f-2',
+    title: 'مجمع عيادات رويال التخصصية',
+    category: 'restaurants',
+    description: 'موقع طبي متكامل مع حجز مواعيد ذكي، استعراض جداول الأطباء، وتأكيد الحجز فورياً عبر واتساب.',
+    image_url: '/mockups/mockup-3-clinic-desktop.webp',
+    link: 'https://royal-clinics.clickzoon.com',
+    live_url: 'https://royal-clinics.clickzoon.com',
+    slug: 'royal-clinic',
+    visible: true,
+    sort_order: 2,
+  },
+  {
+    id: 'f-3',
+    title: 'متجر Orchid Luxury',
+    category: 'stores',
+    description: 'متجر إلكتروني فخم للأزياء والعطور، مربوط مع بوابات الدفع الإلكتروني وشركات الشحن السريع في مصر.',
+    image_url: '/mockups/mockup-4-store-desktop.webp',
+    link: 'https://orchid-boutique.clickzoon.com',
+    live_url: 'https://orchid-boutique.clickzoon.com',
+    visible: true,
+    sort_order: 3,
+  },
+  {
+    id: 'f-4',
+    title: 'مطاعم ومشويات الباشا',
+    category: 'restaurants',
+    description: 'موقع تعريفي وقائمة طعام إلكترونية مع خدمة حجز الطاولات وتوصيل الطلبات للمنازل.',
+    image_url: '/mockups/mockup-1-corporate-desktop.webp',
+    link: 'https://albasha-grill.clickzoon.com',
+    live_url: 'https://albasha-grill.clickzoon.com',
+    visible: true,
+    sort_order: 4,
+  },
+];
 
 const filters = [
   { key: 'all', label: 'الكل' },
@@ -17,11 +72,13 @@ export default function Portfolio() {
   const { data } = useSiteData();
   const [activeFilter, setActiveFilter] = useState('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [deviceMode, setDeviceMode] = useState<'desktop' | 'mobile'>('desktop');
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const touchStartXRef = useRef<number | null>(null);
 
-  const projects = data.portfolio;
+  const rawProjects = data.portfolio && data.portfolio.length > 0 ? data.portfolio : fallbackPortfolio;
+  const projects = rawProjects as ExtendedPortfolioItem[];
   const filtered = activeFilter === 'all' ? projects : projects.filter((p) => p.category === activeFilter);
 
   const closeLightbox = useCallback(() => {
@@ -42,9 +99,9 @@ export default function Portfolio() {
   const openLightbox = (idx: number, e: React.MouseEvent<HTMLButtonElement>) => {
     triggerRef.current = e.currentTarget;
     setLightboxIndex(idx);
+    setDeviceMode('desktop');
   };
 
-  // Keyboard navigation & accessibility focus management
   useEffect(() => {
     if (lightboxIndex === null) return;
 
@@ -90,7 +147,6 @@ export default function Portfolio() {
     };
   }, [lightboxIndex, closeLightbox, nextProject, prevProject]);
 
-  // Touch swipe support for mobile
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartXRef.current = e.touches[0].clientX;
   };
@@ -113,38 +169,37 @@ export default function Portfolio() {
     <section id="portfolio" className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          icon={Sparkles}
-          badge="أعمالنا السابقة"
-          title="نماذج حقيقية من"
-          highlight="مشاريعنا وتصميماتنا المنفذة"
-          subtitle="مواقع ومتاجر إلكترونية حية صمّمناها ونفّذناها لعملائنا في المنصورة ومصر."
+          badge="معرض الأعمال والقصص"
+          title="نماذج حقيقية"
+          highlight="من مواقع ومتاجر عملائنا"
+          subtitle="تصفح مشاريع صمّمناها ونفّذناها بالكامل — مواقع حية تزيد المبيعات وتوفر تجربة استثنائية."
         />
 
         {/* Filters */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {filters.map((f) => (
+          {filters.map((filter) => (
             <button
-              key={f.key}
-              onClick={() => setActiveFilter(f.key)}
-              aria-pressed={activeFilter === f.key}
-              className={`min-h-[44px] px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 ${
-                activeFilter === f.key
-                  ? 'bg-gold-500 text-navy-950 shadow-md shadow-gold-500/25 font-bold scale-105'
-                  : 'bg-navy-800/60 text-navy-200 hover:bg-navy-700/60 hover:text-navy-50 border border-navy-700/50'
+              key={filter.key}
+              type="button"
+              onClick={() => setActiveFilter(filter.key)}
+              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all min-h-[44px] min-w-[44px] flex items-center justify-center ${
+                activeFilter === filter.key
+                  ? 'bg-gold-500 text-navy-950 font-bold shadow-md shadow-gold-500/20'
+                  : 'bg-navy-800/80 text-navy-300 hover:text-navy-100 hover:bg-navy-700/80 border border-navy-700/50'
               }`}
             >
-              {f.label}
+              {filter.label}
             </button>
           ))}
         </div>
 
-        {/* Projects grid with smooth layout transition */}
+        {/* Grid with Framer Motion layout animation for smooth reflow */}
         <motion.div layout ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <motion.div
-                key={project.id || `${project.title}-${i}`}
                 layout
+                key={project.id || project.title}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
@@ -152,12 +207,7 @@ export default function Portfolio() {
                 className={`reveal ${revealed ? 'revealed' : ''}`}
                 style={revealed ? undefined : { transitionDelay: `${i * 80}ms` }}
               >
-                <button
-                  type="button"
-                  onClick={(e) => openLightbox(i, e)}
-                  className="w-full group relative overflow-hidden rounded-2xl glass-card text-right transition-transform duration-300 hover:-translate-y-2 hover:border-gold-500/40 h-full flex flex-col justify-between"
-                  aria-label={`عرض تفاصيل مشروع ${project.title}`}
-                >
+                <div className="w-full group relative overflow-hidden rounded-2xl glass-card text-right transition-transform duration-300 hover:-translate-y-2 hover:border-gold-500/40 h-full flex flex-col justify-between">
                   {/* Image with zoom and gentle overlay */}
                   <div className="relative h-56 w-full overflow-hidden bg-navy-950">
                     <img
@@ -170,23 +220,64 @@ export default function Portfolio() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/20 to-transparent pointer-events-none" />
+
+                    {/* Quick view button on hover */}
+                    <button
+                      type="button"
+                      onClick={(e) => openLightbox(i, e)}
+                      className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-navy-950/60 backdrop-blur-sm transition-opacity"
+                      aria-label={`معاينة تفاصيل ${project.title}`}
+                    >
+                      <span className="btn-gold px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow-xl">
+                        <Sparkles size={14} />
+                        <span>معاينة المشروع</span>
+                      </span>
+                    </button>
                   </div>
 
                   {/* Info */}
-                  <div className="p-5 w-full">
-                    <h3 className="text-lg font-bold text-navy-50 mb-2 group-hover:text-gold-300 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-navy-300 text-sm leading-relaxed line-clamp-2">{project.description}</p>
+                  <div className="p-5 w-full flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-lg font-bold text-navy-50 mb-2 group-hover:text-gold-300 transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-navy-300 text-sm leading-relaxed line-clamp-2 mb-4">{project.description}</p>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-3 border-t border-navy-800">
+                      {(project.slug || project.id === 'f-1' || project.id === 'f-2') ? (
+                        <Link
+                          to={`/work/${project.slug || (project.id === 'f-1' ? 'delano-cafe' : 'royal-clinic')}`}
+                          className="text-xs font-bold text-gold-400 hover:text-gold-300 flex items-center gap-1 transition-colors"
+                        >
+                          <BookOpen size={13} />
+                          <span>دراسة الحالة كاملة</span>
+                        </Link>
+                      ) : (
+                        <span className="text-xs text-navy-400 font-medium">تصميم كليك زون</span>
+                      )}
+
+                      {(project.live_url || project.link) && (
+                        <a
+                          href={project.live_url || project.link || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-navy-300 hover:text-gold-400 flex items-center gap-1 transition-colors"
+                        >
+                          <span>الموقع الحي</span>
+                          <ExternalLink size={12} />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </button>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox & Device Frame Preview Modal */}
       <AnimatePresence>
         {lightboxIndex !== null && filtered[lightboxIndex] && (
           <motion.div
@@ -247,34 +338,80 @@ export default function Portfolio() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-              className="max-w-3xl w-full bg-navy-900 rounded-2xl overflow-hidden border border-navy-700/60 shadow-2xl relative"
+              className={`w-full bg-navy-900 rounded-2xl overflow-hidden border border-navy-700/60 shadow-2xl relative transition-all duration-300 ${
+                deviceMode === 'mobile' ? 'max-w-sm' : 'max-w-3xl'
+              }`}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative bg-navy-950 max-h-[60vh] flex items-center justify-center overflow-hidden">
-                <img
-                  src={filtered[lightboxIndex].image_url}
-                  alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
-                  width={1200}
-                  height={675}
-                  className="w-full max-h-[60vh] object-contain"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-4 mb-2">
-                  <h3 className="text-xl font-bold text-navy-50">{filtered[lightboxIndex].title}</h3>
-                  {(filtered[lightboxIndex].live_url || filtered[lightboxIndex].link) && (
-                    <a
-                      href={filtered[lightboxIndex].live_url || filtered[lightboxIndex].link || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 hover:text-gold-300 bg-gold-500/10 border border-gold-500/30 px-3 py-1.5 rounded-lg transition-colors"
-                    >
-                      <span>زيارة الموقع الحي</span>
-                      <ExternalLink size={14} />
-                    </a>
-                  )}
+              {/* Header with device frame toggle */}
+              <div className="p-4 bg-navy-950 border-b border-navy-800 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setDeviceMode('desktop')}
+                    className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
+                      deviceMode === 'desktop' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/40' : 'text-navy-400 hover:text-navy-200'
+                    }`}
+                    title="معاينة شاشة الكمبيوتر"
+                  >
+                    <Monitor size={16} />
+                    <span className="hidden sm:inline">كمبيوتر</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDeviceMode('mobile')}
+                    className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
+                      deviceMode === 'mobile' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/40' : 'text-navy-400 hover:text-navy-200'
+                    }`}
+                    title="معاينة شاشة الموبايل"
+                  >
+                    <Smartphone size={16} />
+                    <span className="hidden sm:inline">موبايل</span>
+                  </button>
                 </div>
-                <p className="text-navy-300 leading-relaxed">{filtered[lightboxIndex].description}</p>
+
+                <div className="text-xs text-navy-400">
+                  {lightboxIndex + 1} من {filtered.length}
+                </div>
+              </div>
+
+              {/* Preview Window */}
+              <div className="relative bg-navy-950 flex items-center justify-center overflow-hidden p-2">
+                <div className={`overflow-hidden transition-all duration-300 rounded-xl ${
+                  deviceMode === 'mobile' ? 'w-[280px] h-[480px] border-4 border-navy-700 shadow-inner' : 'w-full max-h-[55vh]'
+                }`}>
+                  <img
+                    src={filtered[lightboxIndex].image_url}
+                    alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
+                    width={1200}
+                    height={675}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Footer info & CTA */}
+              <div className="p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
+                  <div>
+                    <h3 className="text-xl font-bold text-navy-50 mb-1">{filtered[lightboxIndex].title}</h3>
+                    <p className="text-navy-300 text-sm leading-relaxed">{filtered[lightboxIndex].description}</p>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    {(filtered[lightboxIndex].live_url || filtered[lightboxIndex].link) && (
+                      <a
+                        href={filtered[lightboxIndex].live_url || filtered[lightboxIndex].link || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 hover:text-gold-300 bg-gold-500/10 border border-gold-500/30 px-4 py-2 rounded-xl transition-colors"
+                      >
+                        <span>زيارة الموقع الحي</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>

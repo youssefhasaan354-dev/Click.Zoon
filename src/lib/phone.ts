@@ -32,3 +32,5 @@ export function validateEgyptianPhone(phone: string): boolean {
   const cleaned = cleanPhoneNumber(phone);
   return /^(\+?20|0)?1[0125]\d{8}$/.test(cleaned);
 }
+
+export const isValidEgyptianPhone = validateEgyptianPhone;

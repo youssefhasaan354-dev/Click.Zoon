@@ -1,19 +1,27 @@
 import { useEffect, useMemo } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import SocialProofStrip from '@/components/SocialProofStrip';
+import ClientLogosMarquee from '@/components/ClientLogosMarquee';
 import MockupsSection from '@/components/MockupsSection';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import DemoSection from '@/components/DemoSection';
+import QuoteWizard from '@/components/QuoteWizard';
 import Services from '@/components/Services';
 import CommissionCalculator from '@/components/CommissionCalculator';
 import AboutUs from '@/components/AboutUs';
 import Pricing from '@/components/Pricing';
 import Portfolio from '@/components/Portfolio';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import WhyUs from '@/components/WhyUs';
 import Process from '@/components/Process';
 import FAQ from '@/components/FAQ';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import StickyMiniCta from '@/components/StickyMiniCta';
+import CookieConsent from '@/components/CookieConsent';
+import ExitIntentModal from '@/components/ExitIntentModal';
 import ScrollProgress from '@/components/ScrollProgress';
 import MobileBottomBar from '@/components/MobileBottomBar';
 import BackToTop from '@/components/BackToTop';
@@ -102,13 +110,18 @@ function HomePage() {
       <Header />
       <main id="main">
         <Hero />
+        <SocialProofStrip />
+        <ClientLogosMarquee />
         {showMockups && <MockupsSection />}
+        <BeforeAfterSlider />
         {showDemo && <DemoSection />}
+        <QuoteWizard />
         {showServices && <Services />}
         {showCalculator && <CommissionCalculator />}
         {showAbout && <AboutUs />}
         {showWhyUs && <WhyUs />}
         {showPortfolio && <Portfolio />}
+        <TestimonialsSection />
         {showProcess && <Process />}
         {showPricing && <Pricing />}
         {showFaq && <FAQ />}
@@ -116,6 +129,9 @@ function HomePage() {
       </main>
       <Footer />
       <FloatingWhatsApp />
+      <StickyMiniCta />
+      <CookieConsent />
+      <ExitIntentModal />
       <MobileBottomBar />
       <BackToTop />
     </div>
