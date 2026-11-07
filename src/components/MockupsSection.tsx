@@ -71,7 +71,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-1-restaurant.webp',
     title: 'قصر الريم للمشويات',
     category: 'موقع وتطبيق مطعم ومشويات',
-    domain: 'qasrelreem.clickzoon.com',
+    domain: 'clickzoon.com/demo/restaurant',
     theme: {
       accentColor: 'text-amber-400',
       badgeBg: 'bg-amber-500/15 border-amber-500/40 text-amber-300',
@@ -86,7 +86,7 @@ const deliveredProjects: DeliveredProject[] = [
       icon: UtensilsCrossed,
     },
     hero: {
-      badge: '🔥 خصم 20% على أول طلب أونلاين',
+      badge: '🔥 وجبات طازجة ومنيو إلكتروني QR',
       headline: 'طعم المشويات الأصيل يوصلك سخن لحد باب بيتك',
       subheadline: 'أشهى المشويات الحلبية على الفحم بتتبيلة سرية وتوصيل حراري فائق السرعة.',
       ctaText: 'اطلب وجبتك الآن',
@@ -96,7 +96,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'صينية الريم الملكية',
         desc: 'كيلو كباب وكفتة مع ريش ضاني وأرز بسمتي ومقبلات حارة',
         meta: '٤٢٠ ج.م',
-        tag: 'الأكثر طلباً ⭐ 4.9',
+        tag: 'الأكثر طلباً',
         icon: Flame,
       },
       {
@@ -120,7 +120,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-2-cafe.webp',
     title: 'روست كافيه & كوفي بار',
     category: 'كافيه وسبيشالتي كوفي',
-    domain: 'roastcafe.clickzoon.com',
+    domain: 'clickzoon.com/demo/cafe',
     theme: {
       accentColor: 'text-yellow-400',
       badgeBg: 'bg-yellow-500/15 border-yellow-500/40 text-yellow-300',
@@ -145,7 +145,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'بن سلفادور وكولومبيا V60',
         desc: 'إيحاءات فواكه استوائية وشوكولاتة بحموضة متوازنة ومذاق مخملي',
         meta: '٨٥ ج.م',
-        tag: 'محصول مميز ⭐ 4.9',
+        tag: 'محصول مميز',
         icon: Coffee,
       },
       {
@@ -159,7 +159,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'اشتراك بوكس القهوة المنزلي',
         desc: 'محاصيل مختارة تصلك أسبوعياً مع بطاقات وصفات التحضير المنزلية',
         meta: 'شحن أسبوعي',
-        tag: 'وفر 25%',
+        tag: 'باقة توفير',
         icon: Star,
       },
     ],
@@ -169,7 +169,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-3-store.webp',
     title: 'متجر مودانيستا فاشون',
     category: 'متجر إلكتروني متكامل للأزياء',
-    domain: 'modanista.clickzoon.com',
+    domain: 'clickzoon.com/demo/store',
     theme: {
       accentColor: 'text-emerald-400',
       badgeBg: 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300',
@@ -184,7 +184,7 @@ const deliveredProjects: DeliveredProject[] = [
       icon: ShoppingBag,
     },
     hero: {
-      badge: '✨ كولكشن الشتاء 2026 الحصري',
+      badge: '✨ كولكشن الموسم الحصري أونلاين',
       headline: 'أحدث صيحات الموضة والأناقة بتصاميم راقية وخامات أصلية',
       subheadline: 'تسوقي أرقى الإطلالات العصرية مع استبدال مجاني وتوصيل سريع حتى باب المنزل.',
       ctaText: 'تسوقي الكولكشن الجديد',
@@ -194,7 +194,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'معطف صوف كشمير طويل',
         desc: 'قصة راقية بخامات شتوية دافئة وتطريز يدوي متقن بألوان الموسم',
         meta: '١,٢٥٠ ج.م',
-        tag: 'تريند الأسبوع ⭐ 4.9',
+        tag: 'تريند الأسبوع',
         icon: ShoppingBag,
       },
       {
@@ -208,7 +208,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'دفع عند الاستلام واستبدال',
         desc: 'معاينة كاملة قبل الاستلام وخيارات تقسيط مرنة بدون فوائد',
         meta: 'استبدال 14 يوم',
-        tag: 'تسوق آمن 100%',
+        tag: 'تسوق موثوق',
         icon: ShieldCheck,
       },
     ],
@@ -218,7 +218,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-4-medical.webp',
     title: 'مركز النور الطبي التخصصي',
     category: 'منصة حجز عيادات وخدمات طبية',
-    domain: 'alnoormedical.clickzoon.com',
+    domain: 'clickzoon.com/demo/clinic',
     theme: {
       accentColor: 'text-cyan-400',
       badgeBg: 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300',
@@ -243,21 +243,21 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'عيادة الباطنة والقلب',
         desc: 'فحص شامل وتخطيط قلب ومتابعة دورية مع كبار الأطباء الاستشاريين',
         meta: 'كشف ٣٥٠ ج.م',
-        tag: 'متاح اليوم ⭐ 4.9',
+        tag: 'متاح اليوم',
         icon: Stethoscope,
       },
       {
         title: 'معمل تحاليل وأشعة فورية',
         desc: 'أحدث أجهزة الفحص الرقمي والنتائج تصلك معتمدة عبر واتساب',
-        meta: 'نتائج خلال ساعتين',
-        tag: 'دقة 99.8%',
+        meta: 'نتائج سريعة',
+        tag: 'دقة معتمدة',
         icon: HeartPulse,
       },
       {
         title: 'استشارات طبية منزلية 24/7',
         desc: 'زيارات تمريضية وطبية منزلية للحالات الحرجة وكبار السن',
         meta: 'تغطية فورية',
-        tag: 'خدمة 24 ساعة',
+        tag: 'خدمة مستمرة',
         icon: ShieldCheck,
       },
     ],
@@ -545,10 +545,10 @@ export default function MockupsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           icon={Monitor}
-          badge="معاينة حقيقية للمشاريع"
-          title="شوف تصور موقعك على"
-          highlight="الموبايل واللابتوب"
-          subtitle="نماذج بصرية حقيقية من مشاريع نفّذناها لعملائنا تساعدك تتخيل شكل موقعك وسرعته قبل البدء."
+          badge="نماذج تصميم تفاعلية"
+          title="معاينة حية لشاشات موقعك"
+          highlight="على الموبايل والكمبيوتر"
+          subtitle="نماذج تصميم توضيحية تحاكي تجربة التصفح الفعلية وسرعة الاستجابة لمختلف الأنشطة التجارية."
         />
 
         <div
@@ -615,9 +615,12 @@ export default function MockupsSection() {
           </div>
 
           {/* Current project info pill */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 flex items-center justify-center gap-2 flex-wrap">
             <span className="inline-block px-4 py-1.5 rounded-full bg-navy-800/80 border border-gold-500/30 text-gold-300 text-sm font-bold shadow-sm">
               {deliveredProjects[index].title} — <span className="text-navy-300 font-normal">{deliveredProjects[index].category}</span>
+            </span>
+            <span className="inline-block px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-300 text-xs font-semibold">
+              نموذج تصميم توضيحي
             </span>
           </div>
 

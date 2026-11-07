@@ -34,7 +34,7 @@ export function ShowcaseIcon({ item, size = 72 }: { item: ShowcaseItem; size?: n
 }
 
 export default function ShowcasePage() {
-  const { items, isSample } = useShowcaseItems();
+  const { items, isSample, loading, error, refresh } = useShowcaseItems();
   const [tab, setTab] = useState<'all' | ShowcaseKind>('all');
   const list = tab === 'all' ? items : items.filter((i) => i.kind === tab);
 
@@ -44,6 +44,12 @@ export default function ShowcasePage() {
         title="معرض الأعمال: مواقع وبرامج جاهزة"
         description="تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط واطلب نموذج مماثل لنشاطك."
         canonical="/showcase"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'معرض الأعمال | Click Zoon',
+          description: 'تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها من كليك زون واطلب نموذجاً مماثلاً لنشاطك.',
+        }}
       />
       <Header />
       <main id="main" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
@@ -78,7 +84,33 @@ export default function ShowcasePage() {
           ))}
         </div>
 
-        {list.length === 0 ? (
+        {loading && items.length === 0 ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" aria-label="جاري تحميل المشاريع">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-4 p-4 rounded-2xl glass-card animate-pulse border border-navy-700/40">
+                <div className="w-[72px] h-[72px] rounded-2xl bg-navy-800 shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-navy-800 rounded w-3/4" />
+                  <div className="h-3 bg-navy-800 rounded w-1/2" />
+                  <div className="h-3 bg-navy-800 rounded w-5/6" />
+                </div>
+                <div className="w-16 h-8 rounded-full bg-navy-800 shrink-0" />
+              </div>
+            ))}
+          </div>
+        ) : error && items.length === 0 ? (
+          <div className="text-center py-16 glass-card rounded-2xl p-8 border border-red-500/20 max-w-md mx-auto">
+            <p className="text-red-300 font-bold mb-2">تعذر تحميل المشاريع</p>
+            <p className="text-navy-400 text-sm mb-6">{error}</p>
+            <button
+              type="button"
+              onClick={() => refresh()}
+              className="btn-gold px-6 py-2.5 rounded-full text-sm font-bold"
+            >
+              إعادة المحاولة
+            </button>
+          </div>
+        ) : list.length === 0 ? (
           <p className="text-navy-400 text-center py-16">لا توجد مشاريع في هذا القسم حالياً.</p>
         ) : (
           <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

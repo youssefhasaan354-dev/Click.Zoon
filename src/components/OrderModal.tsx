@@ -20,18 +20,56 @@ export default function OrderModal({ item, onClose }: OrderModalProps) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const firstFieldRef = useRef<HTMLInputElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
     firstFieldRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        const focusables = dialog.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
+
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKey);
+
     return () => {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', onKey);
+      if (previouslyFocusedRef.current && typeof previouslyFocusedRef.current.focus === 'function') {
+        previouslyFocusedRef.current.focus();
+      }
     };
   }, [onClose]);
 
@@ -90,7 +128,11 @@ export default function OrderModal({ item, onClose }: OrderModalProps) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div dir="rtl" className="w-full sm:max-w-md glass-card rounded-t-3xl sm:rounded-2xl border border-navy-700/60 p-6 relative">
+      <div
+        ref={dialogRef}
+        dir="rtl"
+        className="w-full sm:max-w-md glass-card rounded-t-3xl sm:rounded-2xl border border-navy-700/60 p-6 relative"
+      >
         <button
           type="button"
           onClick={onClose}

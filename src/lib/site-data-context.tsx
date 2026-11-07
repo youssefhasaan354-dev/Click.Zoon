@@ -17,6 +17,7 @@ import {
 interface SiteDataContextValue {
   data: SiteData;
   loading: boolean;
+  error: string | null;
   refresh: () => Promise<void>;
 }
 
@@ -72,9 +73,11 @@ const SiteDataContext = createContext<SiteDataContextValue | undefined>(undefine
 export function SiteDataProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<SiteData>(() => getInitialCachedData().initialData);
   const [loading, setLoading] = useState<boolean>(() => !getInitialCachedData().hasCache);
+  const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     try {
+      setError(null);
       const [
         settingsRes,
         heroRes,
@@ -123,6 +126,7 @@ export function SiteDataProvider({ children }: { children: ReactNode }) {
       }
     } catch (err) {
       console.warn('Failed to refresh site data:', err);
+      setError(err instanceof Error ? err.message : 'تعذر تحميل بيانات الموقع');
     } finally {
       setLoading(false);
     }
@@ -133,7 +137,7 @@ export function SiteDataProvider({ children }: { children: ReactNode }) {
   }, [refresh]);
 
   return (
-    <SiteDataContext.Provider value={{ data, loading, refresh }}>
+    <SiteDataContext.Provider value={{ data, loading, error, refresh }}>
       {children}
     </SiteDataContext.Provider>
   );

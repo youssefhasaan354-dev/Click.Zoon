@@ -23,12 +23,12 @@ cp .env.example .env
 |---|---|---|
 | `VITE_SUPABASE_URL` | رابط مشروع Supabase الخاص بك | نعم |
 | `VITE_SUPABASE_ANON_KEY` | المفتاح العام (Anon Public Key) | نعم |
-| `VITE_SITE_URL` | الدومين النهائي (مثال: `https://click-zoon.vercel.app`) | نعم |
+| `VITE_SITE_URL` | الدومين النهائي (مثال: `https://clickzoon.com`) | نعم |
 | `VITE_TURNSTILE_SITE_KEY` | المفتاح العام لـ Cloudflare Turnstile لحماية النماذج من البوتات | اختياري (موصى به) |
 | `VITE_GA_ID` | معرّف Google Analytics (مثل `G-XXXXXXXXXX`) | اختياري |
 
 ### متغيرات بيئة الـ Supabase Edge Functions (Secrets):
-يتم ضبطها في لوحة تحكم Supabase (`Project Settings` -> `Edge Functions` -> `Secrets`):
+يتم ضبطها في لوحة تحكم Supabase (`Project Settings` -> `Edge Functions` -> `Secrets`) أو عبر Supabase CLI:
 - `TURNSTILE_SECRET_KEY`: المفتاح السري لـ Cloudflare Turnstile للتحقق من التوكن server-side.
 - `WEBHOOK_SECRET`: كلمة سرية لتأمين استدعاء الـ webhook الخاصة بـ `notify-new-request` (يعمل بنظام Fail-Closed).
 - `TELEGRAM_BOT_TOKEN`: توكن بوت تيليجرام لإرسال إشعارات فورية بالطلبات الجديدة.
@@ -56,10 +56,37 @@ cp .env.example .env
 14. `20261014120000_create_testimonials.sql` — جدول آراء وتقييمات العملاء
 15. `20261014130000_support_oauth_user_profiles.sql` — دعم تسجيل الدخول بحساب Google (OAuth)
 16. `20261016140000_secure_admin_user_id_check.sql` — تأمين صلاحيات الإدارة عبر `user_id` مع اشتراط تأكيد البريد الإلكتروني، وتوسيع مصادر الطلبات
+17. `20261107120000_add_showcase_fields.sql` — حقول معرض الأعمال المتقدم (`slug`, `kind`, `tagline`, `long_description`, `features`, `screenshots`, `live_url`) مع قيد الفهرس الفريد للرابط المختصر.
+18. `20261107140000_secure_rls_policies.sql` — إحكام وتأمين سياسات الـ RLS: جعل قراءة المشاريع للمرئية فقط للعامة، وقصر كتابة طلبات الديمو على دالة الـ Edge Function (`service_role`) لمنع التلاعب المباشر.
 
 ---
 
-## تشغيل المشروع محلياً
+## نشر الدوال السحابية (Supabase Edge Functions)
+
+يحتوي المشروع على دالتين سحابيتين:
+- `submit-demo-request`: استقبال وتنقية والتحقق من طلبات الديمو وإدراجها برمجياً مع فحص Turnstile و Rate Limiting.
+- `notify-new-request`: إرسال إشعارات فورية عبر Telegram عند وصول طلب جديد.
+
+للنشر عبر Supabase CLI:
+```bash
+# تسجيل الدخول وربط المشروع
+supabase login
+supabase link --project-ref YOUR_PROJECT_REF
+
+# نشر الدوال
+supabase functions deploy submit-demo-request --no-verify-jwt
+supabase functions deploy notify-new-request --no-verify-jwt
+
+# ضبط المفاتيح السرية (Secrets)
+supabase secrets set TURNSTILE_SECRET_KEY="your-secret-key"
+supabase secrets set WEBHOOK_SECRET="your-webhook-secret"
+supabase secrets set TELEGRAM_BOT_TOKEN="your-bot-token"
+supabase secrets set TELEGRAM_CHAT_ID="your-chat-id"
+```
+
+---
+
+## تشغيل واختبار المشروع محلياً
 
 ```bash
 # تثبيت الحزم
@@ -68,15 +95,33 @@ npm install
 # تشغيل خادم التطوير
 npm run dev
 
+# تشغيل الاختبارات الآلية (Unit Tests)
+npm test
+
 # فحص الأنواع (TypeScript)
 npm run typecheck
 
 # فحص الكود والتنسيق (ESLint)
 npm run lint
 
-# بناء نسخة الإنتاج
+# بناء نسخة الإنتاج مع الـ Prerendering وتوليد Sitemap & Robots
 npm run build
 ```
+
+---
+
+## ربط الدومين المخصص (`clickzoon.com`)
+
+1. **في Vercel**:
+   - أضف الدومينين: `clickzoon.com` و `www.clickzoon.com`.
+   - اجعل `clickzoon.com` هو الدومين الأساسي (Primary)، و`www.clickzoon.com` و `click-zoon.vercel.app` يُعاد توجيههما تلقائياً بـ 301 إلى الأساسي (مضبوط بالفعل في `vercel.json`).
+2. **في Supabase Dashboard**:
+   - توجه إلى: `Authentication` -> `URL Configuration`.
+   - عيّن **Site URL** إلى: `https://clickzoon.com`.
+   - أضف إلى **Redirect URLs**:
+     - `https://clickzoon.com/**`
+     - `https://clickzoon.com/auth`
+     - `http://localhost:5173/**` (للتطوير المحلي).
 
 ---
 

@@ -49,6 +49,14 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
+function sanitizeText(str?: string | null, maxLen = 1000): string | null {
+  if (!str) return null;
+  // Strip HTML tags and control sequences
+  const cleaned = str.replace(/<[^>]*>/g, '').trim();
+  if (!cleaned) return null;
+  return cleaned.slice(0, maxLen);
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -190,12 +198,12 @@ Deno.serve(async (req: Request) => {
     const { data, error } = await supabaseAdmin
       .from('demo_requests')
       .insert({
-        name: finalName.slice(0, 160),
+        name: (sanitizeText(finalName, 160) || 'طلب موقع إلكتروني'),
         phone: cleanPhone.slice(0, 40),
-        business_type: finalBusiness.slice(0, 160),
-        page_url: body.page_url ? body.page_url.trim().slice(0, 500) : null,
+        business_type: (sanitizeText(finalBusiness, 160) || 'طلب ديمو / استشارة'),
+        page_url: body.page_url ? sanitizeText(body.page_url, 500) : null,
         user_id: verifiedUserId,
-        message_text: body.message_text ? body.message_text.trim() : null,
+        message_text: sanitizeText(body.message_text, 1000),
         source: source,
         status: 'new',
       })

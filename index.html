@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0a1628" />
     <meta name="color-scheme" content="dark" />
-    <link rel="canonical" href="https://click-zoon.vercel.app/" />
+    <link rel="canonical" href="%SITE_URL%/" />
 
     <!-- Self-hosted Cairo font preloads for Arabic subset -->
     <link rel="preload" href="/fonts/cairo-400-arabic-0.woff2" as="font" type="font/woff2" crossorigin />
@@ -16,7 +16,7 @@
     <!-- Primary SEO -->
     <title>Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية</title>
     <meta name="description" content="Click Zoon وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام، تسليم سريع، دعم مستمر." />
-    <meta name="keywords" content="تصميم مواقع, متاجر إلكترونية, Click Zoon, كليك زون, موقع مطعم, موقع كافيه, ديمو مجاني, المنصورة, الدقهلية, مصر" />
+    <meta name="keywords" content="تصميم مواقع, متاجر إلكترونية, Click Zoon, كليك زون, موقع مطعم, موقع كافيه, ديمو مجاني, مصر" />
     <meta name="author" content="Click Zoon" />
 
     <!-- Open Graph -->
@@ -25,8 +25,8 @@
     <meta property="og:title" content="Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية" />
     <meta property="og:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام." />
     <meta property="og:site_name" content="Click Zoon" />
-    <meta property="og:url" content="https://click-zoon.vercel.app/" />
-    <meta property="og:image" content="https://click-zoon.vercel.app/og-image.webp" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og-image.webp" />
     <meta property="og:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -35,32 +35,44 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية" />
     <meta name="twitter:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام." />
-    <meta name="twitter:image" content="https://click-zoon.vercel.app/og-image.webp" />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.webp" />
     <meta name="twitter:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية" />
 
-    <!-- Structured Data: Online ProfessionalService -->
+    <!-- Structured Data: Organization & ProfessionalService -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Click Zoon",
-      "alternateName": "كليك زون لتصميم المواقع",
-      "url": "https://click-zoon.vercel.app/",
-      "image": "https://click-zoon.vercel.app/og-image.webp",
-      "logo": "https://click-zoon.vercel.app/og-image.webp",
-      "description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة، الدقهلية، وجميع أنحاء مصر. خدمة عملاء أونلاين ودعم فني مستمر.",
-      "areaServed": [
-        "المنصورة",
-        "الدقهلية",
-        "مصر"
-      ],
-      "telephone": "+201020095059",
-      "email": "clickzoon30@gmail.com",
-      "sameAs": [
-        "https://www.facebook.com/ClikZoon",
-        "https://www.instagram.com/click_zoon"
-      ],
-      "priceRange": "$$"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "%SITE_URL%/#organization",
+          "name": "Click Zoon",
+          "alternateName": "كليك زون لتصميم المواقع",
+          "url": "%SITE_URL%/",
+          "logo": "%SITE_URL%/og-image.webp",
+          "email": "clickzoon30@gmail.com",
+          "telephone": "+201020095059",
+          "sameAs": [
+            "https://www.facebook.com/ClikZoon",
+            "https://www.instagram.com/click_zoon"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "%SITE_URL%/#service",
+          "name": "Click Zoon لتصميم وتطوير المواقع",
+          "url": "%SITE_URL%/",
+          "image": "%SITE_URL%/og-image.webp",
+          "telephone": "+201020095059",
+          "email": "clickzoon30@gmail.com",
+          "priceRange": "$$",
+          "description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في مصر. بداية مجانية بدون التزام وتسليم سريع.",
+          "areaServed": [
+            "مصر",
+            "العالم العربي"
+          ]
+        }
+      ]
     }
     </script>
   </head>
