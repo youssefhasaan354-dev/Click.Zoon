@@ -33,3 +33,7 @@ temp_prerender_profile/
 
 lighthouse-report.json
 
+
+# Visual screenshots (kept outside public)
+screenshots/
+public/screenshots/

@@ -101,7 +101,7 @@ export function useSiteConfig() {
     aboutImageUrl: s?.about_image_url ?? '',
     aboutStats: s?.about_stats ?? [],
     mapEmbedUrl: s?.map_embed_url ?? '',
-    googleAnalyticsId: s?.google_analytics_id ?? '',
+    googleAnalyticsId: s?.google_analytics_id || (import.meta.env.VITE_GA_MEASUREMENT_ID as string) || '',
   };
 }
 
