@@ -2,18 +2,20 @@ import { Award, Smile, Clock, ShieldCheck } from 'lucide-react';
 import Counter from '@/components/Counter';
 import { useSiteConfig } from '@/siteConfig';
 import { useReveal } from '@/hooks/useReveal';
+import { useI18n } from '@/i18n';
 
 export default function SocialProofStrip() {
+  const { t } = useI18n();
   const cfg = useSiteConfig();
   const { ref, revealed } = useReveal();
 
   const customStats = cfg.aboutStats && cfg.aboutStats.length > 0 ? cfg.aboutStats : null;
 
   const stats = customStats ?? [
-    { value: 50, suffix: '+', label: 'مشروع أُنجز بنجاح', icon: Award },
-    { value: 99, suffix: '%', label: 'نسبة رضا العملاء', icon: Smile },
-    { value: 48, suffix: ' ساعة', label: 'متوسط تسليم الديمو', icon: Clock },
-    { value: 100, suffix: '%', label: 'ضمان ودعم فني مستمر', icon: ShieldCheck },
+    { value: 50, suffix: '+', label: t('stats.projects'), icon: Award },
+    { value: 99, suffix: '%', label: t('stats.satisfaction'), icon: Smile },
+    { value: 48, suffix: ' h', label: t('stats.demo_speed'), icon: Clock },
+    { value: 100, suffix: '%', label: t('stats.support'), icon: ShieldCheck },
   ];
 
   return (
@@ -31,7 +33,7 @@ export default function SocialProofStrip() {
               <div
                 key={item.label}
                 className={`flex items-center gap-3 sm:gap-4 p-2 sm:p-3 ${
-                  idx > 0 ? 'lg:border-r lg:border-navy-700/50' : ''
+                  idx > 0 ? 'lg:border-s lg:border-navy-700/50' : ''
                 }`}
               >
                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center shrink-0 text-gold-400">

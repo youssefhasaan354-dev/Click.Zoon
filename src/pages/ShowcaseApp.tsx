@@ -10,8 +10,10 @@ import NotFound from '@/pages/NotFound';
 import { ShowcaseIcon } from '@/pages/Showcase';
 import { categoryLabels, kindLabels, useShowcaseItems } from '@/lib/showcase';
 import { trackEvent } from '@/lib/analytics';
+import { useI18n } from '@/i18n';
 
 export default function ShowcaseAppPage() {
+  const { t } = useI18n();
   const { slug } = useParams<{ slug: string }>();
   const { items } = useShowcaseItems();
   const [ordering, setOrdering] = useState(false);
@@ -41,8 +43,8 @@ export default function ShowcaseAppPage() {
       <Header />
       <main id="main" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
         <Link to="/showcase" className="inline-flex items-center gap-1.5 text-sm text-navy-400 hover:text-gold-300 mb-6">
-          <ArrowRight size={16} />
-          كل الأعمال
+          <ArrowRight size={16} className="rtl:rotate-0 ltr:rotate-180" />
+          <span>{t('showcase.all_works')}</span>
         </Link>
 
         {/* Title block (Google Play style) */}
@@ -67,7 +69,7 @@ export default function ShowcaseAppPage() {
             className="flex-1 sm:flex-none sm:min-w-[200px] bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold px-8 py-3.5 rounded-full inline-flex items-center justify-center gap-2 transition-all"
           >
             <ShoppingCart size={18} />
-            اطلب الآن
+            <span>{t('showcase.order_now')}</span>
           </button>
           {liveUrl && (
             <a
@@ -77,7 +79,7 @@ export default function ShowcaseAppPage() {
               className="flex-1 sm:flex-none border border-navy-600 hover:border-gold-500/50 text-navy-100 font-semibold px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 transition-all"
             >
               <ExternalLink size={18} />
-              افتح {item.kind === 'app' ? 'البرنامج' : 'الموقع'}
+              <span>{item.kind === 'app' ? t('showcase.open_app') : t('showcase.open_site')}</span>
             </a>
           )}
         </div>
@@ -107,13 +109,15 @@ export default function ShowcaseAppPage() {
 
         {/* About */}
         <section className="mb-10">
-          <h2 className="text-xl font-bold text-navy-50 mb-3">عن هذا {item.kind === 'app' ? 'البرنامج' : 'الموقع'}</h2>
+          <h2 className="text-xl font-bold text-navy-50 mb-3">
+            {item.kind === 'app' ? t('showcase.about_app') : t('showcase.about_site')}
+          </h2>
           <p className="text-navy-200 leading-relaxed whitespace-pre-line">{item.long_description}</p>
         </section>
 
         {item.features.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-xl font-bold text-navy-50 mb-3">المميزات</h2>
+            <h2 className="text-xl font-bold text-navy-50 mb-3">{t('showcase.features')}</h2>
             <ul className="grid sm:grid-cols-2 gap-2.5">
               {item.features.map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-navy-200 text-sm">
@@ -127,7 +131,7 @@ export default function ShowcaseAppPage() {
 
         {related.length > 0 && (
           <section>
-            <h2 className="text-xl font-bold text-navy-50 mb-4">أعمال مشابهة</h2>
+            <h2 className="text-xl font-bold text-navy-50 mb-4">{t('showcase.similar_works')}</h2>
             <ul className="grid sm:grid-cols-2 gap-3">
               {related.map((r) => (
                 <li key={r.slug}>
@@ -148,19 +152,23 @@ export default function ShowcaseAppPage() {
         )}
       </main>
 
-      {ordering && <OrderModal item={item} onClose={() => setOrdering(false)} />}
-
+      {/* Screenshot Zoom Modal */}
       {zoom && (
         <div
-          className="fixed inset-0 z-[100] bg-navy-950/90 flex items-center justify-center p-4"
           role="dialog"
           aria-modal="true"
+          className="fixed inset-0 z-[120] bg-navy-950/95 backdrop-blur-md flex items-center justify-center p-4"
           onClick={() => setZoom(null)}
         >
-          <img src={zoom} alt={item.title} className="max-h-full max-w-full rounded-xl" />
+          <img
+            src={zoom}
+            alt="تكبير الصورة"
+            className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain border border-navy-700"
+          />
         </div>
       )}
 
+      {ordering && <OrderModal item={item} onClose={() => setOrdering(false)} />}
       <Footer />
       <MobileBottomBar />
     </div>

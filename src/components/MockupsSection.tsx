@@ -28,6 +28,7 @@ import { useReveal } from '@/hooks/useReveal';
 import SectionHeader from '@/components/SectionHeader';
 import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/motion';
+import { useI18n } from '@/i18n';
 
 interface MobileCard {
   title: string;
@@ -423,6 +424,7 @@ function MobilePhoneMockup({
   isHovered: boolean;
   prefersReduced: boolean;
 }) {
+  const { t } = useI18n();
   const screenRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.62);
 
@@ -492,13 +494,14 @@ function MobilePhoneMockup({
       {/* Phone label */}
       <div className="flex items-center justify-center gap-1.5 mt-3 text-navy-300 text-sm">
         <Smartphone size={14} className="text-gold-400" />
-        <span>عرض الموبايل المتجاوب</span>
+        <span>{t('mockups.mobile_preview')}</span>
       </div>
     </motion.div>
   );
 }
 
 export default function MockupsSection() {
+  const { t, dir } = useI18n();
   const { ref, revealed } = useReveal();
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -545,10 +548,10 @@ export default function MockupsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           icon={Monitor}
-          badge="معاينة حقيقية للمشاريع"
-          title="شوف تصور موقعك على"
-          highlight="الموبايل واللابتوب"
-          subtitle="نماذج بصرية حقيقية من مشاريع نفّذناها لعملائنا تساعدك تتخيل شكل موقعك وسرعته قبل البدء."
+          badge={t('mockups.badge')}
+          title={t('mockups.title')}
+          highlight={t('mockups.highlight')}
+          subtitle={t('mockups.subtitle')}
         />
 
         <div
@@ -567,14 +570,14 @@ export default function MockupsSection() {
             <button
               onClick={prev}
               className="w-11 h-11 rounded-full bg-navy-800/80 hover:bg-navy-700 border border-navy-600/40 text-navy-200 hover:text-gold-400 flex items-center justify-center transition-all"
-              aria-label="المشروع السابق"
-              title="السابق"
+              aria-label={t('mockups.prev_project')}
+              title={t('mockups.prev')}
             >
-              <ChevronRight size={20} />
+              {dir === 'rtl' ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
             </button>
 
             {/* Pagination Dots with ≥ 44x44px clickable target wrapper */}
-            <div className="flex items-center gap-1.5 px-2" role="tablist" aria-label="شرائح المشاريع">
+            <div className="flex items-center gap-1.5 px-2" role="tablist" aria-label={t('mockups.project_tabs')}>
               {deliveredProjects.map((proj, i) => (
                 <button
                   key={proj.domain}
@@ -582,7 +585,7 @@ export default function MockupsSection() {
                   aria-selected={i === index}
                   onClick={() => setIndex(i)}
                   className="p-3 focus:outline-none"
-                  aria-label={`عرض مشروع ${proj.title}`}
+                  aria-label={t('mockups.view_project', { title: proj.title })}
                 >
                   <span
                     className={`block h-2 rounded-full transition-all duration-300 ${
@@ -597,18 +600,18 @@ export default function MockupsSection() {
             <button
               onClick={next}
               className="w-11 h-11 rounded-full bg-navy-800/80 hover:bg-navy-700 border border-navy-600/40 text-navy-200 hover:text-gold-400 flex items-center justify-center transition-all"
-              aria-label="المشروع التالي"
-              title="التالي"
+              aria-label={t('mockups.next_project')}
+              title={t('mockups.next')}
             >
-              <ChevronLeft size={20} />
+              {dir === 'rtl' ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
             </button>
 
             {/* Play/Pause Button for WCAG 2.2.2 */}
             <button
               onClick={() => setIsPlaying((p) => !p)}
-              className="w-11 h-11 rounded-full bg-navy-800/80 hover:bg-navy-700 border border-navy-600/40 text-navy-200 hover:text-gold-400 flex items-center justify-center transition-all mr-2"
-              aria-label={isPlaying ? 'إيقاف التمرير التلقائي مؤقتاً' : 'تشغيل التمرير التلقائي'}
-              title={isPlaying ? 'إيقاف مؤقت' : 'تشغيل'}
+              className="w-11 h-11 rounded-full bg-navy-800/80 hover:bg-navy-700 border border-navy-600/40 text-navy-200 hover:text-gold-400 flex items-center justify-center transition-all ms-2"
+              aria-label={isPlaying ? t('mockups.pause_autoplay') : t('mockups.play_autoplay')}
+              title={isPlaying ? t('mockups.pause') : t('mockups.play')}
             >
               {isPlaying ? <Pause size={16} /> : <Play size={16} />}
             </button>
@@ -674,7 +677,7 @@ export default function MockupsSection() {
               {/* Laptop label */}
               <div className="flex items-center justify-center gap-1.5 mt-3 text-navy-300 text-sm">
                 <Monitor size={14} className="text-gold-400" />
-                <span>عرض الديسكتوب واللابتوب</span>
+                <span>{t('mockups.desktop_preview')}</span>
               </div>
             </motion.div>
 

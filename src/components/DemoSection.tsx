@@ -2,8 +2,10 @@ import { Clock, CheckCircle2, Gift, ArrowLeft } from 'lucide-react';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { useReveal } from '@/hooks/useReveal';
 import { trackEvent } from '@/lib/analytics';
+import { useI18n } from '@/i18n';
 
 export default function DemoSection() {
+  const { t } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
 
@@ -17,16 +19,16 @@ export default function DemoSection() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-gold-500/15 rounded-full px-4 py-1.5 mb-6">
             <Gift size={16} className="text-gold-400" />
-            <span className="text-gold-300 text-sm font-bold">عرض حصري</span>
+            <span className="text-gold-300 text-sm font-bold">{t('demo_section.badge')}</span>
           </div>
 
           <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-4">
-            نبني لك <span className="text-gradient-gold">ديمو لموقع نشاطك مجاناً</span>
+            {t('demo_section.title_prefix')}{' '}
+            <span className="text-gradient-gold">{t('demo_section.title_highlight')}</span>
           </h2>
 
           <p className="text-navy-200 text-lg mb-8 leading-relaxed max-w-3xl">
-            شوف موقع نشاطك قبل ما تدفع أي حاجة. نجهّز لك تصميم كامل على أساس نشاطك — تطمن عليه،
-            عدّل معانا، وادفع فقط لو عجبك وقررت تكمل.
+            {t('demo_section.desc')}
           </p>
 
           {/* Key points */}
@@ -34,18 +36,18 @@ export default function DemoSection() {
             <div className="flex items-start gap-3 bg-navy-800/40 rounded-xl p-4">
               <Clock size={22} className="text-gold-400 shrink-0 mt-0.5" />
               <div>
-                <div className="text-navy-50 font-bold mb-1">مدة التجهيز</div>
+                <div className="text-navy-50 font-bold mb-1">{t('demo_section.prep_time_title')}</div>
                 <div className="text-navy-300 text-sm">
-                  من {cfg.demoMinHours} إلى {cfg.demoMaxHours} ساعة
+                  {t('demo_section.prep_time_desc', { min: String(cfg.demoMinHours), max: String(cfg.demoMaxHours) })}
                 </div>
               </div>
             </div>
             <div className="flex items-start gap-3 bg-navy-800/40 rounded-xl p-4">
               <CheckCircle2 size={22} className="text-gold-400 shrink-0 mt-0.5" />
               <div>
-                <div className="text-navy-50 font-bold mb-1">بدون التزام</div>
+                <div className="text-navy-50 font-bold mb-1">{t('demo_section.no_risk_title')}</div>
                 <div className="text-navy-300 text-sm">
-                  تدفع فقط لو أعجبك وقررت تكمل
+                  {t('demo_section.no_risk_desc')}
                 </div>
               </div>
             </div>
@@ -59,8 +61,8 @@ export default function DemoSection() {
             onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'demo_section_cta' })}
             className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 glow-gold-hover text-lg"
           >
-            اطلب الديمو المجاني
-            <ArrowLeft size={20} />
+            <span>{t('demo_section.cta')}</span>
+            <ArrowLeft size={20} className="rtl:rotate-0 ltr:rotate-180" />
           </a>
         </div>
       </div>

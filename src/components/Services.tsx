@@ -3,15 +3,7 @@ import { useReveal } from '@/hooks/useReveal';
 import { useSiteData } from '@/lib/site-data-context';
 import { getIcon } from '@/lib/icons';
 import SectionHeader from '@/components/SectionHeader';
-
-const fallbackServices = [
-  { icon: 'Globe', title: 'تصميم مواقع الشركات', desc: 'مواقع احترافية متعددة الصفحات بتصميم فريد يعكس هوية شركتك ويبرز خدماتك.' },
-  { icon: 'ShoppingCart', title: 'متاجر إلكترونية متكاملة', desc: 'متاجر إلكترونية سهلة الاستخدام مع ربط الدفع والشحن وإدارة المنتجات والطلبات.' },
-  { icon: 'Utensils', title: 'مواقع المطاعم والكافيهات', desc: 'منيو إلكتروني تفاعلي مع إمكانية الطلب المباشر عبر واتساب بدون عمولات.' },
-  { icon: 'Search', title: 'تحسين محركات البحث (SEO)', desc: 'تهيئة موقعك للظهور في الصفحة الأولى على جوجل في المنصورة وكل مصر.' },
-  { icon: 'Smartphone', title: 'تصميم متجاوب بالكامل', desc: 'موقعك يظهر بشكل مثالي على الموبايل والتابلت واللابتوب وكل مقاسات الشاشات.' },
-  { icon: 'Shield', title: 'استضافة ودومين ودعم', desc: 'نوفر لك دومين احترافي واستضافة سريعة مع نسخ احتياطي ودعم فني مستمر.' },
-];
+import { useI18n } from '@/i18n';
 
 function ServiceCard({
   service,
@@ -63,8 +55,18 @@ function ServiceCard({
 }
 
 export default function Services() {
+  const { t } = useI18n();
   const { ref, revealed } = useReveal();
   const { data } = useSiteData();
+
+  const fallbackServices = [
+    { icon: 'Globe', title: t('services.website_development'), desc: t('services.website_desc') },
+    { icon: 'ShoppingCart', title: t('services.ecommerce'), desc: t('services.ecommerce_desc') },
+    { icon: 'Utensils', title: t('services.qr_menu'), desc: t('services.qr_menu_desc') },
+    { icon: 'Search', title: t('services.seo_ready'), desc: t('services.seo_ready_desc') },
+    { icon: 'Smartphone', title: t('services.speed_optimization'), desc: t('services.speed_optimization_desc') },
+    { icon: 'Shield', title: t('services.continuous_support'), desc: t('services.continuous_support_desc') },
+  ];
 
   const services = data.services.length > 0
     ? data.services.map((s) => ({ icon: s.icon, title: s.title, desc: s.description }))
@@ -74,10 +76,10 @@ export default function Services() {
     <section id="services" className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="خدماتنا وحلولنا"
-          title="كل ما يحتاجه نشاطك"
-          highlight="للظهور والنمو على الإنترنت"
-          subtitle="من أول تصميم الموقع وحتى إطلاق المتجر وربط الدفع والتوصيل — نوفّر لك حلولاً تقنية متكاملة ومخصصة."
+          badge={t('services.badge')}
+          title={t('services.title')}
+          highlight={t('services.highlight')}
+          subtitle={t('services.subtitle')}
         />
 
         {/* Services grid */}

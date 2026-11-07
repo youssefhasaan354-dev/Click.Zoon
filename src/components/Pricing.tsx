@@ -5,6 +5,7 @@ import { useSiteData } from '@/lib/site-data-context';
 import { useReveal } from '@/hooks/useReveal';
 import { trackEvent } from '@/lib/analytics';
 import SectionHeader from '@/components/SectionHeader';
+import { useI18n } from '@/i18n';
 
 interface ComparisonFeature {
   name: string;
@@ -13,26 +14,27 @@ interface ComparisonFeature {
   ecommerce: string | boolean;
 }
 
-const comparisonFeatures: ComparisonFeature[] = [
-  { name: 'عدد صفحات الموقع', basic: 'صفحة واحدة تفاعلية', pro: 'حتى 6 صفحات', ecommerce: 'صفحات ومنتجات غير محدودة' },
-  { name: 'دومين .com واستضافة سريعة', basic: true, pro: true, ecommerce: true },
-  { name: 'شهادة أمان مشفرة SSL', basic: true, pro: true, ecommerce: true },
-  { name: 'تصميم متجاوب 100% مع الموبايل', basic: true, pro: true, ecommerce: true },
-  { name: 'منيو إلكتروني / كتالوج عرض', basic: false, pro: true, ecommerce: true },
-  { name: 'بوابات الدفع الإلكتروني (فيزا / محافظ)', basic: false, pro: 'اختياري', ecommerce: true },
-  { name: 'ربط شركات الشحن والتوصيل', basic: false, pro: false, ecommerce: true },
-  { name: 'تحسين محركات البحث SEO', basic: 'أساسي', pro: 'متقدم ومستهدف', ecommerce: 'متقدم للمتجر والمنتجات' },
-  { name: 'لوحة تحكم لإدارة الموقع بسهولة', basic: false, pro: true, ecommerce: true },
-  { name: 'مدة الدعم الفني والتحديثات', basic: 'شهر كامل', pro: '3 أشهر مجاناً', ecommerce: '6 أشهر متابعة مستمرة' },
-  { name: 'ديمو تجريبي مجاني قبل أي دفع', basic: true, pro: true, ecommerce: true },
-];
-
 export default function Pricing() {
+  const { t } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
   const { data } = useSiteData();
   const [billingCycle, setBillingCycle] = useState<'onetime' | 'monthly'>('onetime');
   const [showTable, setShowTable] = useState(false);
+
+  const comparisonFeatures: ComparisonFeature[] = [
+    { name: t('pricing.feat_pages'), basic: t('pricing.feat_pages_basic'), pro: t('pricing.feat_pages_pro'), ecommerce: t('pricing.feat_pages_ecom') },
+    { name: t('pricing.feat_domain'), basic: true, pro: true, ecommerce: true },
+    { name: t('pricing.feat_ssl'), basic: true, pro: true, ecommerce: true },
+    { name: t('pricing.feat_responsive'), basic: true, pro: true, ecommerce: true },
+    { name: t('pricing.feat_menu'), basic: false, pro: true, ecommerce: true },
+    { name: t('pricing.feat_payment'), basic: false, pro: t('pricing.feat_payment_opt'), ecommerce: true },
+    { name: t('pricing.feat_shipping'), basic: false, pro: false, ecommerce: true },
+    { name: t('pricing.feat_seo'), basic: t('pricing.feat_seo_basic'), pro: t('pricing.feat_seo_pro'), ecommerce: t('pricing.feat_seo_ecom') },
+    { name: t('pricing.feat_dashboard'), basic: false, pro: true, ecommerce: true },
+    { name: t('pricing.feat_support'), basic: t('pricing.feat_support_basic'), pro: t('pricing.feat_support_pro'), ecommerce: t('pricing.feat_support_ecom') },
+    { name: t('pricing.feat_demo'), basic: true, pro: true, ecommerce: true },
+  ];
 
   const plans = data.pricingPlans.length > 0
     ? data.pricingPlans.map((p) => ({
@@ -50,10 +52,10 @@ export default function Pricing() {
     <section id="pricing" className="py-20 lg:py-28 bg-navy-950/50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="الباقات والأسعار"
-          title="باقات مدروسة"
-          highlight="تناسب حجم وتطلعات نشاطك"
-          subtitle="اختر الباقة المناسبة لك، أو اطلب عرض سعر مخصص لاحتياجاتك بالضبط بدون أي التزام مادي مسبق."
+          badge={t('pricing.badge')}
+          title={t('pricing.title')}
+          highlight={t('pricing.highlight')}
+          subtitle={t('pricing.subtitle')}
         />
 
         {/* Billing cycle toggle */}
@@ -68,7 +70,7 @@ export default function Pricing() {
                   : 'text-navy-300 hover:text-navy-100'
               }`}
             >
-              دفع لمرة واحدة (تملك كامل)
+              {t('pricing.billing_onetime')}
             </button>
             <button
               type="button"
@@ -79,9 +81,9 @@ export default function Pricing() {
                   : 'text-navy-300 hover:text-navy-100'
               }`}
             >
-              <span>اشتراك شهري شامل الصيانة</span>
+              <span>{t('pricing.billing_monthly')}</span>
               <span className="bg-teal-500/20 text-teal-300 text-[10px] px-2 py-0.5 rounded-full border border-teal-500/30">
-                الأوفر للبدايات
+                {t('pricing.billing_monthly_badge')}
               </span>
             </button>
           </div>
@@ -89,7 +91,7 @@ export default function Pricing() {
 
         {billingCycle === 'monthly' && (
           <div className="max-w-2xl mx-auto mb-8 p-4 rounded-xl bg-gold-500/10 border border-gold-500/30 text-center text-xs sm:text-sm text-gold-300">
-            💡 نظام الاشتراك الشهري يبدأ بدون تكلفة تأسيس كبيرة، ويشمل حجز الدومين، السيرفر فائق السرعة، النسخ الاحتياطي الأسبوعي، والدعم الفني المباشر.
+            {t('pricing.monthly_note')}
           </div>
         )}
 
@@ -120,7 +122,7 @@ export default function Pricing() {
                 {plan.highlighted && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-500 text-navy-900 text-sm font-bold px-4 py-1.5 rounded-full flex items-center gap-1 shadow-lg shadow-gold-500/30">
                     <Star size={14} className="fill-navy-900" />
-                    الأكثر طلباً
+                    {t('pricing.most_popular')}
                   </div>
                 )}
 
@@ -134,15 +136,19 @@ export default function Pricing() {
                   {cfg.showPrices && plan.price ? (
                     <div className="text-center mb-6">
                       <span className="text-3xl font-extrabold text-gold-400">
-                        {billingCycle === 'monthly' ? `من ${Math.round(parseInt(plan.price.replace(/\D/g, '') || '3000') / 6)} ج.م/شهر` : `ابتداءً من ${plan.price}`}
+                        {billingCycle === 'monthly'
+                          ? t('pricing.from_monthly', { price: String(Math.round(parseInt(plan.price.replace(/\D/g, '') || '3000') / 6)) })
+                          : t('pricing.starting_from', { price: plan.price })}
                       </span>
                     </div>
                   ) : (
                     <div className="text-center mb-6">
                       <span className="text-xl font-bold text-gradient-gold">
-                        {billingCycle === 'monthly' ? 'اشتراك شهري مرن' : 'السعر حسب احتياجك'}
+                        {t('pricing.custom_pricing')}
                       </span>
-                      <span className="block text-sm text-navy-300 mt-1">اطلب عرض سعر مخصص مجاناً</span>
+                      <span className="block text-sm text-navy-300 mt-1">
+                        {t('pricing.request_custom_quote')}
+                      </span>
                     </div>
                   )}
 
@@ -170,7 +176,7 @@ export default function Pricing() {
                   }`}
                 >
                   <MessageCircle size={18} />
-                  اطلب عرض سعر وديمو
+                  {t('pricing.cta')}
                 </a>
               </div>
             </div>
@@ -184,19 +190,19 @@ export default function Pricing() {
             onClick={() => setShowTable((prev) => !prev)}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-navy-800/80 hover:bg-navy-800 border border-gold-500/30 text-gold-300 font-bold text-sm transition-all shadow-lg"
           >
-            <span>{showTable ? 'إخفاء جدول المقارنة التفصيلي' : 'مقارنة تفصيلية بين مميزات كل الباقات'}</span>
+            <span>{showTable ? t('pricing.hide_comparison') : t('pricing.show_comparison')}</span>
             {showTable ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
 
           {showTable && (
             <div className="mt-8 overflow-x-auto rounded-2xl border border-navy-700/80 bg-navy-900/90 shadow-2xl">
-              <table className="w-full text-right text-xs sm:text-sm border-collapse">
+              <table className="w-full text-start text-xs sm:text-sm border-collapse">
                 <thead>
                   <tr className="bg-navy-800/90 border-b border-navy-700 text-navy-200">
-                    <th className="p-4 font-bold text-gold-300">الميزة والمواصفات</th>
-                    <th className="p-4 font-bold text-center">باقة أساسية</th>
-                    <th className="p-4 font-bold text-center text-gold-400 bg-gold-500/10">باقة احترافية</th>
-                    <th className="p-4 font-bold text-center">متجر إلكتروني</th>
+                    <th className="p-4 font-bold text-gold-300 text-start">{t('pricing.feature_col')}</th>
+                    <th className="p-4 font-bold text-center">{t('pricing.plan_basic')}</th>
+                    <th className="p-4 font-bold text-center text-gold-400 bg-gold-500/10">{t('pricing.plan_pro')}</th>
+                    <th className="p-4 font-bold text-center">{t('pricing.plan_ecommerce')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-navy-800 text-navy-200">
@@ -214,7 +220,7 @@ export default function Pricing() {
 
                     return (
                       <tr key={feat.name} className="hover:bg-navy-800/40 transition-colors">
-                        <td className="p-4 font-semibold text-navy-100">{feat.name}</td>
+                        <td className="p-4 font-semibold text-navy-100 text-start">{feat.name}</td>
                         <td className="p-4 text-center">{renderCell(feat.basic)}</td>
                         <td className="p-4 text-center bg-gold-500/5 text-gold-200 font-semibold">
                           {renderCell(feat.pro)}

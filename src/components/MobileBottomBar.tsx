@@ -1,8 +1,10 @@
 import { Phone, MessageCircle } from 'lucide-react';
 import { useSiteConfig, waLinkIntl } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
+import { useI18n } from '@/i18n';
 
 export default function MobileBottomBar() {
+  const { t } = useI18n();
   const cfg = useSiteConfig();
 
   return (
@@ -15,10 +17,10 @@ export default function MobileBottomBar() {
         onClick={() => {
           trackEvent({ category: 'call', action: 'click', label: 'mobile_bar' });
         }}
-        className="flex-1 flex items-center justify-center gap-2 py-3 text-navy-50 font-bold border-l border-navy-700/40 active:bg-navy-800 transition-colors text-sm"
+        className="flex-1 flex items-center justify-center gap-2 py-3 text-navy-50 font-bold border-e border-navy-700/40 active:bg-navy-800 transition-colors text-sm"
       >
         <Phone size={18} className="text-gold-400 shrink-0" />
-        اتصل
+        {t('common.call')}
       </a>
       <a
         href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.general)}
@@ -30,7 +32,7 @@ export default function MobileBottomBar() {
         className="flex-1 flex items-center justify-center gap-2 py-3 bg-gold-500/10 text-gold-300 font-bold active:bg-gold-500/20 transition-colors text-sm"
       >
         <MessageCircle size={18} className="text-green-400 shrink-0" />
-        واتساب
+        {t('common.whatsapp')}
       </a>
     </div>
   );
