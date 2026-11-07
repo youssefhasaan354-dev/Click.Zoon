@@ -24,3 +24,6 @@ dist-ssr
 .env.local
 .vercel
 supabase/.temp/
+
+temp_chrome_profile/
+

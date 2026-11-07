@@ -41,6 +41,7 @@
     "en": "English",
     "more": "More languages",
     "more_desc": "Instant translation to all languages",
+    "google_disclaimer": "Machine translation by Google",
     "load_error": "Failed to load automated translation tool"
   },
   "hero": {
@@ -416,6 +417,8 @@
     "data_collection_text": "We only collect data voluntarily submitted via contact forms (name, phone, business type) to communicate regarding demo requests and services. We never sell or share your data with 3rd parties.",
     "cookies_title": "Cookies",
     "cookies_text": "We use essential cookies to measure performance and enhance user experience. You can manage your preferences at any time.",
+    "third_party_title": "Third-Party Tools & Automated Translation",
+    "third_party_text": "When you select the 'More languages' option, Google Website Translator scripts and services are loaded only upon your explicit request to assist in reading content, and are subject to Google's Privacy Policy. These scripts are never loaded automatically to protect your privacy and ensure optimal performance.",
     "security_title": "Data Security & Confidentiality",
     "security_text": "We utilize encryption and Row Level Security (RLS) via Supabase. Your data is encrypted and accessible only by authorized engineers for your project.",
     "rights_title": "Your Rights & Data Retention",

@@ -30,6 +30,10 @@ export default function Privacy() {
             <p>{t('privacy.cookies_text')}</p>
           </section>
           <section>
+            <h2 className="text-xl font-bold text-navy-50 mb-2">{t('privacy.third_party_title')}</h2>
+            <p>{t('privacy.third_party_text')}</p>
+          </section>
+          <section>
             <h2 className="text-xl font-bold text-navy-50 mb-2">{t('privacy.security_title')}</h2>
             <p>{t('privacy.security_text')}</p>
           </section>

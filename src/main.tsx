@@ -3,6 +3,31 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import './index.css';
+
+// Safeguard React reconciliation against Google Translate and third-party DOM modifications
+if (typeof window !== 'undefined' && typeof Node === 'function' && Node.prototype) {
+  const originalRemoveChild = Node.prototype.removeChild;
+  Node.prototype.removeChild = function <T extends Node>(child: T): T {
+    if (child.parentNode !== this) {
+      if (typeof console !== 'undefined' && console.warn) {
+        console.warn('Safeguarded DOM conflict on removeChild:', child);
+      }
+      return child;
+    }
+    return originalRemoveChild.call(this, child) as T;
+  };
+
+  const originalInsertBefore = Node.prototype.insertBefore;
+  Node.prototype.insertBefore = function <T extends Node>(newNode: T, referenceNode: Node | null): T {
+    if (referenceNode && referenceNode.parentNode !== this) {
+      if (typeof console !== 'undefined' && console.warn) {
+        console.warn('Safeguarded DOM conflict on insertBefore:', referenceNode);
+      }
+      return newNode;
+    }
+    return originalInsertBefore.call(this, newNode, referenceNode) as T;
+  };
+}
 import HomePage, { ScrollToHash } from './App.tsx';
 import NotFoundPage from '@/pages/NotFound';
 import { AdminProvider } from './lib/admin-context.tsx';
