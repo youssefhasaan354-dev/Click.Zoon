@@ -37,6 +37,7 @@ export default function ShowcaseAppPage() {
         description={item.tagline || item.description}
         canonical={`/showcase/${item.slug}`}
         ogImage={item.image_url.startsWith('http') ? item.image_url : undefined}
+        noindex={item.slug.startsWith('sample-')}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': item.kind === 'app' ? 'SoftwareApplication' : 'CreativeWork',

@@ -6,7 +6,6 @@ import {
   ChevronLeft,
   Pause,
   Play,
-  Lock,
   Menu,
   Wifi,
   Battery,
@@ -42,7 +41,7 @@ interface DeliveredProject {
   src: string;
   title: string;
   category: string;
-  domain: string;
+  label: string;
   theme: {
     accentColor: string;
     badgeBg: string;
@@ -71,7 +70,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-1-restaurant.webp',
     title: 'قصر الريم للمشويات',
     category: 'موقع وتطبيق مطعم ومشويات',
-    domain: 'clickzoon.com/demo/restaurant',
+    label: 'نموذج تصميم — مطعم ومشويات',
     theme: {
       accentColor: 'text-amber-400',
       badgeBg: 'bg-amber-500/15 border-amber-500/40 text-amber-300',
@@ -120,7 +119,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-2-cafe.webp',
     title: 'روست كافيه & كوفي بار',
     category: 'كافيه وسبيشالتي كوفي',
-    domain: 'clickzoon.com/demo/cafe',
+    label: 'نموذج تصميم — كافيه وقائمة تفاعلية',
     theme: {
       accentColor: 'text-yellow-400',
       badgeBg: 'bg-yellow-500/15 border-yellow-500/40 text-yellow-300',
@@ -169,7 +168,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-3-store.webp',
     title: 'متجر مودانيستا فاشون',
     category: 'متجر إلكتروني متكامل للأزياء',
-    domain: 'clickzoon.com/demo/store',
+    label: 'نموذج تصميم — متجر إلكتروني متكامل',
     theme: {
       accentColor: 'text-emerald-400',
       badgeBg: 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300',
@@ -218,7 +217,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-4-medical.webp',
     title: 'مركز النور الطبي التخصصي',
     category: 'منصة حجز عيادات وخدمات طبية',
-    domain: 'clickzoon.com/demo/clinic',
+    label: 'نموذج تصميم — منصة حجز عيادات',
     theme: {
       accentColor: 'text-cyan-400',
       badgeBg: 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300',
@@ -577,7 +576,7 @@ export default function MockupsSection() {
             <div className="flex items-center gap-1.5 px-2" role="tablist" aria-label="شرائح المشاريع">
               {deliveredProjects.map((proj, i) => (
                 <button
-                  key={proj.domain}
+                  key={proj.id}
                   role="tab"
                   aria-selected={i === index}
                   onClick={() => setIndex(i)}
@@ -643,9 +642,9 @@ export default function MockupsSection() {
                         <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                         <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                       </div>
-                      <div className="flex items-center gap-1.5 bg-navy-900/80 border border-navy-700/50 rounded-md px-2.5 py-0.5 text-xs text-navy-300 font-mono flex-1 max-w-xs" dir="ltr">
-                        <Lock size={10} className="text-green-400 shrink-0" />
-                        <span className="truncate">https://{deliveredProjects[index].domain}</span>
+                      <div className="flex items-center gap-1.5 bg-navy-900/80 border border-gold-500/30 rounded-md px-2.5 py-0.5 text-xs text-gold-300 font-medium flex-1 max-w-xs" dir="rtl">
+                        <Sparkles size={11} className="text-gold-400 shrink-0" />
+                        <span className="truncate">{deliveredProjects[index].label}</span>
                       </div>
                     </div>
 

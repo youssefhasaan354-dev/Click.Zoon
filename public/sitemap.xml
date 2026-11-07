@@ -22,32 +22,4 @@
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/privacy" />
   </url>
-  <url>
-    <loc>https://clickzoon.com/showcase/sample-restaurant</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/showcase/sample-restaurant" />
-  </url>
-  <url>
-    <loc>https://clickzoon.com/showcase/sample-cafe</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/showcase/sample-cafe" />
-  </url>
-  <url>
-    <loc>https://clickzoon.com/showcase/sample-store</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/showcase/sample-store" />
-  </url>
-  <url>
-    <loc>https://clickzoon.com/showcase/sample-clinic</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/showcase/sample-clinic" />
-  </url>
 </urlset>

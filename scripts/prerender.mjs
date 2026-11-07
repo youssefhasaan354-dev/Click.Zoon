@@ -91,11 +91,13 @@ async function fetchProjects() {
 
 function generateSitemap(projects) {
   const today = new Date().toISOString().slice(0, 10);
+  // Exclude sample/fallback mockups whose slug starts with sample-
+  const indexableProjects = projects.filter((p) => p.slug && !p.slug.startsWith('sample-'));
   const urls = [
     { loc: `${siteUrl}/`, priority: '1.0', changefreq: 'weekly' },
     { loc: `${siteUrl}/showcase`, priority: '0.9', changefreq: 'daily' },
     { loc: `${siteUrl}/privacy`, priority: '0.3', changefreq: 'monthly' },
-    ...projects.map((p) => ({
+    ...indexableProjects.map((p) => ({
       loc: `${siteUrl}/showcase/${p.slug}`,
       priority: '0.8',
       changefreq: 'weekly',
@@ -163,6 +165,7 @@ function renderHtml({
   canonicalPath,
   ogImage,
   ogType = 'website',
+  noIndex = false,
   jsonLd,
   bodyContent,
 }) {
@@ -170,6 +173,14 @@ function renderHtml({
   const fullOgImage = ogImage?.startsWith('http') ? ogImage : `${siteUrl}${ogImage || '/og-image.webp'}`;
 
   let html = template;
+
+  if (noIndex) {
+    if (html.includes('<meta name="robots"')) {
+      html = html.replace(/<meta name="robots" content=".*?" \/>/, '<meta name="robots" content="noindex, follow" />');
+    } else {
+      html = html.replace('</head>', '    <meta name="robots" content="noindex, follow" />\n  </head>');
+    }
+  }
 
   // Replace Title
   html = html.replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`);
@@ -329,6 +340,7 @@ async function runPrerender() {
     const slugDir = path.join(showcaseDir, project.slug);
     fs.mkdirSync(slugDir, { recursive: true });
 
+    const isSample = Boolean(project.slug && project.slug.startsWith('sample-'));
     const isApp = project.kind === 'app' || project.kind === 'برنامج';
     const projectJsonLd = {
       '@context': 'https://schema.org',
@@ -352,6 +364,7 @@ async function runPrerender() {
       description: project.tagline ? `${project.tagline} — ${project.description}` : project.description,
       canonicalPath: `/showcase/${project.slug}`,
       ogImage: project.image_url,
+      noIndex: isSample,
       jsonLd: projectJsonLd,
       bodyContent: `      <div style="background-color:#0a1628;color:#e8edf5;padding:60px 20px;text-align:center;font-family:'Cairo',sans-serif;" dir="rtl">
         <h1 style="font-size:2.2rem;font-weight:800;color:#efc95e;margin-bottom:1rem;">${escapeHtml(project.title)}</h1>

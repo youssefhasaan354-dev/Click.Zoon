@@ -1,9 +1,9 @@
 // Supabase Edge Function: submit-demo-request
 // Validates bot protection (Cloudflare Turnstile when configured), validates Egyptian phone format,
-// enforces IP & Phone rate limiting, verifies authenticated customer JWT, and securely inserts genuine leads
-// ('form', 'wizard', 'exit_intent') into public.demo_requests.
+// enforces DB-backed IP rate limiting (hashed IP) & Phone rate limiting, verifies authenticated customer JWT,
+// and securely inserts genuine leads ('form', 'wizard', 'exit_intent', 'showcase') into public.demo_requests.
 
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+import { createClient, SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -32,26 +32,70 @@ interface SubmitRequestPayload {
   turnstile_token?: string;
 }
 
-// In-memory sliding window rate limiter per client IP
-const ipRequestHistory = new Map<string, number[]>();
 const RATE_LIMIT_MAX_REQUESTS = 6;
-const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const RATE_LIMIT_WINDOW_MINUTES = 10;
 
-function isRateLimited(ip: string): boolean {
-  if (!ip || ip === 'unknown-ip') return false;
-  const now = Date.now();
-  const history = (ipRequestHistory.get(ip) || []).filter((time) => now - time < RATE_LIMIT_WINDOW_MS);
-  if (history.length >= RATE_LIMIT_MAX_REQUESTS) {
-    return true;
+/**
+ * Computes a secure SHA-256 hash of the client IP address.
+ * Never stores raw IP addresses in the database.
+ */
+async function hashIp(ip: string): Promise<string> {
+  const data = new TextEncoder().encode(ip);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+/**
+ * DB-backed rate limiter using the atomic RPC or fallback table query.
+ */
+async function checkDbRateLimit(
+  supabaseAdmin: SupabaseClient,
+  ipHash: string,
+  maxRequests = RATE_LIMIT_MAX_REQUESTS,
+  windowMinutes = RATE_LIMIT_WINDOW_MINUTES
+): Promise<{ allowed: boolean }> {
+  try {
+    const { data, error } = await supabaseAdmin.rpc('check_ip_rate_limit', {
+      p_ip_hash: ipHash,
+      p_max_requests: maxRequests,
+      p_window_minutes: windowMinutes,
+    });
+
+    if (error) {
+      console.warn('RPC check_ip_rate_limit error, falling back to table query:', error.message);
+      const windowStart = new Date(Date.now() - windowMinutes * 60 * 1000).toISOString();
+      const { count, error: countErr } = await supabaseAdmin
+        .from('request_attempts')
+        .select('*', { count: 'exact', head: true })
+        .eq('ip_hash', ipHash)
+        .gte('created_at', windowStart);
+
+      if (countErr) {
+        console.warn('Table request_attempts query error (migration may need applying):', countErr.message);
+        return { allowed: true }; // Fail-open to avoid breaking service if migration is pending
+      }
+
+      if ((count ?? 0) >= maxRequests) {
+        return { allowed: false };
+      }
+
+      await supabaseAdmin.from('request_attempts').insert({ ip_hash: ipHash });
+      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+      await supabaseAdmin.from('request_attempts').delete().lt('created_at', oneHourAgo);
+      return { allowed: true };
+    }
+
+    return { allowed: Boolean(data) };
+  } catch (err) {
+    console.error('Rate limit check exception:', err);
+    return { allowed: true };
   }
-  history.push(now);
-  ipRequestHistory.set(ip, history);
-  return false;
 }
 
 function sanitizeText(str?: string | null, maxLen = 1000): string | null {
   if (!str) return null;
-  // Strip HTML tags and control sequences
   const cleaned = str.replace(/<[^>]*>/g, '').trim();
   if (!cleaned) return null;
   return cleaned.slice(0, maxLen);
@@ -76,9 +120,29 @@ Deno.serve(async (req: Request) => {
       req.headers.get('x-real-ip') ||
       'unknown-ip';
 
-    // 1. IP Rate Limiting check
-    if (isRateLimited(clientIp)) {
-      console.warn(`Rate limit exceeded for IP: ${clientIp}`);
+    const ipHash = await hashIp(clientIp);
+
+    // Initialize Supabase Admin client
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') || '';
+
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Supabase environment variables not set');
+    }
+
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+    // 1. DB-Backed IP Rate Limiting check (hashed IP)
+    const { allowed: ipAllowed } = await checkDbRateLimit(
+      supabaseAdmin,
+      ipHash,
+      RATE_LIMIT_MAX_REQUESTS,
+      RATE_LIMIT_WINDOW_MINUTES
+    );
+
+    if (!ipAllowed) {
+      console.warn(`DB Rate limit exceeded for IP hash: ${ipHash}`);
       return new Response(
         JSON.stringify({
           error: 'لقد تم إرسال طلبات متعددة خلال وقت قصير. يرجى الانتظار بضع دقائق والمحاولة لاحقاً.',
@@ -96,7 +160,7 @@ Deno.serve(async (req: Request) => {
     // 2. Strict whitelist validation for 'source'
     const source = (body.source || '').trim();
     if (!source || !ALLOWED_SOURCES.includes(source as AllowedSource)) {
-      console.warn('Rejected invalid source:', source, 'from IP:', clientIp);
+      console.warn('Rejected invalid source:', source, 'from IP hash:', ipHash);
       return new Response(
         JSON.stringify({
           error: `قيمة المصدر (source) غير صالحة. القيم المسموحة هي: ${ALLOWED_SOURCES.join(', ')}`,
@@ -111,7 +175,7 @@ Deno.serve(async (req: Request) => {
 
     // 3. Honeypot check (client-side trap filled by bots)
     if (body.honeypot && body.honeypot.trim().length > 0) {
-      console.warn('Bot detected via honeypot from IP:', clientIp);
+      console.warn('Bot detected via honeypot from IP hash:', ipHash);
       return new Response(JSON.stringify({ error: 'Spam detected' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -119,13 +183,26 @@ Deno.serve(async (req: Request) => {
     }
 
     // 4. Cloudflare Turnstile verification:
-    // If TURNSTILE_SECRET_KEY is configured AND turnstile_token is supplied, verify it with Cloudflare.
-    // If TURNSTILE_SECRET_KEY is NOT configured, or client lacks VITE_TURNSTILE_SITE_KEY (token missing),
-    // allow the request through safely protected by IP rate limiting, honeypot, and phone validation.
+    // If TURNSTILE_SECRET_KEY is set, REQUIRE turnstile_token; reject (403) when missing.
+    // Keep the permissive path only when the secret is not configured.
     const turnstileSecret = Deno.env.get('TURNSTILE_SECRET_KEY');
     const token = body.turnstile_token;
 
-    if (turnstileSecret && token) {
+    if (turnstileSecret) {
+      if (!token) {
+        console.warn('Turnstile token missing while TURNSTILE_SECRET_KEY is configured from IP hash:', ipHash);
+        return new Response(
+          JSON.stringify({
+            error: 'رمز التحقق الأمني مطلوب (Turnstile Token Missing)',
+            code: 'turnstile_missing',
+          }),
+          {
+            status: 403,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          }
+        );
+      }
+
       const formData = new FormData();
       formData.append('secret', turnstileSecret);
       formData.append('response', token);
@@ -141,42 +218,38 @@ Deno.serve(async (req: Request) => {
       const verifyOutcome = await verifyRes.json();
       if (!verifyOutcome.success) {
         console.warn('Turnstile verification failed:', verifyOutcome['error-codes']);
-        return new Response(JSON.stringify({ error: 'فشل التحقق الأمني من الرمز' }), {
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        });
+        return new Response(
+          JSON.stringify({
+            error: 'فشل التحقق الأمني من الرمز. يرجى إعادة المحاولة.',
+            code: 'turnstile_failed',
+          }),
+          {
+            status: 403,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          }
+        );
       }
     }
 
     // 5. Phone number validation (Egyptian format)
     const rawPhone = (body.phone || '').trim();
-    // Normalize Arabic-Indic digits if any (٠١٢٣٤٥٦٧٨٩)
     const normalizedDigits = rawPhone.replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString());
     const cleanPhone = normalizedDigits.replace(/[\s\-()]/g, '');
     const phoneValid = /^(\+?20|0)?1[0125]\d{8}$/.test(cleanPhone);
     if (!phoneValid) {
-      return new Response(JSON.stringify({ error: 'رقم الهاتف غير صالح. يرجى إدخال رقم هاتف مصري صحيح (مثال: 01020095059).' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return new Response(
+        JSON.stringify({ error: 'رقم الهاتف غير صالح. يرجى إدخال رقم هاتف مصري صحيح (مثال: 01020095059).' }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
     }
 
     const finalName = (body.name || '').trim() || 'طلب موقع إلكتروني';
     const finalBusiness = (body.business_type || '').trim() || 'طلب ديمو / استشارة';
 
-    // 6. Initialize Supabase Admin client
-    const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
-    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') || '';
-
-    if (!supabaseUrl || !supabaseServiceKey) {
-      throw new Error('Supabase environment variables not set');
-    }
-
-    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
-
-    // 7. Verify Authenticated Customer JWT (preserving "Customers can read own requests" RLS)
-    // Never trust client-provided user_id directly; authenticate cryptographically via Supabase Auth
+    // 6. Verify Authenticated Customer JWT (preserving "Customers can read own requests" RLS)
     let verifiedUserId: string | null = null;
     const authHeader = req.headers.get('authorization') || req.headers.get('Authorization');
 
@@ -194,7 +267,7 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // 8. Secure DB Insert via Service Role
+    // 7. Secure DB Insert via Service Role
     const { data, error } = await supabaseAdmin
       .from('demo_requests')
       .insert({

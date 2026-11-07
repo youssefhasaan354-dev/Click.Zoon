@@ -58,6 +58,7 @@ cp .env.example .env
 16. `20261016140000_secure_admin_user_id_check.sql` — تأمين صلاحيات الإدارة عبر `user_id` مع اشتراط تأكيد البريد الإلكتروني، وتوسيع مصادر الطلبات
 17. `20261107120000_add_showcase_fields.sql` — حقول معرض الأعمال المتقدم (`slug`, `kind`, `tagline`, `long_description`, `features`, `screenshots`, `live_url`) مع قيد الفهرس الفريد للرابط المختصر.
 18. `20261107140000_secure_rls_policies.sql` — إحكام وتأمين سياسات الـ RLS: جعل قراءة المشاريع للمرئية فقط للعامة، وقصر كتابة طلبات الديمو على دالة الـ Edge Function (`service_role`) لمنع التلاعب المباشر.
+19. `20261107160000_create_ip_rate_limits.sql` — جدول `request_attempts` ودالة `check_ip_rate_limit` لتحديد معدل الطلبات برمجياً عبر تجزئة مشفرة للـ IP (SHA-256 Hash) بحد أقصى 6 طلبات لكل 10 دقائق مع تنظيف دوري تلقائي.
 
 ---
 
@@ -132,12 +133,16 @@ npm run build
 2. **حماية النماذج وطلبات الديمو**:
    - حقل خفي فخ للبوتات (Honeypot).
    - التحقق من صيغة أرقام الموبايل المصرية وتحويل الأرقام العربية-المشرقية (٠-٩) إلى أرقام لاتينية.
-   - دعم التحقق الذكي عبر Cloudflare Turnstile server-side عبر Supabase Edge Function (`submit-demo-request`).
-   - قيود معدل التكرار في قاعدة البيانات (Rate Limiting Trigger).
+   - التحقق الصارم عبر Cloudflare Turnstile: عند ضبط `TURNSTILE_SECRET_KEY` في بيئة Supabase، تصبح معلّمة `turnstile_token` إلزامية وتُرفض أي محاولة بدونها بـ 403 Forbidden، مع إتاحة المسار المتساهل فقط محلياً عند عدم وجود المفتاح.
+   - تحديد معدل الطلبات على مستوى الـ IP بقاعدة البيانات (DB-backed Rate Limiter): حفظ تجزئة مشفرة SHA-256 للـ IP في جدول `request_attempts` وفحص الحد الأقصى (6 طلبات لكل 10 دقائق) مع تنظيف دوري للسجلات الأقدم من ساعة دون حفظ عنوان IP حقيقي.
+   - قيود معدل التكرار لأرقام الهواتف في قاعدة البيانات (Rate Limiting Trigger لمنع تكرار نفس الرقم أكثر من 3 مرات في الساعة).
 3. **أمان الإشعارات (Fail-Closed)**:
    - الدالة السحابية `notify-new-request` ترفض أي استدعاء عند عدم تعيين `WEBHOOK_SECRET` لضمان عدم تسريب الإشعارات.
-4. **أمان المتصفح (CSP & Security Headers)**:
-   - تفعيل `Content-Security-Policy`، `Strict-Transport-Security`، `X-Frame-Options`، وسياسات التخزين المؤقت للأصول والخطوط في `vercel.json`.
+4. **أمان المتصفح وسياسة أمان المحتوى (CSP & Security Headers)**:
+   - تم إزالة `'unsafe-inline'` من `script-src` واستبداله بالـ SHA-256 Hash الدقيق للسكربت المضمن (`'sha256-tuKyZn/3ycw/MNMDii/kvSPrelo6SCsJSecqb1n2neg='`).
+   - **ما لم يتم إزالته من الـ CSP وسبب ذلك**:
+     - تم الإبقاء على `'unsafe-inline'` في `style-src` فقط لأن مكتبات واجهة المستخدم والحركة (React inline styles و Framer Motion و Tailwind) تعتمد على حقن وتعديل خصائص الأنماط ديناميكياً أثناء الحركات والتنقل (مثل `transform`, `opacity`, `transition`). إزالتها ستعطل حركات الواجهة والتفاعل.
+     - تم تنظيف النطاقات الخارجية غير المستخدمة من الـ CSP (مثل `images.unsplash.com` و `youtube.com`) مع الإبقاء على النطاقات المعتمدة والضرورية فقط (خرائط Google Maps في قسم التواصل، Google Analytics، Cloudflare Turnstile، و Supabase).
 
 ---
 
