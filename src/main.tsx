@@ -21,6 +21,8 @@ const CustomerAccountPage = lazy(() => import('@/pages/CustomerAccount'));
 const CustomerRequestsPage = lazy(() => import('@/pages/CustomerRequests'));
 const ResetPasswordPage = lazy(() => import('@/pages/ResetPassword'));
 const CaseStudyPage = lazy(() => import('@/pages/CaseStudy'));
+const ShowcasePage = lazy(() => import('@/pages/Showcase'));
+const ShowcaseAppPage = lazy(() => import('@/pages/ShowcaseApp'));
 
 class RootErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: Error | null }> {
   constructor(props: { children: ReactNode }) {
@@ -107,6 +109,8 @@ function AnimatedAppRoutes() {
             <Route path="/account" element={<Suspense fallback={<BrandedLoader />}><CustomerAccountPage /></Suspense>} />
             <Route path="/my-requests" element={<Suspense fallback={<BrandedLoader />}><CustomerRequestsPage /></Suspense>} />
             <Route path="/privacy" element={<Suspense fallback={<BrandedLoader />}><PrivacyPage /></Suspense>} />
+            <Route path="/showcase" element={<Suspense fallback={<BrandedLoader />}><ShowcasePage /></Suspense>} />
+            <Route path="/showcase/:slug" element={<Suspense fallback={<BrandedLoader />}><ShowcaseAppPage /></Suspense>} />
             <Route path="/work/:slug" element={<Suspense fallback={<BrandedLoader />}><CaseStudyPage /></Suspense>} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

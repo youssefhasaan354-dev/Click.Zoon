@@ -22,6 +22,7 @@ const sourceLabels: Record<string, string> = {
   form: 'النموذج الرئيسي',
   wizard: 'حاسبة الباقات',
   exit_intent: 'نافذة الخروج',
+  showcase: 'معرض الأعمال (اطلب الآن)',
   contact: 'نموذج الاتصال (قديم)',
   demo: 'طلب الديمو (قديم)',
 };
@@ -39,6 +40,7 @@ const sourceOptions = [
   { value: 'form', label: 'النموذج الرئيسي' },
   { value: 'wizard', label: 'حاسبة الباقات' },
   { value: 'exit_intent', label: 'نافذة الخروج' },
+  { value: 'showcase', label: 'معرض الأعمال (اطلب الآن)' },
 ];
 
 const statusUpdateOptions = [

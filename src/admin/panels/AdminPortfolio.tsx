@@ -8,7 +8,23 @@ const categories = [
   { key: 'restaurants', label: 'مطاعم' },
   { key: 'stores', label: 'متاجر' },
   { key: 'cafes', label: 'كافيهات' },
+  { key: 'medical', label: 'طبي' },
+  { key: 'business', label: 'شركات وخدمات' },
 ];
+
+const kinds = [
+  { key: 'website', label: 'موقع' },
+  { key: 'app', label: 'برنامج / تطبيق' },
+  { key: 'store', label: 'متجر إلكتروني' },
+];
+
+function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 /**
  * Client-side WebP compression using HTML5 Canvas
@@ -91,6 +107,13 @@ export default function AdminPortfolio() {
       image_url: '',
       link: null,
       live_url: null,
+      slug: '',
+      kind: 'website',
+      tagline: '',
+      long_description: '',
+      features: [],
+      screenshots: [],
+      icon_url: null,
       visible: true,
       sort_order: items.length + 1,
     });
@@ -98,24 +121,44 @@ export default function AdminPortfolio() {
 
   const save = async () => {
     if (!editing) return;
+    if (!editing.title.trim() || !editing.image_url.trim()) {
+      alert('اكتب عنوان المشروع وأضف صورة له على الأقل.');
+      return;
+    }
     setSaving(true);
+    const slug = slugify(editing.slug || '') || null;
     const payload = {
-      title: editing.title,
+      title: editing.title.trim(),
       category: editing.category,
       description: editing.description,
       image_url: editing.image_url,
       link: editing.link,
       live_url: editing.live_url || editing.link,
+      slug,
+      kind: editing.kind ?? 'website',
+      tagline: editing.tagline ?? '',
+      long_description: editing.long_description ?? '',
+      features: (editing.features ?? []).map((f) => f.trim()).filter(Boolean),
+      screenshots: editing.screenshots ?? [],
+      icon_url: editing.icon_url || null,
       visible: editing.visible,
       sort_order: editing.sort_order,
     };
 
-    if (editing.id) {
-      await supabase.from('portfolio_items').update(payload).eq('id', editing.id);
-    } else {
-      await supabase.from('portfolio_items').insert(payload);
-    }
+    const { error } = editing.id
+      ? await supabase.from('portfolio_items').update(payload).eq('id', editing.id)
+      : await supabase.from('portfolio_items').insert(payload);
+
     setSaving(false);
+    if (error) {
+      console.error('portfolio save failed:', error);
+      alert(
+        error.code === '23505'
+          ? 'الرابط المختصر (slug) مستخدم في مشروع آخر. غيّره وجرب تاني.'
+          : `تعذر الحفظ: ${error.message}\nتأكد إنك شغّلت آخر migration في Supabase.`
+      );
+      return;
+    }
     setEditing(null);
     load();
   };
@@ -145,32 +188,50 @@ export default function AdminPortfolio() {
     load();
   };
 
-  const uploadImage = async (file: File) => {
-    if (!editing) return;
-    setUploading(true);
+  const uploadToBucket = async (file: File): Promise<string | null> => {
     try {
       const optimizedFile = await compressImageToWebp(file);
-      const fileName = `portfolio-${Date.now()}.webp`;
+      const fileName = `portfolio-${Date.now()}-${Math.random().toString(36).slice(2, 7)}.webp`;
       const { error: uploadError } = await supabase.storage
         .from('portfolio-images')
         .upload(fileName, optimizedFile, { contentType: 'image/webp' });
-
       if (uploadError) {
         alert('تعذر رفع الصورة إلى التخزين. يرجى التحقق من اتصالك أو إعدادات التخزين.');
-        setUploading(false);
-        return;
+        return null;
       }
-
-      const { data: urlData } = supabase.storage
-        .from('portfolio-images')
-        .getPublicUrl(fileName);
-
-      setEditing({ ...editing, image_url: urlData.publicUrl });
+      return supabase.storage.from('portfolio-images').getPublicUrl(fileName).data.publicUrl;
     } catch {
       alert('حدث خطأ أثناء معالجة الصورة.');
-    } finally {
-      setUploading(false);
+      return null;
     }
+  };
+
+  const uploadImage = async (file: File) => {
+    if (!editing) return;
+    setUploading(true);
+    const url = await uploadToBucket(file);
+    if (url) setEditing({ ...editing, image_url: url });
+    setUploading(false);
+  };
+
+  const uploadIcon = async (file: File) => {
+    if (!editing) return;
+    setUploading(true);
+    const url = await uploadToBucket(file);
+    if (url) setEditing({ ...editing, icon_url: url });
+    setUploading(false);
+  };
+
+  const uploadScreenshots = async (files: FileList) => {
+    if (!editing) return;
+    setUploading(true);
+    const urls: string[] = [];
+    for (const f of Array.from(files)) {
+      const url = await uploadToBucket(f);
+      if (url) urls.push(url);
+    }
+    setEditing((cur) => (cur ? { ...cur, screenshots: [...(cur.screenshots ?? []), ...urls] } : cur));
+    setUploading(false);
   };
 
   if (loading) return <div className="text-navy-400">جارٍ التحميل...</div>;
@@ -196,7 +257,25 @@ export default function AdminPortfolio() {
                 ))}
               </select>
             </div>
-            <AdminTextarea label="الوصف" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} rows={2} />
+            <AdminTextarea label="الوصف المختصر (يظهر في الكارت)" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} rows={2} />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-navy-200 text-sm font-semibold mb-2 block">النوع</label>
+                <select
+                  value={editing.kind ?? 'website'}
+                  onChange={(e) => setEditing({ ...editing, kind: e.target.value as 'website' | 'app' | 'store' })}
+                  className="w-full bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-2.5 text-navy-50 focus:border-gold-500/50 focus:outline-none text-sm"
+                >
+                  {kinds.map((k) => (
+                    <option key={k.key} value={k.key}>{k.label}</option>
+                  ))}
+                </select>
+              </div>
+              <AdminInput label="الرابط المختصر (إنجليزي) مثال: delano-cafe" value={editing.slug ?? ''} onChange={(v) => setEditing({ ...editing, slug: v })} dir="ltr" />
+            </div>
+            <AdminInput label="سطر تعريفي قصير تحت الاسم" value={editing.tagline ?? ''} onChange={(v) => setEditing({ ...editing, tagline: v })} />
+            <AdminTextarea label="وصف تفصيلي (صفحة المشروع)" value={editing.long_description ?? ''} onChange={(v) => setEditing({ ...editing, long_description: v })} rows={4} />
+            <AdminTextarea label="المميزات (كل ميزة في سطر)" value={(editing.features ?? []).join('\n')} onChange={(v) => setEditing({ ...editing, features: v.split('\n') })} rows={4} />
             <AdminInput label="رابط المشروع الحي (Live URL)" value={editing.live_url || editing.link || ''} onChange={(v) => setEditing({ ...editing, live_url: v || null, link: v || null })} dir="ltr" />
 
             {/* Image upload with WebP compression */}
@@ -231,6 +310,48 @@ export default function AdminPortfolio() {
                   className="flex-1 bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-2.5 text-navy-50 placeholder-navy-400 focus:border-gold-500/50 focus:outline-none text-sm"
                 />
               </div>
+            </div>
+
+            {/* Icon */}
+            <div>
+              <label className="text-navy-200 text-sm font-semibold mb-2 block">أيقونة المشروع (مربعة — اختياري)</label>
+              <div className="flex items-center gap-3">
+                {editing.icon_url && (
+                  <img src={editing.icon_url} alt="icon" className="w-14 h-14 rounded-2xl object-cover border border-navy-600/40" />
+                )}
+                <label className="inline-flex items-center gap-2 bg-navy-700/50 hover:bg-navy-700 border border-navy-600 text-navy-50 font-semibold px-4 py-2 rounded-lg transition-all text-sm cursor-pointer">
+                  <Upload size={16} />
+                  رفع أيقونة
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadIcon(f); }} />
+                </label>
+              </div>
+            </div>
+
+            {/* Screenshots */}
+            <div>
+              <label className="text-navy-200 text-sm font-semibold mb-2 block">صور الموقع / البرنامج (لقطات الشاشة)</label>
+              {(editing.screenshots ?? []).length > 0 && (
+                <div className="flex gap-2 overflow-x-auto pb-2 mb-2">
+                  {(editing.screenshots ?? []).map((src, idx) => (
+                    <div key={src + idx} className="relative shrink-0">
+                      <img src={src} alt={`screenshot ${idx + 1}`} className="h-28 rounded-lg border border-navy-600/40" />
+                      <button
+                        type="button"
+                        onClick={() => setEditing({ ...editing, screenshots: (editing.screenshots ?? []).filter((_, i) => i !== idx) })}
+                        className="absolute top-1 left-1 bg-red-500/90 text-white text-xs rounded-full w-5 h-5 leading-5 text-center"
+                        aria-label="حذف الصورة"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <label className="inline-flex items-center gap-2 bg-navy-700/50 hover:bg-navy-700 border border-navy-600 text-navy-50 font-semibold px-4 py-2 rounded-lg transition-all text-sm cursor-pointer">
+                {uploading ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
+                {uploading ? 'جارٍ الرفع...' : 'رفع صور (يمكن اختيار أكثر من صورة)'}
+                <input type="file" accept="image/*" multiple className="hidden" onChange={(e) => { if (e.target.files?.length) uploadScreenshots(e.target.files); }} />
+              </label>
             </div>
 
             <AdminToggle label="ظاهر في الموقع" checked={editing.visible} onChange={(v) => setEditing({ ...editing, visible: v })} />

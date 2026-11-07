@@ -17,7 +17,7 @@ const fallbackPortfolio: ExtendedPortfolioItem[] = [
     title: 'Delano Café & Bistro',
     category: 'cafes',
     description: 'منيو إلكتروني تفاعلي QR مع نظام طلب مباشر ودفع سريع عبر واتساب بدون أي عمولات وسيطة.',
-    image_url: '/mockups/mockup-2-cafe-desktop.webp',
+    image_url: '/mockups/mockup-2-cafe.webp',
     link: 'https://delano-cafe.clickzoon.com',
     live_url: 'https://delano-cafe.clickzoon.com',
     slug: 'delano-cafe',
@@ -29,7 +29,7 @@ const fallbackPortfolio: ExtendedPortfolioItem[] = [
     title: 'مجمع عيادات رويال التخصصية',
     category: 'restaurants',
     description: 'موقع طبي متكامل مع حجز مواعيد ذكي، استعراض جداول الأطباء، وتأكيد الحجز فورياً عبر واتساب.',
-    image_url: '/mockups/mockup-3-clinic-desktop.webp',
+    image_url: '/mockups/mockup-4-medical.webp',
     link: 'https://royal-clinics.clickzoon.com',
     live_url: 'https://royal-clinics.clickzoon.com',
     slug: 'royal-clinic',
@@ -41,7 +41,7 @@ const fallbackPortfolio: ExtendedPortfolioItem[] = [
     title: 'متجر Orchid Luxury',
     category: 'stores',
     description: 'متجر إلكتروني فخم للأزياء والعطور، مربوط مع بوابات الدفع الإلكتروني وشركات الشحن السريع في مصر.',
-    image_url: '/mockups/mockup-4-store-desktop.webp',
+    image_url: '/mockups/mockup-3-store.webp',
     link: 'https://orchid-boutique.clickzoon.com',
     live_url: 'https://orchid-boutique.clickzoon.com',
     visible: true,
@@ -52,7 +52,7 @@ const fallbackPortfolio: ExtendedPortfolioItem[] = [
     title: 'مطاعم ومشويات الباشا',
     category: 'restaurants',
     description: 'موقع تعريفي وقائمة طعام إلكترونية مع خدمة حجز الطاولات وتوصيل الطلبات للمنازل.',
-    image_url: '/mockups/mockup-1-corporate-desktop.webp',
+    image_url: '/mockups/mockup-1-restaurant.webp',
     link: 'https://albasha-grill.clickzoon.com',
     live_url: 'https://albasha-grill.clickzoon.com',
     visible: true,
@@ -275,6 +275,16 @@ export default function Portfolio() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        <div className="text-center mt-10">
+          <Link
+            to="/showcase"
+            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold px-7 py-3.5 rounded-xl transition-all glow-gold-hover"
+          >
+            <span>شوف كل المواقع والبرامج واطلب نموذجك</span>
+            <ChevronLeft size={18} />
+          </Link>
+        </div>
       </div>
 
       {/* Lightbox & Device Frame Preview Modal */}

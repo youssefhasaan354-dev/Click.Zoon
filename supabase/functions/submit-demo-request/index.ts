@@ -16,6 +16,7 @@ const ALLOWED_SOURCES = [
   'form',
   'wizard',
   'exit_intent',
+  'showcase',
 ] as const;
 
 type AllowedSource = typeof ALLOWED_SOURCES[number];

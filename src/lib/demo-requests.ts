@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabase';
 
-export type DemoRequestSource = 'form' | 'wizard' | 'exit_intent';
+export type DemoRequestSource = 'form' | 'wizard' | 'exit_intent' | 'showcase';
 
 export interface SubmitDemoRequestPayload {
   name: string;

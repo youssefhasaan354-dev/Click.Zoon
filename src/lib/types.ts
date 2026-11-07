@@ -66,6 +66,13 @@ export interface PortfolioItem {
   image_url: string;
   link: string | null;
   live_url?: string | null;
+  slug?: string | null;
+  kind?: 'website' | 'app' | 'store';
+  tagline?: string;
+  long_description?: string;
+  features?: string[];
+  screenshots?: string[];
+  icon_url?: string | null;
   visible: boolean;
   sort_order: number;
 }
