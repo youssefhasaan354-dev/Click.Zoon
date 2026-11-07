@@ -17,7 +17,7 @@ const MAX_PHONE_LEN = 40;
 const MAX_URL_LEN = 500;
 
 export default function Contact() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
   const { user, profile } = useCustomer();
@@ -79,14 +79,13 @@ export default function Contact() {
     const trimmedBusiness = form.business.trim().slice(0, MAX_BUSINESS_LEN);
     const trimmedUrl = form.pageUrl.trim().slice(0, MAX_URL_LEN) || null;
 
-    const businessTypeMsg = trimmedBusiness
-      ? `نوع النشاط: ${trimmedBusiness}`
-      : 'نوع النشاط: غير محدد';
-    const msg = `السلام عليكم، أنا ${trimmedName}
-رقم الهاتف: ${cleanedPhone}
-${businessTypeMsg}${trimmedUrl ? `
-رابط الصفحة: ${trimmedUrl}` : ''}
-عايز أطلب ديمو مجاني لموقع نشاطي.`;
+        const businessTypeMsg = trimmedBusiness
+      ? t('contact.wa_msg_biz', { biz: trimmedBusiness })
+      : t('contact.wa_msg_biz', { biz: t('contact.wa_msg_biz_unset') });
+    const msg = `${t('contact.wa_msg_hello', { name: trimmedName })}
+${t('contact.wa_msg_phone', { phone: cleanedPhone })}
+${businessTypeMsg}${trimmedUrl ? `\n${t('contact.wa_msg_url', { url: trimmedUrl })}` : ''}
+${t('contact.wa_msg_footer')}`;
 
     const waUrl = waLinkIntl(cfg.phoneIntl, msg);
 
@@ -419,7 +418,7 @@ ${businessTypeMsg}${trimmedUrl ? `
               </div>
               <div>
                 <div className="text-navy-300 text-sm">{t('contact.service_area')}</div>
-                <div className="text-navy-50 font-bold">{cfg.location} — {t('contact.service_area_desc')}</div>
+                <div className="text-navy-50 font-bold">{(language === 'en' ? t('contact.location_online') : cfg.location)} — {t('contact.service_area_desc')}</div>
               </div>
             </div>
 

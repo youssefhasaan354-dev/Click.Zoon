@@ -7,7 +7,7 @@ import Counter from '@/components/Counter';
 import { useI18n } from '@/i18n';
 
 export default function WhyUs() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { ref: featRef, revealed: featRevealed } = useReveal();
   const { data } = useSiteData();
 
@@ -20,9 +20,11 @@ export default function WhyUs() {
     { icon: 'ShieldCheck', title: t('why_us.feat6_title'), desc: t('why_us.feat6_desc') },
   ];
 
-  const features = data.features.length > 0
-    ? data.features.map((f) => ({ icon: f.icon, title: f.title, desc: f.description }))
-    : fallbackFeatures;
+  const features = language === 'en'
+    ? fallbackFeatures
+    : (data.features.length > 0
+        ? data.features.map((f) => ({ icon: f.icon, title: f.title, desc: f.description }))
+        : fallbackFeatures);
 
   return (
     <section id="why-us" className="py-20 lg:py-28 bg-navy-950/50">

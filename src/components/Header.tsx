@@ -24,7 +24,7 @@ export default function Header() {
   const cfg = useSiteConfig();
   const { data } = useSiteData();
   const { user, profile, signOut } = useCustomer();
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -141,7 +141,7 @@ export default function Header() {
 
       {/* Promo banner */}
       <div className="bg-gold-500 text-navy-900 text-center py-2 text-xs sm:text-sm font-semibold px-4 relative z-40 transition-colors">
-        <span>{cfg.promoBarText} </span>
+        <span>{language === 'en' ? t('hero.badge') : cfg.promoBarText} </span>
         <a
           href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.demo)}
           target="_blank"
@@ -161,7 +161,7 @@ export default function Header() {
             : 'bg-navy-900/40 backdrop-blur-xs'
         }`}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="التنقل الرئيسي">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label={t('nav.main_nav') || 'Main Navigation'}>
           <div className="flex items-center justify-between h-16 lg:h-20 gap-3">
             {/* Logo */}
             <Link
@@ -345,7 +345,7 @@ export default function Header() {
                 {user ? (
                   <>
                     <div className="px-4 py-2 text-sm text-navy-300 font-medium">
-                      {t('common.welcome')}، <span className="text-gold-300 font-bold">{displayName}</span>
+                      {t('common.welcome')}, <span className="text-gold-300 font-bold">{displayName}</span>
                     </div>
                     <Link
                       to="/account"

@@ -18,7 +18,7 @@ import { submitDemoRequest } from '@/lib/demo-requests';
 import { trackEvent } from '@/lib/analytics';
 import { cleanPhoneNumber, isValidEgyptianPhone } from '@/lib/phone';
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
-import { useI18n } from '@/i18n';
+import { useI18n, formatNumber } from '@/i18n';
 
 interface WizardState {
   activityType: string;
@@ -31,12 +31,12 @@ interface WizardState {
 }
 
 const activityDefinitions = [
-  { id: 'restaurant', labelKey: 'act_restaurant', icon: Utensils, basePackage: 'احترافية', basePrice: 4500 },
-  { id: 'store', labelKey: 'act_store', icon: ShoppingBag, basePackage: 'متجر إلكتروني', basePrice: 6500 },
-  { id: 'clinic', labelKey: 'act_clinic', icon: Stethoscope, basePackage: 'احترافية', basePrice: 4000 },
-  { id: 'corporate', labelKey: 'act_corporate', icon: Building2, basePackage: 'احترافية', basePrice: 3500 },
-  { id: 'law', labelKey: 'act_law', icon: Scale, basePackage: 'أساسية', basePrice: 3000 },
-  { id: 'custom', labelKey: 'act_custom', icon: Sparkles, basePackage: 'مخصص', basePrice: 3500 },
+  { id: 'restaurant', labelKey: 'act_restaurant', icon: Utensils, pkgKey: 'pkg_pro', basePrice: 4500 },
+  { id: 'store', labelKey: 'act_store', icon: ShoppingBag, pkgKey: 'pkg_ecommerce', basePrice: 6500 },
+  { id: 'clinic', labelKey: 'act_clinic', icon: Stethoscope, pkgKey: 'pkg_pro', basePrice: 4000 },
+  { id: 'corporate', labelKey: 'act_corporate', icon: Building2, pkgKey: 'pkg_pro', basePrice: 3500 },
+  { id: 'law', labelKey: 'act_law', icon: Scale, pkgKey: 'pkg_basic', basePrice: 3000 },
+  { id: 'custom', labelKey: 'act_custom', icon: Sparkles, pkgKey: 'pkg_custom', basePrice: 3500 },
 ] as const;
 
 const featureDefinitions = [
@@ -107,27 +107,29 @@ export default function QuoteWizard() {
     }
   };
 
-  const buildWhatsappMessage = () => {
+    const buildWhatsappMessage = () => {
     const featureLabels = state.features
       .map((fId) => {
         const item = featureDefinitions.find((f) => f.id === fId);
         return item ? t(`quote_wizard.${item.labelKey}`) : '';
       })
       .filter(Boolean)
-      .join('، ');
+      .join(', ');
 
     const timelineLabel = t(`quote_wizard.${selectedTimeline.labelKey}`);
     const actLabel = t(`quote_wizard.${selectedActivity.labelKey}`);
+    const bizName = state.businessName || t('quote_wizard.wa_msg_unnamed');
+    const feats = featureLabels || t('quote_wizard.wa_msg_default_feats');
+    const formattedPrice = formatNumber(estimatedPrice, language);
 
-    return `مرحباً كليك زون 👋
-عايز استفسر عن عرض موقع لنشاطي بناءً على حاسبة الموقع:
-- نوع النشاط: ${actLabel}
-- اسم النشاط: ${state.businessName || 'قيد الإنشاء'}
-- المميزات المطلوبة: ${featureLabels || 'الأساسية'}
-- التوقيت: ${timelineLabel}
-- التقدير المقترح: حوالي ${estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} ${t('quote_wizard.currency')}
-- الاسم: ${state.name}
-- الهاتف: ${state.phone}`;
+    return `${t('quote_wizard.wa_msg_header')}
+${t('quote_wizard.wa_msg_activity', { act: actLabel })}
+${t('quote_wizard.wa_msg_biz', { name: bizName })}
+${t('quote_wizard.wa_msg_feats', { features: feats })}
+${t('quote_wizard.wa_msg_timeline', { timeline: timelineLabel })}
+${t('quote_wizard.wa_msg_price', { price: formattedPrice, curr: t('quote_wizard.currency') })}
+${t('quote_wizard.wa_msg_client', { name: state.name || t('quote_wizard.lead_fallback_name') })}
+${t('quote_wizard.wa_msg_phone', { phone: state.phone })}`;
   };
 
   const handleSubmitLead = async (e?: React.FormEvent) => {
@@ -154,18 +156,18 @@ export default function QuoteWizard() {
         return item ? t(`quote_wizard.${item.labelKey}`) : '';
       })
       .filter(Boolean)
-      .join('، ');
+      .join(', ');
 
     const actLabel = t(`quote_wizard.${selectedActivity.labelKey}`);
     const timelineLabel = t(`quote_wizard.${selectedTimeline.labelKey}`);
 
     try {
       const res = await submitDemoRequest({
-        name: state.name.trim() || 'عميل حاسبة الأسعار',
+        name: state.name.trim() || t('quote_wizard.lead_fallback_name'),
         phone: cleaned,
-        business_type: `${actLabel} (${state.businessName || 'بدون اسم'})`,
+        business_type: `${actLabel} (${state.businessName || t('quote_wizard.lead_fallback_biz')})`,
         source: 'wizard',
-        message_text: `المميزات: ${featureLabels} | التوقيت: ${timelineLabel} | التقدير: ${estimatedPrice} ${t('quote_wizard.currency')}`,
+        message_text: `${featureLabels} | ${timelineLabel} | ${estimatedPrice} ${t('quote_wizard.currency')}`,
         page_url: window.location.href,
       });
       if (res.success) {
@@ -248,7 +250,7 @@ export default function QuoteWizard() {
           {step === 1 && (
             <div>
               <h3 className="text-xl sm:text-2xl font-bold text-navy-50 mb-2">{t('quote_wizard.step1_title')}</h3>
-              <p className="text-navy-300 text-sm mb-6">اختر الأقرب لطبيعة عملك لنحدد الهيكل الأمثل للموقع.</p>
+              <p className="text-navy-300 text-sm mb-6">{t('quote_wizard.step1_desc')}</p>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                 {activityDefinitions.map((opt) => {
@@ -275,7 +277,7 @@ export default function QuoteWizard() {
                       </div>
                       <div>
                         <div className="font-bold text-base text-navy-50 mb-1">{label}</div>
-                        <div className="text-xs text-navy-400">{opt.basePackage}</div>
+                        <div className="text-xs text-navy-400">{t('quote_wizard.' + ((opt as unknown) as { pkgKey: string }).pkgKey)}</div>
                       </div>
                     </button>
                   );
@@ -299,7 +301,7 @@ export default function QuoteWizard() {
           {step === 2 && (
             <div>
               <h3 className="text-xl sm:text-2xl font-bold text-navy-50 mb-2">{t('quote_wizard.step2_title')}</h3>
-              <p className="text-navy-300 text-sm mb-6">يمكنك اختيار أكثر من ميزة، وسنضيفها لهيكل موقعك.</p>
+              <p className="text-navy-300 text-sm mb-6">{t('quote_wizard.step2_desc')}</p>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
                 {featureDefinitions.map((feat) => {
@@ -353,7 +355,7 @@ export default function QuoteWizard() {
           {step === 3 && (
             <div>
               <h3 className="text-xl sm:text-2xl font-bold text-navy-50 mb-2">{t('quote_wizard.step3_title')}</h3>
-              <p className="text-navy-300 text-sm mb-6">الديمو المجاني دائماً يجهز لك خلال 24 إلى 72 ساعة كحد أقصى.</p>
+              <p className="text-navy-300 text-sm mb-6">{t('quote_wizard.step3_desc')}</p>
 
               <div className="space-y-4 mb-8">
                 {timelineDefinitions.map((item) => {
@@ -421,7 +423,7 @@ export default function QuoteWizard() {
                     className="btn-gold px-8 py-3 rounded-xl font-bold text-sm inline-flex items-center gap-2"
                   >
                     <MessageCircle size={18} />
-                    <span>متابعة تفاصيل الطلب على واتساب فوراً</span>
+                    <span>{t('quote_wizard.wa_continue')}</span>
                   </button>
                 </div>
               ) : (
@@ -434,14 +436,14 @@ export default function QuoteWizard() {
                           {t('quote_wizard.estimated_price')}
                         </div>
                         <div className="text-2xl font-extrabold text-navy-50">
-                          {selectedActivity.basePackage} — {t(`quote_wizard.${selectedActivity.labelKey}`)}
+                          {t('quote_wizard.' + ((selectedActivity as unknown) as { pkgKey: string }).pkgKey)} — {t(`quote_wizard.${selectedActivity.labelKey}`)}
                         </div>
                       </div>
                       <div className="text-start sm:text-end">
                         <div className="text-2xl sm:text-3xl font-extrabold text-gradient-gold">
                           {estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} {t('quote_wizard.currency')}
                         </div>
-                        <div className="text-[11px] text-navy-400">* شامل الدومين، الاستضافة، والدعم الفني</div>
+                        <div className="text-[11px] text-navy-400">{t('quote_wizard.included_note')}</div>
                       </div>
                     </div>
 

@@ -35,7 +35,7 @@ export default function ShowcaseAppPage() {
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
       <Seo
-        title={`${item.title}: ${kindLabels[item.kind]}`}
+        title={`${item.title}: ${t('showcase.kind_' + item.kind) || kindLabels[item.kind]}`}
         description={item.tagline || item.description}
         canonical={`/showcase/${item.slug}`}
         ogImage={item.image_url.startsWith('http') ? item.image_url : undefined}
@@ -53,7 +53,7 @@ export default function ShowcaseAppPage() {
           <div className="min-w-0">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-navy-50 mb-1">{item.title}</h1>
             <p className="text-gold-400 text-sm font-semibold">
-              {kindLabels[item.kind]} · {categoryLabels[item.category] ?? item.category}
+              {(t('showcase.kind_' + item.kind) || kindLabels[item.kind])} · {(t('showcase.cat_' + item.category) || categoryLabels[item.category] || item.category)}
             </p>
             {item.tagline && <p className="text-navy-300 text-sm mt-2">{item.tagline}</p>}
           </div>
@@ -85,7 +85,7 @@ export default function ShowcaseAppPage() {
         </div>
 
         {/* Screenshots */}
-        <section aria-label="صور المشروع" className="mb-10">
+        <section aria-label={t('showcase.screenshots_aria')} className="mb-10">
           <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 -mx-4 px-4 sm:mx-0 sm:px-0">
             {item.screenshots.map((src, i) => (
               <button
@@ -93,11 +93,11 @@ export default function ShowcaseAppPage() {
                 type="button"
                 onClick={() => setZoom(src)}
                 className="snap-start shrink-0 rounded-2xl overflow-hidden border border-navy-700/60 bg-navy-950 focus-visible:ring-2 focus-visible:ring-gold-400"
-                aria-label={`تكبير الصورة ${i + 1}`}
+                aria-label={t('showcase.zoom_img', { n: i + 1 })}
               >
                 <img
                   src={src}
-                  alt={`${item.title}: صورة ${i + 1}`}
+                  alt={t('showcase.img_alt', { title: item.title, n: i + 1 })}
                   loading={i === 0 ? 'eager' : 'lazy'}
                   decoding="async"
                   className="h-56 sm:h-72 w-auto max-w-[85vw] object-cover"
@@ -142,7 +142,7 @@ export default function ShowcaseAppPage() {
                     <ShowcaseIcon item={r} size={56} />
                     <div className="min-w-0">
                       <p className="text-sm font-bold text-navy-50 truncate">{r.title}</p>
-                      <p className="text-xs text-navy-400">{kindLabels[r.kind]}</p>
+                      <p className="text-xs text-navy-400">{t('showcase.kind_' + r.kind) || kindLabels[r.kind]}</p>
                     </div>
                   </Link>
                 </li>
@@ -162,7 +162,7 @@ export default function ShowcaseAppPage() {
         >
           <img
             src={zoom}
-            alt="تكبير الصورة"
+            alt={t('showcase.zoom_alt')}
             className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain border border-navy-700"
           />
         </div>

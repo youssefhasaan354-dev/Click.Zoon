@@ -66,6 +66,205 @@ interface DeliveredProject {
   cards: MobileCard[];
 }
 
+const deliveredProjectsEn: DeliveredProject[] = [
+  {
+    id: 'restaurant',
+    src: '/mockups/mockup-1-restaurant.webp',
+    title: 'Al-Reem Royal Grills',
+    category: 'Restaurant Website & Online Ordering',
+    domain: 'qasrelreem.clickzoon.com',
+    theme: {
+      accentColor: 'text-amber-400',
+      badgeBg: 'bg-amber-500/15 border-amber-500/40 text-amber-300',
+      ctaBg: 'bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 text-navy-950 shadow-amber-500/30',
+      cardBorder: 'border-amber-500/25 bg-navy-900/90',
+      iconBg: 'bg-amber-500/15 border border-amber-500/30',
+    },
+    header: {
+      logoText: 'Al-Reem Palace',
+      logoSub: 'Grills & Eastern Cuisine',
+      statusBadge: 'Open for Orders',
+      icon: UtensilsCrossed,
+    },
+    hero: {
+      badge: '🔥 20% Off Your First Online Order',
+      headline: 'Authentic Charcoal Grills Delivered Hot to Your Door',
+      subheadline: 'Delicious Aleppo grills on charcoal with secret marinade and ultra-fast thermal delivery.',
+      ctaText: 'Order Your Meal Now',
+    },
+    cards: [
+      {
+        title: 'Royal Reem Platter',
+        desc: '1kg Kebab & Kofta with lamb chops, basmati rice, and hot appetizers',
+        meta: '420 EGP',
+        tag: 'Most Popular ⭐ 4.9',
+        icon: Flame,
+      },
+      {
+        title: 'Thermal Express Delivery',
+        desc: 'Triple insulated packaging keeping grills fresh & hot within 35 minutes',
+        meta: 'Free Delivery',
+        tag: 'Fast',
+        icon: Clock,
+      },
+      {
+        title: 'VIP Lounges & Banquets',
+        desc: 'Private family halls with first-class hospitality service',
+        meta: 'Instant Confirmation',
+        tag: 'Luxury Halls',
+        icon: Star,
+      },
+    ],
+  },
+  {
+    id: 'cafe',
+    src: '/mockups/mockup-2-cafe.webp',
+    title: 'Roast Café & Coffee Bar',
+    category: 'Specialty Coffee Bar & Bakery',
+    domain: 'roastcafe.clickzoon.com',
+    theme: {
+      accentColor: 'text-yellow-400',
+      badgeBg: 'bg-yellow-500/15 border-yellow-500/40 text-yellow-300',
+      ctaBg: 'bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-600 text-navy-950 shadow-yellow-500/30',
+      cardBorder: 'border-yellow-500/25 bg-navy-900/90',
+      iconBg: 'bg-yellow-500/15 border border-yellow-500/30',
+    },
+    header: {
+      logoText: 'Roast Café',
+      logoSub: 'Specialty Coffee Bar',
+      statusBadge: 'Roasted Today',
+      icon: Coffee,
+    },
+    hero: {
+      badge: '☕ Specialty Coffee Experience V60 & Flat White',
+      headline: 'Masterfully Brewed Specialty Coffee, Freshly Roasted Daily',
+      subheadline: 'Single-origin beans and fresh French pastries in a refined ambiance.',
+      ctaText: 'Explore Drink Menu',
+    },
+    cards: [
+      {
+        title: 'El Salvador & Colombia V60',
+        desc: 'Tropical fruit and chocolate notes with velvety mouthfeel',
+        meta: '85 EGP',
+        tag: 'Special Crop ⭐ 4.9',
+        icon: Coffee,
+      },
+      {
+        title: 'French Croissants & Pastries',
+        desc: 'Fresh butter bakery prepared daily in our dedicated lab',
+        meta: 'Fresh Morning',
+        tag: 'Baked Today',
+        icon: Sparkles,
+      },
+      {
+        title: 'Home Coffee Box Subscription',
+        desc: 'Curated specialty beans delivered weekly with brew guide cards',
+        meta: 'Weekly Delivery',
+        tag: 'Save 25%',
+        icon: Star,
+      },
+    ],
+  },
+  {
+    id: 'store',
+    src: '/mockups/mockup-3-store.webp',
+    title: 'Modanista Fashion Store',
+    category: 'Modern E-Commerce Fashion Boutique',
+    domain: 'modanista.clickzoon.com',
+    theme: {
+      accentColor: 'text-emerald-400',
+      badgeBg: 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300',
+      ctaBg: 'bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 text-navy-950 shadow-emerald-500/30',
+      cardBorder: 'border-emerald-500/25 bg-navy-900/90',
+      iconBg: 'bg-emerald-500/15 border border-emerald-500/30',
+    },
+    header: {
+      logoText: 'Modanista',
+      logoSub: 'Modern Fashion & Style',
+      statusBadge: 'Instant Dispatch',
+      icon: ShoppingBag,
+    },
+    hero: {
+      badge: '✨ Exclusive Winter Collection 2026',
+      headline: 'Latest Elegance & Runway Trends with Premium Authentic Fabrics',
+      subheadline: 'Shop modern chic styles with free exchanges and fast doorstep delivery.',
+      ctaText: 'Shop New Arrivals',
+    },
+    cards: [
+      {
+        title: 'Long Cashmere Wool Coat',
+        desc: 'Tailored fit in warm winter fabrics with delicate artisanal stitching',
+        meta: '1,250 EGP',
+        tag: 'Trending ⭐ 4.9',
+        icon: ShoppingBag,
+      },
+      {
+        title: 'Classic Genuine Leather Bags',
+        desc: 'Italian minimalist design with 1-year quality warranty',
+        meta: '680 EGP',
+        tag: 'Original Leather',
+        icon: Sparkles,
+      },
+      {
+        title: 'Cash on Delivery & Exchanges',
+        desc: 'Inspect upon delivery with flexible interest-free installments',
+        meta: '14-Day Exchange',
+        tag: '100% Secure',
+        icon: ShieldCheck,
+      },
+    ],
+  },
+  {
+    id: 'medical',
+    src: '/mockups/mockup-4-medical.webp',
+    title: 'Al-Noor Specialized Medical Center',
+    category: 'Medical Clinics & Appointment Booking',
+    domain: 'alnoormedical.clickzoon.com',
+    theme: {
+      accentColor: 'text-cyan-400',
+      badgeBg: 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300',
+      ctaBg: 'bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-600 text-navy-950 shadow-cyan-500/30',
+      cardBorder: 'border-cyan-500/25 bg-navy-900/90',
+      iconBg: 'bg-cyan-500/15 border border-cyan-500/30',
+    },
+    header: {
+      logoText: 'Al-Noor Center',
+      logoSub: 'Specialized Medical Center',
+      statusBadge: 'Emergency 24/7',
+      icon: HeartPulse,
+    },
+    hero: {
+      badge: '🩺 Top Consultants & Advanced Diagnostics',
+      headline: 'Your Family Health in Trusted Hands with Comprehensive Care',
+      subheadline: 'Instant appointment booking across 18 medical specialties with digital lab results.',
+      ctaText: 'Book Appointment Now',
+    },
+    cards: [
+      {
+        title: 'Internal Medicine & Cardiology',
+        desc: 'Full checkup, ECG, and continuous follow-up with senior consultants',
+        meta: '350 EGP',
+        tag: 'Available Today ⭐ 4.9',
+        icon: Stethoscope,
+      },
+      {
+        title: 'Instant Lab & Digital X-Ray',
+        desc: 'State-of-the-art diagnostic imaging; verified results sent to WhatsApp',
+        meta: 'Results in 2h',
+        tag: '99.8% Accuracy',
+        icon: HeartPulse,
+      },
+      {
+        title: '24/7 Home Medical Care',
+        desc: 'Home visits and nursing for elderly and critical cases',
+        meta: 'Immediate Coverage',
+        tag: '24h Service',
+        icon: ShieldCheck,
+      },
+    ],
+  },
+];
+
 const deliveredProjects: DeliveredProject[] = [
   {
     id: 'restaurant',
@@ -501,7 +700,8 @@ function MobilePhoneMockup({
 }
 
 export default function MockupsSection() {
-  const { t, dir } = useI18n();
+  const { t, dir, language } = useI18n();
+  const deliveredList = language === 'en' ? deliveredProjectsEn : deliveredProjects;
   const { ref, revealed } = useReveal();
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -510,12 +710,12 @@ export default function MockupsSection() {
   const prefersReduced = usePrefersReducedMotion();
 
   const next = useCallback(() => {
-    setIndex((prev) => (prev + 1) % deliveredProjects.length);
-  }, []);
+    setIndex((prev) => (prev + 1) % deliveredList.length);
+  }, [deliveredList.length]);
 
   const prev = useCallback(() => {
-    setIndex((prev) => (prev - 1 + deliveredProjects.length) % deliveredProjects.length);
-  }, []);
+    setIndex((prev) => (prev - 1 + deliveredList.length) % deliveredList.length);
+  }, [deliveredList.length]);
 
   // Autoplay with pause on hover/focus/touch and reduced motion respect
   useEffect(() => {
@@ -578,7 +778,7 @@ export default function MockupsSection() {
 
             {/* Pagination Dots with ≥ 44x44px clickable target wrapper */}
             <div className="flex items-center gap-1.5 px-2" role="tablist" aria-label={t('mockups.project_tabs')}>
-              {deliveredProjects.map((proj, i) => (
+              {deliveredList.map((proj, i) => (
                 <button
                   key={proj.domain}
                   role="tab"
@@ -620,7 +820,7 @@ export default function MockupsSection() {
           {/* Current project info pill */}
           <div className="text-center mb-8">
             <span className="inline-block px-4 py-1.5 rounded-full bg-navy-800/80 border border-gold-500/30 text-gold-300 text-sm font-bold shadow-sm">
-              {deliveredProjects[index].title} — <span className="text-navy-300 font-normal">{deliveredProjects[index].category}</span>
+              {deliveredList[index].title} — <span className="text-navy-300 font-normal">{deliveredList[index].category}</span>
             </span>
           </div>
 
@@ -645,17 +845,17 @@ export default function MockupsSection() {
                       </div>
                       <div className="flex items-center gap-1.5 bg-navy-900/80 border border-navy-700/50 rounded-md px-2.5 py-0.5 text-xs text-navy-300 font-mono flex-1 max-w-xs" dir="ltr">
                         <Lock size={10} className="text-green-400 shrink-0" />
-                        <span className="truncate">https://{deliveredProjects[index].domain}</span>
+                        <span className="truncate">https://{deliveredList[index].domain}</span>
                       </div>
                     </div>
 
                     {/* True cross-fade images without remounting flash */}
                     <div className="absolute inset-0 pt-8">
-                      {deliveredProjects.map((proj, i) => (
+                      {deliveredList.map((proj, i) => (
                         <img
                           key={proj.src}
                           src={proj.src}
-                          alt={`تصميم ${proj.title} على شاشة كمبيوتر`}
+                          alt={language === 'en' ? `${proj.title} website design on desktop` : `تصميم ${proj.title} على شاشة كمبيوتر`}
                           width={800}
                           height={450}
                           loading={i === 0 ? 'eager' : 'lazy'}
@@ -683,7 +883,7 @@ export default function MockupsSection() {
 
             {/* Dedicated Native Mobile Phone Mockup */}
             <MobilePhoneMockup
-              projects={deliveredProjects}
+              projects={deliveredList}
               currentIndex={index}
               isPlaying={isPlaying}
               isHovered={isHovered}

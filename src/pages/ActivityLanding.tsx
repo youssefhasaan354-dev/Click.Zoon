@@ -108,7 +108,7 @@ export default function ActivityLanding({ forcedSlug }: ActivityLandingProps) {
 
       <Header />
 
-      <main id="main" className="flex-1">
+      <main id="main" lang="ar" dir="rtl" className="flex-1">
         {/* 1. Hero Section */}
         <section className="relative py-16 sm:py-24 lg:py-28 overflow-hidden bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 border-b border-navy-800/80">
           <div className="absolute inset-0 bg-radial-gold opacity-10 pointer-events-none" />

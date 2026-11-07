@@ -121,7 +121,7 @@ export default function FloatingWhatsApp() {
         {/* Direct WhatsApp link overlay if tooltip is closed */}
         {!tooltipOpen && (
           <a
-            href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.general)}
+            href={waLinkIntl(cfg.phoneIntl, t('common.wa_general_msg'))}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => {

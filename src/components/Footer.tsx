@@ -6,7 +6,7 @@ import { useToast } from '@/lib/toast-context';
 import { useI18n } from '@/i18n';
 
 export default function Footer() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const cfg = useSiteConfig();
   const { copyToClipboard } = useToast();
 
@@ -135,7 +135,7 @@ export default function Footer() {
                   href={`tel:${cfg.phone}`}
                   onClick={() => {
                     trackEvent({ category: 'call', action: 'click', label: 'footer_call' });
-                    copyToClipboard(cfg.phone, 'رقم الهاتف');
+                    copyToClipboard(cfg.phone, t('contact.phone_copied'));
                   }}
                   className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm py-1"
                 >
@@ -148,7 +148,7 @@ export default function Footer() {
                   href={`mailto:${cfg.email}`}
                   onClick={() => {
                     trackEvent({ category: 'email', action: 'click', label: 'footer_email' });
-                    copyToClipboard(cfg.email, 'البريد الإلكتروني');
+                    copyToClipboard(cfg.email, t('contact.email_copied'));
                   }}
                   className="flex items-center gap-2 text-navy-300 hover:text-gold-400 transition-colors text-sm break-all py-1"
                 >
@@ -158,7 +158,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-navy-300 text-sm py-1">
                 <MapPin size={16} className="text-gold-400 shrink-0" />
-                {cfg.location}
+                {language === 'en' ? t('contact.location_online') : cfg.location}
               </li>
             </ul>
           </div>

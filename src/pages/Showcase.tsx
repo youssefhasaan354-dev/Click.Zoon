@@ -44,8 +44,8 @@ export default function ShowcasePage() {
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
       <Seo
-        title="معرض الأعمال: مواقع وبرامج جاهزة"
-        description="تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط واطلب نموذج مماثل لنشاطك."
+        title={t('showcase.meta_title')}
+        description={t('showcase.meta_desc')}
         canonical="/showcase"
       />
       <Header />
@@ -62,7 +62,7 @@ export default function ShowcasePage() {
           )}
         </header>
 
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-8" role="tablist" aria-label="تصفية الأعمال">
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-8" role="tablist" aria-label={t('showcase.filter_aria')}>
           {tabs.map((tItem) => (
             <button
               key={tItem.key}
@@ -95,7 +95,7 @@ export default function ShowcasePage() {
                   <div className="min-w-0 flex-1">
                     <h2 className="text-base font-bold text-navy-50 truncate">{item.title}</h2>
                     <p className="text-xs text-navy-400 truncate">
-                      {kindLabels[item.kind]} · {categoryLabels[item.category] ?? item.category}
+                      {t('showcase.kind_' + item.kind) || kindLabels[item.kind]} · {t('showcase.cat_' + item.category) || categoryLabels[item.category] || item.category}
                     </p>
                     {item.tagline && <p className="text-xs text-navy-300 mt-1 line-clamp-1">{item.tagline}</p>}
                   </div>

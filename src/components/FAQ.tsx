@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { useI18n } from '@/i18n';
 
 export default function FAQ() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { ref, revealed } = useReveal();
   const { data } = useSiteData();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -21,9 +21,11 @@ export default function FAQ() {
     { q: t('faq.q6'), a: t('faq.a6') },
   ];
 
-  const faqs = data.faqs.length > 0
-    ? data.faqs.map((f) => ({ q: f.question, a: f.answer }))
-    : fallbackFaqs;
+  const faqs = language === 'en'
+    ? fallbackFaqs
+    : (data.faqs.length > 0
+        ? data.faqs.map((f) => ({ q: f.question, a: f.answer }))
+        : fallbackFaqs);
 
   return (
     <section id="faq" className="py-20 lg:py-28">

@@ -63,14 +63,44 @@ export function translateKey(
   let val: string | undefined;
   if (lang === 'en' && enDict) {
     val = getNestedValue(enDict, key);
+    if (val === undefined && typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
+      console.warn(`[i18n] Missing key "${key}" in language "${lang}"`);
+    }
+  } else if (lang === 'ar') {
+    val = getNestedValue(arDict, key);
+    if (val === undefined && typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
+      console.warn(`[i18n] Missing key "${key}" in language "${lang}"`);
+    }
   }
-  // Fall back to Arabic dictionary if missing or in Arabic mode
-  if (val === undefined) {
+
+  // Fall back to Arabic dictionary if missing in English mode
+  if (val === undefined && lang === 'en') {
     val = getNestedValue(arDict, key);
   }
+
   // Fall back to key itself
   if (val === undefined) {
     val = key;
   }
   return interpolate(val, params);
+}
+
+export function formatNumber(
+  n: number,
+  lang: Language,
+  options?: Intl.NumberFormatOptions
+): string {
+  const locale = lang === 'en' ? 'en-US' : 'ar-EG';
+  return n.toLocaleString(locale, options);
+}
+
+export function formatDate(
+  d: Date | string | number,
+  lang: Language,
+  options?: Intl.DateTimeFormatOptions
+): string {
+  const dateObj = d instanceof Date ? d : new Date(d);
+  if (isNaN(dateObj.getTime())) return '';
+  const locale = lang === 'en' ? 'en-US' : 'ar-EG';
+  return dateObj.toLocaleDateString(locale, options);
 }

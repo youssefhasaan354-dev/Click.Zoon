@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Check, Star, MessageCircle, ChevronDown, ChevronUp, X } from 'lucide-react';
-import { waLink, useSiteConfig, siteConfig } from '@/siteConfig';
+import { waLink, useSiteConfig } from '@/siteConfig';
 import { useSiteData } from '@/lib/site-data-context';
 import { useReveal } from '@/hooks/useReveal';
 import { trackEvent } from '@/lib/analytics';
@@ -15,7 +15,7 @@ interface ComparisonFeature {
 }
 
 export default function Pricing() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
   const { data } = useSiteData();
@@ -36,15 +36,64 @@ export default function Pricing() {
     { name: t('pricing.feat_demo'), basic: true, pro: true, ecommerce: true },
   ];
 
-  const plans = data.pricingPlans.length > 0
-    ? data.pricingPlans.map((p) => ({
-        name: p.name,
-        tagline: p.tagline,
-        price: p.price,
-        features: p.features,
-        highlighted: p.highlighted,
-      }))
-    : siteConfig.pricingPlans;
+    const translatedFallbackPlans = [
+    {
+      name: t('pricing.plan_basic'),
+      tagline: t('pricing.plan_basic_tagline'),
+      price: '',
+      features: [
+        t('pricing.feat_pages_basic'),
+        t('pricing.feat_responsive'),
+        t('pricing.feat_domain'),
+        t('pricing.feat_ssl'),
+        t('pricing.feat_demo'),
+      ],
+      highlighted: false,
+    },
+    {
+      name: t('pricing.plan_pro'),
+      tagline: t('pricing.plan_pro_tagline'),
+      price: '',
+      features: [
+        t('pricing.feat_pages_pro'),
+        t('pricing.feat_responsive'),
+        t('pricing.feat_domain'),
+        t('pricing.feat_ssl'),
+        t('pricing.feat_menu'),
+        t('pricing.feat_seo_pro'),
+        t('pricing.feat_support_pro'),
+        t('pricing.feat_demo'),
+      ],
+      highlighted: true,
+    },
+    {
+      name: t('pricing.plan_ecommerce'),
+      tagline: t('pricing.plan_ecommerce_tagline'),
+      price: '',
+      features: [
+        t('pricing.feat_pages_ecom'),
+        t('pricing.feat_payment'),
+        t('pricing.feat_shipping'),
+        t('pricing.feat_dashboard'),
+        t('pricing.feat_seo_ecom'),
+        t('pricing.feat_support_ecom'),
+        t('pricing.feat_demo'),
+      ],
+      highlighted: false,
+    },
+  ];
+
+  const plans = language === 'en'
+    ? translatedFallbackPlans
+    : (data.pricingPlans.length > 0
+        ? data.pricingPlans.map((p) => ({
+            name: p.name,
+            tagline: p.tagline,
+            price: p.price,
+            features: p.features,
+            highlighted: p.highlighted,
+          }))
+        : translatedFallbackPlans);
 
   if (plans.length === 0) return null;
 
@@ -165,7 +214,7 @@ export default function Pricing() {
 
                 {/* CTA */}
                 <a
-                  href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name} (${billingCycle === 'monthly' ? 'نظام شهري' : 'دفع لمرة واحدة'})`)}
+                  href={waLink(t('pricing.wa_plan_msg', { plan: plan.name, cycle: billingCycle === 'monthly' ? t('pricing.billing_monthly_label') : t('pricing.billing_onetime_label') }))}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('generate_lead', { event_category: 'pricing', event_label: plan.name })}

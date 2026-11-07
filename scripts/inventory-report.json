@@ -1,0 +1,4374 @@
+{
+  "summary": {
+    "totalArabicLines": 688,
+    "hardcodedLocaleCalls": 5,
+    "byType": {
+      "UI ظاهر": 499,
+      "attribute": 76,
+      "data-from-DB": 51,
+      "validation": 57,
+      "تعليق برمجي (code comment)": 5
+    },
+    "topFiles": [
+      [
+        "src/components/MockupsSection.tsx",
+        83
+      ],
+      [
+        "src/admin/panels/AdminRequests.tsx",
+        46
+      ],
+      [
+        "src/admin/panels/AdminPortfolio.tsx",
+        40
+      ],
+      [
+        "src/pages/CaseStudy.tsx",
+        40
+      ],
+      [
+        "src/pages/CustomerAuth.tsx",
+        36
+      ],
+      [
+        "src/admin/panels/AdminSettings.tsx",
+        35
+      ],
+      [
+        "src/pages/CustomerAccount.tsx",
+        30
+      ],
+      [
+        "src/lib/showcase.ts",
+        28
+      ],
+      [
+        "src/admin/panels/AdminBackup.tsx",
+        26
+      ],
+      [
+        "src/pages/ResetPassword.tsx",
+        26
+      ],
+      [
+        "src/siteConfig.ts",
+        25
+      ],
+      [
+        "src/admin/AdminLayout.tsx",
+        21
+      ],
+      [
+        "src/admin/panels/AdminTestimonials.tsx",
+        18
+      ],
+      [
+        "index.html",
+        18
+      ],
+      [
+        "src/admin/panels/AdminDashboard.tsx",
+        15
+      ],
+      [
+        "src/admin/panels/AdminPricing.tsx",
+        15
+      ],
+      [
+        "src/admin/AdminLogin.tsx",
+        14
+      ],
+      [
+        "src/admin/panels/AdminChangePassword.tsx",
+        13
+      ],
+      [
+        "src/admin/panels/AdminHero.tsx",
+        13
+      ],
+      [
+        "src/pages/CustomerRequests.tsx",
+        13
+      ]
+    ]
+  },
+  "supabaseAudit": [
+    {
+      "table": "site_settings",
+      "columns": [
+        "site_name",
+        "site_name_ar",
+        "location",
+        "footer_text",
+        "promo_bar_text",
+        "seo_title",
+        "seo_description"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "site_name is English, site_name_ar is Arabic. All other text fields (location, footer_text, promo_bar_text, seo_*) are Arabic-only with no _en columns."
+    },
+    {
+      "table": "hero_content",
+      "columns": [
+        "badge_text",
+        "headline_line1",
+        "rotating_words",
+        "headline_line2",
+        "subtitle",
+        "cta_primary",
+        "cta_secondary"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "All hero text columns and rotating_words array are Arabic-only with no _en columns."
+    },
+    {
+      "table": "features",
+      "columns": [
+        "title",
+        "description"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "Arabic-only. No title_en or description_en."
+    },
+    {
+      "table": "services",
+      "columns": [
+        "title",
+        "description"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "Arabic-only. No title_en or description_en."
+    },
+    {
+      "table": "portfolio_items",
+      "columns": [
+        "title",
+        "category",
+        "description"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "Arabic-only. No title_en, description_en, or category_en."
+    },
+    {
+      "table": "process_steps",
+      "columns": [
+        "title",
+        "description"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "Arabic-only. Used in Process section; causes step titles/descriptions to stay Arabic if fetched without language check."
+    },
+    {
+      "table": "pricing_plans",
+      "columns": [
+        "name",
+        "tagline",
+        "features"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "Arabic-only. Features array contains Arabic strings. No _en columns."
+    },
+    {
+      "table": "faqs",
+      "columns": [
+        "question",
+        "answer"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "Arabic-only. No question_en or answer_en."
+    },
+    {
+      "table": "testimonials",
+      "columns": [
+        "client_name",
+        "role",
+        "company",
+        "content"
+      ],
+      "arOnly": true,
+      "hasEnColumn": false,
+      "notes": "Arabic-only. No _en columns."
+    },
+    {
+      "table": "section_visibility",
+      "columns": [
+        "id",
+        "label",
+        "visible"
+      ],
+      "arOnly": false,
+      "hasEnColumn": false,
+      "notes": "Controls section visibility boolean. Label is admin-only."
+    }
+  ],
+  "localeMatches": [
+    {
+      "file": "src/admin/panels/AdminCustomers.tsx",
+      "line": 100,
+      "text": "{new Date(c.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}",
+      "type": "hardcoded-locale"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 47,
+      "text": "const dateStr = d.toLocaleDateString('ar-EG', { month: 'numeric', day: 'numeric' });",
+      "type": "hardcoded-locale"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 63,
+      "text": "new Date(r.created_at).toLocaleString('ar-EG'),",
+      "type": "hardcoded-locale"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 249,
+      "text": "{new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}",
+      "type": "hardcoded-locale"
+    },
+    {
+      "file": "src/components/QuoteWizard.tsx",
+      "line": 434,
+      "text": "{estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} {t('quote_wizard.currency')}",
+      "type": "hardcoded-locale"
+    }
+  ],
+  "items": [
+    {
+      "file": "src/admin/AdminApp.tsx",
+      "line": 26,
+      "text": "<p className=\"text-navy-300 text-sm\">جارٍ التحقق من الجلسة...</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminApp.tsx",
+      "line": 36,
+      "text": "<h1 className=\"text-xl font-bold text-navy-50\">حدث خطأ</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminApp.tsx",
+      "line": 44,
+      "text": "إعادة المحاولة",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminApp.tsx",
+      "line": 60,
+      "text": "useNoIndex('لوحة التحكم | Click Zoon');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminApp.tsx",
+      "line": 67,
+      "text": "<Route path=\"features\" element={<AdminGuard><TextItemsPanel table=\"features\" title=\"المميزات\" subtitle=\"مميزات قسم ليه تختارنا\" hasIcon /></AdminGuard>} />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/AdminApp.tsx",
+      "line": 68,
+      "text": "<Route path=\"services\" element={<AdminGuard><TextItemsPanel table=\"services\" title=\"الخدمات\" subtitle=\"بطاقات الخدمات المعروضة\" hasIcon /></AdminGuard>} />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/AdminApp.tsx",
+      "line": 70,
+      "text": "<Route path=\"process\" element={<AdminGuard><TextItemsPanel table=\"process_steps\" title=\"إزاي بنشتغل\" subtitle=\"خطوات العمل\" hasIcon /></AdminGuard>} />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 27,
+      "text": "{ path: '/admin', label: 'الرئيسية', icon: LayoutDashboard },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 28,
+      "text": "{ path: '/admin/settings', label: 'إعدادات الموقع', icon: Settings },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 29,
+      "text": "{ path: '/admin/hero', label: 'الهيرو', icon: Type },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 30,
+      "text": "{ path: '/admin/features', label: 'المميزات', icon: Award },",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 31,
+      "text": "{ path: '/admin/services', label: 'الخدمات', icon: Grid },",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 32,
+      "text": "{ path: '/admin/portfolio', label: 'أعمالنا', icon: Image },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 33,
+      "text": "{ path: '/admin/process', label: 'إزاي بنشتغل', icon: ListOrdered },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 34,
+      "text": "{ path: '/admin/pricing', label: 'الباقات', icon: DollarSign },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 35,
+      "text": "{ path: '/admin/testimonials', label: 'آراء العملاء', icon: MessageSquareQuote },",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 36,
+      "text": "{ path: '/admin/faqs', label: 'الأسئلة الشائعة', icon: HelpCircle },",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 37,
+      "text": "{ path: '/admin/sections', label: 'إظهار/إخفاء الأقسام', icon: Eye },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 38,
+      "text": "{ path: '/admin/requests', label: 'طلبات الديمو', icon: Inbox },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 39,
+      "text": "{ path: '/admin/customers', label: 'العملاء', icon: Users },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 40,
+      "text": "{ path: '/admin/password', label: 'تغيير كلمة المرور', icon: KeyRound },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 41,
+      "text": "{ path: '/admin/backup', label: 'نسخة احتياطية', icon: DatabaseBackup },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 65,
+      "text": "<span className=\"text-lg font-bold text-navy-50\">لوحة التحكم</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 94,
+      "text": "عرض الموقع",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 102,
+      "text": "تسجيل خروج",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 113,
+      "text": "<span className=\"text-lg font-bold text-navy-50\">القائمة</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 144,
+      "text": "تسجيل خروج",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLayout.tsx",
+      "line": 158,
+      "text": "<span className=\"text-lg font-bold text-gradient-gold\">CZ لوحة التحكم</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 44,
+      "text": "setError('هذا الحساب ليس لديه صلاحية الدخول للوحة التحكم');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 66,
+      "text": "setResetError('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 68,
+      "text": "setResetError('فشل إرسال رابط إعادة التعيين. حاول مرة تانية.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 72,
+      "text": "setResetSuccess('تم إرسال رابط إعادة تعيين كلمة المرور على بريدك الإلكتروني.');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 74,
+      "text": "setResetError('حدث خطأ غير متوقع. حاول مرة تانية.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 88,
+      "text": "<h1 className=\"text-2xl font-bold text-navy-50 mb-2\">لوحة التحكم</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 89,
+      "text": "<p className=\"text-navy-400 text-sm\">سجّل الدخول لإدارة محتوى الموقع</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 96,
+      "text": "البريد الإلكتروني",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 112,
+      "text": "كلمة المرور",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 137,
+      "text": "{loading ? 'جارٍ الدخول...' : 'دخول'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 149,
+      "text": "نسيت كلمة المرور؟",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 157,
+      "text": "بريدك الإلكتروني",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 175,
+      "text": "{resetLoading ? 'جارٍ الإرسال...' : 'إرسال رابط إعادة التعيين'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/AdminLogin.tsx",
+      "line": 191,
+      "text": "العودة للموقع",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 40,
+      "text": "if (error) throw new Error(`خطأ في قراءة جدول ${table}: ${error.message}`);",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 52,
+      "text": "setMessage({ type: 'success', text: 'تم تصدير النسخة الاحتياطية بنجاح' });",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 54,
+      "text": "setMessage({ type: 'error', text: err instanceof Error ? err.message : 'حدث خطأ غير متوقع' });",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 69,
+      "text": "throw new Error('ملف غير صالح: تعذّرت قراءة ملف JSON');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 73,
+      "text": "throw new Error('ملف غير صالح: التنسيق غير صحيح');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 78,
+      "text": "throw new Error('ملف غير صالح: كائن البيانات (data) غير موجود أو غير صحيح');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 86,
+      "text": "throw new Error(`ملف غير صالح: بيانات جدول ${key} ليست مصفوفة`);",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 102,
+      "text": "throw new Error(`خطأ في قراءة بيانات جدول ${table} الحالية: ${fetchErr.message}`);",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 122,
+      "text": "? 'تمت استعادة البيانات السابقة للجدول بنجاح'",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 123,
+      "text": ": 'تعذرت استعادة البيانات السابقة للجدول';",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 124,
+      "text": "throw new Error(`خطأ في تحديث جدول ${table}: ${upsertErr.message} (${restoreMsg})`);",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 136,
+      "text": "throw new Error(`خطأ في مسح جدول ${table}: ${delErr.message} (البيانات السابقة لم تتأثر)`);",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 176,
+      "text": "? 'تمت استعادة البيانات السابقة للجدول بنجاح'",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 177,
+      "text": ": 'تعذرت استعادة البيانات السابقة للجدول';",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 178,
+      "text": "throw new Error(`خطأ في استيراد بيانات جدول ${table}: ${insErr.message} (${restoreMsg})`);",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 182,
+      "text": "setMessage({ type: 'success', text: 'تم استيراد النسخة الاحتياطية بنجاح — أعد تحميل الصفحة لرؤية التغييرات' });",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 184,
+      "text": "setMessage({ type: 'error', text: err instanceof Error ? err.message : 'حدث خطأ غير متوقع' });",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 193,
+      "text": "<AdminPageHeader title=\"نسخة احتياطية\" subtitle=\"تصدير واستيراد بيانات الموقع كملف JSON\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 216,
+      "text": "<h3 className=\"text-navy-50 font-bold\">تصدير نسخة احتياطية</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 217,
+      "text": "<p className=\"text-navy-400 text-sm\">ينزّل كل جداول المحتوى والطلبات كملف JSON</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 226,
+      "text": "{exporting ? 'جارٍ التصدير...' : 'تصدير الآن'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 237,
+      "text": "<h3 className=\"text-navy-50 font-bold\">استيراد نسخة احتياطية</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 238,
+      "text": "<p className=\"text-navy-400 text-sm\">يرجّع البيانات من ملف JSON — سيستبدل المحتوى الحالي</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 257,
+      "text": "{importing ? 'جارٍ الاستيراد...' : 'اختر ملف'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 266,
+      "text": "<h3 className=\"text-navy-50 font-bold text-sm\">الجداول المشمولة في النسخة</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminBackup.tsx",
+      "line": 277,
+      "text": "<span>الاستيراد يستبدل كل البيانات الحالية في الجداول المشمولة. تأكد من تصدير نسخة قبل الاستيراد.</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 22,
+      "text": "setError('كلمة المرور الجديدة لازم تكون 12 حرف على الأقل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 26,
+      "text": "setError('كلمة المرور الجديدة وتأكيدها غير متطابقين');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 30,
+      "text": "setError('كلمة المرور الجديدة لازم تكون مختلفة عن الحالية');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 41,
+      "text": "setError('فشل تغيير كلمة المرور. تأكد إن كلمة المرور الحالية صحيحة وحاول مرة تانية.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 45,
+      "text": "setSuccess('تم تغيير كلمة المرور بنجاح');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 58,
+      "text": "<h1 className=\"text-2xl font-bold text-navy-50 mb-1\">تغيير كلمة المرور</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 59,
+      "text": "<p className=\"text-navy-400 text-sm\">غيّر كلمة مرور حسابك للحفاظ على أمان لوحة التحكم</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 67,
+      "text": "كلمة المرور الحالية",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 93,
+      "text": "كلمة المرور الجديدة",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 101,
+      "text": "placeholder=\"12 حرف على الأقل\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 113,
+      "text": "<p className=\"text-navy-500 text-xs mt-1.5\">لازم 12 حرف على الأقل</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 120,
+      "text": "تأكيد كلمة المرور الجديدة",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminChangePassword.tsx",
+      "line": 162,
+      "text": "{loading ? 'جارٍ التغيير...' : 'تغيير كلمة المرور'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminCustomers.tsx",
+      "line": 64,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminCustomers.tsx",
+      "line": 68,
+      "text": "<AdminPageHeader title=\"العملاء\" subtitle={`${customers.length} عميل مسجل`} />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminCustomers.tsx",
+      "line": 76,
+      "text": "placeholder=\"بحث بالاسم أو رقم الموبايل...\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminCustomers.tsx",
+      "line": 84,
+      "text": "<p className=\"text-navy-400\">لا يوجد عملاء مسجلون بعد</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminCustomers.tsx",
+      "line": 106,
+      "text": "<div className=\"text-navy-500 text-xs\">طلب</div>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 67,
+      "text": "{ label: 'طلبات الديمو', value: stats.requests, icon: Inbox, link: '/admin/requests', color: 'text-gold-400' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 68,
+      "text": "{ label: 'مشاريع الأعمال', value: stats.portfolio, icon: Image, link: '/admin/portfolio', color: 'text-blue-400' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 69,
+      "text": "{ label: 'الباقات', value: stats.pricing, icon: DollarSign, link: '/admin/pricing', color: 'text-green-400' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 70,
+      "text": "{ label: 'الأسئلة الشائعة', value: stats.faqs, icon: HelpCircle, link: '/admin/faqs', color: 'text-teal-400' },",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 77,
+      "text": "<AdminPageHeader title=\"لوحة التحكم\" subtitle=\"مرحباً بك في إدارة موقع Click Zoon\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 106,
+      "text": "<h3 className=\"text-base font-bold text-navy-50\">نشاط طلبات الديمو خلال آخر 30 يوماً</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 112,
+      "text": "<span>كل الطلبات</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 146,
+      "text": "<span>أحدث الطلبات المستلمة</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 149,
+      "text": "عرض المزيد",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 154,
+      "text": "<p className=\"text-xs text-navy-400 py-6 text-center\">لا توجد طلبات جديدة</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 175,
+      "text": "{r.status === 'delivered' ? 'مكتمل' : r.status === 'contacted' ? 'تواصل' : 'جديد'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 191,
+      "text": "<span className=\"text-navy-50 font-bold block text-sm\">تعديل إعدادات الموقع العامة</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 192,
+      "text": "<span className=\"text-navy-400 text-xs\">رقم الواتساب، الأسعار، العناوين وشريط الإعلانات</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 203,
+      "text": "<span className=\"text-navy-50 font-bold block text-sm\">إدارة مشاريع الأعمال</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminDashboard.tsx",
+      "line": 204,
+      "text": "<span className=\"text-navy-400 text-xs\">إضافة صور وتعديل روابط المواقع الحية</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 69,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 73,
+      "text": "<AdminPageHeader title=\"الأسئلة الشائعة\" subtitle=\"إضافة وتعديل وحذف وترتيب الأسئلة\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 74,
+      "text": "<AddButton onAdd={startAdd} label=\"إضافة سؤال\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 79,
+      "text": "<AdminInput label=\"السؤال\" value={editing.question} onChange={(v) => setEditing({ ...editing, question: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 80,
+      "text": "<AdminTextarea label=\"الإجابة\" value={editing.answer} onChange={(v) => setEditing({ ...editing, answer: v })} rows={3} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 83,
+      "text": "{saving ? 'جارٍ الحفظ...' : 'حفظ'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 85,
+      "text": "<button onClick={() => setEditing(null)} className=\"text-navy-300 hover:text-navy-50 px-4 py-2.5 text-sm font-semibold\">إلغاء</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminFaqs.tsx",
+      "line": 101,
+      "text": "<button onClick={() => setEditing(item)} className=\"text-navy-300 hover:text-gold-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all\">تعديل</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 33,
+      "text": "if (error) { setError('تعذر الحفظ'); return; }",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 38,
+      "text": "if (!hero) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 45,
+      "text": "<AdminPageHeader title=\"قسم الهيرو\" subtitle=\"العنوان الرئيسي، الكلمات المتحركة، الفقرة، والأزرار\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 49,
+      "text": "<AdminInput label=\"نص الشارة (Badge)\" value={hero.badge_text} onChange={(v) => set('badge_text', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 50,
+      "text": "<AdminInput label=\"السطر الأول من العنوان\" value={hero.headline_line1} onChange={(v) => set('headline_line1', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 53,
+      "text": "الكلمات المتحركة (افصل بينها بفاصلة)",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 57,
+      "text": "value={hero.rotating_words.join('، ')}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 58,
+      "text": "onChange={(e) => set('rotating_words', e.target.value.split(/[،,]/).map((s) => s.trim()).filter(Boolean))}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 62,
+      "text": "<p className=\"text-navy-500 text-xs mt-1\">اكتب الكلمات مفصولة بفاصلة، مثال: مطعمك، كافيهك، محلك</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 64,
+      "text": "<AdminInput label=\"السطر الثاني من العنوان\" value={hero.headline_line2} onChange={(v) => set('headline_line2', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 65,
+      "text": "<AdminTextarea label=\"الفقرة\" value={hero.subtitle} onChange={(v) => set('subtitle', v)} rows={3} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 67,
+      "text": "<AdminInput label=\"نص الزر الأساسي\" value={hero.cta_primary} onChange={(v) => set('cta_primary', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminHero.tsx",
+      "line": 68,
+      "text": "<AdminInput label=\"نص الزر الثانوي\" value={hero.cta_secondary} onChange={(v) => set('cta_secondary', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 8,
+      "text": "{ key: 'restaurants', label: 'مطاعم' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 9,
+      "text": "{ key: 'stores', label: 'متاجر' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 10,
+      "text": "{ key: 'cafes', label: 'كافيهات' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 11,
+      "text": "{ key: 'medical', label: 'طبي' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 12,
+      "text": "{ key: 'business', label: 'شركات وخدمات' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 16,
+      "text": "{ key: 'website', label: 'موقع' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 17,
+      "text": "{ key: 'app', label: 'برنامج / تطبيق' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 18,
+      "text": "{ key: 'store', label: 'متجر إلكتروني' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 125,
+      "text": "alert('اكتب عنوان المشروع وأضف صورة له على الأقل.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 157,
+      "text": "? 'الرابط المختصر (slug) مستخدم في مشروع آخر. غيّره وجرب تاني.'",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 158,
+      "text": ": `تعذر الحفظ: ${error.message}\\nتأكد إنك شغّلت آخر migration في Supabase.`",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 167,
+      "text": "if (!confirm('هل أنت متأكد من حذف هذا المشروع؟')) return;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 199,
+      "text": "alert('تعذر رفع الصورة إلى التخزين. يرجى التحقق من اتصالك أو إعدادات التخزين.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 204,
+      "text": "alert('حدث خطأ أثناء معالجة الصورة.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 237,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 241,
+      "text": "<AdminPageHeader title=\"أعمالنا\" subtitle=\"إضافة وتعديل وحذف وترتيب المشاريع — مع ضغط WebP التلقائي\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 242,
+      "text": "<AddButton onAdd={startAdd} label=\"إضافة مشروع\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 247,
+      "text": "<AdminInput label=\"عنوان المشروع\" value={editing.title} onChange={(v) => setEditing({ ...editing, title: v })} />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 249,
+      "text": "<label className=\"text-navy-200 text-sm font-semibold mb-2 block\">التصنيف</label>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 260,
+      "text": "<AdminTextarea label=\"الوصف المختصر (يظهر في الكارت)\" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} rows={2} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 263,
+      "text": "<label className=\"text-navy-200 text-sm font-semibold mb-2 block\">النوع</label>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 274,
+      "text": "<AdminInput label=\"الرابط المختصر (إنجليزي) مثال: delano-cafe\" value={editing.slug ?? ''} onChange={(v) => setEditing({ ...editing, slug: v })} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 276,
+      "text": "<AdminInput label=\"سطر تعريفي قصير تحت الاسم\" value={editing.tagline ?? ''} onChange={(v) => setEditing({ ...editing, tagline: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 277,
+      "text": "<AdminTextarea label=\"وصف تفصيلي (صفحة المشروع)\" value={editing.long_description ?? ''} onChange={(v) => setEditing({ ...editing, long_description: v })} rows={4} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 278,
+      "text": "<AdminTextarea label=\"المميزات (كل ميزة في سطر)\" value={(editing.features ?? []).join('\\n')} onChange={(v) => setEditing({ ...editing, features: v.split('\\n') })} rows={4} />",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 279,
+      "text": "<AdminInput label=\"رابط المشروع الحي (Live URL)\" value={editing.live_url || editing.link || ''} onChange={(v) => setEditing({ ...editing, live_url: v || null, link: v || null })} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 284,
+      "text": "<span>صورة المشروع</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 287,
+      "text": "<span>يتم تحويلها لـ WebP مضغوطة تلقائياً</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 296,
+      "text": "{uploading ? 'جارٍ الضغط والرفع...' : 'رفع صورة مضغوطة'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 308,
+      "text": "placeholder=\"أو الصق رابط صورة\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 317,
+      "text": "<label className=\"text-navy-200 text-sm font-semibold mb-2 block\">أيقونة المشروع (مربعة — اختياري)</label>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 324,
+      "text": "رفع أيقونة",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 332,
+      "text": "<label className=\"text-navy-200 text-sm font-semibold mb-2 block\">صور الموقع / البرنامج (لقطات الشاشة)</label>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 342,
+      "text": "aria-label=\"حذف الصورة\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 352,
+      "text": "{uploading ? 'جارٍ الرفع...' : 'رفع صور (يمكن اختيار أكثر من صورة)'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 357,
+      "text": "<AdminToggle label=\"ظاهر في الموقع\" checked={editing.visible} onChange={(v) => setEditing({ ...editing, visible: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 361,
+      "text": "{saving ? 'جارٍ الحفظ...' : 'حفظ'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 363,
+      "text": "<button onClick={() => setEditing(null)} className=\"text-navy-300 hover:text-navy-50 px-4 py-2.5 text-sm font-semibold\">إلغاء</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 376,
+      "text": "{!item.visible && <span className=\"text-navy-500 text-xs bg-navy-800 px-2 py-0.5 rounded\">مخفي</span>}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPortfolio.tsx",
+      "line": 383,
+      "text": "<button onClick={() => setEditing(item)} className=\"text-navy-400 hover:text-gold-400 px-2 py-1 text-xs font-semibold\">تعديل</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 73,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 77,
+      "text": "<AdminPageHeader title=\"باقات الأسعار\" subtitle=\"تعديل الباقات والمميزات والأسعار\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 78,
+      "text": "<AddButton onAdd={startAdd} label=\"إضافة باقة\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 84,
+      "text": "<AdminInput label=\"اسم الباقة\" value={editing.name} onChange={(v) => setEditing({ ...editing, name: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 85,
+      "text": "<AdminInput label=\"الوصف القصير\" value={editing.tagline} onChange={(v) => setEditing({ ...editing, tagline: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 87,
+      "text": "<AdminInput label=\"السعر (اتركه فارغاً لإظهار اطلب عرض سعر)\" value={editing.price} onChange={(v) => setEditing({ ...editing, price: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 89,
+      "text": "<label className=\"text-navy-200 text-sm font-semibold mb-2 block\">المميزات (كل ميزة في سطر)</label>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 98,
+      "text": "<AdminToggle label=\"باقة مميزة\" checked={editing.highlighted} onChange={(v) => setEditing({ ...editing, highlighted: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 99,
+      "text": "<AdminToggle label=\"ظاهرة في الموقع\" checked={editing.visible} onChange={(v) => setEditing({ ...editing, visible: v })} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 103,
+      "text": "{saving ? 'جارٍ الحفظ...' : 'حفظ'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 105,
+      "text": "<button onClick={() => setEditing(null)} className=\"text-navy-300 hover:text-navy-50 px-4 py-2.5 text-sm font-semibold\">إلغاء</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 117,
+      "text": "{item.highlighted && <span className=\"text-gold-300 text-xs bg-gold-500/10 px-2 py-0.5 rounded\">مميزة</span>}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 118,
+      "text": "{!item.visible && <span className=\"text-navy-500 text-xs bg-navy-800 px-2 py-0.5 rounded\">مخفي</span>}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 120,
+      "text": "<div className=\"text-navy-400 text-xs\">{item.tagline} — {item.features.length} ميزة</div>",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/panels/AdminPricing.tsx",
+      "line": 125,
+      "text": "<button onClick={() => setEditing(item)} className=\"text-navy-300 hover:text-gold-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all\">تعديل</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 8,
+      "text": "new: 'جديد',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 9,
+      "text": "contacted: 'تم التواصل',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 10,
+      "text": "delivered: 'تم التسليم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 11,
+      "text": "rejected: 'مرفوض',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 22,
+      "text": "form: 'النموذج الرئيسي',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 23,
+      "text": "wizard: 'حاسبة الباقات',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 24,
+      "text": "exit_intent: 'نافذة الخروج',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 25,
+      "text": "showcase: 'معرض الأعمال (اطلب الآن)',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 26,
+      "text": "contact: 'نموذج الاتصال (قديم)',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 27,
+      "text": "demo: 'طلب الديمو (قديم)',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 31,
+      "text": "{ value: 'all', label: 'كل الحالات' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 32,
+      "text": "{ value: 'new', label: 'جديد' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 33,
+      "text": "{ value: 'contacted', label: 'تم التواصل' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 34,
+      "text": "{ value: 'delivered', label: 'تم التسليم' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 35,
+      "text": "{ value: 'rejected', label: 'مرفوض' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 39,
+      "text": "{ value: 'all', label: 'كل المصادر' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 40,
+      "text": "{ value: 'form', label: 'النموذج الرئيسي' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 41,
+      "text": "{ value: 'wizard', label: 'حاسبة الباقات' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 42,
+      "text": "{ value: 'exit_intent', label: 'نافذة الخروج' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 43,
+      "text": "{ value: 'showcase', label: 'معرض الأعمال (اطلب الآن)' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 47,
+      "text": "{ value: 'new', label: 'جديد' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 48,
+      "text": "{ value: 'contacted', label: 'تم التواصل' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 49,
+      "text": "{ value: 'delivered', label: 'تم التسليم' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 50,
+      "text": "{ value: 'rejected', label: 'مرفوض' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 61,
+      "text": "const headers = ['التاريخ', 'الاسم', 'الهاتف', 'نوع النشاط', 'المصدر', 'ملاحظات وتفاصيل', 'رابط الصفحة', 'الحالة', 'عميل مسجل'];",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 71,
+      "text": "r.user_id ? 'نعم' : 'لا',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 100,
+      "text": "if (!confirm('هل تريد بالتأكيد حذف هذا الطلب؟')) return;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 106,
+      "text": "if (!confirm('هل أنت متأكد من حذف جميع الطلبات؟')) return;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 137,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 142,
+      "text": "title=\"طلبات الديمو والعملاء المحتملين\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 143,
+      "text": "subtitle={`${requests.length} طلب مستلم إجمالاً — ${countByStatus.new} طلب جديد بحاجة للتواصل`}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 154,
+      "text": "<span>تصدير CSV / Excel</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 163,
+      "text": "<span>حذف الكل</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 171,
+      "text": "جديد: {countByStatus.new}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 174,
+      "text": "تم التواصل: {countByStatus.contacted}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 177,
+      "text": "تم التسليم: {countByStatus.delivered}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 190,
+      "text": "placeholder=\"بحث بالاسم، الهاتف، أو النشاط...\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 223,
+      "text": "<p className=\"text-navy-400\">{requests.length === 0 ? 'لا توجد طلبات حتى الآن' : 'لا توجد طلبات مطابقة للبحث'}</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 235,
+      "text": "عميل مسجل",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 240,
+      "text": "زائر",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 255,
+      "text": "<span className=\"text-navy-400 text-xs font-semibold\">النشاط:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 259,
+      "text": "<span className=\"text-navy-400 text-xs font-semibold\">الهاتف / واتساب:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 261,
+      "text": "href={`https://wa.me/${req.phone.replace(/^0/, '20')}?text=${encodeURIComponent(`مرحباً أستاذ ${req.name}، بخصوص طلبك من كليك زون`)}`}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 272,
+      "text": "<span className=\"text-gold-400 font-bold block mb-0.5\">تفاصيل وخيارات الطلب:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 278,
+      "text": "<span className=\"text-navy-500 text-xs\">رابط المصدر:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminRequests.tsx",
+      "line": 287,
+      "text": "<span className=\"text-navy-400 text-xs font-semibold\">تغيير الحالة:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSections.tsx",
+      "line": 15,
+      "text": "setError('فشل تحميل البيانات. حاول مرة أخرى.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminSections.tsx",
+      "line": 19,
+      "text": "list = [...list, { id: 'testimonials', label: 'آراء العملاء', visible: true }];",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/admin/panels/AdminSections.tsx",
+      "line": 38,
+      "text": "setError(`فشل حفظ التغيير: ${error.message}`);",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminSections.tsx",
+      "line": 43,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSections.tsx",
+      "line": 47,
+      "text": "<AdminPageHeader title=\"إظهار وإخفاء الأقسام\" subtitle=\"تحكّم في ظهور أقسام الموقع\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminSections.tsx",
+      "line": 59,
+      "text": "label={section.visible ? 'ظاهر' : 'مخفي'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 49,
+      "text": "if (error) { setError('تعذر حفظ الإعدادات'); return; }",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 54,
+      "text": "if (!settings) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 61,
+      "text": "<AdminPageHeader title=\"إعدادات الموقع العامة\" subtitle=\"اسم الموقع، الشعار، بيانات التواصل، السوشيال ميديا، و SEO\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 64,
+      "text": "<h3 className=\"text-navy-50 font-bold mb-4\">الهوية</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 66,
+      "text": "<AdminInput label=\"اسم الموقع (إنجليزي)\" value={settings.site_name} onChange={(v) => set('site_name', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 67,
+      "text": "<AdminInput label=\"اسم الموقع (عربي)\" value={settings.site_name_ar} onChange={(v) => set('site_name_ar', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 68,
+      "text": "<AdminInput label=\"نص الشعار\" value={settings.logo_text} onChange={(v) => set('logo_text', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 69,
+      "text": "<AdminInput label=\"نص الشريط العلوي\" value={settings.promo_bar_text} onChange={(v) => set('promo_bar_text', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 74,
+      "text": "<h3 className=\"text-navy-50 font-bold mb-4\">بيانات التواصل</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 76,
+      "text": "<AdminInput label=\"رقم الهاتف\" value={settings.phone} onChange={(v) => set('phone', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 77,
+      "text": "<AdminInput label=\"رقم الهاتف دولي (واتساب)\" value={settings.phone_intl} onChange={(v) => set('phone_intl', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 78,
+      "text": "<AdminInput label=\"البريد الإلكتروني\" value={settings.email} onChange={(v) => set('email', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 79,
+      "text": "<AdminInput label=\"الموقع\" value={settings.location} onChange={(v) => set('location', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 84,
+      "text": "<h3 className=\"text-navy-50 font-bold mb-4\">روابط السوشيال ميديا</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 86,
+      "text": "<AdminInput label=\"فيسبوك\" value={settings.facebook} onChange={(v) => set('facebook', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 87,
+      "text": "<AdminInput label=\"إنستجرام\" value={settings.instagram} onChange={(v) => set('instagram', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 92,
+      "text": "<h3 className=\"text-navy-50 font-bold mb-4\">إعدادات الديمو</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 94,
+      "text": "<AdminInput label=\"أقل مدة (ساعات)\" type=\"number\" value={String(settings.demo_min_hours)} onChange={(v) => set('demo_min_hours', parseInt(v) || 24)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 95,
+      "text": "<AdminInput label=\"أقصى مدة (ساعات)\" type=\"number\" value={String(settings.demo_max_hours)} onChange={(v) => set('demo_max_hours', parseInt(v) || 72)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 98,
+      "text": "<AdminToggle label=\"إظهار الأسعار في الباقات\" checked={settings.show_prices} onChange={(v) => set('show_prices', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 103,
+      "text": "<h3 className=\"text-navy-50 font-bold mb-4\">قسم من نحن</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 105,
+      "text": "<AdminInput label=\"عنوان القسم\" value={settings.about_title} onChange={(v) => set('about_title', v)} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 106,
+      "text": "<AdminTextarea label=\"نص التعريف\" value={settings.about_text} onChange={(v) => set('about_text', v)} rows={3} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 107,
+      "text": "<AdminInput label=\"رابط صورة (اختياري)\" value={settings.about_image_url} onChange={(v) => set('about_image_url', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 109,
+      "text": "label=\"أرقام (JSON)\"",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 117,
+      "text": "<p className=\"text-navy-500 text-xs\">صيغة: {`[{\"value\": 50, \"suffix\": \"+\", \"label\": \"عميل\"}]`}</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 122,
+      "text": "<h3 className=\"text-navy-50 font-bold mb-4\">الخريطة والتتبع</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 124,
+      "text": "<AdminTextarea label=\"رابط Google Maps Embed (اختياري)\" value={settings.map_embed_url} onChange={(v) => set('map_embed_url', v)} rows={2} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 125,
+      "text": "<p className=\"text-navy-500 text-xs\">ألصق رابط embed من Google Maps. لو فاضي، الخريطة مش هتظهر.</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 127,
+      "text": "<p className=\"text-navy-500 text-xs\">مثال: G-XXXXXXXXXX. لو فاضي، التتبع معطل.</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 132,
+      "text": "<h3 className=\"text-navy-50 font-bold mb-4\">نص الفوتر</h3>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 133,
+      "text": "<AdminTextarea label=\"نص الفوتر\" value={settings.footer_text} onChange={(v) => set('footer_text', v)} rows={3} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 139,
+      "text": "<AdminInput label=\"عنوان SEO\" value={settings.seo_title} onChange={(v) => set('seo_title', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 140,
+      "text": "<AdminTextarea label=\"وصف SEO\" value={settings.seo_description} onChange={(v) => set('seo_description', v)} rows={2} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminSettings.tsx",
+      "line": 141,
+      "text": "<AdminInput label=\"رابط صورة المشاركة (OG Image)\" value={settings.seo_og_image} onChange={(v) => set('seo_og_image', v)} dir=\"ltr\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 98,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 102,
+      "text": "<AdminPageHeader title=\"آراء العملاء\" subtitle=\"إضافة وتعديل وحذف وترتيب تقييمات العملاء\" />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 103,
+      "text": "<AddButton onAdd={startAdd} label=\"إضافة رأي عميل\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 110,
+      "text": "label=\"اسم العميل *\"",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 113,
+      "text": "placeholder=\"مثال: أحمد محمود\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 116,
+      "text": "label=\"النشاط / الصفة\"",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 119,
+      "text": "placeholder=\"مثال: صاحب كافيه، طبيب، متجر...\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 124,
+      "text": "<label className=\"text-navy-200 text-sm font-semibold mb-2 block\">التقييم (من 1 إلى 5 نجوم)</label>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 132,
+      "text": "title={`${star} نجوم`}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 144,
+      "text": "<span className=\"text-navy-300 text-sm mr-2\">{editing.rating} من 5</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 149,
+      "text": "label=\"نص الرأي أو التقييم *\"",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 153,
+      "text": "placeholder=\"اكتب ما قاله العميل عن تجربته مع كليك زون...\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 157,
+      "text": "label=\"ظاهر في الموقع\"",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 168,
+      "text": "{saving ? 'جارٍ الحفظ...' : 'حفظ'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 174,
+      "text": "إلغاء",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 184,
+      "text": "لا توجد آراء عملاء حالياً. اضغط \"إضافة رأي عميل\" لإضافة أول تقييم.",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 199,
+      "text": "<span className=\"text-navy-500 text-xs bg-navy-800 px-2 py-0.5 rounded\">مخفي</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/AdminTestimonials.tsx",
+      "line": 211,
+      "text": "تعديل",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 92,
+      "text": "if (loading) return <div className=\"text-navy-400\">جارٍ التحميل...</div>;",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 97,
+      "text": "<AddButton onAdd={startAdd} label=\"إضافة عنصر\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 104,
+      "text": "<label className=\"text-navy-200 text-sm font-semibold mb-2 block\">الأيقونة (lucide-react)</label>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 126,
+      "text": "الأيقونات المتاحة: {AVAILABLE_ICON_NAMES.join('، ')}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 130,
+      "text": "<AdminInput label=\"العنوان\" value={editing.title} onChange={(v) => setEditing({ ...editing, title: v })} />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 131,
+      "text": "<AdminTextarea label=\"الوصف\" value={editing.description} onChange={(v) => setEditing({ ...editing, description: v })} rows={2} />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 134,
+      "text": "{saving ? 'جارٍ الحفظ...' : 'حفظ'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 136,
+      "text": "<button onClick={() => setEditing(null)} className=\"text-navy-300 hover:text-navy-50 px-4 py-2.5 text-sm font-semibold\">إلغاء</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/panels/TextItemsPanel.tsx",
+      "line": 159,
+      "text": "<button onClick={() => setEditing(item)} className=\"text-navy-300 hover:text-gold-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all\">تعديل</button>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/ui.tsx",
+      "line": 109,
+      "text": "label = 'حفظ',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/ui.tsx",
+      "line": 122,
+      "text": "{saving ? 'جارٍ الحفظ...' : label}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/ui.tsx",
+      "line": 131,
+      "text": "{error || 'تم الحفظ بنجاح'}",
+      "type": "validation"
+    },
+    {
+      "file": "src/admin/ui.tsx",
+      "line": 136,
+      "text": "export function DeleteButton({ onDelete, label = 'حذف' }: { onDelete: () => void; label?: string }) {",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/ui.tsx",
+      "line": 147,
+      "text": "export function AddButton({ onAdd, label = 'إضافة' }: { onAdd: () => void; label?: string }) {",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/admin/ui.tsx",
+      "line": 169,
+      "text": "aria-label={direction === 'up' ? 'تحريك لأعلى' : 'تحريك لأسفل'}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/App.tsx",
+      "line": 63,
+      "text": "{ question: 'كم مدة تجهيز الديمو المجاني؟', answer: 'الديمو بيتجهز خلال 24 إلى 72 ساعة من وقت طلبك على أساس نشاطك قبل ما تدفع أي حاجة.' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/App.tsx",
+      "line": 64,
+      "text": "{ question: 'كم مدة التسليم النهائي للموقع؟', answer: 'التسليم النهائي من 3 أيام إلى أسبوع حسب متطلبات المشروع.' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/App.tsx",
+      "line": 65,
+      "text": "{ question: 'هل في أي التزام قبل ما أشوف الديمو؟', answer: 'لا، بدون أي التزام. الديمو مجاني بالكامل — تتطمن عليه، ولو عجبك نكمّل.' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/App.tsx",
+      "line": 66,
+      "text": "{ question: 'من يملك الدومين والاستضافة؟', answer: 'أنت بتملك الدومين والاستضافة باسمك بالكامل وجميع بيانات الدخول بتتسلم لك.' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 12,
+      "text": "{ id: '1', name: 'Delano Café & Bistro', category: 'مطاعم وكافيهات', icon: Coffee },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 13,
+      "text": "{ id: '2', name: 'Elite Specialty Clinics', category: 'عيادات ومراكز طبية', icon: Stethoscope },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 14,
+      "text": "{ id: '3', name: 'Al-Mustashar Law Group', category: 'مكاتب محاماة واستشارات', icon: Scale },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 15,
+      "text": "{ id: '4', name: 'Orchid Luxury Boutique', category: 'متاجر إلكترونية راقية', icon: Sparkles },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 16,
+      "text": "{ id: '5', name: 'City Home Real Estate', category: 'شركات واستثمار عقاري', icon: Building2 },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 17,
+      "text": "{ id: '6', name: 'SuperFresh Gourmet', category: 'أغذية وسوبرماركت', icon: ShoppingBag },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 27,
+      "text": "aria-label=\"شركاء النجاح والأنشطة التي نخدمها\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/ClientLogosMarquee.tsx",
+      "line": 31,
+      "text": "نُصمّم ونطوّر حضوراً رقمياً فائق التميز لأكثر من 50+ نشاط تجاري في مصر والعالم العربي",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Header.tsx",
+      "line": 348,
+      "text": "{t('common.welcome')}، <span className=\"text-gold-300 font-bold\">{displayName}</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 25,
+      "text": ": ['مطعمك', 'كافيهك', 'محلك', 'شركتك', 'مشروعك'];",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 70,
+      "text": "const currentWord = words[wordIdx] || words[0] || 'مشروعك';",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 75,
+      "text": "const badgeText = language === 'en' ? t('hero.badge') : (hero?.badge_text ?? 'تصميم وتطوير مواقع ومتاجر إلكترونية باحتراف');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 76,
+      "text": "const line1 = language === 'en' ? t('hero.title_prefix') : (hero?.headline_line1 ?? 'خلّي موقع');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 77,
+      "text": "const line2 = language === 'en' ? t('hero.title_highlight') : (hero?.headline_line2 ?? 'أونلاين واحترافي');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 78,
+      "text": "const subtitle = language === 'en' ? t('hero.description') : (hero?.subtitle ?? 'في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصورة والدقهلية، بداية مجانية بدون التزام وتسليم سريع بدعم مستمر.');",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 79,
+      "text": "const ctaPrimary = language === 'en' ? t('hero.cta_primary') : (hero?.cta_primary ?? 'اطلب ديمو مجاني');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 80,
+      "text": "const ctaSecondary = language === 'en' ? t('hero.cta_secondary') : (hero?.cta_secondary ?? 'شاهد خدماتنا');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 140,
+      "text": "<div className=\"text-xs text-navy-300\">{language === 'en' ? 'Completed Order' : 'طلب جديد مكتمل'}</div>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 141,
+      "text": "<div className=\"text-sm font-bold text-navy-50 notranslate\" translate=\"no\">{language === 'en' ? 'Online Store +320 EGP' : 'متجر إلكتروني +320 ج.م'}</div>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Hero.tsx",
+      "line": 156,
+      "text": "<div className=\"text-xs text-navy-300\">{language === 'en' ? 'Load Speed' : 'سرعة التحميل'}</div>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/LanguageSwitcher.tsx",
+      "line": 84,
+      "text": "<span className=\"uppercase font-bold tracking-wider\">{language === 'ar' ? 'العربية' : 'EN'}</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/LanguageSwitcher.tsx",
+      "line": 115,
+      "text": "<span>العربية</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/LanguageSwitcher.tsx",
+      "line": 133,
+      "text": "<span className=\"text-[11px] text-navy-400 font-normal\">(الإنجليزية)</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 272,
+      "text": "title: 'قصر الريم للمشويات',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 273,
+      "text": "category: 'موقع وتطبيق مطعم ومشويات',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 283,
+      "text": "logoText: 'قصر الريم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 284,
+      "text": "logoSub: 'مشويات & مأكولات شرقية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 285,
+      "text": "statusBadge: 'مفتوح للطلب',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 289,
+      "text": "badge: '🔥 خصم 20% على أول طلب أونلاين',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 290,
+      "text": "headline: 'طعم المشويات الأصيل يوصلك سخن لحد باب بيتك',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 291,
+      "text": "subheadline: 'أشهى المشويات الحلبية على الفحم بتتبيلة سرية وتوصيل حراري فائق السرعة.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 292,
+      "text": "ctaText: 'اطلب وجبتك الآن',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 296,
+      "text": "title: 'صينية الريم الملكية',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 297,
+      "text": "desc: 'كيلو كباب وكفتة مع ريش ضاني وأرز بسمتي ومقبلات حارة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 298,
+      "text": "meta: '٤٢٠ ج.م',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 299,
+      "text": "tag: 'الأكثر طلباً ⭐ 4.9',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 303,
+      "text": "title: 'توصيل حراري فائق السرعة',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 304,
+      "text": "desc: 'تغليف ثلاثي محكم يحافظ على حرارة وطراوة المشويات خلال 35 دقيقة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 305,
+      "text": "meta: 'توصيل مجاني',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 306,
+      "text": "tag: 'سريع',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 310,
+      "text": "title: 'حجز صالات VIP وعزائم',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 311,
+      "text": "desc: 'صالات عائلية خاصة ومجهزة بأرقى مستوى خدمة وضيافة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 312,
+      "text": "meta: 'تأكيد فوري',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 313,
+      "text": "tag: 'صالات فاخرة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 321,
+      "text": "title: 'روست كافيه & كوفي بار',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 322,
+      "text": "category: 'كافيه وسبيشالتي كوفي',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 332,
+      "text": "logoText: 'روست كافيه',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 334,
+      "text": "statusBadge: 'بن محمص اليوم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 338,
+      "text": "badge: '☕ تجربة القهوة المختصة V60 & Flat White',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 339,
+      "text": "headline: 'قهوتك الموزونة بمزاج عالي، محمصة بعناية يومياً',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 340,
+      "text": "subheadline: 'محاصيل مختصة فردية المصدر وحلويات فرنسية طازجة في أجواء هادئة وراقية.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 341,
+      "text": "ctaText: 'استكشف قائمة المشروبات',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 345,
+      "text": "title: 'بن سلفادور وكولومبيا V60',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 346,
+      "text": "desc: 'إيحاءات فواكه استوائية وشوكولاتة بحموضة متوازنة ومذاق مخملي',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 347,
+      "text": "meta: '٨٥ ج.م',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 348,
+      "text": "tag: 'محصول مميز ⭐ 4.9',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 352,
+      "text": "title: 'كرواسون ومخبوزات فرنسية',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 353,
+      "text": "desc: 'مخبوزات طازجة بالزبدة الطبيعية تُخبز يومياً في معملنا الخاص',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 354,
+      "text": "meta: 'طازج صباحاً',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 355,
+      "text": "tag: 'مخبوز اليوم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 359,
+      "text": "title: 'اشتراك بوكس القهوة المنزلي',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 360,
+      "text": "desc: 'محاصيل مختارة تصلك أسبوعياً مع بطاقات وصفات التحضير المنزلية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 361,
+      "text": "meta: 'شحن أسبوعي',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 362,
+      "text": "tag: 'وفر 25%',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 370,
+      "text": "title: 'متجر مودانيستا فاشون',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 371,
+      "text": "category: 'متجر إلكتروني متكامل للأزياء',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 381,
+      "text": "logoText: 'مودانيستا',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 383,
+      "text": "statusBadge: 'شحن فوري',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 387,
+      "text": "badge: '✨ كولكشن الشتاء 2026 الحصري',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 388,
+      "text": "headline: 'أحدث صيحات الموضة والأناقة بتصاميم راقية وخامات أصلية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 389,
+      "text": "subheadline: 'تسوقي أرقى الإطلالات العصرية مع استبدال مجاني وتوصيل سريع حتى باب المنزل.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 390,
+      "text": "ctaText: 'تسوقي الكولكشن الجديد',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 394,
+      "text": "title: 'معطف صوف كشمير طويل',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 395,
+      "text": "desc: 'قصة راقية بخامات شتوية دافئة وتطريز يدوي متقن بألوان الموسم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 396,
+      "text": "meta: '١,٢٥٠ ج.م',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 397,
+      "text": "tag: 'تريند الأسبوع ⭐ 4.9',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 401,
+      "text": "title: 'حقائب جلد طبيعي كلاسيك',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 402,
+      "text": "desc: 'تصميم إيطالي أنيق متعدد الاستخدامات بضمان عام كامل',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 403,
+      "text": "meta: '٦٨٠ ج.م',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 404,
+      "text": "tag: 'خامة أصلية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 408,
+      "text": "title: 'دفع عند الاستلام واستبدال',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 409,
+      "text": "desc: 'معاينة كاملة قبل الاستلام وخيارات تقسيط مرنة بدون فوائد',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 410,
+      "text": "meta: 'استبدال 14 يوم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 411,
+      "text": "tag: 'تسوق آمن 100%',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 419,
+      "text": "title: 'مركز النور الطبي التخصصي',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 420,
+      "text": "category: 'منصة حجز عيادات وخدمات طبية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 430,
+      "text": "logoText: 'مركز النور',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 432,
+      "text": "statusBadge: 'طوارئ 24/7',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 436,
+      "text": "badge: '🩺 نخبة الاستشاريين وأحدث الأجهزة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 437,
+      "text": "headline: 'صحتك وصحة عائلتك في أيدٍ أمينة برعاية طبية متكاملة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 438,
+      "text": "subheadline: 'حجز مواعيد فوري في أكثر من 18 تخصصاً طبياً مع تحاليل رقمية واستشارات معتمدة.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 439,
+      "text": "ctaText: 'احجز موعدك الطبي الآن',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 443,
+      "text": "title: 'عيادة الباطنة والقلب',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 444,
+      "text": "desc: 'فحص شامل وتخطيط قلب ومتابعة دورية مع كبار الأطباء الاستشاريين',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 445,
+      "text": "meta: 'كشف ٣٥٠ ج.م',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 446,
+      "text": "tag: 'متاح اليوم ⭐ 4.9',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 450,
+      "text": "title: 'معمل تحاليل وأشعة فورية',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 451,
+      "text": "desc: 'أحدث أجهزة الفحص الرقمي والنتائج تصلك معتمدة عبر واتساب',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 452,
+      "text": "meta: 'نتائج خلال ساعتين',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 453,
+      "text": "tag: 'دقة 99.8%',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 457,
+      "text": "title: 'استشارات طبية منزلية 24/7',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 458,
+      "text": "desc: 'زيارات تمريضية وطبية منزلية للحالات الحرجة وكبار السن',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 459,
+      "text": "meta: 'تغطية فورية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 460,
+      "text": "tag: 'خدمة 24 ساعة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 524,
+      "text": "aria-label=\"قائمة الموبايل\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/MockupsSection.tsx",
+      "line": 858,
+      "text": "alt={language === 'en' ? `${proj.title} website design on desktop` : `تصميم ${proj.title} على شاشة كمبيوتر`}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/OrderModal.tsx",
+      "line": 14,
+      "text": "/** \"اطلب الآن\" dialog — saves the lead (source = showcase) so it shows up in the admin requests panel. */",
+      "type": "تعليق برمجي (code comment)"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 20,
+      "text": "description: 'منيو إلكتروني تفاعلي QR مع نظام طلب مباشر ودفع سريع عبر واتساب بدون أي عمولات وسيطة.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 30,
+      "text": "title: 'مجمع عيادات رويال التخصصية',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 32,
+      "text": "description: 'موقع طبي متكامل مع حجز مواعيد ذكي، استعراض جداول الأطباء، وتأكيد الحجز فورياً عبر واتساب.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 42,
+      "text": "title: 'متجر Orchid Luxury',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 44,
+      "text": "description: 'متجر إلكتروني فخم للأزياء والعطور، مربوط مع بوابات الدفع الإلكتروني وشركات الشحن السريع في مصر.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 53,
+      "text": "title: 'مطاعم ومشويات الباشا',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 55,
+      "text": "description: 'موقع تعريفي وقائمة طعام إلكترونية مع خدمة حجز الطاولات وتوصيل الطلبات للمنازل.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Portfolio.tsx",
+      "line": 299,
+      "text": "aria-label={filtered[lightboxIndex].title || 'معاينة المشروع'}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/Pricing.tsx",
+      "line": 42,
+      "text": "tagline: t('pricing.plan_basic_tagline') || 'مناسبة للأنشطة الصغيرة',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Pricing.tsx",
+      "line": 55,
+      "text": "tagline: t('pricing.plan_pro_tagline') || 'الأكثر طلباً',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Pricing.tsx",
+      "line": 71,
+      "text": "tagline: t('pricing.plan_ecommerce_tagline') || 'ابدأ تبيع أونلاين',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Pricing.tsx",
+      "line": 217,
+      "text": "href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name} (${billingCycle === 'monthly' ? 'نظام شهري' : 'دفع لمرة واحدة'})`)}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/QuoteWizard.tsx",
+      "line": 149,
+      "text": ".join('، ');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/QuoteWizard.tsx",
+      "line": 160,
+      "text": "message_text: `المميزات: ${featureLabels} | التوقيت: ${timelineLabel} | التقدير: ${estimatedPrice} ${t('quote_wizard.currency')}`,",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Seo.tsx",
+      "line": 14,
+      "text": "const DEFAULT_TITLE = 'Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية';",
+      "type": "attribute"
+    },
+    {
+      "file": "src/components/Seo.tsx",
+      "line": 16,
+      "text": "'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة والدقهلية وكل مصر. ديمو مجاني بدون التزام، تسليم سريع، ودعم فني مستمر.';",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 17,
+      "text": "name: 'د. أحمد منصور',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 18,
+      "text": "business: 'مدير مجمع عيادات رويال التخصصية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 19,
+      "text": "text: 'كليك زون نقلوا تواجد عياداتنا لمستوى تاني خالص. نظام حجز المواعيد على واتساب وفر علينا مجهود كبير، ونسبة الحجوزات زادت أكتر من الضعف من أول شهر.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 27,
+      "text": "name: 'م. كريم الديب',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 28,
+      "text": "business: 'مؤسس Delano Café & Bistro',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 29,
+      "text": "text: 'الديمو المجاني اللي استلمته في 48 ساعة كان مبهر ومطابق لهويتنا بالظبط. الموقع سريع والمنيو الإلكتروني سهل الاستخدام لكل زبايننا بدون أي عمولات.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 37,
+      "text": "name: 'أ. سارة فؤاد',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 38,
+      "text": "business: 'مؤسسة متجر Orchid Luxury',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 39,
+      "text": "text: 'أفضل تجربة تعامل مع شركة تصميم مواقع. احترافية عالية، التزام بالمواعيد، ولوحة تحكم المتجر سهلة جداً بدير منها طلباتي بنفسي بدون أي تعقيد.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/TestimonialsSection.tsx",
+      "line": 257,
+      "text": "aria-label={`التقييم ${i + 1}`}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/lib/admin-context.tsx",
+      "line": 81,
+      "text": "setAuthError('تعذّر الاتصال بالخادم. تأكد من الاتصال بالإنترنت وحاول مرة أخرى.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/admin-context.tsx",
+      "line": 147,
+      "text": "return { error: 'بيانات الدخول غير صحيحة', isAdmin: false };",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/analytics.ts",
+      "line": 2,
+      "text": "// تتبع الأحداث — Google Analytics",
+      "type": "تعليق برمجي (code comment)"
+    },
+    {
+      "file": "src/lib/customer-context.tsx",
+      "line": 86,
+      "text": "if (error) return { error: 'بيانات الدخول غير صحيحة' };",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/customer-context.tsx",
+      "line": 101,
+      "text": "return { error: 'هذا البريد الإلكتروني مسجل بالفعل. سجّل الدخول بدلاً من ذلك.' };",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/customer-context.tsx",
+      "line": 103,
+      "text": "return { error: 'كلمة المرور ضعيفة. استخدم 12 حرف على الأقل.' };",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/customer-context.tsx",
+      "line": 104,
+      "text": "return { error: `تعذر إنشاء الحساب: ${error.message}` };",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/customer-context.tsx",
+      "line": 127,
+      "text": "return { error: 'تعذر تسجيل الدخول بحساب جوجل. حاول مرة أخرى.' };",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/customer-context.tsx",
+      "line": 133,
+      "text": "return { error: 'حدث خطأ غير متوقع أثناء تسجيل الدخول بجوجل.' };",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/demo-requests.ts",
+      "line": 45,
+      "text": "let errorMessage = 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة لاحقاً.';",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/demo-requests.ts",
+      "line": 61,
+      "text": "if (error.message?.includes('429') || errorMessage.includes('تجاوزت الحد')) {",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/demo-requests.ts",
+      "line": 77,
+      "text": "const msg = err instanceof Error ? err.message : 'فشل الاتصال بالخادم';",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/phone.ts",
+      "line": 5,
+      "text": "const ARABIC_INDIC_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/lib/phone.ts",
+      "line": 8,
+      "text": "* Normalizes Eastern Arabic-Indic digits (٠-٩) and Persian digits to Latin digits (0-9).",
+      "type": "تعليق برمجي (code comment)"
+    },
+    {
+      "file": "src/lib/phone.ts",
+      "line": 12,
+      "text": "return str.replace(/[٠-٩]/g, (char) => {",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 17,
+      "text": "website: 'موقع',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 18,
+      "text": "app: 'برنامج',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 19,
+      "text": "store: 'متجر إلكتروني',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 23,
+      "text": "restaurants: 'مطاعم',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 24,
+      "text": "cafes: 'كافيهات',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 25,
+      "text": "stores: 'متاجر',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 26,
+      "text": "medical: 'طبي',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 27,
+      "text": "business: 'شركات وخدمات',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 35,
+      "text": "title: 'موقع مطعم',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 36,
+      "text": "tagline: 'منيو إلكتروني وطلب عبر واتساب',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 39,
+      "text": "description: 'نموذج تصميم لمطعم مع منيو إلكتروني وحجز طاولات.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 41,
+      "text": "'نموذج تصميم جاهز لمطعم: منيو إلكتروني سهل التعديل، طلب مباشر عبر واتساب، حجز طاولات وخريطة الموقع.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 42,
+      "text": "features: ['منيو إلكتروني QR', 'طلب مباشر عبر واتساب', 'حجز طاولات', 'متوافق مع الموبايل'],",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 53,
+      "text": "title: 'موقع كافيه',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 54,
+      "text": "tagline: 'هوية دافئة ومنيو تفاعلي',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 57,
+      "text": "description: 'نموذج تصميم لكافيه بمنيو تفاعلي وصور جذابة.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 58,
+      "text": "long_description: 'نموذج تصميم لكافيه بصور جذابة ومنيو تفاعلي وربط مباشر مع السوشيال ميديا.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 59,
+      "text": "features: ['منيو تفاعلي', 'معرض صور', 'ربط السوشيال ميديا', 'سرعة تحميل عالية'],",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 70,
+      "text": "title: 'متجر إلكتروني',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 71,
+      "text": "tagline: 'بيع أونلاين بدفع وشحن',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 74,
+      "text": "description: 'نموذج متجر إلكتروني مع سلة مشتريات وربط الدفع والشحن.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 75,
+      "text": "long_description: 'نموذج متجر إلكتروني متكامل: إدارة المنتجات والطلبات، سلة مشتريات، ربط الدفع والشحن.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 76,
+      "text": "features: ['سلة مشتريات', 'إدارة المنتجات والطلبات', 'ربط الدفع الإلكتروني', 'ربط شركات الشحن'],",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 87,
+      "text": "title: 'موقع عيادة',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 88,
+      "text": "tagline: 'حجز مواعيد وجداول الأطباء',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 91,
+      "text": "description: 'نموذج موقع طبي بحجز مواعيد وتأكيد عبر واتساب.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 92,
+      "text": "long_description: 'نموذج موقع طبي: عرض الأطباء والتخصصات، حجز مواعيد، وتأكيد الحجز عبر واتساب.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/showcase.ts",
+      "line": 93,
+      "text": "features: ['حجز مواعيد', 'ملفات الأطباء', 'تأكيد عبر واتساب', 'SEO محلي'],",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/lib/toast-context.tsx",
+      "line": 29,
+      "text": "const copyToClipboard = useCallback(async (text: string, label = 'النص') => {",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/lib/toast-context.tsx",
+      "line": 33,
+      "text": "showToast(`تم نسخ ${label} إلى الحافظة بنجاح ✓`, 'success');",
+      "type": "validation"
+    },
+    {
+      "file": "src/lib/toast-context.tsx",
+      "line": 36,
+      "text": "showToast(`تعذر النسخ التلقائي: ${text}`, 'info');",
+      "type": "validation"
+    },
+    {
+      "file": "src/main.tsx",
+      "line": 50,
+      "text": "<h1 className=\"text-xl font-bold text-navy-100 mb-2\">عذراً، حدث خطأ غير متوقع</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/main.tsx",
+      "line": 52,
+      "text": "نعمل على إصلاح هذا الخلل في أقرب وقت. يمكنك إعادة المحاولة الآن.",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/main.tsx",
+      "line": 61,
+      "text": "إعادة تحميل الصفحة",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 27,
+      "text": "title: 'تصميم منيو إلكتروني وموقع تفاعلي لكافيه ديلانو',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 29,
+      "text": "category: 'مطاعم وكافيهات',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 34,
+      "text": "'الاعتماد الكامل على منيو ورقي مطبوع يصعب تحديثه عند تغير الأسعار أو الأصناف.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 35,
+      "text": "'خسارة نسبة كبيرة من طلبات الدليفري بسبب عمولات تطبيقات التوصيل التي تصل لـ 20-25%.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 36,
+      "text": "'صعوبة تصفح الأصناف وصور الأطباق عبر شاشات الموبايل في المكان.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 39,
+      "text": "'بناء منيو إلكتروني QR تفاعلي فائق السرعة يعمل فوراً بدون الحاجة لتحميل أي تطبيق.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 40,
+      "text": "'ربط نظام طلب مباشر يرسل تفاصيل الطلب والطاولة أو العنوان مباشرة عبر واتساب بدون عمولة.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 41,
+      "text": "'لوحة تحكم سهلة باللغة العربية تتيح لمدير المكان تعديل الأسعار وإخفاء الأصناف غير المتاحة بثوانٍ.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 44,
+      "text": "{ value: 180, suffix: '%', label: 'زيادة في طلبات الأونلاين المباشرة' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 45,
+      "text": "{ value: 0, suffix: '%', label: 'عمولات تطبيقات توصيل وسيطة' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 46,
+      "text": "{ value: 98, suffix: '/100', label: 'نتيجة سرعة وأداء Lighthouse' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 47,
+      "text": "{ value: 48, suffix: ' ساعة', label: 'مدة تجهيز وتسليم الديمو' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 50,
+      "text": "text: 'الموقع وفر علينا آلاف الجنيهات كانت بتروح عمولات شهرية. الزباين مبسوطة جداً من سرعة المنيو وسهولة الطلب.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 51,
+      "text": "author: 'م. كريم الديب',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 52,
+      "text": "role: 'مؤسس Delano Café',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 57,
+      "text": "title: 'تطوير موقع طبي ونظام حجز مواعيد لعيادات رويال التخصصية',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 59,
+      "text": "category: 'مراكز وعيادات طبية',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 64,
+      "text": "'ضغط كبير على خطوط الهاتف واستقبال العيادة لتأكيد المواعيد والاستفسار عن جداول الأطباء.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 65,
+      "text": "'موقع قديم غير متجاوب مع الهواتف الذكية مع وقت تحميل يتجاوز 5 ثوانٍ.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 66,
+      "text": "'عدم ظهور العيادة في الصفحة الأولى في نتائج البحث في جوجل لخدمات الكشف التخصصي.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 69,
+      "text": "'تصميم موقع طبي راقٍ يبرز تخصصات الأطباء، السيرة الذاتية، ومواعيد العيادات بوضوح.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 70,
+      "text": "'نظام حجز مواعيد إلكتروني ذكي يحدد الطبيب والوقت المناسب ويؤكد الحجز آلياً عبر واتساب.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 71,
+      "text": "'تهيئة سيو محلية دقيقة للكلمات المفتاحية الطبية، مما جعل الموقع يتصدر نتائج البحث.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 74,
+      "text": "{ value: 145, suffix: '%', label: 'زيادة الحجوزات الطبية المؤكدة' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 75,
+      "text": "{ value: 70, suffix: '%', label: 'توفير وقت مكالمات الاستقبال' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 76,
+      "text": "{ value: 99, suffix: '/100', label: 'تقييم تجربة الموبايل (Mobile UX)' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 77,
+      "text": "{ value: 1, suffix: '#', label: 'المرتبة الأولى في نتائج البحث محلياً' },",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 80,
+      "text": "text: 'كليك زون حوّلوا موقعنا من مجرد صفحة إلى أهم قناة لاستقبال المرضى الجدد وتنظيم جدول الأطباء بدقة.',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 81,
+      "text": "author: 'د. أحمد منصور',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 82,
+      "text": "role: 'المدير التنفيذي لمجمع عيادات رويال',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 101,
+      "text": "description: `دراسة حالة: كيف ساعدت وكالة كليك زون ${study.client} في تحقيق نمو استثنائي وتطوير حضورهم الرقمي.`,",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 114,
+      "text": "title={`${study.title} | دراسة حالة Click Zoon`}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 115,
+      "text": "description={`قصة نجاح ${study.client}: التحديات، الحلول الرقمية، والنتائج القياسية التي تحققت مع كليك زون.`}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 195,
+      "text": "<span>التحدي قبل التطوير</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 213,
+      "text": "<span>الحل الذكي من كليك زون</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 251,
+      "text": "جاهز لتحقيق نفس النجاح لنشاطك التجاري؟",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 254,
+      "text": "احصل على نموذج ديمو تجريبي لموقع نشاطك خلال 48 ساعة مجاناً وبدون أي التزام مالي.",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 258,
+      "text": "احسب تكلفة موقعك واطلب الديمو",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 261,
+      "text": "href={waLink(`مرحباً كليك زون، اطلعت على دراسة حالة ${study.client} وحابب أعمل موقع لنشاطي`)}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CaseStudy.tsx",
+      "line": 266,
+      "text": "تحدث مع مستشارنا عبر واتساب",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 10,
+      "text": "new: 'جديد',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 11,
+      "text": "contacted: 'تم التواصل',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 12,
+      "text": "delivered: 'تم التسليم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 13,
+      "text": "rejected: 'مرفوض',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 25,
+      "text": "useNoIndex('حسابي | Click Zoon');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 82,
+      "text": "setSaveError('فشل حفظ التغييرات. حاول مرة أخرى.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 85,
+      "text": "setSavedMsg('تم حفظ التغييرات بنجاح');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 94,
+      "text": "setPwdError('كلمة المرور الجديدة لازم تكون 12 حرف على الأقل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 98,
+      "text": "setPwdError('كلمة المرور وتأكيدها غير متطابقين');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 105,
+      "text": "setPwdError('فشل تغيير كلمة المرور. حاول مرة أخرى.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 108,
+      "text": "setPwdMsg('تم تغيير كلمة المرور بنجاح');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 138,
+      "text": "<h1 className=\"text-2xl font-bold mb-1\">حسابي</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 144,
+      "text": "طلباتي",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 147,
+      "text": "تسجيل خروج",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 155,
+      "text": "<h2 className=\"text-lg font-bold mb-4\">بياناتي</h2>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 160,
+      "text": "الاسم",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 173,
+      "text": "البريد الإلكتروني",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 186,
+      "text": "رقم الموبايل",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 215,
+      "text": "{saving ? 'جارٍ الحفظ...' : 'حفظ التغييرات'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 222,
+      "text": "<h2 className=\"text-lg font-bold mb-4\">تغيير كلمة المرور</h2>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 227,
+      "text": "كلمة المرور الجديدة",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 235,
+      "text": "placeholder=\"12 حرف على الأقل\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 247,
+      "text": "<p className=\"text-navy-500 text-xs mt-1.5\">لازم 12 حرف على الأقل</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 252,
+      "text": "تأكيد كلمة المرور",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 282,
+      "text": "{pwdLoading ? 'جارٍ التغيير...' : 'تغيير كلمة المرور'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 290,
+      "text": "<h2 className=\"text-lg font-bold\">آخر الطلبات</h2>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 292,
+      "text": "عرض الكل",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 297,
+      "text": "<p className=\"text-navy-400 text-sm\">جارٍ التحميل...</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 299,
+      "text": "<p className=\"text-navy-400 text-sm\">لا توجد طلبات حتى الآن</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAccount.tsx",
+      "line": 323,
+      "text": "العودة للموقع",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 17,
+      "text": "useNoIndex(mode === 'signup' ? 'إنشاء حساب جديد | Click Zoon' : 'تسجيل الدخول | Click Zoon');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 88,
+      "text": "setError('كلمة المرور لازم تكون 12 حرف على الأقل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 92,
+      "text": "setError('كلمة المرور وتأكيدها غير متطابقين');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 96,
+      "text": "setError('رقم الموبايل غير صحيح. مثال صحيح: 01020095059');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 107,
+      "text": "setSuccess('تم إنشاء حسابك بنجاح. يمكنك تسجيل الدخول الآن.');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 132,
+      "text": "setResetError('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 134,
+      "text": "setResetError('فشل إرسال رابط إعادة التعيين. حاول مرة تانية.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 138,
+      "text": "setResetSuccess('تم إرسال رابط إعادة تعيين كلمة المرور على بريدك الإلكتروني.');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 140,
+      "text": "setResetError('حدث خطأ غير متوقع. حاول مرة تانية.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 159,
+      "text": "{mode === 'login' ? 'تسجيل الدخول' : 'إنشاء حساب جديد'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 162,
+      "text": "{mode === 'login' ? 'ادخل لحسابك لمتابعة طلباتك' : 'أنشئ حساب لتتبع طلبات الديمو الخاصة بك'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 204,
+      "text": "<span>{googleLoading ? 'جارٍ التحويل إلى جوجل...' : 'المتابعة بحساب جوجل'}</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 217,
+      "text": "<span className=\"bg-[#121f35] px-3 text-xs text-navy-400 font-medium absolute\">أو</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 223,
+      "text": "البريد الإلكتروني",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 238,
+      "text": "كلمة المرور",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 262,
+      "text": "{loading ? 'جارٍ الدخول...' : 'دخول'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 274,
+      "text": "نسيت كلمة المرور؟",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 282,
+      "text": "بريدك الإلكتروني",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 300,
+      "text": "{resetLoading ? 'جارٍ الإرسال...' : 'إرسال رابط إعادة التعيين'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 316,
+      "text": "ليس لديك حساب؟{' '}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 318,
+      "text": "إنشاء حساب",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 322,
+      "text": "العودة للموقع",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 356,
+      "text": "<span>{googleLoading ? 'جارٍ التحويل إلى جوجل...' : 'المتابعة بحساب جوجل'}</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 369,
+      "text": "<span className=\"bg-[#121f35] px-3 text-xs text-navy-400 font-medium absolute\">أو</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 375,
+      "text": "الاسم الكامل",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 382,
+      "text": "placeholder=\"اسمك الكريم\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 389,
+      "text": "البريد الإلكتروني",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 404,
+      "text": "رقم الموبايل",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 419,
+      "text": "كلمة المرور",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 427,
+      "text": "placeholder=\"12 حرف على الأقل\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 439,
+      "text": "<p className=\"text-navy-500 text-xs mt-1.5\">لازم 12 حرف على الأقل</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 444,
+      "text": "تأكيد كلمة المرور",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 468,
+      "text": "{loading ? 'جارٍ الإنشاء...' : 'إنشاء الحساب'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 471,
+      "text": "لديك حساب بالفعل؟{' '}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 473,
+      "text": "تسجيل الدخول",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerAuth.tsx",
+      "line": 477,
+      "text": "العودة للموقع",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 10,
+      "text": "new: 'جديد',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 11,
+      "text": "contacted: 'تم التواصل',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 12,
+      "text": "delivered: 'تم التسليم',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 13,
+      "text": "rejected: 'مرفوض',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 35,
+      "text": "useNoIndex('طلباتي | Click Zoon');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 74,
+      "text": "<h1 className=\"text-2xl font-bold\">طلباتي</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 77,
+      "text": "حسابي",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 84,
+      "text": "<p className=\"text-navy-400 mb-4\">لا توجد طلبات حتى الآن</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 86,
+      "text": "اطلب ديمو مجاني",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 106,
+      "text": "<span className=\"text-navy-500 text-xs\">الاسم:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 110,
+      "text": "<span className=\"text-navy-500 text-xs\">الهاتف:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 115,
+      "text": "<span className=\"text-navy-500 text-xs\">الرابط:</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/CustomerRequests.tsx",
+      "line": 130,
+      "text": "العودة للموقع",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/NotFound.tsx",
+      "line": 14,
+      "text": "<Seo title=\"الصفحة غير موجودة (404)\" noindex={true} />",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/Privacy.tsx",
+      "line": 14,
+      "text": "title=\"سياسة الخصوصية\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/Privacy.tsx",
+      "line": 16,
+      "text": "description=\"سياسة خصوصية Click Zoon: نلتزم بحماية بياناتك الشخصية وبيانات نشاطك التجاري بأعلى معايير الأمان.\"",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 31,
+      "text": "useNoIndex('إعادة تعيين كلمة المرور | Click Zoon');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 114,
+      "text": "setErrorMessage('كلمة المرور يجب أن تكون 8 أحرف على الأقل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 120,
+      "text": "setErrorMessage('كلمة المرور وتأكيد كلمة المرور غير متطابقين');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 133,
+      "text": "setErrorMessage('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 135,
+      "text": "setErrorMessage(error.message || 'فشل تحديث كلمة المرور. حاول مرة تانية.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 175,
+      "text": "setErrorMessage('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 177,
+      "text": "setErrorMessage('حدث خطأ غير متوقع أثناء تحديث كلمة المرور. حاول مرة تانية.');",
+      "type": "validation"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 191,
+      "text": "<span className=\"text-navy-300 text-sm font-medium\">جارٍ التحقق من رابط إعادة التعيين...</span>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 212,
+      "text": "<h1 className=\"text-xl font-bold text-navy-50 mb-2\">رابط غير صالح أو منتهي الصلاحية</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 214,
+      "text": "رابط إعادة تعيين كلمة المرور انتهت صلاحيته أو تم استخدامه من قبل. يمكنك طلب رابط جديد لإعادة التعيين.",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 224,
+      "text": "طلب رابط جديد (حسابات العملاء)",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 232,
+      "text": "طلب رابط جديد (لوحة التحكم)",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 239,
+      "text": "العودة للصفحة الرئيسية",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 264,
+      "text": "<h1 className=\"text-2xl font-bold text-navy-50 mb-2\">تم تغيير كلمة المرور بنجاح</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 266,
+      "text": "تم تحديث كلمة المرور الخاصة بحسابك. سيتم تحويلك لصفحة تسجيل الدخول خلال لحظات...",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 275,
+      "text": "الانتقال إلى صفحة الدخول الآن",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 293,
+      "text": "<h1 className=\"text-2xl font-bold text-navy-50 mb-2\">إعادة تعيين كلمة المرور</h1>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 294,
+      "text": "<p className=\"text-navy-400 text-sm\">أدخل كلمة المرور الجديدة لحسابك</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 308,
+      "text": "كلمة المرور الجديدة",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 316,
+      "text": "placeholder=\"8 أحرف على الأقل\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 325,
+      "text": "aria-label={showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 330,
+      "text": "<p className=\"text-navy-400 text-xs mt-1.5\">يجب أن تكون 8 أحرف على الأقل</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 336,
+      "text": "تأكيد كلمة المرور",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 353,
+      "text": "aria-label={showConfirmPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 370,
+      "text": "{status === 'submitting' ? 'جارٍ تحديث كلمة المرور...' : 'تحديث كلمة المرور'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/ResetPassword.tsx",
+      "line": 378,
+      "text": "العودة لتسجيل الدخول",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/Showcase.tsx",
+      "line": 47,
+      "text": "title={t('showcase.meta_title') || 'معرض الأعمال: مواقع وبرامج جاهزة'}",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/Showcase.tsx",
+      "line": 48,
+      "text": "description={t('showcase.meta_desc') || 'تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط واطلب نموذج مماثل لنشاطك.'}",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/pages/Showcase.tsx",
+      "line": 65,
+      "text": "<div className=\"flex gap-2 overflow-x-auto pb-2 mb-8\" role=\"tablist\" aria-label=\"تصفية الأعمال\">",
+      "type": "attribute"
+    },
+    {
+      "file": "src/pages/ShowcaseApp.tsx",
+      "line": 165,
+      "text": "alt=\"تكبير الصورة\"",
+      "type": "attribute"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 5,
+      "text": "// محتوى الموقع — القيم الافتراضية",
+      "type": "تعليق برمجي (code comment)"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 6,
+      "text": "// يتم استخدامها ك fallback في حال عدم تحميل البيانات من قاعدة البيانات",
+      "type": "تعليق برمجي (code comment)"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 11,
+      "text": "agencyNameAr: 'كليك زون',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 15,
+      "text": "location: 'خدمة عملاء أونلاين',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 19,
+      "text": "footerText: 'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. نبني لك حضوراً رقمياً يُميّز نشاطك.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 20,
+      "text": "promoBarText: 'نبني لك ديمو لموقع نشاطك مجاناً — بدون التزام',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 21,
+      "text": "seoTitle: 'Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 22,
+      "text": "seoDescription: 'نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية — بداية مجانية بدون التزام، وتسليم سريع بدعم مستمر.',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 26,
+      "text": "general: 'السلام عليكم، عايز أعرف تفاصيل عن عمل موقع لنشاطي',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 27,
+      "text": "demo: 'السلام عليكم، عايز أطلب ديمو مجاني لموقع نشاطي',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 28,
+      "text": "pricing: 'السلام عليكم، عايز أعرف تفاصيل أسعار باقة',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 29,
+      "text": "contact: 'السلام عليكم، عندي استفسار عن خدماتكم',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 33,
+      "text": "{ icon: 'Gift', title: 'ديمو مجاني', subtitle: 'بدون التزام' },",
+      "type": "attribute"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 34,
+      "text": "{ icon: 'Zap', title: 'تسليم سريع', subtitle: 'من 3 أيام إلى أسبوع' },",
+      "type": "attribute"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 35,
+      "text": "{ icon: 'Headphones', title: 'دعم مستمر', subtitle: 'بعد الإطلاق' },",
+      "type": "attribute"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 40,
+      "text": "name: 'أساسية',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 41,
+      "text": "tagline: 'مناسبة للأنشطة الصغيرة',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 42,
+      "text": "features: ['موقع من صفحة واحدة', 'تصميم متجاوب مع الموبايل', 'ربط واتساب واتصال مباشر', 'تحسين أساسي لمحركات البحث', 'دومين واستضافة لسنة'],",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 47,
+      "text": "name: 'احترافية',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 48,
+      "text": "tagline: 'الأكثر طلباً',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 49,
+      "text": "features: ['موقع متعدد الصفحات', 'تصميم مخصص بالكامل لهويتك', 'معرض صور + آراء العملاء', 'تحسين متقدم لمحركات البحث (SEO)', 'ربط Google Maps', 'دومين واستضافة لسنة', 'دعم فني لمدة 3 أشهر'],",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 54,
+      "text": "name: 'متجر إلكتروني',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 55,
+      "text": "tagline: 'ابدأ تبيع أونلاين',",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 56,
+      "text": "features: ['متجر إلكتروني متكامل', 'إدارة منتجات وطلبات', 'ربط طرق الدفع الإلكتروني', 'ربط خدمات التوصيل', 'لوحة تحكم لإدارة المتجر', 'دومين واستضافة لسنة', 'دعم فني لمدة شهر'],",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/siteConfig.ts",
+      "line": 94,
+      "text": "aboutTitle: s?.about_title ?? 'من نحن',",
+      "type": "attribute"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 110,
+      "text": "nav: { home: 'الرئيسية', services: 'الخدمات' },",
+      "type": "data-from-DB"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 111,
+      "text": "only_in_arabic: 'محتوى عربي فقط',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 112,
+      "text": "greeting: 'مرحباً {name}!',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 126,
+      "text": "expect(translateKey('ar', mockAr, mockEn, 'nav.home')).toBe('الرئيسية');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 127,
+      "text": "expect(translateKey('ar', mockAr, mockEn, 'nav.services')).toBe('الخدمات');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 133,
+      "text": "expect(result).toBe('محتوى عربي فقط');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 138,
+      "text": "expect(result).toBe('الرئيسية');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/__tests__/i18n.test.ts",
+      "line": 148,
+      "text": "expect(translateKey('ar', mockAr, mockEn, 'greeting', { name: 'أحمد' })).toBe('مرحباً أحمد!');",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 17,
+      "text": "<title>Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية</title>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 18,
+      "text": "<meta name=\"description\" content=\"Click Zoon وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام، تسليم سريع، دعم مستمر.\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 19,
+      "text": "<meta name=\"keywords\" content=\"تصميم مواقع, متاجر إلكترونية, Click Zoon, كليك زون, موقع مطعم, موقع كافيه, ديمو مجاني, المنصورة, الدقهلية, مصر\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 25,
+      "text": "<meta property=\"og:title\" content=\"Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 26,
+      "text": "<meta property=\"og:description\" content=\"وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام.\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 30,
+      "text": "<meta property=\"og:image:alt\" content=\"Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 36,
+      "text": "<meta name=\"twitter:title\" content=\"Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 37,
+      "text": "<meta name=\"twitter:description\" content=\"وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام.\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 39,
+      "text": "<meta name=\"twitter:image:alt\" content=\"Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية\" />",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 47,
+      "text": "\"alternateName\": \"كليك زون لتصميم المواقع\",",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 51,
+      "text": "\"description\": \"وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة، الدقهلية، وجميع أنحاء مصر. خدمة عملاء أونلاين ودعم فني مستمر.\",",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 53,
+      "text": "\"المنصورة\",",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 54,
+      "text": "\"الدقهلية\",",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 55,
+      "text": "\"مصر\"",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 72,
+      "text": "Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 75,
+      "text": "في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصورة والدقهلية ومصر، بداية مجانية بدون التزام وتسليم سريع بدعم مستمر.",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 83,
+      "text": "<p style=\"font-size:1.1rem;margin:0 0 8px 0;font-weight:bold;\">مرحباً بك في Click Zoon</p>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "index.html",
+      "line": 85,
+      "text": "لطلب ديمو مجاني لموقع نشاطك أو الاستفسار المباشر، يمكنك التواصل معنا هاتفياً أو عبر واتساب على الرقم:",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "public/og-image.svg",
+      "line": 17,
+      "text": "<text x=\"600\" y=\"340\" font-family=\"Arial, sans-serif\" font-size=\"32\" font-weight=\"400\" fill=\"#9bafc9\" text-anchor=\"middle\" direction=\"rtl\">تصميم وتطوير المواقع والمتاجر الإلكترونية</text>",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "public/og-image.svg",
+      "line": 18,
+      "text": "<text x=\"600\" y=\"400\" font-family=\"Arial, sans-serif\" font-size=\"24\" font-weight=\"400\" fill=\"#6f87ad\" text-anchor=\"middle\" direction=\"rtl\">للمطاعم والكافيهات والمحلات في كل مكان</text>",
+      "type": "UI ظاهر"
+    }
+  ]
+}

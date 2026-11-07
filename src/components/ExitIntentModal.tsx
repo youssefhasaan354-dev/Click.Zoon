@@ -86,9 +86,9 @@ export default function ExitIntentModal() {
 
     try {
       const res = await submitDemoRequest({
-        name: name.trim() || 'عميل نافذة الخروج',
+        name: name.trim() || t('exit_intent.lead_name'),
         phone: cleaned,
-        business_type: businessType.trim() || 'غير محدد (عرض الخروج)',
+        business_type: businessType.trim() || t('exit_intent.lead_biz'),
         source: 'exit_intent',
         page_url: window.location.href,
       });
@@ -106,8 +106,7 @@ export default function ExitIntentModal() {
 
   const handleWhatsapp = () => {
     trackEvent({ category: 'whatsapp', action: 'click', label: 'exit_intent_whatsapp' });
-    const msg = `مرحباً كليك زون 👋
-عايز استفسر عن الديمو المجاني لنشاطي (${businessType || 'نشاط جديد'})`;
+    const msg = t('exit_intent.wa_msg', { biz: businessType || t('exit_intent.wa_msg_biz_fallback') });
     const url = waLinkIntl(cfg.phoneIntl, msg);
     window.open(url, '_blank', 'noopener,noreferrer');
     handleClose();

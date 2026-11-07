@@ -35,7 +35,7 @@ export default function OrderModal({ item, onClose }: OrderModalProps) {
     };
   }, [onClose]);
 
-  const kind = kindLabels[item.kind];
+  const kind = t('showcase.kind_' + item.kind) || kindLabels[item.kind];
   const requestText = `${t('order_modal.request_prefix')}${item.title} (${kind})`;
 
   const submit = async (e: React.FormEvent) => {
@@ -57,7 +57,7 @@ export default function OrderModal({ item, onClose }: OrderModalProps) {
       name: trimmedName,
       phone: cleaned,
       business_type: item.title,
-      message_text: `${requestText} — الرابط: ${window.location.href}`,
+      message_text: `${requestText} — ${t('order_modal.link_label', { url: window.location.href })}`,
       source: 'showcase',
       honeypot,
     });

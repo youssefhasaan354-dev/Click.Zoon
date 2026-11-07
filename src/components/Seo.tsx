@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { SITE_URL } from '@/siteConfig';
+import { useI18n } from '@/i18n';
 
 export interface SeoProps {
   title?: string;
@@ -19,16 +20,19 @@ const DEFAULT_IMAGE = `${BASE_URL}/og-image.webp`;
 
 export default function Seo({
   title,
-  description = DEFAULT_DESC,
+  description,
   canonical,
   ogImage = DEFAULT_IMAGE,
   ogType = 'website',
   noindex = false,
   jsonLd,
 }: SeoProps) {
+  const { t } = useI18n();
+  const effectiveTitle = title ? `${title} | Click Zoon` : (t('seo.default_title') || DEFAULT_TITLE);
+  const effectiveDesc = description || (t('seo.default_description') || DEFAULT_DESC);
   useEffect(() => {
     // 1. Page title
-    const fullTitle = title ? `${title} | Click Zoon` : DEFAULT_TITLE;
+    const fullTitle = effectiveTitle;
     document.title = fullTitle;
 
     // Helper to update or create meta tags
@@ -43,38 +47,40 @@ export default function Seo({
     };
 
     // 2. Meta description & robots
-    setMeta('name', 'description', description);
+    setMeta('name', 'description', effectiveDesc);
     setMeta('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow');
 
     // 3. Open Graph
     setMeta('property', 'og:title', fullTitle);
-    setMeta('property', 'og:description', description);
+    setMeta('property', 'og:description', effectiveDesc);
     setMeta('property', 'og:type', ogType);
     setMeta('property', 'og:image', ogImage);
-
     const currentUrl = canonical ? `${BASE_URL}${canonical}` : window.location.href;
     setMeta('property', 'og:url', currentUrl);
 
-    // 4. Twitter Card
+    // 4. Twitter Cards
+    setMeta('name', 'twitter:card', 'summary_large_image');
     setMeta('name', 'twitter:title', fullTitle);
-    setMeta('name', 'twitter:description', description);
+    setMeta('name', 'twitter:description', effectiveDesc);
     setMeta('name', 'twitter:image', ogImage);
 
     // 5. Canonical link
-    let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!canonicalLink) {
-      canonicalLink = document.createElement('link');
-      canonicalLink.rel = 'canonical';
-      document.head.appendChild(canonicalLink);
+    if (canonical) {
+      let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        document.head.appendChild(link);
+      }
+      link.href = `${BASE_URL}${canonical}`;
     }
-    canonicalLink.href = currentUrl;
 
-    // 6. JSON-LD scripts
+    // 6. Optional JSON-LD Structured Data
     let scriptTag: HTMLScriptElement | null = null;
     if (jsonLd) {
       scriptTag = document.createElement('script');
       scriptTag.type = 'application/ld+json';
-      scriptTag.textContent = JSON.stringify(jsonLd);
+      scriptTag.text = JSON.stringify(jsonLd);
       document.head.appendChild(scriptTag);
     }
 
@@ -83,7 +89,7 @@ export default function Seo({
         scriptTag.parentNode.removeChild(scriptTag);
       }
     };
-  }, [title, description, canonical, ogImage, ogType, noindex, jsonLd]);
+  }, [effectiveTitle, effectiveDesc, canonical, ogImage, ogType, noindex, jsonLd]);
 
   return null;
 }
