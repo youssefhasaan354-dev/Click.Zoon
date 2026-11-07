@@ -72,7 +72,7 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <h4 className="text-navy-50 font-bold mb-4">{t('footer.quick_links')}</h4>
+            <h3 className="text-navy-50 font-bold mb-4">{t('footer.quick_links')}</h3>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.to}>
@@ -89,7 +89,7 @@ export default function Footer() {
 
           {/* Mansoura Landing Pages */}
           <div>
-            <h4 className="text-navy-50 font-bold mb-4">خدماتنا في المنصورة</h4>
+            <h3 className="text-navy-50 font-bold mb-4">خدماتنا في المنصورة</h3>
             <ul className="space-y-2.5">
               <li>
                 <Link
@@ -128,7 +128,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-navy-50 font-bold mb-4">{t('footer.contact_us')}</h4>
+            <h3 className="text-navy-50 font-bold mb-4">{t('footer.contact_us')}</h3>
             <ul className="space-y-3">
               <li>
                 <a

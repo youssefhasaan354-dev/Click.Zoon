@@ -12,6 +12,19 @@ interface ExtendedPortfolioItem extends PortfolioItem {
   slug?: string;
 }
 
+const getSafeImageUrl = (url?: string, idx: number = 0) => {
+  if (!url || url.includes('pexels.com')) {
+    const fallbacks = [
+      '/mockups/mockup-1-restaurant.webp',
+      '/mockups/mockup-2-cafe.webp',
+      '/mockups/mockup-3-store.webp',
+      '/mockups/mockup-4-medical.webp',
+    ];
+    return fallbacks[idx % fallbacks.length];
+  }
+  return url;
+};
+
 const fallbackPortfolio: ExtendedPortfolioItem[] = [
   {
     id: 'f-1',
@@ -213,7 +226,7 @@ export default function Portfolio() {
                   {/* Image with zoom and gentle overlay */}
                   <div className="relative h-56 w-full overflow-hidden bg-navy-950">
                     <img
-                      src={project.image_url}
+                      src={getSafeImageUrl(project.image_url, i)}
                       alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}
                       loading="lazy"
                       decoding="async"
@@ -393,7 +406,7 @@ export default function Portfolio() {
                   deviceMode === 'mobile' ? 'w-[280px] h-[480px] border-4 border-navy-700 shadow-inner' : 'w-full max-h-[55vh]'
                 }`}>
                   <img
-                    src={filtered[lightboxIndex].image_url}
+                    src={getSafeImageUrl(filtered[lightboxIndex].image_url, lightboxIndex)}
                     alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
                     width={1200}
                     height={675}
