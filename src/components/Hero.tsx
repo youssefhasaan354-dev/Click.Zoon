@@ -22,8 +22,8 @@ export default function Hero() {
     }
     return hero?.rotating_words && hero.rotating_words.length > 0
       ? hero.rotating_words
-      : ['مطعمك', 'كافيهك', 'محلك', 'شركتك', 'مشروعك'];
-  }, [hero?.rotating_words, language]);
+      : t('hero.rotating_words').split(',');
+  }, [hero?.rotating_words, language, t]);
 
   const [wordIdx, setWordIdx] = useState(0);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
@@ -67,17 +67,17 @@ export default function Hero() {
     setMouseOffset({ x: 0, y: 0 });
   };
 
-  const currentWord = words[wordIdx] || words[0] || 'مشروعك';
+  const currentWord = words[wordIdx] || words[0] || t('hero.word_fallback');
   const longestWord = useMemo(() => {
     return words.reduce((a, b) => (b.length > a.length ? b : a), words[0] || '');
   }, [words]);
 
-  const badgeText = language === 'en' ? t('hero.badge') : (hero?.badge_text ?? 'تصميم وتطوير مواقع ومتاجر إلكترونية باحتراف');
-  const line1 = language === 'en' ? t('hero.title_prefix') : (hero?.headline_line1 ?? 'خلّي موقع');
-  const line2 = language === 'en' ? t('hero.title_highlight') : (hero?.headline_line2 ?? 'أونلاين واحترافي');
-  const subtitle = language === 'en' ? t('hero.description') : (hero?.subtitle ?? 'في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصورة والدقهلية، بداية مجانية بدون التزام وتسليم سريع بدعم مستمر.');
-  const ctaPrimary = language === 'en' ? t('hero.cta_primary') : (hero?.cta_primary ?? 'اطلب ديمو مجاني');
-  const ctaSecondary = language === 'en' ? t('hero.cta_secondary') : (hero?.cta_secondary ?? 'شاهد خدماتنا');
+  const badgeText = (language === 'ar' && hero?.badge_text) ? hero.badge_text : t('hero.badge');
+  const line1 = (language === 'ar' && hero?.headline_line1) ? hero.headline_line1 : t('hero.title_prefix');
+  const line2 = (language === 'ar' && hero?.headline_line2) ? hero.headline_line2 : t('hero.title_highlight');
+  const subtitle = (language === 'ar' && hero?.subtitle) ? hero.subtitle : t('hero.description');
+  const ctaPrimary = (language === 'ar' && hero?.cta_primary) ? hero.cta_primary : t('hero.cta_primary');
+  const ctaSecondary = (language === 'ar' && hero?.cta_secondary) ? hero.cta_secondary : t('hero.cta_secondary');
 
   const handleDemoClick = () => {
     trackEvent({ category: 'whatsapp', action: 'click', label: 'hero_demo' });
@@ -137,8 +137,8 @@ export default function Hero() {
             <ShoppingBag size={20} />
           </div>
           <div>
-            <div className="text-xs text-navy-300">{language === 'en' ? 'Completed Order' : 'طلب جديد مكتمل'}</div>
-            <div className="text-sm font-bold text-navy-50 notranslate" translate="no">{language === 'en' ? 'Online Store +320 EGP' : 'متجر إلكتروني +320 ج.م'}</div>
+            <div className="text-xs text-navy-300">{t('hero.completed_order')}</div>
+            <div className="text-sm font-bold text-navy-50 notranslate" translate="no">{t('hero.store_amount')}</div>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function Hero() {
             <Check size={20} />
           </div>
           <div>
-            <div className="text-xs text-navy-300">{language === 'en' ? 'Load Speed' : 'سرعة التحميل'}</div>
+            <div className="text-xs text-navy-300">{t('hero.load_speed')}</div>
             <div className="text-sm font-bold text-green-400 notranslate" translate="no">99% Google Lighthouse</div>
           </div>
         </div>

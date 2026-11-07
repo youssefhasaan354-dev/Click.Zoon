@@ -11,7 +11,7 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
-      <Seo title="الصفحة غير موجودة (404)" noindex={true} />
+      <Seo title={t('not_found.meta_title')} noindex={true} />
       <Header />
       <main id="main" className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
         <div className="text-8xl font-extrabold text-gradient-gold mb-4">{t('not_found.code')}</div>

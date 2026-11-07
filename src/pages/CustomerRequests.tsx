@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Inbox, ArrowRight, Loader2 } from 'lucide-react';
 import { useCustomer } from '@/lib/customer-context';
+import { useI18n, formatDate } from '@/i18n';
 import { supabase } from '@/lib/supabase';
 import { useNoIndex } from '@/hooks/useNoIndex';
 
@@ -30,6 +31,7 @@ interface CustomerRequest {
 }
 
 export default function CustomerRequests() {
+  const { language } = useI18n();
   useNoIndex('طلباتي | Click Zoon');
   const navigate = useNavigate();
   const { user, loading } = useCustomer();
@@ -92,7 +94,7 @@ export default function CustomerRequests() {
                   <div>
                     <span className="text-navy-50 font-bold">{req.business_type}</span>
                     <span className="text-navy-500 text-xs mr-2">
-                      {new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      {formatDate(req.created_at, language, { day: 'numeric', month: 'short', year: 'numeric' })}
                     </span>
                   </div>
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${statusColors[req.status] ?? statusColors.new}`}>

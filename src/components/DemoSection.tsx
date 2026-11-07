@@ -55,7 +55,7 @@ export default function DemoSection() {
 
           {/* CTA */}
           <a
-            href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.demo)}
+            href={waLinkIntl(cfg.phoneIntl, t('common.wa_demo_msg'))}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'demo_section_cta' })}

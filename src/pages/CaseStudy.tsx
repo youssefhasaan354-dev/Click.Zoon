@@ -84,10 +84,73 @@ const caseStudies: Record<string, CaseStudyData> = {
   },
 };
 
+const caseStudiesEn: Record<string, CaseStudyData> = {
+  'delano-cafe': {
+    slug: 'delano-cafe',
+    title: 'Interactive Digital Menu & Website Design for Delano Café',
+    client: 'Delano Café & Bistro',
+    category: 'Restaurants & Cafes',
+    year: '2026',
+    heroImage: '/mockups/mockup-2-cafe-desktop.webp',
+    liveUrl: 'https://delano-cafe.clickzoon.com',
+    problem: [
+      'Total dependence on printed paper menus that are costly and slow to update when prices or seasonal items change.',
+      'Losing a substantial margin on delivery orders due to third-party delivery apps charging 20-25% commissions.',
+      'Poor on-site mobile browsing experience for guest diners trying to view high-resolution dish photos.',
+    ],
+    solution: [
+      'Built an ultra-fast interactive QR digital menu that opens instantly in browsers without installing any apps.',
+      'Integrated a commission-free direct ordering system that forwards item details, table numbers, or delivery addresses via WhatsApp.',
+      'Delivered an easy-to-use management dashboard allowing the floor manager to modify prices and toggle unavailable items in seconds.',
+    ],
+    metrics: [
+      { value: 180, suffix: '%', label: 'Increase in Direct Online Orders' },
+      { value: 0, suffix: '%', label: 'Third-Party Delivery Commissions' },
+      { value: 98, suffix: '/100', label: 'Lighthouse Performance Score' },
+      { value: 48, suffix: ' Hours', label: 'Demo Delivery Turnaround' },
+    ],
+    testimonial: {
+      text: 'The website saved us thousands of pounds previously lost to monthly delivery commissions. Guests love how fast the menu loads and how effortless it is to order.',
+      author: 'Eng. Karim El-Deeb',
+      role: 'Founder, Delano Café',
+    },
+  },
+  'royal-clinic': {
+    slug: 'royal-clinic',
+    title: 'Medical Website & Smart Appointment System for Royal Clinics',
+    client: 'Royal Specialty Clinics',
+    category: 'Specialty Clinics & Medical',
+    year: '2026',
+    heroImage: '/mockups/mockup-3-clinic-desktop.webp',
+    liveUrl: 'https://royal-clinics.clickzoon.com',
+    problem: [
+      'Overwhelmed reception lines handling routine calls about doctor availability, schedules, and appointment confirmations.',
+      'An outdated, non-responsive legacy website with page load times exceeding 5 seconds.',
+      'Absence from Google search first-page rankings for key specialty consultation queries.',
+    ],
+    solution: [
+      'Designed an upscale medical platform spotlighting doctor credentials, clinic departments, and consultation schedules clearly.',
+      'Implemented a smart digital booking workflow that schedules visits and dispatches automatic WhatsApp confirmations.',
+      'Executed a targeted local SEO strategy for medical keywords, elevating the clinic to top search rankings.',
+    ],
+    metrics: [
+      { value: 145, suffix: '%', label: 'Increase in Confirmed Appointments' },
+      { value: 70, suffix: '%', label: 'Reduction in Reception Phone Load' },
+      { value: 99, suffix: '/100', label: 'Mobile UX Rating' },
+      { value: 1, suffix: '#', label: 'Top Local Search Ranking' },
+    ],
+    testimonial: {
+      text: 'Click Zoon transformed our web presence from a static page into our primary patient acquisition channel while streamlining physician schedules with precision.',
+      author: 'Dr. Ahmed Mansour',
+      role: 'CEO, Royal Clinics Group',
+    },
+  },
+};
+
 export default function CaseStudyPage() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { slug } = useParams<{ slug: string }>();
-  const study = slug ? caseStudies[slug] : null;
+  const study = slug ? (language === 'en' ? (caseStudiesEn[slug] || caseStudies[slug]) : caseStudies[slug]) : null;
 
   if (!study) {
     return <Navigate to="/#portfolio" replace />;
@@ -141,9 +204,7 @@ export default function CaseStudyPage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-50 mb-6 leading-tight">
               {study.title}
             </h1>
-            <p className="text-lg text-navy-300 max-w-3xl leading-relaxed">
-              تعرّف على كيف حوّلنا التحديات التقنية والتسويقية إلى قصة نجاح ملموسة بالأرقام والنتائج.
-            </p>
+            <p className="text-lg text-navy-300 max-w-3xl leading-relaxed">{t('case_study.subtitle')}</p>
           </div>
 
           {/* Featured Mockup Preview */}
@@ -162,7 +223,7 @@ export default function CaseStudyPage() {
                 rel="noopener noreferrer"
                 className="btn-gold px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm inline-flex items-center gap-2 shadow-xl"
               >
-                <span>معاينة الموقع الحي</span>
+                <span>{t('case_study.live_preview')}</span>
                 <ExternalLink size={16} />
               </a>
             </div>
@@ -172,7 +233,7 @@ export default function CaseStudyPage() {
           <div className="mb-16">
             <h2 className="text-2xl font-bold text-navy-50 mb-6 flex items-center gap-2">
               <TrendingUp className="text-gold-400" />
-              <span>النتائج القياسية بالأرقام</span>
+              <span>{t('case_study.metrics_title')}</span>
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {study.metrics.map((m) => (
@@ -194,7 +255,7 @@ export default function CaseStudyPage() {
                 <span className="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-sm">
                   1
                 </span>
-                <span>التحدي قبل التطوير</span>
+                <span>{t('case_study.challenges_title')}</span>
               </h3>
               <ul className="space-y-3">
                 {study.problem.map((p, idx) => (
@@ -212,7 +273,7 @@ export default function CaseStudyPage() {
                 <span className="w-8 h-8 rounded-lg bg-gold-500/20 text-gold-400 flex items-center justify-center font-bold text-sm">
                   2
                 </span>
-                <span>الحل الذكي من كليك زون</span>
+                <span>{t('case_study.solution_title')}</span>
               </h3>
               <ul className="space-y-3">
                 {study.solution.map((s, idx) => (
@@ -250,22 +311,22 @@ export default function CaseStudyPage() {
           <div className="text-center p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-navy-800 to-navy-950 border border-gold-500/40 shadow-2xl">
             <Sparkles size={32} className="text-gold-400 mx-auto mb-4" />
             <h3 className="text-2xl sm:text-3xl font-extrabold text-navy-50 mb-3">
-              جاهز لتحقيق نفس النجاح لنشاطك التجاري؟
+              {t('case_study.cta_title')}
             </h3>
             <p className="text-navy-300 max-w-xl mx-auto mb-8 text-sm sm:text-base">
-              احصل على نموذج ديمو تجريبي لموقع نشاطك خلال 48 ساعة مجاناً وبدون أي التزام مالي.
+              {t('case_study.cta_subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/#wizard" className="btn-gold px-8 py-3.5 rounded-xl font-bold text-sm">
-                احسب تكلفة موقعك واطلب الديمو
+                {t('case_study.cta_calc_btn')}
               </Link>
               <a
-                href={waLink(`مرحباً كليك زون، اطلعت على دراسة حالة ${study.client} وحابب أعمل موقع لنشاطي`)}
+                href={waLink(t('case_study.whatsapp_lead', { client: study.client }))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3.5 rounded-xl border border-navy-600 hover:border-gold-500/50 text-navy-200 hover:text-navy-50 font-bold text-sm transition-colors"
               >
-                تحدث مع مستشارنا عبر واتساب
+                {t('case_study.cta_whatsapp_btn')}
               </a>
             </div>
           </div>

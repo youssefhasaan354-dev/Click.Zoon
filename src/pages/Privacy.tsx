@@ -11,9 +11,9 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
       <Seo
-        title="سياسة الخصوصية"
+        title={t('privacy.meta_title')}
         canonical="/privacy"
-        description="سياسة خصوصية Click Zoon: نلتزم بحماية بياناتك الشخصية وبيانات نشاطك التجاري بأعلى معايير الأمان."
+        description={t('privacy.meta_description')}
       />
       <Header />
       <main id="main" className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

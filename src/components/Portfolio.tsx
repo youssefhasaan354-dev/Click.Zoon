@@ -61,8 +61,57 @@ const fallbackPortfolio: ExtendedPortfolioItem[] = [
   },
 ];
 
+const fallbackPortfolioEn: ExtendedPortfolioItem[] = [
+  {
+    id: 'f-1',
+    title: 'Delano Café & Bistro',
+    category: 'cafes',
+    description: 'Interactive QR digital menu with direct instant ordering and WhatsApp checkout with zero commissions.',
+    image_url: '/mockups/mockup-2-cafe.webp',
+    link: 'https://delano-cafe.clickzoon.com',
+    live_url: 'https://delano-cafe.clickzoon.com',
+    slug: 'delano-cafe',
+    visible: true,
+    sort_order: 1,
+  },
+  {
+    id: 'f-2',
+    title: 'Royal Specialty Clinics',
+    category: 'restaurants',
+    description: 'Comprehensive medical website with smart appointment booking, doctor schedules, and instant WhatsApp confirmations.',
+    image_url: '/mockups/mockup-4-medical.webp',
+    link: 'https://royal-clinics.clickzoon.com',
+    live_url: 'https://royal-clinics.clickzoon.com',
+    slug: 'royal-clinic',
+    visible: true,
+    sort_order: 2,
+  },
+  {
+    id: 'f-3',
+    title: 'Orchid Luxury Boutique',
+    category: 'stores',
+    description: 'Luxury fashion and perfume e-commerce store integrated with online payment gateways and fast shipping across Egypt.',
+    image_url: '/mockups/mockup-3-store.webp',
+    link: 'https://orchid-boutique.clickzoon.com',
+    live_url: 'https://orchid-boutique.clickzoon.com',
+    visible: true,
+    sort_order: 3,
+  },
+  {
+    id: 'f-4',
+    title: 'Al-Basha Gourmet Grill',
+    category: 'restaurants',
+    description: 'Brand website and electronic menu with online table booking and direct doorstep delivery system.',
+    image_url: '/mockups/mockup-1-restaurant.webp',
+    link: 'https://albasha-grill.clickzoon.com',
+    live_url: 'https://albasha-grill.clickzoon.com',
+    visible: true,
+    sort_order: 4,
+  },
+];
+
 export default function Portfolio() {
-  const { t, dir } = useI18n();
+  const { t, dir, language } = useI18n();
   const { ref, revealed } = useReveal();
   const { data } = useSiteData();
   const [activeFilter, setActiveFilter] = useState('all');
@@ -79,7 +128,7 @@ export default function Portfolio() {
     { key: 'cafes', label: t('portfolio.filter_cafes') },
   ];
 
-  const rawProjects = data.portfolio && data.portfolio.length > 0 ? data.portfolio : fallbackPortfolio;
+  const rawProjects = language === 'en' ? fallbackPortfolioEn : (data.portfolio && data.portfolio.length > 0 ? data.portfolio : fallbackPortfolio);
   const projects = rawProjects as ExtendedPortfolioItem[];
   const filtered = activeFilter === 'all' ? projects : projects.filter((p) => p.category === activeFilter);
 
@@ -214,7 +263,7 @@ export default function Portfolio() {
                   <div className="relative h-56 w-full overflow-hidden bg-navy-950">
                     <img
                       src={project.image_url}
-                      alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}
+                      alt={project.title ? t('portfolio.preview_alt', { title: project.title }) : t('portfolio.preview_alt_default')}
                       loading="lazy"
                       decoding="async"
                       width={600}
@@ -228,7 +277,7 @@ export default function Portfolio() {
                       type="button"
                       onClick={(e) => openLightbox(i, e)}
                       className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-navy-950/60 backdrop-blur-sm transition-opacity"
-                      aria-label={`معاينة تفاصيل ${project.title}`}
+                      aria-label={t('portfolio.preview_aria', { title: project.title })}
                     >
                       <span className="btn-gold px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow-xl">
                         <Sparkles size={14} />
@@ -296,7 +345,7 @@ export default function Portfolio() {
             id="portfolio-lightbox-dialog"
             role="dialog"
             aria-modal="true"
-            aria-label={filtered[lightboxIndex].title || 'معاينة المشروع'}
+            aria-label={filtered[lightboxIndex].title || t('portfolio.preview_dialog_aria')}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -394,7 +443,7 @@ export default function Portfolio() {
                 }`}>
                   <img
                     src={filtered[lightboxIndex].image_url}
-                    alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
+                    alt={filtered[lightboxIndex].title ? t('portfolio.modal_img_alt', { title: filtered[lightboxIndex].title }) : t('portfolio.modal_img_alt_default')}
                     width={1200}
                     height={675}
                     className="w-full h-full object-cover"

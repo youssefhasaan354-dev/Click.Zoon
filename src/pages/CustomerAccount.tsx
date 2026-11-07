@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { User, Mail, Phone, Lock, Save, Loader2, Check, AlertCircle, Eye, EyeOff, ArrowRight, Inbox } from 'lucide-react';
 import { useCustomer } from '@/lib/customer-context';
+import { useI18n, formatDate } from '@/i18n';
 import { supabase } from '@/lib/supabase';
 import { useNoIndex } from '@/hooks/useNoIndex';
 
@@ -20,6 +21,7 @@ const statusColors: Record<string, string> = {
 };
 
 export default function CustomerAccount() {
+  const { language } = useI18n();
   useNoIndex('حسابي | Click Zoon');
   const navigate = useNavigate();
   const { user, profile, loading, signOut, refreshProfile } = useCustomer();
@@ -302,7 +304,7 @@ export default function CustomerAccount() {
                     <div>
                       <span className="text-navy-50 font-semibold text-sm">{req.business_type}</span>
                       <span className="text-navy-500 text-xs mr-2">
-                        {new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        {formatDate(req.created_at, language, { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                     </div>
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${statusColors[req.status] ?? statusColors.new}`}>

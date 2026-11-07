@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useI18n } from '@/i18n';
 
 export default function Process() {
-  const { t, dir } = useI18n();
+  const { t, dir, language } = useI18n();
   const { ref, revealed } = useReveal();
   const { data } = useSiteData();
 
@@ -17,9 +17,11 @@ export default function Process() {
     { icon: 'Award', title: t('process.step_4_title'), desc: t('process.step_4_desc') },
   ];
 
-  const steps = data.processSteps.length > 0
-    ? data.processSteps.map((s) => ({ icon: s.icon, title: s.title, desc: s.description }))
-    : fallbackSteps;
+  const steps = language === 'en'
+    ? fallbackSteps
+    : (data.processSteps.length > 0
+        ? data.processSteps.map((s) => ({ icon: s.icon, title: s.title, desc: s.description }))
+        : fallbackSteps);
 
   return (
     <section id="process" className="py-20 lg:py-28 relative overflow-hidden">

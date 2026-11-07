@@ -20,7 +20,12 @@
     "close": "Close",
     "back_to_top": "Back to top",
     "explore_more": "Explore More",
-    "view_all": "View All"
+    "view_all": "View All",
+    "wa_demo_msg": "Hello Click Zoon, I would like to request a free prototype for my business.",
+    "wa_general_msg": "Hello, I would like to know details about creating a website for my business.",
+    "phone_label": "Phone Number",
+    "email_label": "Email Address",
+    "welcome_user": "Welcome, {name}"
   },
   "nav": {
     "home": "Home",
@@ -32,7 +37,8 @@
     "faq": "FAQ",
     "contact": "Contact",
     "open_menu": "Open main menu",
-    "close_menu": "Close menu"
+    "close_menu": "Close menu",
+    "main_nav": "Main Navigation"
   },
   "lang": {
     "switcher_label": "Change site language",
@@ -52,7 +58,12 @@
     "cta_secondary": "Explore Pricing Plans",
     "trust_speed": "Rapid 48-Hour Delivery",
     "trust_no_risk": "Zero Risk or Obligation",
-    "trust_responsive": "100% Mobile Responsive"
+    "trust_responsive": "100% Mobile Responsive",
+    "rotating_words": "Restaurant,Cafe,Store,Company,Brand",
+    "word_fallback": "Brand",
+    "completed_order": "Completed Order",
+    "store_amount": "Online Store +320 EGP",
+    "load_speed": "Load Speed"
   },
   "stats": {
     "projects": "Projects Completed",
@@ -133,7 +144,10 @@
     "feat_support_basic": "1 full month",
     "feat_support_pro": "3 months free",
     "feat_support_ecom": "6 months continuous follow-up",
-    "feat_demo": "Free Demo Preview Before Any Payment"
+    "feat_demo": "Free Demo Preview Before Any Payment",
+    "wa_plan_msg": "Hello, I would like to inquire about the pricing details for the {plan} plan ({cycle})",
+    "billing_onetime_label": "One-time Payment",
+    "billing_monthly_label": "Monthly Subscription"
   },
   "commission_calculator": {
     "badge": "Commission Calculator",
@@ -223,7 +237,28 @@
     "time_planning": "In planning & exploratory phase",
     "estimated_price": "Estimated Investment:",
     "currency": "EGP",
-    "phone_error": "Please enter a valid Egyptian mobile number (e.g. 01012345678)"
+    "phone_error": "Please enter a valid Egyptian mobile number (e.g. 01012345678)",
+    "step1_desc": "Choose the closest match to your business so we can tailor the ideal website structure.",
+    "step2_desc": "Select one or more features, and we will integrate them into your website architecture.",
+    "step3_desc": "Your free preview is always ready within 24 to 72 hours maximum.",
+    "pkg_basic": "Starter",
+    "pkg_pro": "Professional",
+    "pkg_ecommerce": "E-Commerce",
+    "pkg_custom": "Custom",
+    "included_note": "* Includes custom domain, fast hosting, and technical support",
+    "wa_continue": "Continue inquiry on WhatsApp immediately",
+    "wa_msg_header": "Hello Click Zoon 👋\nI would like to inquire about a website estimate based on the online calculator:",
+    "wa_msg_activity": "- Activity: {act}",
+    "wa_msg_biz": "- Business Name: {name}",
+    "wa_msg_feats": "- Features: {features}",
+    "wa_msg_timeline": "- Timeline: {timeline}",
+    "wa_msg_price": "- Estimated Price: ~{price} {curr}",
+    "wa_msg_client": "- Name: {name}",
+    "wa_msg_phone": "- Phone: {phone}",
+    "wa_msg_unnamed": "In progress",
+    "wa_msg_default_feats": "Core Features",
+    "lead_fallback_name": "Calculator Lead",
+    "lead_fallback_biz": "Unnamed"
   },
   "why_us": {
     "badge": "Why Click Zoon",
@@ -245,12 +280,15 @@
   },
   "about_us": {
     "title_prefix": "Click Zoon",
-    "title_suffix": "About Us"
+    "title_suffix": "About Us",
+    "alt_img": "Click Zoon Agency Overview - {title}",
+    "alt_img_default": "About Click Zoon Web Design & Development Agency"
   },
   "not_found": {
     "code": "404",
     "title": "Page Not Found",
-    "desc": "The page you are looking for does not exist or has been moved."
+    "desc": "The page you are looking for does not exist or has been moved.",
+    "meta_title": "Page Not Found (404) | Click Zoon"
   },
   "faq": {
     "badge": "Clear Answers",
@@ -302,7 +340,16 @@
     "service_area_desc": "Mansoura & All Egypt",
     "map_title": "Click Zoon on Google Maps",
     "facebook": "Facebook",
-    "instagram": "Instagram"
+    "instagram": "Instagram",
+    "wa_msg_hello": "Hello, I am {name}",
+    "wa_msg_phone": "Phone: {phone}",
+    "wa_msg_biz": "Business: {biz}",
+    "wa_msg_biz_unset": "Not specified",
+    "wa_msg_url": "Page URL: {url}",
+    "wa_msg_footer": "I would like to request a free prototype for my business.",
+    "location_online": "Online Customer Support",
+    "phone_copied": "Phone Number",
+    "email_copied": "Email Address"
   },
   "portfolio": {
     "badge": "Our Portfolio & Works",
@@ -316,14 +363,20 @@
     "view_details": "View Project Details",
     "live_preview": "Live Preview",
     "case_study": "Case Study",
-    "all_showcase_btn": "Browse all showcase projects on dedicated page"
+    "all_showcase_btn": "Browse all showcase projects on dedicated page",
+    "preview_alt": "Project preview: {title}",
+    "preview_alt_default": "Click Zoon project preview",
+    "preview_aria": "Preview details for {title}",
+    "modal_img_alt": "Project screenshot: {title}",
+    "modal_img_alt_default": "Click Zoon project details",
+    "preview_dialog_aria": "Project Preview"
   },
   "testimonials": {
     "badge": "Testimonials & Success Stories",
     "title": "What Business Owners Say",
     "highlight": "About Partnering with Click Zoon",
     "subtitle": "Our partners are the heart of our success. We take pride in driving their digital growth and revenue.",
-    "rating_aria": "Rating: {rating} out of 5",
+    "rating_aria": "Rating {n}",
     "visit_live": "Visit Live Website",
     "watch_video": "Watch Video Testimonial"
   },
@@ -345,7 +398,8 @@
     "error_name": "Please enter your name.",
     "error_phone": "Invalid mobile number. Example: 01012345678",
     "error_general": "Failed to submit request. Please retry or message us on WhatsApp.",
-    "error_rate_limit": "Request limit exceeded temporarily. Try later or message us on WhatsApp."
+    "error_rate_limit": "Request limit exceeded temporarily. Try later or message us on WhatsApp.",
+    "link_label": "Link: {url}"
   },
   "exit_intent": {
     "badge": "Special Offer Before You Go! 🎁",
@@ -360,7 +414,11 @@
     "success_title": "Offer Claimed Successfully!",
     "success_desc": "Our team will reach out on WhatsApp with your free prototype and details.",
     "close_btn": "Got it, Thank You",
-    "error_phone": "Please enter a valid Egyptian mobile number (e.g. 01012345678)"
+    "error_phone": "Please enter a valid Egyptian mobile number (e.g. 01012345678)",
+    "lead_name": "Exit Offer Lead",
+    "lead_biz": "Not specified (Exit Offer)",
+    "wa_msg": "Hello Click Zoon 👋\nI'd like to inquire about the free prototype for my business ({biz})",
+    "wa_msg_biz_fallback": "New Business"
   },
   "cookie_consent": {
     "title": "Cookies & Privacy",
@@ -383,7 +441,8 @@
   "sticky_cta": {
     "aria_label": "Quick Demo Request Bar",
     "text": "Ready to see your business website? Request a free demo in 48 hours",
-    "btn_demo": "Request Demo"
+    "btn_demo": "Request Demo",
+    "wa_msg": "Hello Click Zoon, I'd like to request a free prototype for my business"
   },
   "floating_whatsapp": {
     "tooltip_title": "Want to launch your website?",
@@ -407,7 +466,22 @@
     "about_site": "About This Website",
     "about_app": "About This App",
     "features": "Features",
-    "similar_works": "Similar Works"
+    "similar_works": "Similar Works",
+    "meta_title": "Showcase: Ready Websites & Applications",
+    "meta_desc": "Explore delivered websites, applications, and online stores. Browse screenshots and request a prototype for your brand.",
+    "cat_restaurants": "Restaurants",
+    "cat_cafes": "Cafes",
+    "cat_stores": "Stores",
+    "cat_medical": "Medical",
+    "cat_business": "Business & Corporate",
+    "kind_website": "Website",
+    "kind_app": "Application",
+    "kind_store": "Online Store",
+    "screenshots_aria": "Project Screenshots",
+    "zoom_img": "Zoom image {n}",
+    "img_alt": "{title}: Image {n}",
+    "filter_aria": "Filter Projects",
+    "zoom_alt": "Zoom image preview"
   },
   "privacy": {
     "title": "Privacy",
@@ -422,6 +496,89 @@
     "rights_text": "You retain full rights to inspect, modify, or erase your data records anytime by messaging us via WhatsApp or email.",
     "updates_title": "Policy Updates",
     "updates_text": "We may update this policy to comply with emerging security standards. Revisions will be published promptly on this page.",
-    "back_btn": "Back to Home"
+    "back_btn": "Back to Home",
+    "meta_title": "Privacy Policy | Click Zoon",
+    "meta_description": "Click Zoon Privacy Policy: We are committed to protecting your personal data and business information with the highest security standards."
+  },
+  "seo": {
+    "default_title": "Click Zoon | Professional Web Development & E-Commerce",
+    "default_description": "Agency specialized in designing and developing high-performance websites and online stores for all businesses. Free prototype with zero risk, fast 48h turnaround, and continuous support."
+  },
+  "case_study": {
+    "subtitle": "Discover how we transformed technical and commercial challenges into tangible, measurable growth.",
+    "live_preview": "View Live Website",
+    "metrics_title": "Proven Results in Numbers",
+    "challenges_title": "The Challenge & Pain Points",
+    "solution_title": "The Engineering Solution & Delivery",
+    "testimonial_title": "Client Feedback",
+    "cta_title": "Ready to Achieve the Same Success for Your Business?",
+    "cta_subtitle": "Get a custom demo prototype of your business website within 48 hours for free, with zero financial commitment.",
+    "cta_btn": "Request Free Prototype",
+    "cta_calc_btn": "Calculate Cost & Request Demo",
+    "cta_whatsapp_btn": "Speak with Our Advisor on WhatsApp",
+    "whatsapp_lead": "Hello Click Zoon, I checked the {client} case study and would like to build a website for my business"
+  },
+  "auth": {
+    "login_title": "Sign In",
+    "signup_title": "Create Account",
+    "login_meta": "Sign In | Click Zoon",
+    "signup_meta": "Create Account | Click Zoon",
+    "email_label": "Email Address",
+    "email_placeholder": "name@example.com",
+    "password_label": "Password",
+    "password_placeholder": "••••••••",
+    "full_name_label": "Full Name",
+    "full_name_placeholder": "John Doe",
+    "phone_label": "Phone Number (WhatsApp)",
+    "phone_placeholder": "01012345678",
+    "confirm_password_label": "Confirm Password",
+    "login_btn": "Sign In",
+    "signup_btn": "Create Account",
+    "google_btn": "Continue with Google",
+    "or_divider": "or",
+    "have_account": "Already have an account?",
+    "no_account": "Don't have an account?",
+    "switch_to_login": "Sign In",
+    "switch_to_signup": "Sign Up",
+    "forgot_password": "Forgot password?",
+    "reset_title": "Reset Password",
+    "reset_desc": "Enter your email to receive a password reset link.",
+    "send_reset_btn": "Send Reset Link",
+    "cancel_btn": "Cancel",
+    "reset_sent": "Password reset link sent to your email successfully.",
+    "error_invalid_credentials": "Invalid email or password",
+    "error_passwords_mismatch": "Passwords do not match",
+    "error_password_length": "Password must be at least 6 characters",
+    "error_phone": "Please enter a valid Egyptian phone number (11 digits)",
+    "error_name": "Please enter your full name",
+    "signup_success": "Account created successfully! Redirecting..."
+  },
+  "account": {
+    "my_account": "My Account",
+    "account_meta": "My Account | Click Zoon",
+    "profile_info": "Profile Information",
+    "requests_tab": "My Requests",
+    "logout": "Sign Out",
+    "save_changes": "Save Changes",
+    "saving": "Saving...",
+    "saved_success": "Profile updated successfully",
+    "member_since": "Member since",
+    "requests_count": "Total Requests",
+    "no_requests": "No previous requests found",
+    "status_new": "New",
+    "status_contacted": "Contacted",
+    "status_in_progress": "In Progress",
+    "status_completed": "Completed",
+    "status_cancelled": "Cancelled"
+  },
+  "marquee": {
+    "aria_label": "Our Partners & Businesses We Empower",
+    "subtitle": "Designing & building high-converting digital presence for 50+ businesses across Egypt and the Arab world",
+    "cat_restaurants": "Restaurants & Cafes",
+    "cat_medical": "Specialty Clinics & Medical",
+    "cat_law": "Law & Legal Advisory",
+    "cat_luxury": "Luxury E-Commerce",
+    "cat_realestate": "Real Estate & Property",
+    "cat_gourmet": "Gourmet Foods & Markets"
   }
 }
