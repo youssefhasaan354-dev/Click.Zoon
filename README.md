@@ -25,7 +25,7 @@ cp .env.example .env
 | `VITE_SUPABASE_ANON_KEY` | المفتاح العام (Anon Public Key) | نعم |
 | `VITE_SITE_URL` | الدومين النهائي (مثال: `https://clickzoon.com`) | نعم |
 | `VITE_TURNSTILE_SITE_KEY` | المفتاح العام لـ Cloudflare Turnstile لحماية النماذج من البوتات | اختياري (موصى به) |
-| `VITE_GA_ID` | معرّف Google Analytics (مثل `G-XXXXXXXXXX`) | اختياري |
+| `VITE_GA_MEASUREMENT_ID` | معرّف Google Analytics (مثل `G-XXXXXXXXXX`) — يقبل أيضاً `VITE_GA_ID` كبديل | اختياري |
 
 ### متغيرات بيئة الـ Supabase Edge Functions (Secrets):
 يتم ضبطها في لوحة تحكم Supabase (`Project Settings` -> `Edge Functions` -> `Secrets`):
