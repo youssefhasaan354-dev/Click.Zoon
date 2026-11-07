@@ -2,7 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { PortfolioItem } from '@/lib/types';
 import { AdminPageHeader, AdminCard, AdminInput, AdminTextarea, AdminToggle, AddButton, DeleteButton, OrderButton } from '@/admin/ui';
-import { Upload, Loader2, Sparkles } from 'lucide-react';
+import { Upload, Loader2, Sparkles, Wand2 } from 'lucide-react';
+import { slugify, isValidSlug } from '@/lib/slugify';
 
 const categories = [
   { key: 'restaurants', label: 'مطاعم' },
@@ -17,14 +18,6 @@ const kinds = [
   { key: 'app', label: 'برنامج / تطبيق' },
   { key: 'store', label: 'متجر إلكتروني' },
 ];
-
-function slugify(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
 
 /**
  * Client-side WebP compression using HTML5 Canvas
@@ -125,8 +118,23 @@ export default function AdminPortfolio() {
       alert('اكتب عنوان المشروع وأضف صورة له على الأقل.');
       return;
     }
+
+    const cleanSlug = (editing.slug || '').trim().toLowerCase();
+    if (!cleanSlug) {
+      alert('يرجى إدخال الرابط المختصر (slug) باللغة الإنجليزية (مثال: royal-clinic).');
+      return;
+    }
+    if (!isValidSlug(cleanSlug)) {
+      alert('الرابط المختصر (slug) يجب أن يحتوي فقط على حروف إنجليزية صغيرة وأرقام وشرطات (-) بدون حروف عربية أو مسافات.');
+      return;
+    }
+    const duplicate = items.find((i) => i.slug === cleanSlug && i.id !== editing.id);
+    if (duplicate) {
+      alert(`الرابط المختصر "${cleanSlug}" مستخدم بالفعل في مشروع "${duplicate.title}". يرجى اختيار رابط مختلف.`);
+      return;
+    }
+
     setSaving(true);
-    const slug = slugify(editing.slug || '') || null;
     const payload = {
       title: editing.title.trim(),
       category: editing.category,
@@ -134,7 +142,7 @@ export default function AdminPortfolio() {
       image_url: editing.image_url,
       link: editing.link,
       live_url: editing.live_url || editing.link,
-      slug,
+      slug: cleanSlug,
       kind: editing.kind ?? 'website',
       tagline: editing.tagline ?? '',
       long_description: editing.long_description ?? '',
@@ -271,7 +279,32 @@ export default function AdminPortfolio() {
                   ))}
                 </select>
               </div>
-              <AdminInput label="الرابط المختصر (إنجليزي) مثال: delano-cafe" value={editing.slug ?? ''} onChange={(v) => setEditing({ ...editing, slug: v })} dir="ltr" />
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-navy-200 text-sm font-semibold">الرابط المختصر (slug)</label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (editing.title) {
+                        setEditing({ ...editing, slug: slugify(editing.title) });
+                      }
+                    }}
+                    className="text-xs text-gold-400 hover:text-gold-300 inline-flex items-center gap-1 font-medium transition-colors"
+                    title="توليد slug تلقائياً من عنوان المشروع"
+                  >
+                    <Wand2 size={12} />
+                    <span>توليد من العنوان</span>
+                  </button>
+                </div>
+                <input
+                  type="text"
+                  value={editing.slug ?? ''}
+                  onChange={(e) => setEditing({ ...editing, slug: e.target.value })}
+                  placeholder="delano-cafe"
+                  dir="ltr"
+                  className="w-full bg-navy-800/60 border border-navy-600/40 rounded-xl px-4 py-2.5 text-navy-50 placeholder-navy-500 focus:border-gold-500/50 focus:outline-none text-sm"
+                />
+              </div>
             </div>
             <AdminInput label="سطر تعريفي قصير تحت الاسم" value={editing.tagline ?? ''} onChange={(v) => setEditing({ ...editing, tagline: v })} />
             <AdminTextarea label="وصف تفصيلي (صفحة المشروع)" value={editing.long_description ?? ''} onChange={(v) => setEditing({ ...editing, long_description: v })} rows={4} />

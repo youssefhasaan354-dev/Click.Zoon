@@ -91,7 +91,7 @@ supabase functions deploy notify-new-request --no-verify-jwt
 
 ## الخطوة 7: التجربة والتأكد من العمل
 
-1. افتح موقعك [Click Zoon](https://click-zoon.vercel.app).
+1. افتح موقعك [Click Zoon](https://clickzoon.com).
 2. انزل إلى قسم التواصل / طلب الديمو المجاني.
 3. املأ النموذج باسم ورقم تجريبي واضغط إرسال.
 4. فور إرسال الطلب، ستصلك رسالة فورية على تيليجرام من البوت الخاص بك تحتوي على:

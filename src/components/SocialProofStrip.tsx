@@ -1,4 +1,4 @@
-import { Award, Smile, Clock, ShieldCheck } from 'lucide-react';
+import { Award } from 'lucide-react';
 import Counter from '@/components/Counter';
 import { useSiteConfig } from '@/siteConfig';
 import { useReveal } from '@/hooks/useReveal';
@@ -9,12 +9,10 @@ export default function SocialProofStrip() {
 
   const customStats = cfg.aboutStats && cfg.aboutStats.length > 0 ? cfg.aboutStats : null;
 
-  const stats = customStats ?? [
-    { value: 50, suffix: '+', label: 'مشروع أُنجز بنجاح', icon: Award },
-    { value: 99, suffix: '%', label: 'نسبة رضا العملاء', icon: Smile },
-    { value: 48, suffix: ' ساعة', label: 'متوسط تسليم الديمو', icon: Clock },
-    { value: 100, suffix: '%', label: 'ضمان ودعم فني مستمر', icon: ShieldCheck },
-  ];
+  // Do not display fabricated numbers: only render if configured in database
+  if (!customStats || customStats.length === 0) {
+    return null;
+  }
 
   return (
     <div className="relative z-20 -mt-8 sm:-mt-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,9 +22,9 @@ export default function SocialProofStrip() {
           revealed ? 'revealed' : ''
         }`}
       >
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 divide-y sm:divide-y-0 divide-navy-700/40">
-          {stats.map((item, idx) => {
-            const Icon = 'icon' in item && item.icon ? item.icon : Award;
+        <div className={`grid grid-cols-2 ${customStats.length >= 4 ? 'lg:grid-cols-4' : customStats.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'} gap-4 sm:gap-6 divide-y sm:divide-y-0 divide-navy-700/40`}>
+          {customStats.map((item, idx) => {
+            const Icon = 'icon' in item && item.icon ? (item.icon as typeof Award) : Award;
             return (
               <div
                 key={item.label}

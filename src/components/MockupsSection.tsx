@@ -6,7 +6,6 @@ import {
   ChevronLeft,
   Pause,
   Play,
-  Lock,
   Menu,
   Wifi,
   Battery,
@@ -42,7 +41,7 @@ interface DeliveredProject {
   src: string;
   title: string;
   category: string;
-  domain: string;
+  label: string;
   theme: {
     accentColor: string;
     badgeBg: string;
@@ -71,7 +70,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-1-restaurant.webp',
     title: 'قصر الريم للمشويات',
     category: 'موقع وتطبيق مطعم ومشويات',
-    domain: 'qasrelreem.clickzoon.com',
+    label: 'نموذج تصميم — مطعم ومشويات',
     theme: {
       accentColor: 'text-amber-400',
       badgeBg: 'bg-amber-500/15 border-amber-500/40 text-amber-300',
@@ -86,7 +85,7 @@ const deliveredProjects: DeliveredProject[] = [
       icon: UtensilsCrossed,
     },
     hero: {
-      badge: '🔥 خصم 20% على أول طلب أونلاين',
+      badge: '🔥 وجبات طازجة ومنيو إلكتروني QR',
       headline: 'طعم المشويات الأصيل يوصلك سخن لحد باب بيتك',
       subheadline: 'أشهى المشويات الحلبية على الفحم بتتبيلة سرية وتوصيل حراري فائق السرعة.',
       ctaText: 'اطلب وجبتك الآن',
@@ -96,7 +95,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'صينية الريم الملكية',
         desc: 'كيلو كباب وكفتة مع ريش ضاني وأرز بسمتي ومقبلات حارة',
         meta: '٤٢٠ ج.م',
-        tag: 'الأكثر طلباً ⭐ 4.9',
+        tag: 'الأكثر طلباً',
         icon: Flame,
       },
       {
@@ -120,7 +119,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-2-cafe.webp',
     title: 'روست كافيه & كوفي بار',
     category: 'كافيه وسبيشالتي كوفي',
-    domain: 'roastcafe.clickzoon.com',
+    label: 'نموذج تصميم — كافيه وقائمة تفاعلية',
     theme: {
       accentColor: 'text-yellow-400',
       badgeBg: 'bg-yellow-500/15 border-yellow-500/40 text-yellow-300',
@@ -145,7 +144,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'بن سلفادور وكولومبيا V60',
         desc: 'إيحاءات فواكه استوائية وشوكولاتة بحموضة متوازنة ومذاق مخملي',
         meta: '٨٥ ج.م',
-        tag: 'محصول مميز ⭐ 4.9',
+        tag: 'محصول مميز',
         icon: Coffee,
       },
       {
@@ -159,7 +158,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'اشتراك بوكس القهوة المنزلي',
         desc: 'محاصيل مختارة تصلك أسبوعياً مع بطاقات وصفات التحضير المنزلية',
         meta: 'شحن أسبوعي',
-        tag: 'وفر 25%',
+        tag: 'باقة توفير',
         icon: Star,
       },
     ],
@@ -169,7 +168,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-3-store.webp',
     title: 'متجر مودانيستا فاشون',
     category: 'متجر إلكتروني متكامل للأزياء',
-    domain: 'modanista.clickzoon.com',
+    label: 'نموذج تصميم — متجر إلكتروني متكامل',
     theme: {
       accentColor: 'text-emerald-400',
       badgeBg: 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300',
@@ -184,7 +183,7 @@ const deliveredProjects: DeliveredProject[] = [
       icon: ShoppingBag,
     },
     hero: {
-      badge: '✨ كولكشن الشتاء 2026 الحصري',
+      badge: '✨ كولكشن الموسم الحصري أونلاين',
       headline: 'أحدث صيحات الموضة والأناقة بتصاميم راقية وخامات أصلية',
       subheadline: 'تسوقي أرقى الإطلالات العصرية مع استبدال مجاني وتوصيل سريع حتى باب المنزل.',
       ctaText: 'تسوقي الكولكشن الجديد',
@@ -194,7 +193,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'معطف صوف كشمير طويل',
         desc: 'قصة راقية بخامات شتوية دافئة وتطريز يدوي متقن بألوان الموسم',
         meta: '١,٢٥٠ ج.م',
-        tag: 'تريند الأسبوع ⭐ 4.9',
+        tag: 'تريند الأسبوع',
         icon: ShoppingBag,
       },
       {
@@ -208,7 +207,7 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'دفع عند الاستلام واستبدال',
         desc: 'معاينة كاملة قبل الاستلام وخيارات تقسيط مرنة بدون فوائد',
         meta: 'استبدال 14 يوم',
-        tag: 'تسوق آمن 100%',
+        tag: 'تسوق موثوق',
         icon: ShieldCheck,
       },
     ],
@@ -218,7 +217,7 @@ const deliveredProjects: DeliveredProject[] = [
     src: '/mockups/mockup-4-medical.webp',
     title: 'مركز النور الطبي التخصصي',
     category: 'منصة حجز عيادات وخدمات طبية',
-    domain: 'alnoormedical.clickzoon.com',
+    label: 'نموذج تصميم — منصة حجز عيادات',
     theme: {
       accentColor: 'text-cyan-400',
       badgeBg: 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300',
@@ -243,21 +242,21 @@ const deliveredProjects: DeliveredProject[] = [
         title: 'عيادة الباطنة والقلب',
         desc: 'فحص شامل وتخطيط قلب ومتابعة دورية مع كبار الأطباء الاستشاريين',
         meta: 'كشف ٣٥٠ ج.م',
-        tag: 'متاح اليوم ⭐ 4.9',
+        tag: 'متاح اليوم',
         icon: Stethoscope,
       },
       {
         title: 'معمل تحاليل وأشعة فورية',
         desc: 'أحدث أجهزة الفحص الرقمي والنتائج تصلك معتمدة عبر واتساب',
-        meta: 'نتائج خلال ساعتين',
-        tag: 'دقة 99.8%',
+        meta: 'نتائج سريعة',
+        tag: 'دقة معتمدة',
         icon: HeartPulse,
       },
       {
         title: 'استشارات طبية منزلية 24/7',
         desc: 'زيارات تمريضية وطبية منزلية للحالات الحرجة وكبار السن',
         meta: 'تغطية فورية',
-        tag: 'خدمة 24 ساعة',
+        tag: 'خدمة مستمرة',
         icon: ShieldCheck,
       },
     ],
@@ -545,10 +544,10 @@ export default function MockupsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           icon={Monitor}
-          badge="معاينة حقيقية للمشاريع"
-          title="شوف تصور موقعك على"
-          highlight="الموبايل واللابتوب"
-          subtitle="نماذج بصرية حقيقية من مشاريع نفّذناها لعملائنا تساعدك تتخيل شكل موقعك وسرعته قبل البدء."
+          badge="نماذج تصميم تفاعلية"
+          title="معاينة حية لشاشات موقعك"
+          highlight="على الموبايل والكمبيوتر"
+          subtitle="نماذج تصميم توضيحية تحاكي تجربة التصفح الفعلية وسرعة الاستجابة لمختلف الأنشطة التجارية."
         />
 
         <div
@@ -577,7 +576,7 @@ export default function MockupsSection() {
             <div className="flex items-center gap-1.5 px-2" role="tablist" aria-label="شرائح المشاريع">
               {deliveredProjects.map((proj, i) => (
                 <button
-                  key={proj.domain}
+                  key={proj.id}
                   role="tab"
                   aria-selected={i === index}
                   onClick={() => setIndex(i)}
@@ -615,9 +614,12 @@ export default function MockupsSection() {
           </div>
 
           {/* Current project info pill */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 flex items-center justify-center gap-2 flex-wrap">
             <span className="inline-block px-4 py-1.5 rounded-full bg-navy-800/80 border border-gold-500/30 text-gold-300 text-sm font-bold shadow-sm">
               {deliveredProjects[index].title} — <span className="text-navy-300 font-normal">{deliveredProjects[index].category}</span>
+            </span>
+            <span className="inline-block px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-300 text-xs font-semibold">
+              نموذج تصميم توضيحي
             </span>
           </div>
 
@@ -640,9 +642,9 @@ export default function MockupsSection() {
                         <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                         <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                       </div>
-                      <div className="flex items-center gap-1.5 bg-navy-900/80 border border-navy-700/50 rounded-md px-2.5 py-0.5 text-xs text-navy-300 font-mono flex-1 max-w-xs" dir="ltr">
-                        <Lock size={10} className="text-green-400 shrink-0" />
-                        <span className="truncate">https://{deliveredProjects[index].domain}</span>
+                      <div className="flex items-center gap-1.5 bg-navy-900/80 border border-gold-500/30 rounded-md px-2.5 py-0.5 text-xs text-gold-300 font-medium flex-1 max-w-xs" dir="rtl">
+                        <Sparkles size={11} className="text-gold-400 shrink-0" />
+                        <span className="truncate">{deliveredProjects[index].label}</span>
                       </div>
                     </div>
 

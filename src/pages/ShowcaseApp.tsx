@@ -37,6 +37,21 @@ export default function ShowcaseAppPage() {
         description={item.tagline || item.description}
         canonical={`/showcase/${item.slug}`}
         ogImage={item.image_url.startsWith('http') ? item.image_url : undefined}
+        noindex={item.slug.startsWith('sample-')}
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': item.kind === 'app' ? 'SoftwareApplication' : 'CreativeWork',
+          name: item.title,
+          headline: item.tagline || item.title,
+          description: item.description,
+          genre: categoryLabels[item.category] ?? item.category,
+          creator: {
+            '@type': 'Organization',
+            name: 'Click Zoon',
+            url: 'https://clickzoon.com/',
+          },
+          ...(item.kind === 'app' ? { applicationCategory: 'BusinessApplication', operatingSystem: 'All' } : {}),
+        }}
       />
       <Header />
       <main id="main" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
