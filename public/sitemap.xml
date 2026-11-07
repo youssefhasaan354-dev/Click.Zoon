@@ -2,24 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://click-zoon.vercel.app/</loc>
+    <loc>https://clickzoon.com/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://click-zoon.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/" />
   </url>
   <url>
-    <loc>https://click-zoon.vercel.app/showcase</loc>
-    <lastmod>2026-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://click-zoon.vercel.app/showcase" />
-  </url>
-  <url>
-    <loc>https://click-zoon.vercel.app/privacy</loc>
+    <loc>https://clickzoon.com/privacy</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://click-zoon.vercel.app/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/privacy" />
   </url>
 </urlset>

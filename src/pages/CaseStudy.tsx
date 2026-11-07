@@ -4,7 +4,7 @@ import Seo from '@/components/Seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Counter from '@/components/Counter';
-import { waLink } from '@/siteConfig';
+import { waLink, SITE_URL } from '@/siteConfig';
 import { useI18n } from '@/i18n';
 
 interface CaseStudyData {
@@ -103,7 +103,7 @@ export default function CaseStudyPage() {
       publisher: {
         '@type': 'Organization',
         name: 'Click Zoon',
-        url: 'https://click-zoon.vercel.app',
+        url: SITE_URL,
       },
     },
   ];
