@@ -73,14 +73,13 @@ export default function Contact() {
     const trimmedBusiness = form.business.trim().slice(0, MAX_BUSINESS_LEN);
     const trimmedUrl = form.pageUrl.trim().slice(0, MAX_URL_LEN) || null;
 
-    const businessTypeMsg = trimmedBusiness
-      ? `نوع النشاط: ${trimmedBusiness}`
-      : 'نوع النشاط: غير محدد';
-    const msg = `السلام عليكم، أنا ${trimmedName}
-رقم الهاتف: ${cleanedPhone}
-${businessTypeMsg}${trimmedUrl ? `
-رابط الصفحة: ${trimmedUrl}` : ''}
-عايز أطلب ديمو مجاني لموقع نشاطي.`;
+        const businessTypeMsg = trimmedBusiness
+      ? t('contact.wa_msg_biz', { biz: trimmedBusiness })
+      : t('contact.wa_msg_biz', { biz: t('contact.wa_msg_biz_unset') });
+    const msg = `${t('contact.wa_msg_hello', { name: trimmedName })}
+${t('contact.wa_msg_phone', { phone: cleanedPhone })}
+${businessTypeMsg}${trimmedUrl ? `\n${t('contact.wa_msg_url', { url: trimmedUrl })}` : ''}
+${t('contact.wa_msg_footer')}`;
 
     const waUrl = waLinkIntl(cfg.phoneIntl, msg);
 

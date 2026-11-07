@@ -20,7 +20,11 @@
     "close": "إغلاق",
     "back_to_top": "الرجوع لأعلى الصفحة",
     "explore_more": "استكشف المزيد",
-    "view_all": "عرض الكل"
+    "view_all": "عرض الكل",
+    "wa_demo_msg": "مرحباً كليك زون، عايز أطلب ديمو مجاني لنشاطي",
+    "wa_general_msg": "السلام عليكم، عايز أعرف تفاصيل عن عمل موقع لنشاطي",
+    "phone_label": "رقم الهاتف",
+    "email_label": "البريد الإلكتروني"
   },
   "nav": {
     "home": "الرئيسية",
@@ -32,7 +36,8 @@
     "faq": "الأسئلة الشائعة",
     "contact": "تواصل معنا",
     "open_menu": "فتح القائمة الرئيسية",
-    "close_menu": "إغلاق القائمة"
+    "close_menu": "إغلاق القائمة",
+    "main_nav": "التنقل الرئيسي"
   },
   "lang": {
     "switcher_label": "تغيير لغة الموقع",
@@ -223,7 +228,28 @@
     "time_planning": "في مرحلة التخطيط والاستكشاف",
     "estimated_price": "التقدير المقترح:",
     "currency": "ج.م",
-    "phone_error": "يرجى إدخال رقم موبايل مصري صحيح (مثال: 01012345678)"
+    "phone_error": "يرجى إدخال رقم موبايل مصري صحيح (مثال: 01012345678)",
+    "step1_desc": "اختر الأقرب لطبيعة عملك لنحدد الهيكل الأمثل للموقع.",
+    "step2_desc": "يمكنك اختيار أكثر من ميزة، وسنضيفها لهيكل موقعك.",
+    "step3_desc": "الديمو المجاني دائماً يجهز لك خلال 24 إلى 72 ساعة كحد أقصى.",
+    "pkg_basic": "أساسية",
+    "pkg_pro": "احترافية",
+    "pkg_ecommerce": "متجر إلكتروني",
+    "pkg_custom": "مخصص",
+    "included_note": "* شامل الدومين، الاستضافة، والدعم الفني",
+    "wa_continue": "متابعة تفاصيل الطلب على واتساب فوراً",
+    "wa_msg_header": "مرحباً كليك زون 👋\nعايز استفسر عن عرض موقع لنشاطي بناءً على حاسبة الموقع:",
+    "wa_msg_activity": "- نوع النشاط: {act}",
+    "wa_msg_biz": "- اسم النشاط: {name}",
+    "wa_msg_feats": "- المميزات المطلوبة: {features}",
+    "wa_msg_timeline": "- التوقيت: {timeline}",
+    "wa_msg_price": "- التقدير المقترح: حوالي {price} {curr}",
+    "wa_msg_client": "- الاسم: {name}",
+    "wa_msg_phone": "- الهاتف: {phone}",
+    "wa_msg_unnamed": "قيد الإنشاء",
+    "wa_msg_default_feats": "الأساسية",
+    "lead_fallback_name": "عميل حاسبة الأسعار",
+    "lead_fallback_biz": "بدون اسم"
   },
   "why_us": {
     "badge": "ليه Click Zoon",
@@ -245,7 +271,9 @@
   },
   "about_us": {
     "title_prefix": "Click Zoon",
-    "title_suffix": "من نحن"
+    "title_suffix": "من نحن",
+    "alt_img": "صورة عن وكالة كليك زون - {title}",
+    "alt_img_default": "عن وكالة كليك زون لتصميم المواقع والمتاجر الإلكترونية"
   },
   "not_found": {
     "code": "404",
@@ -302,7 +330,16 @@
     "service_area_desc": "المنصورة وكل مصر",
     "map_title": "موقع Click Zoon على خرائط جوجل",
     "facebook": "فيسبوك",
-    "instagram": "إنستجرام"
+    "instagram": "إنستجرام",
+    "wa_msg_hello": "السلام عليكم، أنا {name}",
+    "wa_msg_phone": "رقم الهاتف: {phone}",
+    "wa_msg_biz": "نوع النشاط: {biz}",
+    "wa_msg_biz_unset": "غير محدد",
+    "wa_msg_url": "رابط الصفحة: {url}",
+    "wa_msg_footer": "عايز أطلب ديمو مجاني لموقع نشاطي.",
+    "location_online": "خدمة عملاء أونلاين",
+    "phone_copied": "رقم الهاتف",
+    "email_copied": "البريد الإلكتروني"
   },
   "portfolio": {
     "badge": "أعمالنا وتصاميمنا",
@@ -316,7 +353,12 @@
     "view_details": "استعراض كامل تفاصيل المشروع",
     "live_preview": "معاينة حية للموقع",
     "case_study": "دراسة الحالة",
-    "all_showcase_btn": "عرض كل الأعمال الجاهزة في صفحة مخصصة"
+    "all_showcase_btn": "عرض كل الأعمال الجاهزة في صفحة مخصصة",
+    "preview_alt": "معاينة مشروع {title}",
+    "preview_alt_default": "معاينة مشروع من أعمال Click Zoon",
+    "preview_aria": "معاينة تفاصيل {title}",
+    "modal_img_alt": "صورة مشروع {title}",
+    "modal_img_alt_default": "تفاصيل مشروع Click Zoon"
   },
   "testimonials": {
     "badge": "آراء وقصص نجاح",
@@ -345,7 +387,8 @@
     "error_name": "اكتب اسمك من فضلك.",
     "error_phone": "رقم الموبايل غير صحيح. مثال: 01012345678",
     "error_general": "تعذر إرسال الطلب. جرّب مرة أخرى أو تواصل معنا على واتساب.",
-    "error_rate_limit": "لقد تجاوزت الحد المسموح من الطلبات مؤقتاً. حاول لاحقاً أو تواصل واتساب."
+    "error_rate_limit": "لقد تجاوزت الحد المسموح من الطلبات مؤقتاً. حاول لاحقاً أو تواصل واتساب.",
+    "link_label": "الرابط: {url}"
   },
   "exit_intent": {
     "badge": "عرض خاص قبل المغادرة! 🎁",
@@ -360,7 +403,11 @@
     "success_title": "تم استلام طلبك بنجاح!",
     "success_desc": "فريقنا هيتواصل معاك على واتساب لتسليم الديمو المجاني والتفاصيل كاملة.",
     "close_btn": "حسناً، شكراً لكم",
-    "error_phone": "يرجى إدخال رقم موبايل مصري صحيح (مثال: 01012345678)"
+    "error_phone": "يرجى إدخال رقم موبايل مصري صحيح (مثال: 01012345678)",
+    "lead_name": "عميل نافذة الخروج",
+    "lead_biz": "غير محدد (عرض الخروج)",
+    "wa_msg": "مرحباً كليك زون 👋\nعايز استفسر عن الديمو المجاني لنشاطي ({biz})",
+    "wa_msg_biz_fallback": "نشاط جديد"
   },
   "cookie_consent": {
     "title": "ملفات تعريف الارتباط والخصوصية",
@@ -383,7 +430,8 @@
   "sticky_cta": {
     "aria_label": "شريط طلب الديمو السريع",
     "text": "جاهز تشوف موقع نشاطك؟ اطلب نموذج ديمو مجاني خلال 48 ساعة",
-    "btn_demo": "اطلب الديمو"
+    "btn_demo": "اطلب الديمو",
+    "wa_msg": "مرحباً كليك زون، عايز أطلب ديمو مجاني لنشاطي"
   },
   "floating_whatsapp": {
     "tooltip_title": "عايز تبدأ موقع لنشاطك؟",
@@ -407,7 +455,20 @@
     "about_site": "عن هذا الموقع",
     "about_app": "عن هذا البرنامج",
     "features": "المميزات",
-    "similar_works": "أعمال مشابهة"
+    "similar_works": "أعمال مشابهة",
+    "meta_title": "معرض الأعمال: مواقع وبرامج جاهزة",
+    "meta_desc": "تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط واطلب نموذج مماثل لنشاطك.",
+    "cat_restaurants": "مطاعم",
+    "cat_cafes": "كافيهات",
+    "cat_stores": "متاجر",
+    "cat_medical": "طبي",
+    "cat_business": "شركات وخدمات",
+    "kind_website": "موقع",
+    "kind_app": "برنامج",
+    "kind_store": "متجر إلكتروني",
+    "screenshots_aria": "صور المشروع",
+    "zoom_img": "تكبير الصورة {n}",
+    "img_alt": "{title}: صورة {n}"
   },
   "privacy": {
     "title": "سياسة",
@@ -423,5 +484,73 @@
     "updates_title": "التحديثات المستمرة",
     "updates_text": "قد نحدّث هذه السياسة لتواكب أي معايير أمان جديدة. سيتم إعلان أي تعديلات فورية في هذه الصفحة.",
     "back_btn": "العودة للرئيسية"
+  },
+  "seo": {
+    "default_title": "Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية",
+    "default_description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة والدقهلية وكل مصر. ديمو مجاني بدون التزام، تسليم سريع، ودعم فني مستمر."
+  },
+  "case_study": {
+    "subtitle": "تعرّف على كيف حوّلنا التحديات التقنية والتسويقية إلى قصة نجاح ملموسة بالأرقام والنتائج.",
+    "live_preview": "معاينة الموقع الحي",
+    "metrics_title": "النتائج القياسية بالأرقام",
+    "challenges_title": "التحديات والمشكلة",
+    "solution_title": "الحل الهندسي والتنفيذ",
+    "testimonial_title": "رأي العميل",
+    "cta_title": "جاهز تحقق نفس النتائج لنشاطك؟",
+    "cta_subtitle": "ابدأ معنا بديمو تجريبي مجاني بدون أي التزام.",
+    "cta_btn": "اطلب ديمو نشاطك مجاناً"
+  },
+  "auth": {
+    "login_title": "تسجيل الدخول",
+    "signup_title": "إنشاء حساب جديد",
+    "login_meta": "تسجيل الدخول | Click Zoon",
+    "signup_meta": "إنشاء حساب جديد | Click Zoon",
+    "email_label": "البريد الإلكتروني",
+    "email_placeholder": "name@example.com",
+    "password_label": "كلمة المرور",
+    "password_placeholder": "••••••••",
+    "full_name_label": "الاسم بالكامل",
+    "full_name_placeholder": "أحمد محمد",
+    "phone_label": "رقم الهاتف (واتساب)",
+    "phone_placeholder": "01012345678",
+    "confirm_password_label": "تأكيد كلمة المرور",
+    "login_btn": "دخول",
+    "signup_btn": "إنشاء الحساب",
+    "google_btn": "المتابعة بحساب Google",
+    "or_divider": "أو",
+    "have_account": "لديك حساب بالفعل؟",
+    "no_account": "ليس لديك حساب؟",
+    "switch_to_login": "تسجيل الدخول",
+    "switch_to_signup": "إنشاء حساب جديد",
+    "forgot_password": "نسيت كلمة المرور؟",
+    "reset_title": "استعادة كلمة المرور",
+    "reset_desc": "أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.",
+    "send_reset_btn": "إرسال رابط الاستعادة",
+    "cancel_btn": "إلغاء",
+    "reset_sent": "تم إرسال رابط الاستعادة إلى بريدك الإلكتروني بنجاح.",
+    "error_invalid_credentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "error_passwords_mismatch": "كلمتا المرور غير متطابقتين",
+    "error_password_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+    "error_phone": "يرجى إدخال رقم هاتف مصري صحيح (11 رقماً)",
+    "error_name": "يرجى إدخال اسمك بالكامل",
+    "signup_success": "تم إنشاء حسابك بنجاح! جاري تحويلك..."
+  },
+  "account": {
+    "my_account": "حسابي",
+    "account_meta": "حسابي | Click Zoon",
+    "profile_info": "بيانات الحساب",
+    "requests_tab": "طلباتي",
+    "logout": "تسجيل الخروج",
+    "save_changes": "حفظ التغييرات",
+    "saving": "جاري الحفظ...",
+    "saved_success": "تم حفظ البيانات بنجاح",
+    "member_since": "عضو منذ",
+    "requests_count": "عدد الطلبات",
+    "no_requests": "لا توجد طلبات سابقة",
+    "status_new": "جديد",
+    "status_contacted": "تم التواصل",
+    "status_in_progress": "قيد التنفيذ",
+    "status_completed": "مكتمل",
+    "status_cancelled": "ملغي"
   }
 }

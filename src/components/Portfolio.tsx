@@ -214,7 +214,7 @@ export default function Portfolio() {
                   <div className="relative h-56 w-full overflow-hidden bg-navy-950">
                     <img
                       src={project.image_url}
-                      alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}
+                      alt={project.title ? t('portfolio.preview_alt', { title: project.title }) : t('portfolio.preview_alt_default')}
                       loading="lazy"
                       decoding="async"
                       width={600}
@@ -228,7 +228,7 @@ export default function Portfolio() {
                       type="button"
                       onClick={(e) => openLightbox(i, e)}
                       className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-navy-950/60 backdrop-blur-sm transition-opacity"
-                      aria-label={`معاينة تفاصيل ${project.title}`}
+                      aria-label={t('portfolio.preview_aria', { title: project.title })}
                     >
                       <span className="btn-gold px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow-xl">
                         <Sparkles size={14} />
@@ -394,7 +394,7 @@ export default function Portfolio() {
                 }`}>
                   <img
                     src={filtered[lightboxIndex].image_url}
-                    alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
+                    alt={filtered[lightboxIndex].title ? t('portfolio.modal_img_alt', { title: filtered[lightboxIndex].title }) : t('portfolio.modal_img_alt_default')}
                     width={1200}
                     height={675}
                     className="w-full h-full object-cover"

@@ -56,7 +56,7 @@ export default function AboutUs() {
             <div className="relative rounded-2xl overflow-hidden glass-card">
               <img
                 src={cfg.aboutImageUrl}
-                alt={cfg.aboutTitle ? `صورة عن وكالة كليك زون - ${cfg.aboutTitle}` : 'عن وكالة كليك زون لتصميم المواقع والمتاجر الإلكترونية'}
+                alt={cfg.aboutTitle ? t('about_us.alt_img', { title: cfg.aboutTitle }) : t('about_us.alt_img_default')}
                 loading="lazy"
                 decoding="async"
                 width={800}

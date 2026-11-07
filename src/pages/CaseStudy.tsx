@@ -141,9 +141,7 @@ export default function CaseStudyPage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-50 mb-6 leading-tight">
               {study.title}
             </h1>
-            <p className="text-lg text-navy-300 max-w-3xl leading-relaxed">
-              تعرّف على كيف حوّلنا التحديات التقنية والتسويقية إلى قصة نجاح ملموسة بالأرقام والنتائج.
-            </p>
+            <p className="text-lg text-navy-300 max-w-3xl leading-relaxed">{t('case_study.subtitle')}</p>
           </div>
 
           {/* Featured Mockup Preview */}
@@ -162,7 +160,7 @@ export default function CaseStudyPage() {
                 rel="noopener noreferrer"
                 className="btn-gold px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm inline-flex items-center gap-2 shadow-xl"
               >
-                <span>معاينة الموقع الحي</span>
+                <span>{t('case_study.live_preview')}</span>
                 <ExternalLink size={16} />
               </a>
             </div>
@@ -172,7 +170,7 @@ export default function CaseStudyPage() {
           <div className="mb-16">
             <h2 className="text-2xl font-bold text-navy-50 mb-6 flex items-center gap-2">
               <TrendingUp className="text-gold-400" />
-              <span>النتائج القياسية بالأرقام</span>
+              <span>{t('case_study.metrics_title')}</span>
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {study.metrics.map((m) => (

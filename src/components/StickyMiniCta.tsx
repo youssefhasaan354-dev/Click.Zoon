@@ -80,7 +80,7 @@ export default function StickyMiniCta() {
             </button>
 
             <a
-              href={waLinkIntl(cfg.phoneIntl, 'مرحباً كليك زون، عايز أطلب ديمو مجاني لنشاطي')}
+              href={waLinkIntl(cfg.phoneIntl, t('sticky_cta.wa_msg'))}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {

@@ -1,10 +1,10 @@
 {
   "summary": {
-    "totalArabicLines": 733,
-    "hardcodedLocaleCalls": 8,
+    "totalArabicLines": 688,
+    "hardcodedLocaleCalls": 5,
     "byType": {
-      "UI ظاهر": 536,
-      "attribute": 84,
+      "UI ظاهر": 499,
+      "attribute": 76,
       "data-from-DB": 51,
       "validation": 57,
       "تعليق برمجي (code comment)": 5
@@ -19,11 +19,11 @@
         46
       ],
       [
-        "src/pages/CaseStudy.tsx",
-        43
+        "src/admin/panels/AdminPortfolio.tsx",
+        40
       ],
       [
-        "src/admin/panels/AdminPortfolio.tsx",
+        "src/pages/CaseStudy.tsx",
         40
       ],
       [
@@ -49,10 +49,6 @@
       [
         "src/pages/ResetPassword.tsx",
         26
-      ],
-      [
-        "src/components/QuoteWizard.tsx",
-        25
       ],
       [
         "src/siteConfig.ts",
@@ -88,6 +84,10 @@
       ],
       [
         "src/admin/panels/AdminHero.tsx",
+        13
+      ],
+      [
+        "src/pages/CustomerRequests.tsx",
         13
       ]
     ]
@@ -236,26 +236,8 @@
     },
     {
       "file": "src/components/QuoteWizard.tsx",
-      "line": 125,
-      "text": "- التقدير المقترح: حوالي ${estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} ${t('quote_wizard.currency')}",
-      "type": "hardcoded-locale"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 432,
+      "line": 434,
       "text": "{estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} {t('quote_wizard.currency')}",
-      "type": "hardcoded-locale"
-    },
-    {
-      "file": "src/pages/CustomerAccount.tsx",
-      "line": 305,
-      "text": "{new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}",
-      "type": "hardcoded-locale"
-    },
-    {
-      "file": "src/pages/CustomerRequests.tsx",
-      "line": 95,
-      "text": "{new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}",
       "type": "hardcoded-locale"
     }
   ],
@@ -2067,12 +2049,6 @@
       "type": "UI ظاهر"
     },
     {
-      "file": "src/components/AboutUs.tsx",
-      "line": 59,
-      "text": "alt={cfg.aboutTitle ? `صورة عن وكالة كليك زون - ${cfg.aboutTitle}` : 'عن وكالة كليك زون لتصميم المواقع والمتاجر الإلكترونية'}",
-      "type": "attribute"
-    },
-    {
       "file": "src/components/ClientLogosMarquee.tsx",
       "line": 12,
       "text": "{ id: '1', name: 'Delano Café & Bistro', category: 'مطاعم وكافيهات', icon: Coffee },",
@@ -2119,84 +2095,6 @@
       "line": 31,
       "text": "نُصمّم ونطوّر حضوراً رقمياً فائق التميز لأكثر من 50+ نشاط تجاري في مصر والعالم العربي",
       "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Contact.tsx",
-      "line": 77,
-      "text": "? `نوع النشاط: ${trimmedBusiness}`",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Contact.tsx",
-      "line": 78,
-      "text": ": 'نوع النشاط: غير محدد';",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Contact.tsx",
-      "line": 79,
-      "text": "const msg = `السلام عليكم، أنا ${trimmedName}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Contact.tsx",
-      "line": 80,
-      "text": "رقم الهاتف: ${cleanedPhone}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Contact.tsx",
-      "line": 82,
-      "text": "رابط الصفحة: ${trimmedUrl}` : ''}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Contact.tsx",
-      "line": 83,
-      "text": "عايز أطلب ديمو مجاني لموقع نشاطي.`;",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/ExitIntentModal.tsx",
-      "line": 77,
-      "text": "name: name.trim() || 'عميل نافذة الخروج',",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/ExitIntentModal.tsx",
-      "line": 79,
-      "text": "business_type: businessType.trim() || 'غير محدد (عرض الخروج)',",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/ExitIntentModal.tsx",
-      "line": 97,
-      "text": "const msg = `مرحباً كليك زون 👋",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/ExitIntentModal.tsx",
-      "line": 98,
-      "text": "عايز استفسر عن الديمو المجاني لنشاطي (${businessType || 'نشاط جديد'})`;",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Footer.tsx",
-      "line": 99,
-      "text": "copyToClipboard(cfg.phone, 'رقم الهاتف');",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Footer.tsx",
-      "line": 112,
-      "text": "copyToClipboard(cfg.email, 'البريد الإلكتروني');",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/Header.tsx",
-      "line": 164,
-      "text": "<nav className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\" aria-label=\"التنقل الرئيسي\">",
-      "type": "attribute"
     },
     {
       "file": "src/components/Header.tsx",
@@ -2290,500 +2188,500 @@
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 73,
+      "line": 272,
       "text": "title: 'قصر الريم للمشويات',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 74,
+      "line": 273,
       "text": "category: 'موقع وتطبيق مطعم ومشويات',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 84,
+      "line": 283,
       "text": "logoText: 'قصر الريم',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 85,
+      "line": 284,
       "text": "logoSub: 'مشويات & مأكولات شرقية',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 86,
+      "line": 285,
       "text": "statusBadge: 'مفتوح للطلب',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 90,
+      "line": 289,
       "text": "badge: '🔥 خصم 20% على أول طلب أونلاين',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 91,
+      "line": 290,
       "text": "headline: 'طعم المشويات الأصيل يوصلك سخن لحد باب بيتك',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 92,
+      "line": 291,
       "text": "subheadline: 'أشهى المشويات الحلبية على الفحم بتتبيلة سرية وتوصيل حراري فائق السرعة.',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 93,
+      "line": 292,
       "text": "ctaText: 'اطلب وجبتك الآن',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 97,
+      "line": 296,
       "text": "title: 'صينية الريم الملكية',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 98,
+      "line": 297,
       "text": "desc: 'كيلو كباب وكفتة مع ريش ضاني وأرز بسمتي ومقبلات حارة',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 99,
+      "line": 298,
       "text": "meta: '٤٢٠ ج.م',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 100,
+      "line": 299,
       "text": "tag: 'الأكثر طلباً ⭐ 4.9',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 104,
+      "line": 303,
       "text": "title: 'توصيل حراري فائق السرعة',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 105,
+      "line": 304,
       "text": "desc: 'تغليف ثلاثي محكم يحافظ على حرارة وطراوة المشويات خلال 35 دقيقة',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 106,
+      "line": 305,
       "text": "meta: 'توصيل مجاني',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 107,
+      "line": 306,
       "text": "tag: 'سريع',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 111,
+      "line": 310,
       "text": "title: 'حجز صالات VIP وعزائم',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 112,
+      "line": 311,
       "text": "desc: 'صالات عائلية خاصة ومجهزة بأرقى مستوى خدمة وضيافة',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 113,
+      "line": 312,
       "text": "meta: 'تأكيد فوري',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 114,
+      "line": 313,
       "text": "tag: 'صالات فاخرة',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 122,
+      "line": 321,
       "text": "title: 'روست كافيه & كوفي بار',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 123,
+      "line": 322,
       "text": "category: 'كافيه وسبيشالتي كوفي',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 133,
+      "line": 332,
       "text": "logoText: 'روست كافيه',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 135,
+      "line": 334,
       "text": "statusBadge: 'بن محمص اليوم',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 139,
+      "line": 338,
       "text": "badge: '☕ تجربة القهوة المختصة V60 & Flat White',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 140,
+      "line": 339,
       "text": "headline: 'قهوتك الموزونة بمزاج عالي، محمصة بعناية يومياً',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 141,
+      "line": 340,
       "text": "subheadline: 'محاصيل مختصة فردية المصدر وحلويات فرنسية طازجة في أجواء هادئة وراقية.',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 142,
+      "line": 341,
       "text": "ctaText: 'استكشف قائمة المشروبات',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 146,
+      "line": 345,
       "text": "title: 'بن سلفادور وكولومبيا V60',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 147,
+      "line": 346,
       "text": "desc: 'إيحاءات فواكه استوائية وشوكولاتة بحموضة متوازنة ومذاق مخملي',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 148,
+      "line": 347,
       "text": "meta: '٨٥ ج.م',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 149,
+      "line": 348,
       "text": "tag: 'محصول مميز ⭐ 4.9',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 153,
+      "line": 352,
       "text": "title: 'كرواسون ومخبوزات فرنسية',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 154,
+      "line": 353,
       "text": "desc: 'مخبوزات طازجة بالزبدة الطبيعية تُخبز يومياً في معملنا الخاص',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 155,
+      "line": 354,
       "text": "meta: 'طازج صباحاً',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 156,
+      "line": 355,
       "text": "tag: 'مخبوز اليوم',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 160,
+      "line": 359,
       "text": "title: 'اشتراك بوكس القهوة المنزلي',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 161,
+      "line": 360,
       "text": "desc: 'محاصيل مختارة تصلك أسبوعياً مع بطاقات وصفات التحضير المنزلية',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 162,
+      "line": 361,
       "text": "meta: 'شحن أسبوعي',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 163,
+      "line": 362,
       "text": "tag: 'وفر 25%',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 171,
+      "line": 370,
       "text": "title: 'متجر مودانيستا فاشون',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 172,
+      "line": 371,
       "text": "category: 'متجر إلكتروني متكامل للأزياء',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 182,
+      "line": 381,
       "text": "logoText: 'مودانيستا',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 184,
+      "line": 383,
       "text": "statusBadge: 'شحن فوري',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 188,
+      "line": 387,
       "text": "badge: '✨ كولكشن الشتاء 2026 الحصري',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 189,
+      "line": 388,
       "text": "headline: 'أحدث صيحات الموضة والأناقة بتصاميم راقية وخامات أصلية',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 190,
+      "line": 389,
       "text": "subheadline: 'تسوقي أرقى الإطلالات العصرية مع استبدال مجاني وتوصيل سريع حتى باب المنزل.',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 191,
+      "line": 390,
       "text": "ctaText: 'تسوقي الكولكشن الجديد',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 195,
+      "line": 394,
       "text": "title: 'معطف صوف كشمير طويل',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 196,
+      "line": 395,
       "text": "desc: 'قصة راقية بخامات شتوية دافئة وتطريز يدوي متقن بألوان الموسم',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 197,
+      "line": 396,
       "text": "meta: '١,٢٥٠ ج.م',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 198,
+      "line": 397,
       "text": "tag: 'تريند الأسبوع ⭐ 4.9',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 202,
+      "line": 401,
       "text": "title: 'حقائب جلد طبيعي كلاسيك',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 203,
+      "line": 402,
       "text": "desc: 'تصميم إيطالي أنيق متعدد الاستخدامات بضمان عام كامل',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 204,
+      "line": 403,
       "text": "meta: '٦٨٠ ج.م',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 205,
+      "line": 404,
       "text": "tag: 'خامة أصلية',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 209,
+      "line": 408,
       "text": "title: 'دفع عند الاستلام واستبدال',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 210,
+      "line": 409,
       "text": "desc: 'معاينة كاملة قبل الاستلام وخيارات تقسيط مرنة بدون فوائد',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 211,
+      "line": 410,
       "text": "meta: 'استبدال 14 يوم',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 212,
+      "line": 411,
       "text": "tag: 'تسوق آمن 100%',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 220,
+      "line": 419,
       "text": "title: 'مركز النور الطبي التخصصي',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 221,
+      "line": 420,
       "text": "category: 'منصة حجز عيادات وخدمات طبية',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 231,
+      "line": 430,
       "text": "logoText: 'مركز النور',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 233,
+      "line": 432,
       "text": "statusBadge: 'طوارئ 24/7',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 237,
+      "line": 436,
       "text": "badge: '🩺 نخبة الاستشاريين وأحدث الأجهزة',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 238,
+      "line": 437,
       "text": "headline: 'صحتك وصحة عائلتك في أيدٍ أمينة برعاية طبية متكاملة',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 239,
+      "line": 438,
       "text": "subheadline: 'حجز مواعيد فوري في أكثر من 18 تخصصاً طبياً مع تحاليل رقمية واستشارات معتمدة.',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 240,
+      "line": 439,
       "text": "ctaText: 'احجز موعدك الطبي الآن',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 244,
+      "line": 443,
       "text": "title: 'عيادة الباطنة والقلب',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 245,
+      "line": 444,
       "text": "desc: 'فحص شامل وتخطيط قلب ومتابعة دورية مع كبار الأطباء الاستشاريين',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 246,
+      "line": 445,
       "text": "meta: 'كشف ٣٥٠ ج.م',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 247,
+      "line": 446,
       "text": "tag: 'متاح اليوم ⭐ 4.9',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 251,
+      "line": 450,
       "text": "title: 'معمل تحاليل وأشعة فورية',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 252,
+      "line": 451,
       "text": "desc: 'أحدث أجهزة الفحص الرقمي والنتائج تصلك معتمدة عبر واتساب',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 253,
+      "line": 452,
       "text": "meta: 'نتائج خلال ساعتين',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 254,
+      "line": 453,
       "text": "tag: 'دقة 99.8%',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 258,
+      "line": 457,
       "text": "title: 'استشارات طبية منزلية 24/7',",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 259,
+      "line": 458,
       "text": "desc: 'زيارات تمريضية وطبية منزلية للحالات الحرجة وكبار السن',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 260,
+      "line": 459,
       "text": "meta: 'تغطية فورية',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 261,
+      "line": 460,
       "text": "tag: 'خدمة 24 ساعة',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 325,
+      "line": 524,
       "text": "aria-label=\"قائمة الموبايل\"",
       "type": "attribute"
     },
     {
       "file": "src/components/MockupsSection.tsx",
-      "line": 658,
-      "text": "alt={`تصميم ${proj.title} على شاشة كمبيوتر`}",
+      "line": 858,
+      "text": "alt={language === 'en' ? `${proj.title} website design on desktop` : `تصميم ${proj.title} على شاشة كمبيوتر`}",
       "type": "attribute"
     },
     {
@@ -2791,12 +2689,6 @@
       "line": 14,
       "text": "/** \"اطلب الآن\" dialog — saves the lead (source = showcase) so it shows up in the admin requests panel. */",
       "type": "تعليق برمجي (code comment)"
-    },
-    {
-      "file": "src/components/OrderModal.tsx",
-      "line": 60,
-      "text": "message_text: `${requestText} — الرابط: ${window.location.href}`,",
-      "type": "UI ظاهر"
     },
     {
       "file": "src/components/Portfolio.tsx",
@@ -2842,200 +2734,56 @@
     },
     {
       "file": "src/components/Portfolio.tsx",
-      "line": 217,
-      "text": "alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}",
-      "type": "attribute"
-    },
-    {
-      "file": "src/components/Portfolio.tsx",
-      "line": 231,
-      "text": "aria-label={`معاينة تفاصيل ${project.title}`}",
-      "type": "attribute"
-    },
-    {
-      "file": "src/components/Portfolio.tsx",
       "line": 299,
       "text": "aria-label={filtered[lightboxIndex].title || 'معاينة المشروع'}",
       "type": "attribute"
     },
     {
-      "file": "src/components/Portfolio.tsx",
-      "line": 397,
-      "text": "alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}",
-      "type": "attribute"
+      "file": "src/components/Pricing.tsx",
+      "line": 42,
+      "text": "tagline: t('pricing.plan_basic_tagline') || 'مناسبة للأنشطة الصغيرة',",
+      "type": "UI ظاهر"
     },
     {
       "file": "src/components/Pricing.tsx",
-      "line": 168,
+      "line": 55,
+      "text": "tagline: t('pricing.plan_pro_tagline') || 'الأكثر طلباً',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Pricing.tsx",
+      "line": 71,
+      "text": "tagline: t('pricing.plan_ecommerce_tagline') || 'ابدأ تبيع أونلاين',",
+      "type": "UI ظاهر"
+    },
+    {
+      "file": "src/components/Pricing.tsx",
+      "line": 217,
       "text": "href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name} (${billingCycle === 'monthly' ? 'نظام شهري' : 'دفع لمرة واحدة'})`)}",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/QuoteWizard.tsx",
-      "line": 34,
-      "text": "{ id: 'restaurant', labelKey: 'act_restaurant', icon: Utensils, basePackage: 'احترافية', basePrice: 4500 },",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 35,
-      "text": "{ id: 'store', labelKey: 'act_store', icon: ShoppingBag, basePackage: 'متجر إلكتروني', basePrice: 6500 },",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 36,
-      "text": "{ id: 'clinic', labelKey: 'act_clinic', icon: Stethoscope, basePackage: 'احترافية', basePrice: 4000 },",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 37,
-      "text": "{ id: 'corporate', labelKey: 'act_corporate', icon: Building2, basePackage: 'احترافية', basePrice: 3500 },",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 38,
-      "text": "{ id: 'law', labelKey: 'act_law', icon: Scale, basePackage: 'أساسية', basePrice: 3000 },",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 39,
-      "text": "{ id: 'custom', labelKey: 'act_custom', icon: Sparkles, basePackage: 'مخصص', basePrice: 3500 },",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 114,
+      "line": 149,
       "text": ".join('، ');",
       "type": "UI ظاهر"
     },
     {
       "file": "src/components/QuoteWizard.tsx",
-      "line": 119,
-      "text": "return `مرحباً كليك زون 👋",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 120,
-      "text": "عايز استفسر عن عرض موقع لنشاطي بناءً على حاسبة الموقع:",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 121,
-      "text": "- نوع النشاط: ${actLabel}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 122,
-      "text": "- اسم النشاط: ${state.businessName || 'قيد الإنشاء'}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 123,
-      "text": "- المميزات المطلوبة: ${featureLabels || 'الأساسية'}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 124,
-      "text": "- التوقيت: ${timelineLabel}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 125,
-      "text": "- التقدير المقترح: حوالي ${estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} ${t('quote_wizard.currency')}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 126,
-      "text": "- الاسم: ${state.name}",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 127,
-      "text": "- الهاتف: ${state.phone}`;",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 147,
-      "text": ".join('، ');",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 154,
-      "text": "name: state.name.trim() || 'عميل حاسبة الأسعار',",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 156,
-      "text": "business_type: `${actLabel} (${state.businessName || 'بدون اسم'})`,",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 158,
+      "line": 160,
       "text": "message_text: `المميزات: ${featureLabels} | التوقيت: ${timelineLabel} | التقدير: ${estimatedPrice} ${t('quote_wizard.currency')}`,",
       "type": "UI ظاهر"
     },
     {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 241,
-      "text": "<p className=\"text-navy-300 text-sm mb-6\">اختر الأقرب لطبيعة عملك لنحدد الهيكل الأمثل للموقع.</p>",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 292,
-      "text": "<p className=\"text-navy-300 text-sm mb-6\">يمكنك اختيار أكثر من ميزة، وسنضيفها لهيكل موقعك.</p>",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 346,
-      "text": "<p className=\"text-navy-300 text-sm mb-6\">الديمو المجاني دائماً يجهز لك خلال 24 إلى 72 ساعة كحد أقصى.</p>",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 414,
-      "text": "<span>متابعة تفاصيل الطلب على واتساب فوراً</span>",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/QuoteWizard.tsx",
-      "line": 434,
-      "text": "<div className=\"text-[11px] text-navy-400\">* شامل الدومين، الاستضافة، والدعم الفني</div>",
-      "type": "UI ظاهر"
-    },
-    {
       "file": "src/components/Seo.tsx",
-      "line": 13,
+      "line": 14,
       "text": "const DEFAULT_TITLE = 'Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية';",
       "type": "attribute"
     },
     {
       "file": "src/components/Seo.tsx",
-      "line": 15,
+      "line": 16,
       "text": "'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة والدقهلية وكل مصر. ديمو مجاني بدون التزام، تسليم سريع، ودعم فني مستمر.';",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/components/StickyMiniCta.tsx",
-      "line": 83,
-      "text": "href={waLinkIntl(cfg.phoneIntl, 'مرحباً كليك زون، عايز أطلب ديمو مجاني لنشاطي')}",
       "type": "UI ظاهر"
     },
     {
@@ -3592,241 +3340,223 @@
     },
     {
       "file": "src/pages/CaseStudy.tsx",
-      "line": 145,
-      "text": "تعرّف على كيف حوّلنا التحديات التقنية والتسويقية إلى قصة نجاح ملموسة بالأرقام والنتائج.",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/pages/CaseStudy.tsx",
-      "line": 165,
-      "text": "<span>معاينة الموقع الحي</span>",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/pages/CaseStudy.tsx",
-      "line": 175,
-      "text": "<span>النتائج القياسية بالأرقام</span>",
-      "type": "UI ظاهر"
-    },
-    {
-      "file": "src/pages/CaseStudy.tsx",
-      "line": 197,
+      "line": 195,
       "text": "<span>التحدي قبل التطوير</span>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CaseStudy.tsx",
-      "line": 215,
+      "line": 213,
       "text": "<span>الحل الذكي من كليك زون</span>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CaseStudy.tsx",
-      "line": 253,
+      "line": 251,
       "text": "جاهز لتحقيق نفس النجاح لنشاطك التجاري؟",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CaseStudy.tsx",
-      "line": 256,
+      "line": 254,
       "text": "احصل على نموذج ديمو تجريبي لموقع نشاطك خلال 48 ساعة مجاناً وبدون أي التزام مالي.",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CaseStudy.tsx",
-      "line": 260,
+      "line": 258,
       "text": "احسب تكلفة موقعك واطلب الديمو",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CaseStudy.tsx",
-      "line": 263,
+      "line": 261,
       "text": "href={waLink(`مرحباً كليك زون، اطلعت على دراسة حالة ${study.client} وحابب أعمل موقع لنشاطي`)}",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CaseStudy.tsx",
-      "line": 268,
+      "line": 266,
       "text": "تحدث مع مستشارنا عبر واتساب",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 9,
+      "line": 10,
       "text": "new: 'جديد',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 10,
+      "line": 11,
       "text": "contacted: 'تم التواصل',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 11,
+      "line": 12,
       "text": "delivered: 'تم التسليم',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 12,
+      "line": 13,
       "text": "rejected: 'مرفوض',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 23,
+      "line": 25,
       "text": "useNoIndex('حسابي | Click Zoon');",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 80,
+      "line": 82,
       "text": "setSaveError('فشل حفظ التغييرات. حاول مرة أخرى.');",
       "type": "validation"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 83,
+      "line": 85,
       "text": "setSavedMsg('تم حفظ التغييرات بنجاح');",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 92,
+      "line": 94,
       "text": "setPwdError('كلمة المرور الجديدة لازم تكون 12 حرف على الأقل');",
       "type": "validation"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 96,
+      "line": 98,
       "text": "setPwdError('كلمة المرور وتأكيدها غير متطابقين');",
       "type": "validation"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 103,
+      "line": 105,
       "text": "setPwdError('فشل تغيير كلمة المرور. حاول مرة أخرى.');",
       "type": "validation"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 106,
+      "line": 108,
       "text": "setPwdMsg('تم تغيير كلمة المرور بنجاح');",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 136,
+      "line": 138,
       "text": "<h1 className=\"text-2xl font-bold mb-1\">حسابي</h1>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 142,
+      "line": 144,
       "text": "طلباتي",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 145,
+      "line": 147,
       "text": "تسجيل خروج",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 153,
+      "line": 155,
       "text": "<h2 className=\"text-lg font-bold mb-4\">بياناتي</h2>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 158,
+      "line": 160,
       "text": "الاسم",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 171,
+      "line": 173,
       "text": "البريد الإلكتروني",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 184,
+      "line": 186,
       "text": "رقم الموبايل",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 213,
+      "line": 215,
       "text": "{saving ? 'جارٍ الحفظ...' : 'حفظ التغييرات'}",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 220,
+      "line": 222,
       "text": "<h2 className=\"text-lg font-bold mb-4\">تغيير كلمة المرور</h2>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 225,
+      "line": 227,
       "text": "كلمة المرور الجديدة",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 233,
+      "line": 235,
       "text": "placeholder=\"12 حرف على الأقل\"",
       "type": "attribute"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 245,
+      "line": 247,
       "text": "<p className=\"text-navy-500 text-xs mt-1.5\">لازم 12 حرف على الأقل</p>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 250,
+      "line": 252,
       "text": "تأكيد كلمة المرور",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 280,
+      "line": 282,
       "text": "{pwdLoading ? 'جارٍ التغيير...' : 'تغيير كلمة المرور'}",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 288,
+      "line": 290,
       "text": "<h2 className=\"text-lg font-bold\">آخر الطلبات</h2>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 290,
+      "line": 292,
       "text": "عرض الكل",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 295,
+      "line": 297,
       "text": "<p className=\"text-navy-400 text-sm\">جارٍ التحميل...</p>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 297,
+      "line": 299,
       "text": "<p className=\"text-navy-400 text-sm\">لا توجد طلبات حتى الآن</p>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerAccount.tsx",
-      "line": 321,
+      "line": 323,
       "text": "العودة للموقع",
       "type": "UI ظاهر"
     },
@@ -4048,79 +3778,79 @@
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 9,
+      "line": 10,
       "text": "new: 'جديد',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 10,
+      "line": 11,
       "text": "contacted: 'تم التواصل',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 11,
+      "line": 12,
       "text": "delivered: 'تم التسليم',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 12,
+      "line": 13,
       "text": "rejected: 'مرفوض',",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 33,
+      "line": 35,
       "text": "useNoIndex('طلباتي | Click Zoon');",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 72,
+      "line": 74,
       "text": "<h1 className=\"text-2xl font-bold\">طلباتي</h1>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 75,
+      "line": 77,
       "text": "حسابي",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 82,
+      "line": 84,
       "text": "<p className=\"text-navy-400 mb-4\">لا توجد طلبات حتى الآن</p>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 84,
+      "line": 86,
       "text": "اطلب ديمو مجاني",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 104,
+      "line": 106,
       "text": "<span className=\"text-navy-500 text-xs\">الاسم:</span>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 108,
+      "line": 110,
       "text": "<span className=\"text-navy-500 text-xs\">الهاتف:</span>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 113,
+      "line": 115,
       "text": "<span className=\"text-navy-500 text-xs\">الرابط:</span>",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/CustomerRequests.tsx",
-      "line": 128,
+      "line": 130,
       "text": "العودة للموقع",
       "type": "UI ظاهر"
     },
@@ -4301,37 +4031,19 @@
     {
       "file": "src/pages/Showcase.tsx",
       "line": 47,
-      "text": "title=\"معرض الأعمال: مواقع وبرامج جاهزة\"",
+      "text": "title={t('showcase.meta_title') || 'معرض الأعمال: مواقع وبرامج جاهزة'}",
       "type": "attribute"
     },
     {
       "file": "src/pages/Showcase.tsx",
       "line": 48,
-      "text": "description=\"تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط واطلب نموذج مماثل لنشاطك.\"",
+      "text": "description={t('showcase.meta_desc') || 'تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط واطلب نموذج مماثل لنشاطك.'}",
       "type": "UI ظاهر"
     },
     {
       "file": "src/pages/Showcase.tsx",
       "line": 65,
       "text": "<div className=\"flex gap-2 overflow-x-auto pb-2 mb-8\" role=\"tablist\" aria-label=\"تصفية الأعمال\">",
-      "type": "attribute"
-    },
-    {
-      "file": "src/pages/ShowcaseApp.tsx",
-      "line": 88,
-      "text": "<section aria-label=\"صور المشروع\" className=\"mb-10\">",
-      "type": "attribute"
-    },
-    {
-      "file": "src/pages/ShowcaseApp.tsx",
-      "line": 96,
-      "text": "aria-label={`تكبير الصورة ${i + 1}`}",
-      "type": "attribute"
-    },
-    {
-      "file": "src/pages/ShowcaseApp.tsx",
-      "line": 100,
-      "text": "alt={`${item.title}: صورة ${i + 1}`}",
       "type": "attribute"
     },
     {

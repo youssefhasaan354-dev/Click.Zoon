@@ -1,14 +1,14 @@
 # تقرير جرد النصوص العربية والتنسيقات الإقليمية (Phase 1 Inventory Report)
 
-إجمالي الأسطر التي تحتوي على حروف عربية خارج `src/i18n/`: **733** سطر.
-إجمالي استدعاءات التنسيق المثبتة على ar/ar-EG: **8** استدعاء.
+إجمالي الأسطر التي تحتوي على حروف عربية خارج `src/i18n/`: **688** سطر.
+إجمالي استدعاءات التنسيق المثبتة على ar/ar-EG: **5** استدعاء.
 
 ## 1. التوزيع حسب النوع (Breakdown by Type)
 
 | نوع النص | العدد | الوصف |
 |---|---|---|
-| **UI ظاهر** | 536 | نصوص JSX مباشرة، أزرار، عناوين، نصوص الـ Wizard، الباقات |
-| **attribute** | 84 | placeholder, aria-label, title, alt |
+| **UI ظاهر** | 499 | نصوص JSX مباشرة، أزرار، عناوين، نصوص الـ Wizard، الباقات |
+| **attribute** | 76 | placeholder, aria-label, title, alt |
 | **validation** | 57 | رسائل تحقق الحقول، تنبيهات Toast، رسائل الأخطاء |
 | **data-from-DB** | 51 | بيانات احتياطية/افتراضية مطابقة لجداول قاعدة البيانات |
 | **ثابت مقصود** | 0 | ثوابت كاسم البراند أو الهوية |
@@ -22,10 +22,7 @@
 | `src/admin/panels/AdminDashboard.tsx` | 47 | `const dateStr = d.toLocaleDateString('ar-EG', { month: 'numeric', day: 'numeric' });` |
 | `src/admin/panels/AdminRequests.tsx` | 63 | `new Date(r.created_at).toLocaleString('ar-EG'),` |
 | `src/admin/panels/AdminRequests.tsx` | 249 | `{new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}` |
-| `src/components/QuoteWizard.tsx` | 125 | `- التقدير المقترح: حوالي ${estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} ${t('quote_wizard.currency')}` |
-| `src/components/QuoteWizard.tsx` | 432 | `{estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} {t('quote_wizard.currency')}` |
-| `src/pages/CustomerAccount.tsx` | 305 | `{new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}` |
-| `src/pages/CustomerRequests.tsx` | 95 | `{new Date(req.created_at).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}` |
+| `src/components/QuoteWizard.tsx` | 434 | `{estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar-EG')} {t('quote_wizard.currency')}` |
 
 ## 3. جرد نصوص Supabase المعروضة للزائر (Supabase Tables & Columns Audit)
 
@@ -48,15 +45,14 @@
 |---|---|
 | `src/components/MockupsSection.tsx` | 83 |
 | `src/admin/panels/AdminRequests.tsx` | 46 |
-| `src/pages/CaseStudy.tsx` | 43 |
 | `src/admin/panels/AdminPortfolio.tsx` | 40 |
+| `src/pages/CaseStudy.tsx` | 40 |
 | `src/pages/CustomerAuth.tsx` | 36 |
 | `src/admin/panels/AdminSettings.tsx` | 35 |
 | `src/pages/CustomerAccount.tsx` | 30 |
 | `src/lib/showcase.ts` | 28 |
 | `src/admin/panels/AdminBackup.tsx` | 26 |
 | `src/pages/ResetPassword.tsx` | 26 |
-| `src/components/QuoteWizard.tsx` | 25 |
 | `src/siteConfig.ts` | 25 |
 | `src/admin/AdminLayout.tsx` | 21 |
 | `src/admin/panels/AdminTestimonials.tsx` | 18 |
@@ -68,9 +64,10 @@
 | `src/admin/panels/AdminHero.tsx` | 13 |
 | `src/pages/CustomerRequests.tsx` | 13 |
 | `src/components/Hero.tsx` | 11 |
-| `src/components/Portfolio.tsx` | 11 |
 | `src/components/TestimonialsSection.tsx` | 10 |
 | `src/admin/panels/TextItemsPanel.tsx` | 9 |
+| `src/admin/panels/AdminFaqs.tsx` | 8 |
+| `src/components/ClientLogosMarquee.tsx` | 8 |
 
 ## 5. الجدول الكامل للنصوص المكتشفة
 
@@ -377,435 +374,390 @@
 | 299 | `src/App.tsx` | 64 | **UI ظاهر** | `{ question: 'كم مدة التسليم النهائي للموقع؟', answer: 'التسليم النهائي من 3 أيام إلى أسبوع` |
 | 300 | `src/App.tsx` | 65 | **UI ظاهر** | `{ question: 'هل في أي التزام قبل ما أشوف الديمو؟', answer: 'لا، بدون أي التزام. الديمو مجا` |
 | 301 | `src/App.tsx` | 66 | **UI ظاهر** | `{ question: 'من يملك الدومين والاستضافة؟', answer: 'أنت بتملك الدومين والاستضافة باسمك بال` |
-| 302 | `src/components/AboutUs.tsx` | 59 | **attribute** | `alt={cfg.aboutTitle ? `صورة عن وكالة كليك زون - ${cfg.aboutTitle}` : 'عن وكالة كليك زون لت` |
-| 303 | `src/components/ClientLogosMarquee.tsx` | 12 | **UI ظاهر** | `{ id: '1', name: 'Delano Café & Bistro', category: 'مطاعم وكافيهات', icon: Coffee },` |
-| 304 | `src/components/ClientLogosMarquee.tsx` | 13 | **UI ظاهر** | `{ id: '2', name: 'Elite Specialty Clinics', category: 'عيادات ومراكز طبية', icon: Stethosc` |
-| 305 | `src/components/ClientLogosMarquee.tsx` | 14 | **UI ظاهر** | `{ id: '3', name: 'Al-Mustashar Law Group', category: 'مكاتب محاماة واستشارات', icon: Scale` |
-| 306 | `src/components/ClientLogosMarquee.tsx` | 15 | **UI ظاهر** | `{ id: '4', name: 'Orchid Luxury Boutique', category: 'متاجر إلكترونية راقية', icon: Sparkl` |
-| 307 | `src/components/ClientLogosMarquee.tsx` | 16 | **UI ظاهر** | `{ id: '5', name: 'City Home Real Estate', category: 'شركات واستثمار عقاري', icon: Building` |
-| 308 | `src/components/ClientLogosMarquee.tsx` | 17 | **UI ظاهر** | `{ id: '6', name: 'SuperFresh Gourmet', category: 'أغذية وسوبرماركت', icon: ShoppingBag },` |
-| 309 | `src/components/ClientLogosMarquee.tsx` | 27 | **attribute** | `aria-label="شركاء النجاح والأنشطة التي نخدمها"` |
-| 310 | `src/components/ClientLogosMarquee.tsx` | 31 | **UI ظاهر** | `نُصمّم ونطوّر حضوراً رقمياً فائق التميز لأكثر من 50+ نشاط تجاري في مصر والعالم العربي` |
-| 311 | `src/components/Contact.tsx` | 77 | **UI ظاهر** | `? `نوع النشاط: ${trimmedBusiness}`` |
-| 312 | `src/components/Contact.tsx` | 78 | **UI ظاهر** | `: 'نوع النشاط: غير محدد';` |
-| 313 | `src/components/Contact.tsx` | 79 | **UI ظاهر** | `const msg = `السلام عليكم، أنا ${trimmedName}` |
-| 314 | `src/components/Contact.tsx` | 80 | **UI ظاهر** | `رقم الهاتف: ${cleanedPhone}` |
-| 315 | `src/components/Contact.tsx` | 82 | **UI ظاهر** | `رابط الصفحة: ${trimmedUrl}` : ''}` |
-| 316 | `src/components/Contact.tsx` | 83 | **UI ظاهر** | `عايز أطلب ديمو مجاني لموقع نشاطي.`;` |
-| 317 | `src/components/ExitIntentModal.tsx` | 77 | **UI ظاهر** | `name: name.trim() \|\| 'عميل نافذة الخروج',` |
-| 318 | `src/components/ExitIntentModal.tsx` | 79 | **UI ظاهر** | `business_type: businessType.trim() \|\| 'غير محدد (عرض الخروج)',` |
-| 319 | `src/components/ExitIntentModal.tsx` | 97 | **UI ظاهر** | `const msg = `مرحباً كليك زون 👋` |
-| 320 | `src/components/ExitIntentModal.tsx` | 98 | **UI ظاهر** | `عايز استفسر عن الديمو المجاني لنشاطي (${businessType \|\| 'نشاط جديد'})`;` |
-| 321 | `src/components/Footer.tsx` | 99 | **UI ظاهر** | `copyToClipboard(cfg.phone, 'رقم الهاتف');` |
-| 322 | `src/components/Footer.tsx` | 112 | **UI ظاهر** | `copyToClipboard(cfg.email, 'البريد الإلكتروني');` |
-| 323 | `src/components/Header.tsx` | 164 | **attribute** | `<nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="التنقل الرئيسي">` |
-| 324 | `src/components/Header.tsx` | 348 | **UI ظاهر** | `{t('common.welcome')}، <span className="text-gold-300 font-bold">{displayName}</span>` |
-| 325 | `src/components/Hero.tsx` | 25 | **UI ظاهر** | `: ['مطعمك', 'كافيهك', 'محلك', 'شركتك', 'مشروعك'];` |
-| 326 | `src/components/Hero.tsx` | 70 | **UI ظاهر** | `const currentWord = words[wordIdx] \|\| words[0] \|\| 'مشروعك';` |
-| 327 | `src/components/Hero.tsx` | 75 | **UI ظاهر** | `const badgeText = language === 'en' ? t('hero.badge') : (hero?.badge_text ?? 'تصميم وتطوير` |
-| 328 | `src/components/Hero.tsx` | 76 | **UI ظاهر** | `const line1 = language === 'en' ? t('hero.title_prefix') : (hero?.headline_line1 ?? 'خلّي ` |
-| 329 | `src/components/Hero.tsx` | 77 | **UI ظاهر** | `const line2 = language === 'en' ? t('hero.title_highlight') : (hero?.headline_line2 ?? 'أو` |
-| 330 | `src/components/Hero.tsx` | 78 | **attribute** | `const subtitle = language === 'en' ? t('hero.description') : (hero?.subtitle ?? 'في Click ` |
-| 331 | `src/components/Hero.tsx` | 79 | **UI ظاهر** | `const ctaPrimary = language === 'en' ? t('hero.cta_primary') : (hero?.cta_primary ?? 'اطلب` |
-| 332 | `src/components/Hero.tsx` | 80 | **UI ظاهر** | `const ctaSecondary = language === 'en' ? t('hero.cta_secondary') : (hero?.cta_secondary ??` |
-| 333 | `src/components/Hero.tsx` | 140 | **UI ظاهر** | `<div className="text-xs text-navy-300">{language === 'en' ? 'Completed Order' : 'طلب جديد ` |
-| 334 | `src/components/Hero.tsx` | 141 | **UI ظاهر** | `<div className="text-sm font-bold text-navy-50 notranslate" translate="no">{language === '` |
-| 335 | `src/components/Hero.tsx` | 156 | **UI ظاهر** | `<div className="text-xs text-navy-300">{language === 'en' ? 'Load Speed' : 'سرعة التحميل'}` |
-| 336 | `src/components/LanguageSwitcher.tsx` | 84 | **UI ظاهر** | `<span className="uppercase font-bold tracking-wider">{language === 'ar' ? 'العربية' : 'EN'` |
-| 337 | `src/components/LanguageSwitcher.tsx` | 115 | **UI ظاهر** | `<span>العربية</span>` |
-| 338 | `src/components/LanguageSwitcher.tsx` | 133 | **UI ظاهر** | `<span className="text-[11px] text-navy-400 font-normal">(الإنجليزية)</span>` |
-| 339 | `src/components/MockupsSection.tsx` | 73 | **attribute** | `title: 'قصر الريم للمشويات',` |
-| 340 | `src/components/MockupsSection.tsx` | 74 | **UI ظاهر** | `category: 'موقع وتطبيق مطعم ومشويات',` |
-| 341 | `src/components/MockupsSection.tsx` | 84 | **UI ظاهر** | `logoText: 'قصر الريم',` |
-| 342 | `src/components/MockupsSection.tsx` | 85 | **UI ظاهر** | `logoSub: 'مشويات & مأكولات شرقية',` |
-| 343 | `src/components/MockupsSection.tsx` | 86 | **UI ظاهر** | `statusBadge: 'مفتوح للطلب',` |
-| 344 | `src/components/MockupsSection.tsx` | 90 | **UI ظاهر** | `badge: '🔥 خصم 20% على أول طلب أونلاين',` |
-| 345 | `src/components/MockupsSection.tsx` | 91 | **UI ظاهر** | `headline: 'طعم المشويات الأصيل يوصلك سخن لحد باب بيتك',` |
-| 346 | `src/components/MockupsSection.tsx` | 92 | **UI ظاهر** | `subheadline: 'أشهى المشويات الحلبية على الفحم بتتبيلة سرية وتوصيل حراري فائق السرعة.',` |
-| 347 | `src/components/MockupsSection.tsx` | 93 | **UI ظاهر** | `ctaText: 'اطلب وجبتك الآن',` |
-| 348 | `src/components/MockupsSection.tsx` | 97 | **attribute** | `title: 'صينية الريم الملكية',` |
-| 349 | `src/components/MockupsSection.tsx` | 98 | **UI ظاهر** | `desc: 'كيلو كباب وكفتة مع ريش ضاني وأرز بسمتي ومقبلات حارة',` |
-| 350 | `src/components/MockupsSection.tsx` | 99 | **UI ظاهر** | `meta: '٤٢٠ ج.م',` |
-| 351 | `src/components/MockupsSection.tsx` | 100 | **UI ظاهر** | `tag: 'الأكثر طلباً ⭐ 4.9',` |
-| 352 | `src/components/MockupsSection.tsx` | 104 | **attribute** | `title: 'توصيل حراري فائق السرعة',` |
-| 353 | `src/components/MockupsSection.tsx` | 105 | **UI ظاهر** | `desc: 'تغليف ثلاثي محكم يحافظ على حرارة وطراوة المشويات خلال 35 دقيقة',` |
-| 354 | `src/components/MockupsSection.tsx` | 106 | **UI ظاهر** | `meta: 'توصيل مجاني',` |
-| 355 | `src/components/MockupsSection.tsx` | 107 | **UI ظاهر** | `tag: 'سريع',` |
-| 356 | `src/components/MockupsSection.tsx` | 111 | **attribute** | `title: 'حجز صالات VIP وعزائم',` |
-| 357 | `src/components/MockupsSection.tsx` | 112 | **UI ظاهر** | `desc: 'صالات عائلية خاصة ومجهزة بأرقى مستوى خدمة وضيافة',` |
-| 358 | `src/components/MockupsSection.tsx` | 113 | **UI ظاهر** | `meta: 'تأكيد فوري',` |
-| 359 | `src/components/MockupsSection.tsx` | 114 | **UI ظاهر** | `tag: 'صالات فاخرة',` |
-| 360 | `src/components/MockupsSection.tsx` | 122 | **attribute** | `title: 'روست كافيه & كوفي بار',` |
-| 361 | `src/components/MockupsSection.tsx` | 123 | **UI ظاهر** | `category: 'كافيه وسبيشالتي كوفي',` |
-| 362 | `src/components/MockupsSection.tsx` | 133 | **UI ظاهر** | `logoText: 'روست كافيه',` |
-| 363 | `src/components/MockupsSection.tsx` | 135 | **UI ظاهر** | `statusBadge: 'بن محمص اليوم',` |
-| 364 | `src/components/MockupsSection.tsx` | 139 | **UI ظاهر** | `badge: '☕ تجربة القهوة المختصة V60 & Flat White',` |
-| 365 | `src/components/MockupsSection.tsx` | 140 | **UI ظاهر** | `headline: 'قهوتك الموزونة بمزاج عالي، محمصة بعناية يومياً',` |
-| 366 | `src/components/MockupsSection.tsx` | 141 | **UI ظاهر** | `subheadline: 'محاصيل مختصة فردية المصدر وحلويات فرنسية طازجة في أجواء هادئة وراقية.',` |
-| 367 | `src/components/MockupsSection.tsx` | 142 | **UI ظاهر** | `ctaText: 'استكشف قائمة المشروبات',` |
-| 368 | `src/components/MockupsSection.tsx` | 146 | **attribute** | `title: 'بن سلفادور وكولومبيا V60',` |
-| 369 | `src/components/MockupsSection.tsx` | 147 | **UI ظاهر** | `desc: 'إيحاءات فواكه استوائية وشوكولاتة بحموضة متوازنة ومذاق مخملي',` |
-| 370 | `src/components/MockupsSection.tsx` | 148 | **UI ظاهر** | `meta: '٨٥ ج.م',` |
-| 371 | `src/components/MockupsSection.tsx` | 149 | **UI ظاهر** | `tag: 'محصول مميز ⭐ 4.9',` |
-| 372 | `src/components/MockupsSection.tsx` | 153 | **attribute** | `title: 'كرواسون ومخبوزات فرنسية',` |
-| 373 | `src/components/MockupsSection.tsx` | 154 | **UI ظاهر** | `desc: 'مخبوزات طازجة بالزبدة الطبيعية تُخبز يومياً في معملنا الخاص',` |
-| 374 | `src/components/MockupsSection.tsx` | 155 | **UI ظاهر** | `meta: 'طازج صباحاً',` |
-| 375 | `src/components/MockupsSection.tsx` | 156 | **UI ظاهر** | `tag: 'مخبوز اليوم',` |
-| 376 | `src/components/MockupsSection.tsx` | 160 | **attribute** | `title: 'اشتراك بوكس القهوة المنزلي',` |
-| 377 | `src/components/MockupsSection.tsx` | 161 | **UI ظاهر** | `desc: 'محاصيل مختارة تصلك أسبوعياً مع بطاقات وصفات التحضير المنزلية',` |
-| 378 | `src/components/MockupsSection.tsx` | 162 | **UI ظاهر** | `meta: 'شحن أسبوعي',` |
-| 379 | `src/components/MockupsSection.tsx` | 163 | **UI ظاهر** | `tag: 'وفر 25%',` |
-| 380 | `src/components/MockupsSection.tsx` | 171 | **attribute** | `title: 'متجر مودانيستا فاشون',` |
-| 381 | `src/components/MockupsSection.tsx` | 172 | **UI ظاهر** | `category: 'متجر إلكتروني متكامل للأزياء',` |
-| 382 | `src/components/MockupsSection.tsx` | 182 | **UI ظاهر** | `logoText: 'مودانيستا',` |
-| 383 | `src/components/MockupsSection.tsx` | 184 | **UI ظاهر** | `statusBadge: 'شحن فوري',` |
-| 384 | `src/components/MockupsSection.tsx` | 188 | **UI ظاهر** | `badge: '✨ كولكشن الشتاء 2026 الحصري',` |
-| 385 | `src/components/MockupsSection.tsx` | 189 | **UI ظاهر** | `headline: 'أحدث صيحات الموضة والأناقة بتصاميم راقية وخامات أصلية',` |
-| 386 | `src/components/MockupsSection.tsx` | 190 | **UI ظاهر** | `subheadline: 'تسوقي أرقى الإطلالات العصرية مع استبدال مجاني وتوصيل سريع حتى باب المنزل.',` |
-| 387 | `src/components/MockupsSection.tsx` | 191 | **UI ظاهر** | `ctaText: 'تسوقي الكولكشن الجديد',` |
-| 388 | `src/components/MockupsSection.tsx` | 195 | **attribute** | `title: 'معطف صوف كشمير طويل',` |
-| 389 | `src/components/MockupsSection.tsx` | 196 | **UI ظاهر** | `desc: 'قصة راقية بخامات شتوية دافئة وتطريز يدوي متقن بألوان الموسم',` |
-| 390 | `src/components/MockupsSection.tsx` | 197 | **UI ظاهر** | `meta: '١,٢٥٠ ج.م',` |
-| 391 | `src/components/MockupsSection.tsx` | 198 | **UI ظاهر** | `tag: 'تريند الأسبوع ⭐ 4.9',` |
-| 392 | `src/components/MockupsSection.tsx` | 202 | **attribute** | `title: 'حقائب جلد طبيعي كلاسيك',` |
-| 393 | `src/components/MockupsSection.tsx` | 203 | **UI ظاهر** | `desc: 'تصميم إيطالي أنيق متعدد الاستخدامات بضمان عام كامل',` |
-| 394 | `src/components/MockupsSection.tsx` | 204 | **UI ظاهر** | `meta: '٦٨٠ ج.م',` |
-| 395 | `src/components/MockupsSection.tsx` | 205 | **UI ظاهر** | `tag: 'خامة أصلية',` |
-| 396 | `src/components/MockupsSection.tsx` | 209 | **attribute** | `title: 'دفع عند الاستلام واستبدال',` |
-| 397 | `src/components/MockupsSection.tsx` | 210 | **UI ظاهر** | `desc: 'معاينة كاملة قبل الاستلام وخيارات تقسيط مرنة بدون فوائد',` |
-| 398 | `src/components/MockupsSection.tsx` | 211 | **UI ظاهر** | `meta: 'استبدال 14 يوم',` |
-| 399 | `src/components/MockupsSection.tsx` | 212 | **UI ظاهر** | `tag: 'تسوق آمن 100%',` |
-| 400 | `src/components/MockupsSection.tsx` | 220 | **attribute** | `title: 'مركز النور الطبي التخصصي',` |
-| 401 | `src/components/MockupsSection.tsx` | 221 | **UI ظاهر** | `category: 'منصة حجز عيادات وخدمات طبية',` |
-| 402 | `src/components/MockupsSection.tsx` | 231 | **UI ظاهر** | `logoText: 'مركز النور',` |
-| 403 | `src/components/MockupsSection.tsx` | 233 | **UI ظاهر** | `statusBadge: 'طوارئ 24/7',` |
-| 404 | `src/components/MockupsSection.tsx` | 237 | **UI ظاهر** | `badge: '🩺 نخبة الاستشاريين وأحدث الأجهزة',` |
-| 405 | `src/components/MockupsSection.tsx` | 238 | **UI ظاهر** | `headline: 'صحتك وصحة عائلتك في أيدٍ أمينة برعاية طبية متكاملة',` |
-| 406 | `src/components/MockupsSection.tsx` | 239 | **UI ظاهر** | `subheadline: 'حجز مواعيد فوري في أكثر من 18 تخصصاً طبياً مع تحاليل رقمية واستشارات معتمدة.` |
-| 407 | `src/components/MockupsSection.tsx` | 240 | **UI ظاهر** | `ctaText: 'احجز موعدك الطبي الآن',` |
-| 408 | `src/components/MockupsSection.tsx` | 244 | **attribute** | `title: 'عيادة الباطنة والقلب',` |
-| 409 | `src/components/MockupsSection.tsx` | 245 | **UI ظاهر** | `desc: 'فحص شامل وتخطيط قلب ومتابعة دورية مع كبار الأطباء الاستشاريين',` |
-| 410 | `src/components/MockupsSection.tsx` | 246 | **UI ظاهر** | `meta: 'كشف ٣٥٠ ج.م',` |
-| 411 | `src/components/MockupsSection.tsx` | 247 | **UI ظاهر** | `tag: 'متاح اليوم ⭐ 4.9',` |
-| 412 | `src/components/MockupsSection.tsx` | 251 | **attribute** | `title: 'معمل تحاليل وأشعة فورية',` |
-| 413 | `src/components/MockupsSection.tsx` | 252 | **UI ظاهر** | `desc: 'أحدث أجهزة الفحص الرقمي والنتائج تصلك معتمدة عبر واتساب',` |
-| 414 | `src/components/MockupsSection.tsx` | 253 | **UI ظاهر** | `meta: 'نتائج خلال ساعتين',` |
-| 415 | `src/components/MockupsSection.tsx` | 254 | **UI ظاهر** | `tag: 'دقة 99.8%',` |
-| 416 | `src/components/MockupsSection.tsx` | 258 | **attribute** | `title: 'استشارات طبية منزلية 24/7',` |
-| 417 | `src/components/MockupsSection.tsx` | 259 | **UI ظاهر** | `desc: 'زيارات تمريضية وطبية منزلية للحالات الحرجة وكبار السن',` |
-| 418 | `src/components/MockupsSection.tsx` | 260 | **UI ظاهر** | `meta: 'تغطية فورية',` |
-| 419 | `src/components/MockupsSection.tsx` | 261 | **UI ظاهر** | `tag: 'خدمة 24 ساعة',` |
-| 420 | `src/components/MockupsSection.tsx` | 325 | **attribute** | `aria-label="قائمة الموبايل"` |
-| 421 | `src/components/MockupsSection.tsx` | 658 | **attribute** | `alt={`تصميم ${proj.title} على شاشة كمبيوتر`}` |
-| 422 | `src/components/OrderModal.tsx` | 14 | **تعليق برمجي (code comment)** | `/** "اطلب الآن" dialog — saves the lead (source = showcase) so it shows up in the admin re` |
-| 423 | `src/components/OrderModal.tsx` | 60 | **UI ظاهر** | `message_text: `${requestText} — الرابط: ${window.location.href}`,` |
-| 424 | `src/components/Portfolio.tsx` | 20 | **UI ظاهر** | `description: 'منيو إلكتروني تفاعلي QR مع نظام طلب مباشر ودفع سريع عبر واتساب بدون أي عمولا` |
-| 425 | `src/components/Portfolio.tsx` | 30 | **attribute** | `title: 'مجمع عيادات رويال التخصصية',` |
-| 426 | `src/components/Portfolio.tsx` | 32 | **UI ظاهر** | `description: 'موقع طبي متكامل مع حجز مواعيد ذكي، استعراض جداول الأطباء، وتأكيد الحجز فوريا` |
-| 427 | `src/components/Portfolio.tsx` | 42 | **attribute** | `title: 'متجر Orchid Luxury',` |
-| 428 | `src/components/Portfolio.tsx` | 44 | **UI ظاهر** | `description: 'متجر إلكتروني فخم للأزياء والعطور، مربوط مع بوابات الدفع الإلكتروني وشركات ا` |
-| 429 | `src/components/Portfolio.tsx` | 53 | **attribute** | `title: 'مطاعم ومشويات الباشا',` |
-| 430 | `src/components/Portfolio.tsx` | 55 | **UI ظاهر** | `description: 'موقع تعريفي وقائمة طعام إلكترونية مع خدمة حجز الطاولات وتوصيل الطلبات للمناز` |
-| 431 | `src/components/Portfolio.tsx` | 217 | **attribute** | `alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}` |
-| 432 | `src/components/Portfolio.tsx` | 231 | **attribute** | `aria-label={`معاينة تفاصيل ${project.title}`}` |
-| 433 | `src/components/Portfolio.tsx` | 299 | **attribute** | `aria-label={filtered[lightboxIndex].title \|\| 'معاينة المشروع'}` |
-| 434 | `src/components/Portfolio.tsx` | 397 | **attribute** | `alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاص` |
-| 435 | `src/components/Pricing.tsx` | 168 | **UI ظاهر** | `href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name} (${billingCycle === 'mo` |
-| 436 | `src/components/QuoteWizard.tsx` | 34 | **UI ظاهر** | `{ id: 'restaurant', labelKey: 'act_restaurant', icon: Utensils, basePackage: 'احترافية', b` |
-| 437 | `src/components/QuoteWizard.tsx` | 35 | **UI ظاهر** | `{ id: 'store', labelKey: 'act_store', icon: ShoppingBag, basePackage: 'متجر إلكتروني', bas` |
-| 438 | `src/components/QuoteWizard.tsx` | 36 | **UI ظاهر** | `{ id: 'clinic', labelKey: 'act_clinic', icon: Stethoscope, basePackage: 'احترافية', basePr` |
-| 439 | `src/components/QuoteWizard.tsx` | 37 | **UI ظاهر** | `{ id: 'corporate', labelKey: 'act_corporate', icon: Building2, basePackage: 'احترافية', ba` |
-| 440 | `src/components/QuoteWizard.tsx` | 38 | **UI ظاهر** | `{ id: 'law', labelKey: 'act_law', icon: Scale, basePackage: 'أساسية', basePrice: 3000 },` |
-| 441 | `src/components/QuoteWizard.tsx` | 39 | **UI ظاهر** | `{ id: 'custom', labelKey: 'act_custom', icon: Sparkles, basePackage: 'مخصص', basePrice: 35` |
-| 442 | `src/components/QuoteWizard.tsx` | 114 | **UI ظاهر** | `.join('، ');` |
-| 443 | `src/components/QuoteWizard.tsx` | 119 | **UI ظاهر** | `return `مرحباً كليك زون 👋` |
-| 444 | `src/components/QuoteWizard.tsx` | 120 | **UI ظاهر** | `عايز استفسر عن عرض موقع لنشاطي بناءً على حاسبة الموقع:` |
-| 445 | `src/components/QuoteWizard.tsx` | 121 | **UI ظاهر** | `- نوع النشاط: ${actLabel}` |
-| 446 | `src/components/QuoteWizard.tsx` | 122 | **UI ظاهر** | `- اسم النشاط: ${state.businessName \|\| 'قيد الإنشاء'}` |
-| 447 | `src/components/QuoteWizard.tsx` | 123 | **UI ظاهر** | `- المميزات المطلوبة: ${featureLabels \|\| 'الأساسية'}` |
-| 448 | `src/components/QuoteWizard.tsx` | 124 | **UI ظاهر** | `- التوقيت: ${timelineLabel}` |
-| 449 | `src/components/QuoteWizard.tsx` | 125 | **UI ظاهر** | `- التقدير المقترح: حوالي ${estimatedPrice.toLocaleString(language === 'en' ? 'en-US' : 'ar` |
-| 450 | `src/components/QuoteWizard.tsx` | 126 | **UI ظاهر** | `- الاسم: ${state.name}` |
-| 451 | `src/components/QuoteWizard.tsx` | 127 | **UI ظاهر** | `- الهاتف: ${state.phone}`;` |
-| 452 | `src/components/QuoteWizard.tsx` | 147 | **UI ظاهر** | `.join('، ');` |
-| 453 | `src/components/QuoteWizard.tsx` | 154 | **UI ظاهر** | `name: state.name.trim() \|\| 'عميل حاسبة الأسعار',` |
-| 454 | `src/components/QuoteWizard.tsx` | 156 | **UI ظاهر** | `business_type: `${actLabel} (${state.businessName \|\| 'بدون اسم'})`,` |
-| 455 | `src/components/QuoteWizard.tsx` | 158 | **UI ظاهر** | `message_text: `المميزات: ${featureLabels} \| التوقيت: ${timelineLabel} \| التقدير: ${estim` |
-| 456 | `src/components/QuoteWizard.tsx` | 241 | **UI ظاهر** | `<p className="text-navy-300 text-sm mb-6">اختر الأقرب لطبيعة عملك لنحدد الهيكل الأمثل للمو` |
-| 457 | `src/components/QuoteWizard.tsx` | 292 | **UI ظاهر** | `<p className="text-navy-300 text-sm mb-6">يمكنك اختيار أكثر من ميزة، وسنضيفها لهيكل موقعك.` |
-| 458 | `src/components/QuoteWizard.tsx` | 346 | **UI ظاهر** | `<p className="text-navy-300 text-sm mb-6">الديمو المجاني دائماً يجهز لك خلال 24 إلى 72 ساع` |
-| 459 | `src/components/QuoteWizard.tsx` | 414 | **UI ظاهر** | `<span>متابعة تفاصيل الطلب على واتساب فوراً</span>` |
-| 460 | `src/components/QuoteWizard.tsx` | 434 | **UI ظاهر** | `<div className="text-[11px] text-navy-400">* شامل الدومين، الاستضافة، والدعم الفني</div>` |
-| 461 | `src/components/Seo.tsx` | 13 | **attribute** | `const DEFAULT_TITLE = 'Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية';` |
-| 462 | `src/components/Seo.tsx` | 15 | **UI ظاهر** | `'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصور` |
-| 463 | `src/components/StickyMiniCta.tsx` | 83 | **UI ظاهر** | `href={waLinkIntl(cfg.phoneIntl, 'مرحباً كليك زون، عايز أطلب ديمو مجاني لنشاطي')}` |
-| 464 | `src/components/TestimonialsSection.tsx` | 17 | **UI ظاهر** | `name: 'د. أحمد منصور',` |
-| 465 | `src/components/TestimonialsSection.tsx` | 18 | **UI ظاهر** | `business: 'مدير مجمع عيادات رويال التخصصية',` |
-| 466 | `src/components/TestimonialsSection.tsx` | 19 | **UI ظاهر** | `text: 'كليك زون نقلوا تواجد عياداتنا لمستوى تاني خالص. نظام حجز المواعيد على واتساب وفر عل` |
-| 467 | `src/components/TestimonialsSection.tsx` | 27 | **UI ظاهر** | `name: 'م. كريم الديب',` |
-| 468 | `src/components/TestimonialsSection.tsx` | 28 | **UI ظاهر** | `business: 'مؤسس Delano Café & Bistro',` |
-| 469 | `src/components/TestimonialsSection.tsx` | 29 | **UI ظاهر** | `text: 'الديمو المجاني اللي استلمته في 48 ساعة كان مبهر ومطابق لهويتنا بالظبط. الموقع سريع ` |
-| 470 | `src/components/TestimonialsSection.tsx` | 37 | **UI ظاهر** | `name: 'أ. سارة فؤاد',` |
-| 471 | `src/components/TestimonialsSection.tsx` | 38 | **UI ظاهر** | `business: 'مؤسسة متجر Orchid Luxury',` |
-| 472 | `src/components/TestimonialsSection.tsx` | 39 | **UI ظاهر** | `text: 'أفضل تجربة تعامل مع شركة تصميم مواقع. احترافية عالية، التزام بالمواعيد، ولوحة تحكم ` |
-| 473 | `src/components/TestimonialsSection.tsx` | 257 | **attribute** | `aria-label={`التقييم ${i + 1}`}` |
-| 474 | `src/lib/admin-context.tsx` | 81 | **validation** | `setAuthError('تعذّر الاتصال بالخادم. تأكد من الاتصال بالإنترنت وحاول مرة أخرى.');` |
-| 475 | `src/lib/admin-context.tsx` | 147 | **validation** | `return { error: 'بيانات الدخول غير صحيحة', isAdmin: false };` |
-| 476 | `src/lib/analytics.ts` | 2 | **تعليق برمجي (code comment)** | `// تتبع الأحداث — Google Analytics` |
-| 477 | `src/lib/customer-context.tsx` | 86 | **validation** | `if (error) return { error: 'بيانات الدخول غير صحيحة' };` |
-| 478 | `src/lib/customer-context.tsx` | 101 | **validation** | `return { error: 'هذا البريد الإلكتروني مسجل بالفعل. سجّل الدخول بدلاً من ذلك.' };` |
-| 479 | `src/lib/customer-context.tsx` | 103 | **validation** | `return { error: 'كلمة المرور ضعيفة. استخدم 12 حرف على الأقل.' };` |
-| 480 | `src/lib/customer-context.tsx` | 104 | **validation** | `return { error: `تعذر إنشاء الحساب: ${error.message}` };` |
-| 481 | `src/lib/customer-context.tsx` | 127 | **validation** | `return { error: 'تعذر تسجيل الدخول بحساب جوجل. حاول مرة أخرى.' };` |
-| 482 | `src/lib/customer-context.tsx` | 133 | **validation** | `return { error: 'حدث خطأ غير متوقع أثناء تسجيل الدخول بجوجل.' };` |
-| 483 | `src/lib/demo-requests.ts` | 45 | **validation** | `let errorMessage = 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة لاحقاً.';` |
-| 484 | `src/lib/demo-requests.ts` | 61 | **validation** | `if (error.message?.includes('429') \|\| errorMessage.includes('تجاوزت الحد')) {` |
-| 485 | `src/lib/demo-requests.ts` | 77 | **validation** | `const msg = err instanceof Error ? err.message : 'فشل الاتصال بالخادم';` |
-| 486 | `src/lib/phone.ts` | 5 | **UI ظاهر** | `const ARABIC_INDIC_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];` |
-| 487 | `src/lib/phone.ts` | 8 | **تعليق برمجي (code comment)** | `* Normalizes Eastern Arabic-Indic digits (٠-٩) and Persian digits to Latin digits (0-9).` |
-| 488 | `src/lib/phone.ts` | 12 | **UI ظاهر** | `return str.replace(/[٠-٩]/g, (char) => {` |
-| 489 | `src/lib/showcase.ts` | 17 | **data-from-DB** | `website: 'موقع',` |
-| 490 | `src/lib/showcase.ts` | 18 | **data-from-DB** | `app: 'برنامج',` |
-| 491 | `src/lib/showcase.ts` | 19 | **data-from-DB** | `store: 'متجر إلكتروني',` |
-| 492 | `src/lib/showcase.ts` | 23 | **data-from-DB** | `restaurants: 'مطاعم',` |
-| 493 | `src/lib/showcase.ts` | 24 | **data-from-DB** | `cafes: 'كافيهات',` |
-| 494 | `src/lib/showcase.ts` | 25 | **data-from-DB** | `stores: 'متاجر',` |
-| 495 | `src/lib/showcase.ts` | 26 | **data-from-DB** | `medical: 'طبي',` |
-| 496 | `src/lib/showcase.ts` | 27 | **data-from-DB** | `business: 'شركات وخدمات',` |
-| 497 | `src/lib/showcase.ts` | 35 | **attribute** | `title: 'موقع مطعم',` |
-| 498 | `src/lib/showcase.ts` | 36 | **data-from-DB** | `tagline: 'منيو إلكتروني وطلب عبر واتساب',` |
-| 499 | `src/lib/showcase.ts` | 39 | **data-from-DB** | `description: 'نموذج تصميم لمطعم مع منيو إلكتروني وحجز طاولات.',` |
-| 500 | `src/lib/showcase.ts` | 41 | **data-from-DB** | `'نموذج تصميم جاهز لمطعم: منيو إلكتروني سهل التعديل، طلب مباشر عبر واتساب، حجز طاولات وخريط` |
-| 501 | `src/lib/showcase.ts` | 42 | **data-from-DB** | `features: ['منيو إلكتروني QR', 'طلب مباشر عبر واتساب', 'حجز طاولات', 'متوافق مع الموبايل']` |
-| 502 | `src/lib/showcase.ts` | 53 | **attribute** | `title: 'موقع كافيه',` |
-| 503 | `src/lib/showcase.ts` | 54 | **data-from-DB** | `tagline: 'هوية دافئة ومنيو تفاعلي',` |
-| 504 | `src/lib/showcase.ts` | 57 | **data-from-DB** | `description: 'نموذج تصميم لكافيه بمنيو تفاعلي وصور جذابة.',` |
-| 505 | `src/lib/showcase.ts` | 58 | **data-from-DB** | `long_description: 'نموذج تصميم لكافيه بصور جذابة ومنيو تفاعلي وربط مباشر مع السوشيال ميديا` |
-| 506 | `src/lib/showcase.ts` | 59 | **data-from-DB** | `features: ['منيو تفاعلي', 'معرض صور', 'ربط السوشيال ميديا', 'سرعة تحميل عالية'],` |
-| 507 | `src/lib/showcase.ts` | 70 | **attribute** | `title: 'متجر إلكتروني',` |
-| 508 | `src/lib/showcase.ts` | 71 | **data-from-DB** | `tagline: 'بيع أونلاين بدفع وشحن',` |
-| 509 | `src/lib/showcase.ts` | 74 | **data-from-DB** | `description: 'نموذج متجر إلكتروني مع سلة مشتريات وربط الدفع والشحن.',` |
-| 510 | `src/lib/showcase.ts` | 75 | **data-from-DB** | `long_description: 'نموذج متجر إلكتروني متكامل: إدارة المنتجات والطلبات، سلة مشتريات، ربط ا` |
-| 511 | `src/lib/showcase.ts` | 76 | **data-from-DB** | `features: ['سلة مشتريات', 'إدارة المنتجات والطلبات', 'ربط الدفع الإلكتروني', 'ربط شركات ال` |
-| 512 | `src/lib/showcase.ts` | 87 | **attribute** | `title: 'موقع عيادة',` |
-| 513 | `src/lib/showcase.ts` | 88 | **data-from-DB** | `tagline: 'حجز مواعيد وجداول الأطباء',` |
-| 514 | `src/lib/showcase.ts` | 91 | **data-from-DB** | `description: 'نموذج موقع طبي بحجز مواعيد وتأكيد عبر واتساب.',` |
-| 515 | `src/lib/showcase.ts` | 92 | **data-from-DB** | `long_description: 'نموذج موقع طبي: عرض الأطباء والتخصصات، حجز مواعيد، وتأكيد الحجز عبر وات` |
-| 516 | `src/lib/showcase.ts` | 93 | **data-from-DB** | `features: ['حجز مواعيد', 'ملفات الأطباء', 'تأكيد عبر واتساب', 'SEO محلي'],` |
-| 517 | `src/lib/toast-context.tsx` | 29 | **UI ظاهر** | `const copyToClipboard = useCallback(async (text: string, label = 'النص') => {` |
-| 518 | `src/lib/toast-context.tsx` | 33 | **validation** | `showToast(`تم نسخ ${label} إلى الحافظة بنجاح ✓`, 'success');` |
-| 519 | `src/lib/toast-context.tsx` | 36 | **validation** | `showToast(`تعذر النسخ التلقائي: ${text}`, 'info');` |
-| 520 | `src/main.tsx` | 50 | **UI ظاهر** | `<h1 className="text-xl font-bold text-navy-100 mb-2">عذراً، حدث خطأ غير متوقع</h1>` |
-| 521 | `src/main.tsx` | 52 | **UI ظاهر** | `نعمل على إصلاح هذا الخلل في أقرب وقت. يمكنك إعادة المحاولة الآن.` |
-| 522 | `src/main.tsx` | 61 | **UI ظاهر** | `إعادة تحميل الصفحة` |
-| 523 | `src/pages/CaseStudy.tsx` | 27 | **attribute** | `title: 'تصميم منيو إلكتروني وموقع تفاعلي لكافيه ديلانو',` |
-| 524 | `src/pages/CaseStudy.tsx` | 29 | **UI ظاهر** | `category: 'مطاعم وكافيهات',` |
-| 525 | `src/pages/CaseStudy.tsx` | 34 | **UI ظاهر** | `'الاعتماد الكامل على منيو ورقي مطبوع يصعب تحديثه عند تغير الأسعار أو الأصناف.',` |
-| 526 | `src/pages/CaseStudy.tsx` | 35 | **UI ظاهر** | `'خسارة نسبة كبيرة من طلبات الدليفري بسبب عمولات تطبيقات التوصيل التي تصل لـ 20-25%.',` |
-| 527 | `src/pages/CaseStudy.tsx` | 36 | **UI ظاهر** | `'صعوبة تصفح الأصناف وصور الأطباق عبر شاشات الموبايل في المكان.',` |
-| 528 | `src/pages/CaseStudy.tsx` | 39 | **UI ظاهر** | `'بناء منيو إلكتروني QR تفاعلي فائق السرعة يعمل فوراً بدون الحاجة لتحميل أي تطبيق.',` |
-| 529 | `src/pages/CaseStudy.tsx` | 40 | **UI ظاهر** | `'ربط نظام طلب مباشر يرسل تفاصيل الطلب والطاولة أو العنوان مباشرة عبر واتساب بدون عمولة.',` |
-| 530 | `src/pages/CaseStudy.tsx` | 41 | **UI ظاهر** | `'لوحة تحكم سهلة باللغة العربية تتيح لمدير المكان تعديل الأسعار وإخفاء الأصناف غير المتاحة ` |
-| 531 | `src/pages/CaseStudy.tsx` | 44 | **UI ظاهر** | `{ value: 180, suffix: '%', label: 'زيادة في طلبات الأونلاين المباشرة' },` |
-| 532 | `src/pages/CaseStudy.tsx` | 45 | **UI ظاهر** | `{ value: 0, suffix: '%', label: 'عمولات تطبيقات توصيل وسيطة' },` |
-| 533 | `src/pages/CaseStudy.tsx` | 46 | **UI ظاهر** | `{ value: 98, suffix: '/100', label: 'نتيجة سرعة وأداء Lighthouse' },` |
-| 534 | `src/pages/CaseStudy.tsx` | 47 | **UI ظاهر** | `{ value: 48, suffix: ' ساعة', label: 'مدة تجهيز وتسليم الديمو' },` |
-| 535 | `src/pages/CaseStudy.tsx` | 50 | **UI ظاهر** | `text: 'الموقع وفر علينا آلاف الجنيهات كانت بتروح عمولات شهرية. الزباين مبسوطة جداً من سرعة` |
-| 536 | `src/pages/CaseStudy.tsx` | 51 | **UI ظاهر** | `author: 'م. كريم الديب',` |
-| 537 | `src/pages/CaseStudy.tsx` | 52 | **UI ظاهر** | `role: 'مؤسس Delano Café',` |
-| 538 | `src/pages/CaseStudy.tsx` | 57 | **attribute** | `title: 'تطوير موقع طبي ونظام حجز مواعيد لعيادات رويال التخصصية',` |
-| 539 | `src/pages/CaseStudy.tsx` | 59 | **UI ظاهر** | `category: 'مراكز وعيادات طبية',` |
-| 540 | `src/pages/CaseStudy.tsx` | 64 | **UI ظاهر** | `'ضغط كبير على خطوط الهاتف واستقبال العيادة لتأكيد المواعيد والاستفسار عن جداول الأطباء.',` |
-| 541 | `src/pages/CaseStudy.tsx` | 65 | **UI ظاهر** | `'موقع قديم غير متجاوب مع الهواتف الذكية مع وقت تحميل يتجاوز 5 ثوانٍ.',` |
-| 542 | `src/pages/CaseStudy.tsx` | 66 | **UI ظاهر** | `'عدم ظهور العيادة في الصفحة الأولى في نتائج البحث في جوجل لخدمات الكشف التخصصي.',` |
-| 543 | `src/pages/CaseStudy.tsx` | 69 | **UI ظاهر** | `'تصميم موقع طبي راقٍ يبرز تخصصات الأطباء، السيرة الذاتية، ومواعيد العيادات بوضوح.',` |
-| 544 | `src/pages/CaseStudy.tsx` | 70 | **UI ظاهر** | `'نظام حجز مواعيد إلكتروني ذكي يحدد الطبيب والوقت المناسب ويؤكد الحجز آلياً عبر واتساب.',` |
-| 545 | `src/pages/CaseStudy.tsx` | 71 | **UI ظاهر** | `'تهيئة سيو محلية دقيقة للكلمات المفتاحية الطبية، مما جعل الموقع يتصدر نتائج البحث.',` |
-| 546 | `src/pages/CaseStudy.tsx` | 74 | **UI ظاهر** | `{ value: 145, suffix: '%', label: 'زيادة الحجوزات الطبية المؤكدة' },` |
-| 547 | `src/pages/CaseStudy.tsx` | 75 | **UI ظاهر** | `{ value: 70, suffix: '%', label: 'توفير وقت مكالمات الاستقبال' },` |
-| 548 | `src/pages/CaseStudy.tsx` | 76 | **UI ظاهر** | `{ value: 99, suffix: '/100', label: 'تقييم تجربة الموبايل (Mobile UX)' },` |
-| 549 | `src/pages/CaseStudy.tsx` | 77 | **UI ظاهر** | `{ value: 1, suffix: '#', label: 'المرتبة الأولى في نتائج البحث محلياً' },` |
-| 550 | `src/pages/CaseStudy.tsx` | 80 | **UI ظاهر** | `text: 'كليك زون حوّلوا موقعنا من مجرد صفحة إلى أهم قناة لاستقبال المرضى الجدد وتنظيم جدول ` |
-| 551 | `src/pages/CaseStudy.tsx` | 81 | **UI ظاهر** | `author: 'د. أحمد منصور',` |
-| 552 | `src/pages/CaseStudy.tsx` | 82 | **UI ظاهر** | `role: 'المدير التنفيذي لمجمع عيادات رويال',` |
-| 553 | `src/pages/CaseStudy.tsx` | 101 | **UI ظاهر** | `description: `دراسة حالة: كيف ساعدت وكالة كليك زون ${study.client} في تحقيق نمو استثنائي و` |
-| 554 | `src/pages/CaseStudy.tsx` | 114 | **attribute** | `title={`${study.title} \| دراسة حالة Click Zoon`}` |
-| 555 | `src/pages/CaseStudy.tsx` | 115 | **UI ظاهر** | `description={`قصة نجاح ${study.client}: التحديات، الحلول الرقمية، والنتائج القياسية التي ت` |
-| 556 | `src/pages/CaseStudy.tsx` | 145 | **UI ظاهر** | `تعرّف على كيف حوّلنا التحديات التقنية والتسويقية إلى قصة نجاح ملموسة بالأرقام والنتائج.` |
-| 557 | `src/pages/CaseStudy.tsx` | 165 | **UI ظاهر** | `<span>معاينة الموقع الحي</span>` |
-| 558 | `src/pages/CaseStudy.tsx` | 175 | **UI ظاهر** | `<span>النتائج القياسية بالأرقام</span>` |
-| 559 | `src/pages/CaseStudy.tsx` | 197 | **UI ظاهر** | `<span>التحدي قبل التطوير</span>` |
-| 560 | `src/pages/CaseStudy.tsx` | 215 | **UI ظاهر** | `<span>الحل الذكي من كليك زون</span>` |
-| 561 | `src/pages/CaseStudy.tsx` | 253 | **UI ظاهر** | `جاهز لتحقيق نفس النجاح لنشاطك التجاري؟` |
-| 562 | `src/pages/CaseStudy.tsx` | 256 | **UI ظاهر** | `احصل على نموذج ديمو تجريبي لموقع نشاطك خلال 48 ساعة مجاناً وبدون أي التزام مالي.` |
-| 563 | `src/pages/CaseStudy.tsx` | 260 | **UI ظاهر** | `احسب تكلفة موقعك واطلب الديمو` |
-| 564 | `src/pages/CaseStudy.tsx` | 263 | **UI ظاهر** | `href={waLink(`مرحباً كليك زون، اطلعت على دراسة حالة ${study.client} وحابب أعمل موقع لنشاطي` |
-| 565 | `src/pages/CaseStudy.tsx` | 268 | **UI ظاهر** | `تحدث مع مستشارنا عبر واتساب` |
-| 566 | `src/pages/CustomerAccount.tsx` | 9 | **UI ظاهر** | `new: 'جديد',` |
-| 567 | `src/pages/CustomerAccount.tsx` | 10 | **UI ظاهر** | `contacted: 'تم التواصل',` |
-| 568 | `src/pages/CustomerAccount.tsx` | 11 | **UI ظاهر** | `delivered: 'تم التسليم',` |
-| 569 | `src/pages/CustomerAccount.tsx` | 12 | **UI ظاهر** | `rejected: 'مرفوض',` |
-| 570 | `src/pages/CustomerAccount.tsx` | 23 | **UI ظاهر** | `useNoIndex('حسابي \| Click Zoon');` |
-| 571 | `src/pages/CustomerAccount.tsx` | 80 | **validation** | `setSaveError('فشل حفظ التغييرات. حاول مرة أخرى.');` |
-| 572 | `src/pages/CustomerAccount.tsx` | 83 | **UI ظاهر** | `setSavedMsg('تم حفظ التغييرات بنجاح');` |
-| 573 | `src/pages/CustomerAccount.tsx` | 92 | **validation** | `setPwdError('كلمة المرور الجديدة لازم تكون 12 حرف على الأقل');` |
-| 574 | `src/pages/CustomerAccount.tsx` | 96 | **validation** | `setPwdError('كلمة المرور وتأكيدها غير متطابقين');` |
-| 575 | `src/pages/CustomerAccount.tsx` | 103 | **validation** | `setPwdError('فشل تغيير كلمة المرور. حاول مرة أخرى.');` |
-| 576 | `src/pages/CustomerAccount.tsx` | 106 | **UI ظاهر** | `setPwdMsg('تم تغيير كلمة المرور بنجاح');` |
-| 577 | `src/pages/CustomerAccount.tsx` | 136 | **UI ظاهر** | `<h1 className="text-2xl font-bold mb-1">حسابي</h1>` |
-| 578 | `src/pages/CustomerAccount.tsx` | 142 | **UI ظاهر** | `طلباتي` |
-| 579 | `src/pages/CustomerAccount.tsx` | 145 | **UI ظاهر** | `تسجيل خروج` |
-| 580 | `src/pages/CustomerAccount.tsx` | 153 | **UI ظاهر** | `<h2 className="text-lg font-bold mb-4">بياناتي</h2>` |
-| 581 | `src/pages/CustomerAccount.tsx` | 158 | **UI ظاهر** | `الاسم` |
-| 582 | `src/pages/CustomerAccount.tsx` | 171 | **UI ظاهر** | `البريد الإلكتروني` |
-| 583 | `src/pages/CustomerAccount.tsx` | 184 | **UI ظاهر** | `رقم الموبايل` |
-| 584 | `src/pages/CustomerAccount.tsx` | 213 | **UI ظاهر** | `{saving ? 'جارٍ الحفظ...' : 'حفظ التغييرات'}` |
-| 585 | `src/pages/CustomerAccount.tsx` | 220 | **UI ظاهر** | `<h2 className="text-lg font-bold mb-4">تغيير كلمة المرور</h2>` |
-| 586 | `src/pages/CustomerAccount.tsx` | 225 | **UI ظاهر** | `كلمة المرور الجديدة` |
-| 587 | `src/pages/CustomerAccount.tsx` | 233 | **attribute** | `placeholder="12 حرف على الأقل"` |
-| 588 | `src/pages/CustomerAccount.tsx` | 245 | **UI ظاهر** | `<p className="text-navy-500 text-xs mt-1.5">لازم 12 حرف على الأقل</p>` |
-| 589 | `src/pages/CustomerAccount.tsx` | 250 | **UI ظاهر** | `تأكيد كلمة المرور` |
-| 590 | `src/pages/CustomerAccount.tsx` | 280 | **UI ظاهر** | `{pwdLoading ? 'جارٍ التغيير...' : 'تغيير كلمة المرور'}` |
-| 591 | `src/pages/CustomerAccount.tsx` | 288 | **UI ظاهر** | `<h2 className="text-lg font-bold">آخر الطلبات</h2>` |
-| 592 | `src/pages/CustomerAccount.tsx` | 290 | **UI ظاهر** | `عرض الكل` |
-| 593 | `src/pages/CustomerAccount.tsx` | 295 | **UI ظاهر** | `<p className="text-navy-400 text-sm">جارٍ التحميل...</p>` |
-| 594 | `src/pages/CustomerAccount.tsx` | 297 | **UI ظاهر** | `<p className="text-navy-400 text-sm">لا توجد طلبات حتى الآن</p>` |
-| 595 | `src/pages/CustomerAccount.tsx` | 321 | **UI ظاهر** | `العودة للموقع` |
-| 596 | `src/pages/CustomerAuth.tsx` | 17 | **UI ظاهر** | `useNoIndex(mode === 'signup' ? 'إنشاء حساب جديد \| Click Zoon' : 'تسجيل الدخول \| Click Zo` |
-| 597 | `src/pages/CustomerAuth.tsx` | 88 | **validation** | `setError('كلمة المرور لازم تكون 12 حرف على الأقل');` |
-| 598 | `src/pages/CustomerAuth.tsx` | 92 | **validation** | `setError('كلمة المرور وتأكيدها غير متطابقين');` |
-| 599 | `src/pages/CustomerAuth.tsx` | 96 | **validation** | `setError('رقم الموبايل غير صحيح. مثال صحيح: 01020095059');` |
-| 600 | `src/pages/CustomerAuth.tsx` | 107 | **UI ظاهر** | `setSuccess('تم إنشاء حسابك بنجاح. يمكنك تسجيل الدخول الآن.');` |
-| 601 | `src/pages/CustomerAuth.tsx` | 132 | **validation** | `setResetError('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');` |
-| 602 | `src/pages/CustomerAuth.tsx` | 134 | **validation** | `setResetError('فشل إرسال رابط إعادة التعيين. حاول مرة تانية.');` |
-| 603 | `src/pages/CustomerAuth.tsx` | 138 | **UI ظاهر** | `setResetSuccess('تم إرسال رابط إعادة تعيين كلمة المرور على بريدك الإلكتروني.');` |
-| 604 | `src/pages/CustomerAuth.tsx` | 140 | **validation** | `setResetError('حدث خطأ غير متوقع. حاول مرة تانية.');` |
-| 605 | `src/pages/CustomerAuth.tsx` | 159 | **UI ظاهر** | `{mode === 'login' ? 'تسجيل الدخول' : 'إنشاء حساب جديد'}` |
-| 606 | `src/pages/CustomerAuth.tsx` | 162 | **UI ظاهر** | `{mode === 'login' ? 'ادخل لحسابك لمتابعة طلباتك' : 'أنشئ حساب لتتبع طلبات الديمو الخاصة بك` |
-| 607 | `src/pages/CustomerAuth.tsx` | 204 | **UI ظاهر** | `<span>{googleLoading ? 'جارٍ التحويل إلى جوجل...' : 'المتابعة بحساب جوجل'}</span>` |
-| 608 | `src/pages/CustomerAuth.tsx` | 217 | **UI ظاهر** | `<span className="bg-[#121f35] px-3 text-xs text-navy-400 font-medium absolute">أو</span>` |
-| 609 | `src/pages/CustomerAuth.tsx` | 223 | **UI ظاهر** | `البريد الإلكتروني` |
-| 610 | `src/pages/CustomerAuth.tsx` | 238 | **UI ظاهر** | `كلمة المرور` |
-| 611 | `src/pages/CustomerAuth.tsx` | 262 | **UI ظاهر** | `{loading ? 'جارٍ الدخول...' : 'دخول'}` |
-| 612 | `src/pages/CustomerAuth.tsx` | 274 | **UI ظاهر** | `نسيت كلمة المرور؟` |
-| 613 | `src/pages/CustomerAuth.tsx` | 282 | **UI ظاهر** | `بريدك الإلكتروني` |
-| 614 | `src/pages/CustomerAuth.tsx` | 300 | **UI ظاهر** | `{resetLoading ? 'جارٍ الإرسال...' : 'إرسال رابط إعادة التعيين'}` |
-| 615 | `src/pages/CustomerAuth.tsx` | 316 | **UI ظاهر** | `ليس لديك حساب؟{' '}` |
-| 616 | `src/pages/CustomerAuth.tsx` | 318 | **UI ظاهر** | `إنشاء حساب` |
-| 617 | `src/pages/CustomerAuth.tsx` | 322 | **UI ظاهر** | `العودة للموقع` |
-| 618 | `src/pages/CustomerAuth.tsx` | 356 | **UI ظاهر** | `<span>{googleLoading ? 'جارٍ التحويل إلى جوجل...' : 'المتابعة بحساب جوجل'}</span>` |
-| 619 | `src/pages/CustomerAuth.tsx` | 369 | **UI ظاهر** | `<span className="bg-[#121f35] px-3 text-xs text-navy-400 font-medium absolute">أو</span>` |
-| 620 | `src/pages/CustomerAuth.tsx` | 375 | **UI ظاهر** | `الاسم الكامل` |
-| 621 | `src/pages/CustomerAuth.tsx` | 382 | **attribute** | `placeholder="اسمك الكريم"` |
-| 622 | `src/pages/CustomerAuth.tsx` | 389 | **UI ظاهر** | `البريد الإلكتروني` |
-| 623 | `src/pages/CustomerAuth.tsx` | 404 | **UI ظاهر** | `رقم الموبايل` |
-| 624 | `src/pages/CustomerAuth.tsx` | 419 | **UI ظاهر** | `كلمة المرور` |
-| 625 | `src/pages/CustomerAuth.tsx` | 427 | **attribute** | `placeholder="12 حرف على الأقل"` |
-| 626 | `src/pages/CustomerAuth.tsx` | 439 | **UI ظاهر** | `<p className="text-navy-500 text-xs mt-1.5">لازم 12 حرف على الأقل</p>` |
-| 627 | `src/pages/CustomerAuth.tsx` | 444 | **UI ظاهر** | `تأكيد كلمة المرور` |
-| 628 | `src/pages/CustomerAuth.tsx` | 468 | **UI ظاهر** | `{loading ? 'جارٍ الإنشاء...' : 'إنشاء الحساب'}` |
-| 629 | `src/pages/CustomerAuth.tsx` | 471 | **UI ظاهر** | `لديك حساب بالفعل؟{' '}` |
-| 630 | `src/pages/CustomerAuth.tsx` | 473 | **UI ظاهر** | `تسجيل الدخول` |
-| 631 | `src/pages/CustomerAuth.tsx` | 477 | **UI ظاهر** | `العودة للموقع` |
-| 632 | `src/pages/CustomerRequests.tsx` | 9 | **UI ظاهر** | `new: 'جديد',` |
-| 633 | `src/pages/CustomerRequests.tsx` | 10 | **UI ظاهر** | `contacted: 'تم التواصل',` |
-| 634 | `src/pages/CustomerRequests.tsx` | 11 | **UI ظاهر** | `delivered: 'تم التسليم',` |
-| 635 | `src/pages/CustomerRequests.tsx` | 12 | **UI ظاهر** | `rejected: 'مرفوض',` |
-| 636 | `src/pages/CustomerRequests.tsx` | 33 | **UI ظاهر** | `useNoIndex('طلباتي \| Click Zoon');` |
-| 637 | `src/pages/CustomerRequests.tsx` | 72 | **UI ظاهر** | `<h1 className="text-2xl font-bold">طلباتي</h1>` |
-| 638 | `src/pages/CustomerRequests.tsx` | 75 | **UI ظاهر** | `حسابي` |
-| 639 | `src/pages/CustomerRequests.tsx` | 82 | **UI ظاهر** | `<p className="text-navy-400 mb-4">لا توجد طلبات حتى الآن</p>` |
-| 640 | `src/pages/CustomerRequests.tsx` | 84 | **UI ظاهر** | `اطلب ديمو مجاني` |
-| 641 | `src/pages/CustomerRequests.tsx` | 104 | **UI ظاهر** | `<span className="text-navy-500 text-xs">الاسم:</span>` |
-| 642 | `src/pages/CustomerRequests.tsx` | 108 | **UI ظاهر** | `<span className="text-navy-500 text-xs">الهاتف:</span>` |
-| 643 | `src/pages/CustomerRequests.tsx` | 113 | **UI ظاهر** | `<span className="text-navy-500 text-xs">الرابط:</span>` |
-| 644 | `src/pages/CustomerRequests.tsx` | 128 | **UI ظاهر** | `العودة للموقع` |
-| 645 | `src/pages/NotFound.tsx` | 14 | **attribute** | `<Seo title="الصفحة غير موجودة (404)" noindex={true} />` |
-| 646 | `src/pages/Privacy.tsx` | 14 | **attribute** | `title="سياسة الخصوصية"` |
-| 647 | `src/pages/Privacy.tsx` | 16 | **UI ظاهر** | `description="سياسة خصوصية Click Zoon: نلتزم بحماية بياناتك الشخصية وبيانات نشاطك التجاري ب` |
-| 648 | `src/pages/ResetPassword.tsx` | 31 | **UI ظاهر** | `useNoIndex('إعادة تعيين كلمة المرور \| Click Zoon');` |
-| 649 | `src/pages/ResetPassword.tsx` | 114 | **validation** | `setErrorMessage('كلمة المرور يجب أن تكون 8 أحرف على الأقل');` |
-| 650 | `src/pages/ResetPassword.tsx` | 120 | **validation** | `setErrorMessage('كلمة المرور وتأكيد كلمة المرور غير متطابقين');` |
-| 651 | `src/pages/ResetPassword.tsx` | 133 | **validation** | `setErrorMessage('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');` |
-| 652 | `src/pages/ResetPassword.tsx` | 135 | **validation** | `setErrorMessage(error.message \|\| 'فشل تحديث كلمة المرور. حاول مرة تانية.');` |
-| 653 | `src/pages/ResetPassword.tsx` | 175 | **validation** | `setErrorMessage('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');` |
-| 654 | `src/pages/ResetPassword.tsx` | 177 | **validation** | `setErrorMessage('حدث خطأ غير متوقع أثناء تحديث كلمة المرور. حاول مرة تانية.');` |
-| 655 | `src/pages/ResetPassword.tsx` | 191 | **UI ظاهر** | `<span className="text-navy-300 text-sm font-medium">جارٍ التحقق من رابط إعادة التعيين...</` |
-| 656 | `src/pages/ResetPassword.tsx` | 212 | **UI ظاهر** | `<h1 className="text-xl font-bold text-navy-50 mb-2">رابط غير صالح أو منتهي الصلاحية</h1>` |
-| 657 | `src/pages/ResetPassword.tsx` | 214 | **UI ظاهر** | `رابط إعادة تعيين كلمة المرور انتهت صلاحيته أو تم استخدامه من قبل. يمكنك طلب رابط جديد لإعا` |
-| 658 | `src/pages/ResetPassword.tsx` | 224 | **UI ظاهر** | `طلب رابط جديد (حسابات العملاء)` |
-| 659 | `src/pages/ResetPassword.tsx` | 232 | **UI ظاهر** | `طلب رابط جديد (لوحة التحكم)` |
-| 660 | `src/pages/ResetPassword.tsx` | 239 | **UI ظاهر** | `العودة للصفحة الرئيسية` |
-| 661 | `src/pages/ResetPassword.tsx` | 264 | **UI ظاهر** | `<h1 className="text-2xl font-bold text-navy-50 mb-2">تم تغيير كلمة المرور بنجاح</h1>` |
-| 662 | `src/pages/ResetPassword.tsx` | 266 | **UI ظاهر** | `تم تحديث كلمة المرور الخاصة بحسابك. سيتم تحويلك لصفحة تسجيل الدخول خلال لحظات...` |
-| 663 | `src/pages/ResetPassword.tsx` | 275 | **UI ظاهر** | `الانتقال إلى صفحة الدخول الآن` |
-| 664 | `src/pages/ResetPassword.tsx` | 293 | **UI ظاهر** | `<h1 className="text-2xl font-bold text-navy-50 mb-2">إعادة تعيين كلمة المرور</h1>` |
-| 665 | `src/pages/ResetPassword.tsx` | 294 | **UI ظاهر** | `<p className="text-navy-400 text-sm">أدخل كلمة المرور الجديدة لحسابك</p>` |
-| 666 | `src/pages/ResetPassword.tsx` | 308 | **UI ظاهر** | `كلمة المرور الجديدة` |
-| 667 | `src/pages/ResetPassword.tsx` | 316 | **attribute** | `placeholder="8 أحرف على الأقل"` |
-| 668 | `src/pages/ResetPassword.tsx` | 325 | **attribute** | `aria-label={showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}` |
-| 669 | `src/pages/ResetPassword.tsx` | 330 | **UI ظاهر** | `<p className="text-navy-400 text-xs mt-1.5">يجب أن تكون 8 أحرف على الأقل</p>` |
-| 670 | `src/pages/ResetPassword.tsx` | 336 | **UI ظاهر** | `تأكيد كلمة المرور` |
-| 671 | `src/pages/ResetPassword.tsx` | 353 | **attribute** | `aria-label={showConfirmPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}` |
-| 672 | `src/pages/ResetPassword.tsx` | 370 | **UI ظاهر** | `{status === 'submitting' ? 'جارٍ تحديث كلمة المرور...' : 'تحديث كلمة المرور'}` |
-| 673 | `src/pages/ResetPassword.tsx` | 378 | **UI ظاهر** | `العودة لتسجيل الدخول` |
-| 674 | `src/pages/Showcase.tsx` | 47 | **attribute** | `title="معرض الأعمال: مواقع وبرامج جاهزة"` |
-| 675 | `src/pages/Showcase.tsx` | 48 | **UI ظاهر** | `description="تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط ` |
-| 676 | `src/pages/Showcase.tsx` | 65 | **attribute** | `<div className="flex gap-2 overflow-x-auto pb-2 mb-8" role="tablist" aria-label="تصفية الأ` |
-| 677 | `src/pages/ShowcaseApp.tsx` | 88 | **attribute** | `<section aria-label="صور المشروع" className="mb-10">` |
-| 678 | `src/pages/ShowcaseApp.tsx` | 96 | **attribute** | `aria-label={`تكبير الصورة ${i + 1}`}` |
-| 679 | `src/pages/ShowcaseApp.tsx` | 100 | **attribute** | `alt={`${item.title}: صورة ${i + 1}`}` |
-| 680 | `src/pages/ShowcaseApp.tsx` | 165 | **attribute** | `alt="تكبير الصورة"` |
-| 681 | `src/siteConfig.ts` | 5 | **تعليق برمجي (code comment)** | `// محتوى الموقع — القيم الافتراضية` |
-| 682 | `src/siteConfig.ts` | 6 | **تعليق برمجي (code comment)** | `// يتم استخدامها ك fallback في حال عدم تحميل البيانات من قاعدة البيانات` |
-| 683 | `src/siteConfig.ts` | 11 | **data-from-DB** | `agencyNameAr: 'كليك زون',` |
-| 684 | `src/siteConfig.ts` | 15 | **data-from-DB** | `location: 'خدمة عملاء أونلاين',` |
-| 685 | `src/siteConfig.ts` | 19 | **data-from-DB** | `footerText: 'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجاري` |
-| 686 | `src/siteConfig.ts` | 20 | **data-from-DB** | `promoBarText: 'نبني لك ديمو لموقع نشاطك مجاناً — بدون التزام',` |
-| 687 | `src/siteConfig.ts` | 21 | **attribute** | `seoTitle: 'Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية',` |
-| 688 | `src/siteConfig.ts` | 22 | **data-from-DB** | `seoDescription: 'نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية — بداي` |
-| 689 | `src/siteConfig.ts` | 26 | **data-from-DB** | `general: 'السلام عليكم، عايز أعرف تفاصيل عن عمل موقع لنشاطي',` |
-| 690 | `src/siteConfig.ts` | 27 | **data-from-DB** | `demo: 'السلام عليكم، عايز أطلب ديمو مجاني لموقع نشاطي',` |
-| 691 | `src/siteConfig.ts` | 28 | **data-from-DB** | `pricing: 'السلام عليكم، عايز أعرف تفاصيل أسعار باقة',` |
-| 692 | `src/siteConfig.ts` | 29 | **data-from-DB** | `contact: 'السلام عليكم، عندي استفسار عن خدماتكم',` |
-| 693 | `src/siteConfig.ts` | 33 | **attribute** | `{ icon: 'Gift', title: 'ديمو مجاني', subtitle: 'بدون التزام' },` |
-| 694 | `src/siteConfig.ts` | 34 | **attribute** | `{ icon: 'Zap', title: 'تسليم سريع', subtitle: 'من 3 أيام إلى أسبوع' },` |
-| 695 | `src/siteConfig.ts` | 35 | **attribute** | `{ icon: 'Headphones', title: 'دعم مستمر', subtitle: 'بعد الإطلاق' },` |
-| 696 | `src/siteConfig.ts` | 40 | **data-from-DB** | `name: 'أساسية',` |
-| 697 | `src/siteConfig.ts` | 41 | **data-from-DB** | `tagline: 'مناسبة للأنشطة الصغيرة',` |
-| 698 | `src/siteConfig.ts` | 42 | **data-from-DB** | `features: ['موقع من صفحة واحدة', 'تصميم متجاوب مع الموبايل', 'ربط واتساب واتصال مباشر', 'ت` |
-| 699 | `src/siteConfig.ts` | 47 | **data-from-DB** | `name: 'احترافية',` |
-| 700 | `src/siteConfig.ts` | 48 | **data-from-DB** | `tagline: 'الأكثر طلباً',` |
-| 701 | `src/siteConfig.ts` | 49 | **data-from-DB** | `features: ['موقع متعدد الصفحات', 'تصميم مخصص بالكامل لهويتك', 'معرض صور + آراء العملاء', '` |
-| 702 | `src/siteConfig.ts` | 54 | **data-from-DB** | `name: 'متجر إلكتروني',` |
-| 703 | `src/siteConfig.ts` | 55 | **data-from-DB** | `tagline: 'ابدأ تبيع أونلاين',` |
-| 704 | `src/siteConfig.ts` | 56 | **data-from-DB** | `features: ['متجر إلكتروني متكامل', 'إدارة منتجات وطلبات', 'ربط طرق الدفع الإلكتروني', 'ربط` |
-| 705 | `src/siteConfig.ts` | 94 | **attribute** | `aboutTitle: s?.about_title ?? 'من نحن',` |
-| 706 | `src/__tests__/i18n.test.ts` | 110 | **data-from-DB** | `nav: { home: 'الرئيسية', services: 'الخدمات' },` |
-| 707 | `src/__tests__/i18n.test.ts` | 111 | **UI ظاهر** | `only_in_arabic: 'محتوى عربي فقط',` |
-| 708 | `src/__tests__/i18n.test.ts` | 112 | **UI ظاهر** | `greeting: 'مرحباً {name}!',` |
-| 709 | `src/__tests__/i18n.test.ts` | 126 | **UI ظاهر** | `expect(translateKey('ar', mockAr, mockEn, 'nav.home')).toBe('الرئيسية');` |
-| 710 | `src/__tests__/i18n.test.ts` | 127 | **UI ظاهر** | `expect(translateKey('ar', mockAr, mockEn, 'nav.services')).toBe('الخدمات');` |
-| 711 | `src/__tests__/i18n.test.ts` | 133 | **UI ظاهر** | `expect(result).toBe('محتوى عربي فقط');` |
-| 712 | `src/__tests__/i18n.test.ts` | 138 | **UI ظاهر** | `expect(result).toBe('الرئيسية');` |
-| 713 | `src/__tests__/i18n.test.ts` | 148 | **UI ظاهر** | `expect(translateKey('ar', mockAr, mockEn, 'greeting', { name: 'أحمد' })).toBe('مرحباً أحمد` |
-| 714 | `index.html` | 17 | **UI ظاهر** | `<title>Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية</title>` |
-| 715 | `index.html` | 18 | **UI ظاهر** | `<meta name="description" content="Click Zoon وكالة متخصصة في تصميم وتطوير المواقع والمتاجر` |
-| 716 | `index.html` | 19 | **UI ظاهر** | `<meta name="keywords" content="تصميم مواقع, متاجر إلكترونية, Click Zoon, كليك زون, موقع مط` |
-| 717 | `index.html` | 25 | **UI ظاهر** | `<meta property="og:title" content="Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية` |
-| 718 | `index.html` | 26 | **UI ظاهر** | `<meta property="og:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإ` |
-| 719 | `index.html` | 30 | **UI ظاهر** | `<meta property="og:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترو` |
-| 720 | `index.html` | 36 | **UI ظاهر** | `<meta name="twitter:title" content="Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكتروني` |
-| 721 | `index.html` | 37 | **UI ظاهر** | `<meta name="twitter:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر ال` |
-| 722 | `index.html` | 39 | **UI ظاهر** | `<meta name="twitter:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكتر` |
-| 723 | `index.html` | 47 | **UI ظاهر** | `"alternateName": "كليك زون لتصميم المواقع",` |
-| 724 | `index.html` | 51 | **UI ظاهر** | `"description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التج` |
-| 725 | `index.html` | 53 | **UI ظاهر** | `"المنصورة",` |
-| 726 | `index.html` | 54 | **UI ظاهر** | `"الدقهلية",` |
-| 727 | `index.html` | 55 | **UI ظاهر** | `"مصر"` |
-| 728 | `index.html` | 72 | **UI ظاهر** | `Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية` |
-| 729 | `index.html` | 75 | **UI ظاهر** | `في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصو` |
-| 730 | `index.html` | 83 | **UI ظاهر** | `<p style="font-size:1.1rem;margin:0 0 8px 0;font-weight:bold;">مرحباً بك في Click Zoon</p>` |
-| 731 | `index.html` | 85 | **UI ظاهر** | `لطلب ديمو مجاني لموقع نشاطك أو الاستفسار المباشر، يمكنك التواصل معنا هاتفياً أو عبر واتساب` |
-| 732 | `public/og-image.svg` | 17 | **UI ظاهر** | `<text x="600" y="340" font-family="Arial, sans-serif" font-size="32" font-weight="400" fil` |
-| 733 | `public/og-image.svg` | 18 | **UI ظاهر** | `<text x="600" y="400" font-family="Arial, sans-serif" font-size="24" font-weight="400" fil` |
+| 302 | `src/components/ClientLogosMarquee.tsx` | 12 | **UI ظاهر** | `{ id: '1', name: 'Delano Café & Bistro', category: 'مطاعم وكافيهات', icon: Coffee },` |
+| 303 | `src/components/ClientLogosMarquee.tsx` | 13 | **UI ظاهر** | `{ id: '2', name: 'Elite Specialty Clinics', category: 'عيادات ومراكز طبية', icon: Stethosc` |
+| 304 | `src/components/ClientLogosMarquee.tsx` | 14 | **UI ظاهر** | `{ id: '3', name: 'Al-Mustashar Law Group', category: 'مكاتب محاماة واستشارات', icon: Scale` |
+| 305 | `src/components/ClientLogosMarquee.tsx` | 15 | **UI ظاهر** | `{ id: '4', name: 'Orchid Luxury Boutique', category: 'متاجر إلكترونية راقية', icon: Sparkl` |
+| 306 | `src/components/ClientLogosMarquee.tsx` | 16 | **UI ظاهر** | `{ id: '5', name: 'City Home Real Estate', category: 'شركات واستثمار عقاري', icon: Building` |
+| 307 | `src/components/ClientLogosMarquee.tsx` | 17 | **UI ظاهر** | `{ id: '6', name: 'SuperFresh Gourmet', category: 'أغذية وسوبرماركت', icon: ShoppingBag },` |
+| 308 | `src/components/ClientLogosMarquee.tsx` | 27 | **attribute** | `aria-label="شركاء النجاح والأنشطة التي نخدمها"` |
+| 309 | `src/components/ClientLogosMarquee.tsx` | 31 | **UI ظاهر** | `نُصمّم ونطوّر حضوراً رقمياً فائق التميز لأكثر من 50+ نشاط تجاري في مصر والعالم العربي` |
+| 310 | `src/components/Header.tsx` | 348 | **UI ظاهر** | `{t('common.welcome')}، <span className="text-gold-300 font-bold">{displayName}</span>` |
+| 311 | `src/components/Hero.tsx` | 25 | **UI ظاهر** | `: ['مطعمك', 'كافيهك', 'محلك', 'شركتك', 'مشروعك'];` |
+| 312 | `src/components/Hero.tsx` | 70 | **UI ظاهر** | `const currentWord = words[wordIdx] \|\| words[0] \|\| 'مشروعك';` |
+| 313 | `src/components/Hero.tsx` | 75 | **UI ظاهر** | `const badgeText = language === 'en' ? t('hero.badge') : (hero?.badge_text ?? 'تصميم وتطوير` |
+| 314 | `src/components/Hero.tsx` | 76 | **UI ظاهر** | `const line1 = language === 'en' ? t('hero.title_prefix') : (hero?.headline_line1 ?? 'خلّي ` |
+| 315 | `src/components/Hero.tsx` | 77 | **UI ظاهر** | `const line2 = language === 'en' ? t('hero.title_highlight') : (hero?.headline_line2 ?? 'أو` |
+| 316 | `src/components/Hero.tsx` | 78 | **attribute** | `const subtitle = language === 'en' ? t('hero.description') : (hero?.subtitle ?? 'في Click ` |
+| 317 | `src/components/Hero.tsx` | 79 | **UI ظاهر** | `const ctaPrimary = language === 'en' ? t('hero.cta_primary') : (hero?.cta_primary ?? 'اطلب` |
+| 318 | `src/components/Hero.tsx` | 80 | **UI ظاهر** | `const ctaSecondary = language === 'en' ? t('hero.cta_secondary') : (hero?.cta_secondary ??` |
+| 319 | `src/components/Hero.tsx` | 140 | **UI ظاهر** | `<div className="text-xs text-navy-300">{language === 'en' ? 'Completed Order' : 'طلب جديد ` |
+| 320 | `src/components/Hero.tsx` | 141 | **UI ظاهر** | `<div className="text-sm font-bold text-navy-50 notranslate" translate="no">{language === '` |
+| 321 | `src/components/Hero.tsx` | 156 | **UI ظاهر** | `<div className="text-xs text-navy-300">{language === 'en' ? 'Load Speed' : 'سرعة التحميل'}` |
+| 322 | `src/components/LanguageSwitcher.tsx` | 84 | **UI ظاهر** | `<span className="uppercase font-bold tracking-wider">{language === 'ar' ? 'العربية' : 'EN'` |
+| 323 | `src/components/LanguageSwitcher.tsx` | 115 | **UI ظاهر** | `<span>العربية</span>` |
+| 324 | `src/components/LanguageSwitcher.tsx` | 133 | **UI ظاهر** | `<span className="text-[11px] text-navy-400 font-normal">(الإنجليزية)</span>` |
+| 325 | `src/components/MockupsSection.tsx` | 272 | **attribute** | `title: 'قصر الريم للمشويات',` |
+| 326 | `src/components/MockupsSection.tsx` | 273 | **UI ظاهر** | `category: 'موقع وتطبيق مطعم ومشويات',` |
+| 327 | `src/components/MockupsSection.tsx` | 283 | **UI ظاهر** | `logoText: 'قصر الريم',` |
+| 328 | `src/components/MockupsSection.tsx` | 284 | **UI ظاهر** | `logoSub: 'مشويات & مأكولات شرقية',` |
+| 329 | `src/components/MockupsSection.tsx` | 285 | **UI ظاهر** | `statusBadge: 'مفتوح للطلب',` |
+| 330 | `src/components/MockupsSection.tsx` | 289 | **UI ظاهر** | `badge: '🔥 خصم 20% على أول طلب أونلاين',` |
+| 331 | `src/components/MockupsSection.tsx` | 290 | **UI ظاهر** | `headline: 'طعم المشويات الأصيل يوصلك سخن لحد باب بيتك',` |
+| 332 | `src/components/MockupsSection.tsx` | 291 | **UI ظاهر** | `subheadline: 'أشهى المشويات الحلبية على الفحم بتتبيلة سرية وتوصيل حراري فائق السرعة.',` |
+| 333 | `src/components/MockupsSection.tsx` | 292 | **UI ظاهر** | `ctaText: 'اطلب وجبتك الآن',` |
+| 334 | `src/components/MockupsSection.tsx` | 296 | **attribute** | `title: 'صينية الريم الملكية',` |
+| 335 | `src/components/MockupsSection.tsx` | 297 | **UI ظاهر** | `desc: 'كيلو كباب وكفتة مع ريش ضاني وأرز بسمتي ومقبلات حارة',` |
+| 336 | `src/components/MockupsSection.tsx` | 298 | **UI ظاهر** | `meta: '٤٢٠ ج.م',` |
+| 337 | `src/components/MockupsSection.tsx` | 299 | **UI ظاهر** | `tag: 'الأكثر طلباً ⭐ 4.9',` |
+| 338 | `src/components/MockupsSection.tsx` | 303 | **attribute** | `title: 'توصيل حراري فائق السرعة',` |
+| 339 | `src/components/MockupsSection.tsx` | 304 | **UI ظاهر** | `desc: 'تغليف ثلاثي محكم يحافظ على حرارة وطراوة المشويات خلال 35 دقيقة',` |
+| 340 | `src/components/MockupsSection.tsx` | 305 | **UI ظاهر** | `meta: 'توصيل مجاني',` |
+| 341 | `src/components/MockupsSection.tsx` | 306 | **UI ظاهر** | `tag: 'سريع',` |
+| 342 | `src/components/MockupsSection.tsx` | 310 | **attribute** | `title: 'حجز صالات VIP وعزائم',` |
+| 343 | `src/components/MockupsSection.tsx` | 311 | **UI ظاهر** | `desc: 'صالات عائلية خاصة ومجهزة بأرقى مستوى خدمة وضيافة',` |
+| 344 | `src/components/MockupsSection.tsx` | 312 | **UI ظاهر** | `meta: 'تأكيد فوري',` |
+| 345 | `src/components/MockupsSection.tsx` | 313 | **UI ظاهر** | `tag: 'صالات فاخرة',` |
+| 346 | `src/components/MockupsSection.tsx` | 321 | **attribute** | `title: 'روست كافيه & كوفي بار',` |
+| 347 | `src/components/MockupsSection.tsx` | 322 | **UI ظاهر** | `category: 'كافيه وسبيشالتي كوفي',` |
+| 348 | `src/components/MockupsSection.tsx` | 332 | **UI ظاهر** | `logoText: 'روست كافيه',` |
+| 349 | `src/components/MockupsSection.tsx` | 334 | **UI ظاهر** | `statusBadge: 'بن محمص اليوم',` |
+| 350 | `src/components/MockupsSection.tsx` | 338 | **UI ظاهر** | `badge: '☕ تجربة القهوة المختصة V60 & Flat White',` |
+| 351 | `src/components/MockupsSection.tsx` | 339 | **UI ظاهر** | `headline: 'قهوتك الموزونة بمزاج عالي، محمصة بعناية يومياً',` |
+| 352 | `src/components/MockupsSection.tsx` | 340 | **UI ظاهر** | `subheadline: 'محاصيل مختصة فردية المصدر وحلويات فرنسية طازجة في أجواء هادئة وراقية.',` |
+| 353 | `src/components/MockupsSection.tsx` | 341 | **UI ظاهر** | `ctaText: 'استكشف قائمة المشروبات',` |
+| 354 | `src/components/MockupsSection.tsx` | 345 | **attribute** | `title: 'بن سلفادور وكولومبيا V60',` |
+| 355 | `src/components/MockupsSection.tsx` | 346 | **UI ظاهر** | `desc: 'إيحاءات فواكه استوائية وشوكولاتة بحموضة متوازنة ومذاق مخملي',` |
+| 356 | `src/components/MockupsSection.tsx` | 347 | **UI ظاهر** | `meta: '٨٥ ج.م',` |
+| 357 | `src/components/MockupsSection.tsx` | 348 | **UI ظاهر** | `tag: 'محصول مميز ⭐ 4.9',` |
+| 358 | `src/components/MockupsSection.tsx` | 352 | **attribute** | `title: 'كرواسون ومخبوزات فرنسية',` |
+| 359 | `src/components/MockupsSection.tsx` | 353 | **UI ظاهر** | `desc: 'مخبوزات طازجة بالزبدة الطبيعية تُخبز يومياً في معملنا الخاص',` |
+| 360 | `src/components/MockupsSection.tsx` | 354 | **UI ظاهر** | `meta: 'طازج صباحاً',` |
+| 361 | `src/components/MockupsSection.tsx` | 355 | **UI ظاهر** | `tag: 'مخبوز اليوم',` |
+| 362 | `src/components/MockupsSection.tsx` | 359 | **attribute** | `title: 'اشتراك بوكس القهوة المنزلي',` |
+| 363 | `src/components/MockupsSection.tsx` | 360 | **UI ظاهر** | `desc: 'محاصيل مختارة تصلك أسبوعياً مع بطاقات وصفات التحضير المنزلية',` |
+| 364 | `src/components/MockupsSection.tsx` | 361 | **UI ظاهر** | `meta: 'شحن أسبوعي',` |
+| 365 | `src/components/MockupsSection.tsx` | 362 | **UI ظاهر** | `tag: 'وفر 25%',` |
+| 366 | `src/components/MockupsSection.tsx` | 370 | **attribute** | `title: 'متجر مودانيستا فاشون',` |
+| 367 | `src/components/MockupsSection.tsx` | 371 | **UI ظاهر** | `category: 'متجر إلكتروني متكامل للأزياء',` |
+| 368 | `src/components/MockupsSection.tsx` | 381 | **UI ظاهر** | `logoText: 'مودانيستا',` |
+| 369 | `src/components/MockupsSection.tsx` | 383 | **UI ظاهر** | `statusBadge: 'شحن فوري',` |
+| 370 | `src/components/MockupsSection.tsx` | 387 | **UI ظاهر** | `badge: '✨ كولكشن الشتاء 2026 الحصري',` |
+| 371 | `src/components/MockupsSection.tsx` | 388 | **UI ظاهر** | `headline: 'أحدث صيحات الموضة والأناقة بتصاميم راقية وخامات أصلية',` |
+| 372 | `src/components/MockupsSection.tsx` | 389 | **UI ظاهر** | `subheadline: 'تسوقي أرقى الإطلالات العصرية مع استبدال مجاني وتوصيل سريع حتى باب المنزل.',` |
+| 373 | `src/components/MockupsSection.tsx` | 390 | **UI ظاهر** | `ctaText: 'تسوقي الكولكشن الجديد',` |
+| 374 | `src/components/MockupsSection.tsx` | 394 | **attribute** | `title: 'معطف صوف كشمير طويل',` |
+| 375 | `src/components/MockupsSection.tsx` | 395 | **UI ظاهر** | `desc: 'قصة راقية بخامات شتوية دافئة وتطريز يدوي متقن بألوان الموسم',` |
+| 376 | `src/components/MockupsSection.tsx` | 396 | **UI ظاهر** | `meta: '١,٢٥٠ ج.م',` |
+| 377 | `src/components/MockupsSection.tsx` | 397 | **UI ظاهر** | `tag: 'تريند الأسبوع ⭐ 4.9',` |
+| 378 | `src/components/MockupsSection.tsx` | 401 | **attribute** | `title: 'حقائب جلد طبيعي كلاسيك',` |
+| 379 | `src/components/MockupsSection.tsx` | 402 | **UI ظاهر** | `desc: 'تصميم إيطالي أنيق متعدد الاستخدامات بضمان عام كامل',` |
+| 380 | `src/components/MockupsSection.tsx` | 403 | **UI ظاهر** | `meta: '٦٨٠ ج.م',` |
+| 381 | `src/components/MockupsSection.tsx` | 404 | **UI ظاهر** | `tag: 'خامة أصلية',` |
+| 382 | `src/components/MockupsSection.tsx` | 408 | **attribute** | `title: 'دفع عند الاستلام واستبدال',` |
+| 383 | `src/components/MockupsSection.tsx` | 409 | **UI ظاهر** | `desc: 'معاينة كاملة قبل الاستلام وخيارات تقسيط مرنة بدون فوائد',` |
+| 384 | `src/components/MockupsSection.tsx` | 410 | **UI ظاهر** | `meta: 'استبدال 14 يوم',` |
+| 385 | `src/components/MockupsSection.tsx` | 411 | **UI ظاهر** | `tag: 'تسوق آمن 100%',` |
+| 386 | `src/components/MockupsSection.tsx` | 419 | **attribute** | `title: 'مركز النور الطبي التخصصي',` |
+| 387 | `src/components/MockupsSection.tsx` | 420 | **UI ظاهر** | `category: 'منصة حجز عيادات وخدمات طبية',` |
+| 388 | `src/components/MockupsSection.tsx` | 430 | **UI ظاهر** | `logoText: 'مركز النور',` |
+| 389 | `src/components/MockupsSection.tsx` | 432 | **UI ظاهر** | `statusBadge: 'طوارئ 24/7',` |
+| 390 | `src/components/MockupsSection.tsx` | 436 | **UI ظاهر** | `badge: '🩺 نخبة الاستشاريين وأحدث الأجهزة',` |
+| 391 | `src/components/MockupsSection.tsx` | 437 | **UI ظاهر** | `headline: 'صحتك وصحة عائلتك في أيدٍ أمينة برعاية طبية متكاملة',` |
+| 392 | `src/components/MockupsSection.tsx` | 438 | **UI ظاهر** | `subheadline: 'حجز مواعيد فوري في أكثر من 18 تخصصاً طبياً مع تحاليل رقمية واستشارات معتمدة.` |
+| 393 | `src/components/MockupsSection.tsx` | 439 | **UI ظاهر** | `ctaText: 'احجز موعدك الطبي الآن',` |
+| 394 | `src/components/MockupsSection.tsx` | 443 | **attribute** | `title: 'عيادة الباطنة والقلب',` |
+| 395 | `src/components/MockupsSection.tsx` | 444 | **UI ظاهر** | `desc: 'فحص شامل وتخطيط قلب ومتابعة دورية مع كبار الأطباء الاستشاريين',` |
+| 396 | `src/components/MockupsSection.tsx` | 445 | **UI ظاهر** | `meta: 'كشف ٣٥٠ ج.م',` |
+| 397 | `src/components/MockupsSection.tsx` | 446 | **UI ظاهر** | `tag: 'متاح اليوم ⭐ 4.9',` |
+| 398 | `src/components/MockupsSection.tsx` | 450 | **attribute** | `title: 'معمل تحاليل وأشعة فورية',` |
+| 399 | `src/components/MockupsSection.tsx` | 451 | **UI ظاهر** | `desc: 'أحدث أجهزة الفحص الرقمي والنتائج تصلك معتمدة عبر واتساب',` |
+| 400 | `src/components/MockupsSection.tsx` | 452 | **UI ظاهر** | `meta: 'نتائج خلال ساعتين',` |
+| 401 | `src/components/MockupsSection.tsx` | 453 | **UI ظاهر** | `tag: 'دقة 99.8%',` |
+| 402 | `src/components/MockupsSection.tsx` | 457 | **attribute** | `title: 'استشارات طبية منزلية 24/7',` |
+| 403 | `src/components/MockupsSection.tsx` | 458 | **UI ظاهر** | `desc: 'زيارات تمريضية وطبية منزلية للحالات الحرجة وكبار السن',` |
+| 404 | `src/components/MockupsSection.tsx` | 459 | **UI ظاهر** | `meta: 'تغطية فورية',` |
+| 405 | `src/components/MockupsSection.tsx` | 460 | **UI ظاهر** | `tag: 'خدمة 24 ساعة',` |
+| 406 | `src/components/MockupsSection.tsx` | 524 | **attribute** | `aria-label="قائمة الموبايل"` |
+| 407 | `src/components/MockupsSection.tsx` | 858 | **attribute** | `alt={language === 'en' ? `${proj.title} website design on desktop` : `تصميم ${proj.title} ` |
+| 408 | `src/components/OrderModal.tsx` | 14 | **تعليق برمجي (code comment)** | `/** "اطلب الآن" dialog — saves the lead (source = showcase) so it shows up in the admin re` |
+| 409 | `src/components/Portfolio.tsx` | 20 | **UI ظاهر** | `description: 'منيو إلكتروني تفاعلي QR مع نظام طلب مباشر ودفع سريع عبر واتساب بدون أي عمولا` |
+| 410 | `src/components/Portfolio.tsx` | 30 | **attribute** | `title: 'مجمع عيادات رويال التخصصية',` |
+| 411 | `src/components/Portfolio.tsx` | 32 | **UI ظاهر** | `description: 'موقع طبي متكامل مع حجز مواعيد ذكي، استعراض جداول الأطباء، وتأكيد الحجز فوريا` |
+| 412 | `src/components/Portfolio.tsx` | 42 | **attribute** | `title: 'متجر Orchid Luxury',` |
+| 413 | `src/components/Portfolio.tsx` | 44 | **UI ظاهر** | `description: 'متجر إلكتروني فخم للأزياء والعطور، مربوط مع بوابات الدفع الإلكتروني وشركات ا` |
+| 414 | `src/components/Portfolio.tsx` | 53 | **attribute** | `title: 'مطاعم ومشويات الباشا',` |
+| 415 | `src/components/Portfolio.tsx` | 55 | **UI ظاهر** | `description: 'موقع تعريفي وقائمة طعام إلكترونية مع خدمة حجز الطاولات وتوصيل الطلبات للمناز` |
+| 416 | `src/components/Portfolio.tsx` | 299 | **attribute** | `aria-label={filtered[lightboxIndex].title \|\| 'معاينة المشروع'}` |
+| 417 | `src/components/Pricing.tsx` | 42 | **UI ظاهر** | `tagline: t('pricing.plan_basic_tagline') \|\| 'مناسبة للأنشطة الصغيرة',` |
+| 418 | `src/components/Pricing.tsx` | 55 | **UI ظاهر** | `tagline: t('pricing.plan_pro_tagline') \|\| 'الأكثر طلباً',` |
+| 419 | `src/components/Pricing.tsx` | 71 | **UI ظاهر** | `tagline: t('pricing.plan_ecommerce_tagline') \|\| 'ابدأ تبيع أونلاين',` |
+| 420 | `src/components/Pricing.tsx` | 217 | **UI ظاهر** | `href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name} (${billingCycle === 'mo` |
+| 421 | `src/components/QuoteWizard.tsx` | 149 | **UI ظاهر** | `.join('، ');` |
+| 422 | `src/components/QuoteWizard.tsx` | 160 | **UI ظاهر** | `message_text: `المميزات: ${featureLabels} \| التوقيت: ${timelineLabel} \| التقدير: ${estim` |
+| 423 | `src/components/Seo.tsx` | 14 | **attribute** | `const DEFAULT_TITLE = 'Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية';` |
+| 424 | `src/components/Seo.tsx` | 16 | **UI ظاهر** | `'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصور` |
+| 425 | `src/components/TestimonialsSection.tsx` | 17 | **UI ظاهر** | `name: 'د. أحمد منصور',` |
+| 426 | `src/components/TestimonialsSection.tsx` | 18 | **UI ظاهر** | `business: 'مدير مجمع عيادات رويال التخصصية',` |
+| 427 | `src/components/TestimonialsSection.tsx` | 19 | **UI ظاهر** | `text: 'كليك زون نقلوا تواجد عياداتنا لمستوى تاني خالص. نظام حجز المواعيد على واتساب وفر عل` |
+| 428 | `src/components/TestimonialsSection.tsx` | 27 | **UI ظاهر** | `name: 'م. كريم الديب',` |
+| 429 | `src/components/TestimonialsSection.tsx` | 28 | **UI ظاهر** | `business: 'مؤسس Delano Café & Bistro',` |
+| 430 | `src/components/TestimonialsSection.tsx` | 29 | **UI ظاهر** | `text: 'الديمو المجاني اللي استلمته في 48 ساعة كان مبهر ومطابق لهويتنا بالظبط. الموقع سريع ` |
+| 431 | `src/components/TestimonialsSection.tsx` | 37 | **UI ظاهر** | `name: 'أ. سارة فؤاد',` |
+| 432 | `src/components/TestimonialsSection.tsx` | 38 | **UI ظاهر** | `business: 'مؤسسة متجر Orchid Luxury',` |
+| 433 | `src/components/TestimonialsSection.tsx` | 39 | **UI ظاهر** | `text: 'أفضل تجربة تعامل مع شركة تصميم مواقع. احترافية عالية، التزام بالمواعيد، ولوحة تحكم ` |
+| 434 | `src/components/TestimonialsSection.tsx` | 257 | **attribute** | `aria-label={`التقييم ${i + 1}`}` |
+| 435 | `src/lib/admin-context.tsx` | 81 | **validation** | `setAuthError('تعذّر الاتصال بالخادم. تأكد من الاتصال بالإنترنت وحاول مرة أخرى.');` |
+| 436 | `src/lib/admin-context.tsx` | 147 | **validation** | `return { error: 'بيانات الدخول غير صحيحة', isAdmin: false };` |
+| 437 | `src/lib/analytics.ts` | 2 | **تعليق برمجي (code comment)** | `// تتبع الأحداث — Google Analytics` |
+| 438 | `src/lib/customer-context.tsx` | 86 | **validation** | `if (error) return { error: 'بيانات الدخول غير صحيحة' };` |
+| 439 | `src/lib/customer-context.tsx` | 101 | **validation** | `return { error: 'هذا البريد الإلكتروني مسجل بالفعل. سجّل الدخول بدلاً من ذلك.' };` |
+| 440 | `src/lib/customer-context.tsx` | 103 | **validation** | `return { error: 'كلمة المرور ضعيفة. استخدم 12 حرف على الأقل.' };` |
+| 441 | `src/lib/customer-context.tsx` | 104 | **validation** | `return { error: `تعذر إنشاء الحساب: ${error.message}` };` |
+| 442 | `src/lib/customer-context.tsx` | 127 | **validation** | `return { error: 'تعذر تسجيل الدخول بحساب جوجل. حاول مرة أخرى.' };` |
+| 443 | `src/lib/customer-context.tsx` | 133 | **validation** | `return { error: 'حدث خطأ غير متوقع أثناء تسجيل الدخول بجوجل.' };` |
+| 444 | `src/lib/demo-requests.ts` | 45 | **validation** | `let errorMessage = 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة لاحقاً.';` |
+| 445 | `src/lib/demo-requests.ts` | 61 | **validation** | `if (error.message?.includes('429') \|\| errorMessage.includes('تجاوزت الحد')) {` |
+| 446 | `src/lib/demo-requests.ts` | 77 | **validation** | `const msg = err instanceof Error ? err.message : 'فشل الاتصال بالخادم';` |
+| 447 | `src/lib/phone.ts` | 5 | **UI ظاهر** | `const ARABIC_INDIC_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];` |
+| 448 | `src/lib/phone.ts` | 8 | **تعليق برمجي (code comment)** | `* Normalizes Eastern Arabic-Indic digits (٠-٩) and Persian digits to Latin digits (0-9).` |
+| 449 | `src/lib/phone.ts` | 12 | **UI ظاهر** | `return str.replace(/[٠-٩]/g, (char) => {` |
+| 450 | `src/lib/showcase.ts` | 17 | **data-from-DB** | `website: 'موقع',` |
+| 451 | `src/lib/showcase.ts` | 18 | **data-from-DB** | `app: 'برنامج',` |
+| 452 | `src/lib/showcase.ts` | 19 | **data-from-DB** | `store: 'متجر إلكتروني',` |
+| 453 | `src/lib/showcase.ts` | 23 | **data-from-DB** | `restaurants: 'مطاعم',` |
+| 454 | `src/lib/showcase.ts` | 24 | **data-from-DB** | `cafes: 'كافيهات',` |
+| 455 | `src/lib/showcase.ts` | 25 | **data-from-DB** | `stores: 'متاجر',` |
+| 456 | `src/lib/showcase.ts` | 26 | **data-from-DB** | `medical: 'طبي',` |
+| 457 | `src/lib/showcase.ts` | 27 | **data-from-DB** | `business: 'شركات وخدمات',` |
+| 458 | `src/lib/showcase.ts` | 35 | **attribute** | `title: 'موقع مطعم',` |
+| 459 | `src/lib/showcase.ts` | 36 | **data-from-DB** | `tagline: 'منيو إلكتروني وطلب عبر واتساب',` |
+| 460 | `src/lib/showcase.ts` | 39 | **data-from-DB** | `description: 'نموذج تصميم لمطعم مع منيو إلكتروني وحجز طاولات.',` |
+| 461 | `src/lib/showcase.ts` | 41 | **data-from-DB** | `'نموذج تصميم جاهز لمطعم: منيو إلكتروني سهل التعديل، طلب مباشر عبر واتساب، حجز طاولات وخريط` |
+| 462 | `src/lib/showcase.ts` | 42 | **data-from-DB** | `features: ['منيو إلكتروني QR', 'طلب مباشر عبر واتساب', 'حجز طاولات', 'متوافق مع الموبايل']` |
+| 463 | `src/lib/showcase.ts` | 53 | **attribute** | `title: 'موقع كافيه',` |
+| 464 | `src/lib/showcase.ts` | 54 | **data-from-DB** | `tagline: 'هوية دافئة ومنيو تفاعلي',` |
+| 465 | `src/lib/showcase.ts` | 57 | **data-from-DB** | `description: 'نموذج تصميم لكافيه بمنيو تفاعلي وصور جذابة.',` |
+| 466 | `src/lib/showcase.ts` | 58 | **data-from-DB** | `long_description: 'نموذج تصميم لكافيه بصور جذابة ومنيو تفاعلي وربط مباشر مع السوشيال ميديا` |
+| 467 | `src/lib/showcase.ts` | 59 | **data-from-DB** | `features: ['منيو تفاعلي', 'معرض صور', 'ربط السوشيال ميديا', 'سرعة تحميل عالية'],` |
+| 468 | `src/lib/showcase.ts` | 70 | **attribute** | `title: 'متجر إلكتروني',` |
+| 469 | `src/lib/showcase.ts` | 71 | **data-from-DB** | `tagline: 'بيع أونلاين بدفع وشحن',` |
+| 470 | `src/lib/showcase.ts` | 74 | **data-from-DB** | `description: 'نموذج متجر إلكتروني مع سلة مشتريات وربط الدفع والشحن.',` |
+| 471 | `src/lib/showcase.ts` | 75 | **data-from-DB** | `long_description: 'نموذج متجر إلكتروني متكامل: إدارة المنتجات والطلبات، سلة مشتريات، ربط ا` |
+| 472 | `src/lib/showcase.ts` | 76 | **data-from-DB** | `features: ['سلة مشتريات', 'إدارة المنتجات والطلبات', 'ربط الدفع الإلكتروني', 'ربط شركات ال` |
+| 473 | `src/lib/showcase.ts` | 87 | **attribute** | `title: 'موقع عيادة',` |
+| 474 | `src/lib/showcase.ts` | 88 | **data-from-DB** | `tagline: 'حجز مواعيد وجداول الأطباء',` |
+| 475 | `src/lib/showcase.ts` | 91 | **data-from-DB** | `description: 'نموذج موقع طبي بحجز مواعيد وتأكيد عبر واتساب.',` |
+| 476 | `src/lib/showcase.ts` | 92 | **data-from-DB** | `long_description: 'نموذج موقع طبي: عرض الأطباء والتخصصات، حجز مواعيد، وتأكيد الحجز عبر وات` |
+| 477 | `src/lib/showcase.ts` | 93 | **data-from-DB** | `features: ['حجز مواعيد', 'ملفات الأطباء', 'تأكيد عبر واتساب', 'SEO محلي'],` |
+| 478 | `src/lib/toast-context.tsx` | 29 | **UI ظاهر** | `const copyToClipboard = useCallback(async (text: string, label = 'النص') => {` |
+| 479 | `src/lib/toast-context.tsx` | 33 | **validation** | `showToast(`تم نسخ ${label} إلى الحافظة بنجاح ✓`, 'success');` |
+| 480 | `src/lib/toast-context.tsx` | 36 | **validation** | `showToast(`تعذر النسخ التلقائي: ${text}`, 'info');` |
+| 481 | `src/main.tsx` | 50 | **UI ظاهر** | `<h1 className="text-xl font-bold text-navy-100 mb-2">عذراً، حدث خطأ غير متوقع</h1>` |
+| 482 | `src/main.tsx` | 52 | **UI ظاهر** | `نعمل على إصلاح هذا الخلل في أقرب وقت. يمكنك إعادة المحاولة الآن.` |
+| 483 | `src/main.tsx` | 61 | **UI ظاهر** | `إعادة تحميل الصفحة` |
+| 484 | `src/pages/CaseStudy.tsx` | 27 | **attribute** | `title: 'تصميم منيو إلكتروني وموقع تفاعلي لكافيه ديلانو',` |
+| 485 | `src/pages/CaseStudy.tsx` | 29 | **UI ظاهر** | `category: 'مطاعم وكافيهات',` |
+| 486 | `src/pages/CaseStudy.tsx` | 34 | **UI ظاهر** | `'الاعتماد الكامل على منيو ورقي مطبوع يصعب تحديثه عند تغير الأسعار أو الأصناف.',` |
+| 487 | `src/pages/CaseStudy.tsx` | 35 | **UI ظاهر** | `'خسارة نسبة كبيرة من طلبات الدليفري بسبب عمولات تطبيقات التوصيل التي تصل لـ 20-25%.',` |
+| 488 | `src/pages/CaseStudy.tsx` | 36 | **UI ظاهر** | `'صعوبة تصفح الأصناف وصور الأطباق عبر شاشات الموبايل في المكان.',` |
+| 489 | `src/pages/CaseStudy.tsx` | 39 | **UI ظاهر** | `'بناء منيو إلكتروني QR تفاعلي فائق السرعة يعمل فوراً بدون الحاجة لتحميل أي تطبيق.',` |
+| 490 | `src/pages/CaseStudy.tsx` | 40 | **UI ظاهر** | `'ربط نظام طلب مباشر يرسل تفاصيل الطلب والطاولة أو العنوان مباشرة عبر واتساب بدون عمولة.',` |
+| 491 | `src/pages/CaseStudy.tsx` | 41 | **UI ظاهر** | `'لوحة تحكم سهلة باللغة العربية تتيح لمدير المكان تعديل الأسعار وإخفاء الأصناف غير المتاحة ` |
+| 492 | `src/pages/CaseStudy.tsx` | 44 | **UI ظاهر** | `{ value: 180, suffix: '%', label: 'زيادة في طلبات الأونلاين المباشرة' },` |
+| 493 | `src/pages/CaseStudy.tsx` | 45 | **UI ظاهر** | `{ value: 0, suffix: '%', label: 'عمولات تطبيقات توصيل وسيطة' },` |
+| 494 | `src/pages/CaseStudy.tsx` | 46 | **UI ظاهر** | `{ value: 98, suffix: '/100', label: 'نتيجة سرعة وأداء Lighthouse' },` |
+| 495 | `src/pages/CaseStudy.tsx` | 47 | **UI ظاهر** | `{ value: 48, suffix: ' ساعة', label: 'مدة تجهيز وتسليم الديمو' },` |
+| 496 | `src/pages/CaseStudy.tsx` | 50 | **UI ظاهر** | `text: 'الموقع وفر علينا آلاف الجنيهات كانت بتروح عمولات شهرية. الزباين مبسوطة جداً من سرعة` |
+| 497 | `src/pages/CaseStudy.tsx` | 51 | **UI ظاهر** | `author: 'م. كريم الديب',` |
+| 498 | `src/pages/CaseStudy.tsx` | 52 | **UI ظاهر** | `role: 'مؤسس Delano Café',` |
+| 499 | `src/pages/CaseStudy.tsx` | 57 | **attribute** | `title: 'تطوير موقع طبي ونظام حجز مواعيد لعيادات رويال التخصصية',` |
+| 500 | `src/pages/CaseStudy.tsx` | 59 | **UI ظاهر** | `category: 'مراكز وعيادات طبية',` |
+| 501 | `src/pages/CaseStudy.tsx` | 64 | **UI ظاهر** | `'ضغط كبير على خطوط الهاتف واستقبال العيادة لتأكيد المواعيد والاستفسار عن جداول الأطباء.',` |
+| 502 | `src/pages/CaseStudy.tsx` | 65 | **UI ظاهر** | `'موقع قديم غير متجاوب مع الهواتف الذكية مع وقت تحميل يتجاوز 5 ثوانٍ.',` |
+| 503 | `src/pages/CaseStudy.tsx` | 66 | **UI ظاهر** | `'عدم ظهور العيادة في الصفحة الأولى في نتائج البحث في جوجل لخدمات الكشف التخصصي.',` |
+| 504 | `src/pages/CaseStudy.tsx` | 69 | **UI ظاهر** | `'تصميم موقع طبي راقٍ يبرز تخصصات الأطباء، السيرة الذاتية، ومواعيد العيادات بوضوح.',` |
+| 505 | `src/pages/CaseStudy.tsx` | 70 | **UI ظاهر** | `'نظام حجز مواعيد إلكتروني ذكي يحدد الطبيب والوقت المناسب ويؤكد الحجز آلياً عبر واتساب.',` |
+| 506 | `src/pages/CaseStudy.tsx` | 71 | **UI ظاهر** | `'تهيئة سيو محلية دقيقة للكلمات المفتاحية الطبية، مما جعل الموقع يتصدر نتائج البحث.',` |
+| 507 | `src/pages/CaseStudy.tsx` | 74 | **UI ظاهر** | `{ value: 145, suffix: '%', label: 'زيادة الحجوزات الطبية المؤكدة' },` |
+| 508 | `src/pages/CaseStudy.tsx` | 75 | **UI ظاهر** | `{ value: 70, suffix: '%', label: 'توفير وقت مكالمات الاستقبال' },` |
+| 509 | `src/pages/CaseStudy.tsx` | 76 | **UI ظاهر** | `{ value: 99, suffix: '/100', label: 'تقييم تجربة الموبايل (Mobile UX)' },` |
+| 510 | `src/pages/CaseStudy.tsx` | 77 | **UI ظاهر** | `{ value: 1, suffix: '#', label: 'المرتبة الأولى في نتائج البحث محلياً' },` |
+| 511 | `src/pages/CaseStudy.tsx` | 80 | **UI ظاهر** | `text: 'كليك زون حوّلوا موقعنا من مجرد صفحة إلى أهم قناة لاستقبال المرضى الجدد وتنظيم جدول ` |
+| 512 | `src/pages/CaseStudy.tsx` | 81 | **UI ظاهر** | `author: 'د. أحمد منصور',` |
+| 513 | `src/pages/CaseStudy.tsx` | 82 | **UI ظاهر** | `role: 'المدير التنفيذي لمجمع عيادات رويال',` |
+| 514 | `src/pages/CaseStudy.tsx` | 101 | **UI ظاهر** | `description: `دراسة حالة: كيف ساعدت وكالة كليك زون ${study.client} في تحقيق نمو استثنائي و` |
+| 515 | `src/pages/CaseStudy.tsx` | 114 | **attribute** | `title={`${study.title} \| دراسة حالة Click Zoon`}` |
+| 516 | `src/pages/CaseStudy.tsx` | 115 | **UI ظاهر** | `description={`قصة نجاح ${study.client}: التحديات، الحلول الرقمية، والنتائج القياسية التي ت` |
+| 517 | `src/pages/CaseStudy.tsx` | 195 | **UI ظاهر** | `<span>التحدي قبل التطوير</span>` |
+| 518 | `src/pages/CaseStudy.tsx` | 213 | **UI ظاهر** | `<span>الحل الذكي من كليك زون</span>` |
+| 519 | `src/pages/CaseStudy.tsx` | 251 | **UI ظاهر** | `جاهز لتحقيق نفس النجاح لنشاطك التجاري؟` |
+| 520 | `src/pages/CaseStudy.tsx` | 254 | **UI ظاهر** | `احصل على نموذج ديمو تجريبي لموقع نشاطك خلال 48 ساعة مجاناً وبدون أي التزام مالي.` |
+| 521 | `src/pages/CaseStudy.tsx` | 258 | **UI ظاهر** | `احسب تكلفة موقعك واطلب الديمو` |
+| 522 | `src/pages/CaseStudy.tsx` | 261 | **UI ظاهر** | `href={waLink(`مرحباً كليك زون، اطلعت على دراسة حالة ${study.client} وحابب أعمل موقع لنشاطي` |
+| 523 | `src/pages/CaseStudy.tsx` | 266 | **UI ظاهر** | `تحدث مع مستشارنا عبر واتساب` |
+| 524 | `src/pages/CustomerAccount.tsx` | 10 | **UI ظاهر** | `new: 'جديد',` |
+| 525 | `src/pages/CustomerAccount.tsx` | 11 | **UI ظاهر** | `contacted: 'تم التواصل',` |
+| 526 | `src/pages/CustomerAccount.tsx` | 12 | **UI ظاهر** | `delivered: 'تم التسليم',` |
+| 527 | `src/pages/CustomerAccount.tsx` | 13 | **UI ظاهر** | `rejected: 'مرفوض',` |
+| 528 | `src/pages/CustomerAccount.tsx` | 25 | **UI ظاهر** | `useNoIndex('حسابي \| Click Zoon');` |
+| 529 | `src/pages/CustomerAccount.tsx` | 82 | **validation** | `setSaveError('فشل حفظ التغييرات. حاول مرة أخرى.');` |
+| 530 | `src/pages/CustomerAccount.tsx` | 85 | **UI ظاهر** | `setSavedMsg('تم حفظ التغييرات بنجاح');` |
+| 531 | `src/pages/CustomerAccount.tsx` | 94 | **validation** | `setPwdError('كلمة المرور الجديدة لازم تكون 12 حرف على الأقل');` |
+| 532 | `src/pages/CustomerAccount.tsx` | 98 | **validation** | `setPwdError('كلمة المرور وتأكيدها غير متطابقين');` |
+| 533 | `src/pages/CustomerAccount.tsx` | 105 | **validation** | `setPwdError('فشل تغيير كلمة المرور. حاول مرة أخرى.');` |
+| 534 | `src/pages/CustomerAccount.tsx` | 108 | **UI ظاهر** | `setPwdMsg('تم تغيير كلمة المرور بنجاح');` |
+| 535 | `src/pages/CustomerAccount.tsx` | 138 | **UI ظاهر** | `<h1 className="text-2xl font-bold mb-1">حسابي</h1>` |
+| 536 | `src/pages/CustomerAccount.tsx` | 144 | **UI ظاهر** | `طلباتي` |
+| 537 | `src/pages/CustomerAccount.tsx` | 147 | **UI ظاهر** | `تسجيل خروج` |
+| 538 | `src/pages/CustomerAccount.tsx` | 155 | **UI ظاهر** | `<h2 className="text-lg font-bold mb-4">بياناتي</h2>` |
+| 539 | `src/pages/CustomerAccount.tsx` | 160 | **UI ظاهر** | `الاسم` |
+| 540 | `src/pages/CustomerAccount.tsx` | 173 | **UI ظاهر** | `البريد الإلكتروني` |
+| 541 | `src/pages/CustomerAccount.tsx` | 186 | **UI ظاهر** | `رقم الموبايل` |
+| 542 | `src/pages/CustomerAccount.tsx` | 215 | **UI ظاهر** | `{saving ? 'جارٍ الحفظ...' : 'حفظ التغييرات'}` |
+| 543 | `src/pages/CustomerAccount.tsx` | 222 | **UI ظاهر** | `<h2 className="text-lg font-bold mb-4">تغيير كلمة المرور</h2>` |
+| 544 | `src/pages/CustomerAccount.tsx` | 227 | **UI ظاهر** | `كلمة المرور الجديدة` |
+| 545 | `src/pages/CustomerAccount.tsx` | 235 | **attribute** | `placeholder="12 حرف على الأقل"` |
+| 546 | `src/pages/CustomerAccount.tsx` | 247 | **UI ظاهر** | `<p className="text-navy-500 text-xs mt-1.5">لازم 12 حرف على الأقل</p>` |
+| 547 | `src/pages/CustomerAccount.tsx` | 252 | **UI ظاهر** | `تأكيد كلمة المرور` |
+| 548 | `src/pages/CustomerAccount.tsx` | 282 | **UI ظاهر** | `{pwdLoading ? 'جارٍ التغيير...' : 'تغيير كلمة المرور'}` |
+| 549 | `src/pages/CustomerAccount.tsx` | 290 | **UI ظاهر** | `<h2 className="text-lg font-bold">آخر الطلبات</h2>` |
+| 550 | `src/pages/CustomerAccount.tsx` | 292 | **UI ظاهر** | `عرض الكل` |
+| 551 | `src/pages/CustomerAccount.tsx` | 297 | **UI ظاهر** | `<p className="text-navy-400 text-sm">جارٍ التحميل...</p>` |
+| 552 | `src/pages/CustomerAccount.tsx` | 299 | **UI ظاهر** | `<p className="text-navy-400 text-sm">لا توجد طلبات حتى الآن</p>` |
+| 553 | `src/pages/CustomerAccount.tsx` | 323 | **UI ظاهر** | `العودة للموقع` |
+| 554 | `src/pages/CustomerAuth.tsx` | 17 | **UI ظاهر** | `useNoIndex(mode === 'signup' ? 'إنشاء حساب جديد \| Click Zoon' : 'تسجيل الدخول \| Click Zo` |
+| 555 | `src/pages/CustomerAuth.tsx` | 88 | **validation** | `setError('كلمة المرور لازم تكون 12 حرف على الأقل');` |
+| 556 | `src/pages/CustomerAuth.tsx` | 92 | **validation** | `setError('كلمة المرور وتأكيدها غير متطابقين');` |
+| 557 | `src/pages/CustomerAuth.tsx` | 96 | **validation** | `setError('رقم الموبايل غير صحيح. مثال صحيح: 01020095059');` |
+| 558 | `src/pages/CustomerAuth.tsx` | 107 | **UI ظاهر** | `setSuccess('تم إنشاء حسابك بنجاح. يمكنك تسجيل الدخول الآن.');` |
+| 559 | `src/pages/CustomerAuth.tsx` | 132 | **validation** | `setResetError('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');` |
+| 560 | `src/pages/CustomerAuth.tsx` | 134 | **validation** | `setResetError('فشل إرسال رابط إعادة التعيين. حاول مرة تانية.');` |
+| 561 | `src/pages/CustomerAuth.tsx` | 138 | **UI ظاهر** | `setResetSuccess('تم إرسال رابط إعادة تعيين كلمة المرور على بريدك الإلكتروني.');` |
+| 562 | `src/pages/CustomerAuth.tsx` | 140 | **validation** | `setResetError('حدث خطأ غير متوقع. حاول مرة تانية.');` |
+| 563 | `src/pages/CustomerAuth.tsx` | 159 | **UI ظاهر** | `{mode === 'login' ? 'تسجيل الدخول' : 'إنشاء حساب جديد'}` |
+| 564 | `src/pages/CustomerAuth.tsx` | 162 | **UI ظاهر** | `{mode === 'login' ? 'ادخل لحسابك لمتابعة طلباتك' : 'أنشئ حساب لتتبع طلبات الديمو الخاصة بك` |
+| 565 | `src/pages/CustomerAuth.tsx` | 204 | **UI ظاهر** | `<span>{googleLoading ? 'جارٍ التحويل إلى جوجل...' : 'المتابعة بحساب جوجل'}</span>` |
+| 566 | `src/pages/CustomerAuth.tsx` | 217 | **UI ظاهر** | `<span className="bg-[#121f35] px-3 text-xs text-navy-400 font-medium absolute">أو</span>` |
+| 567 | `src/pages/CustomerAuth.tsx` | 223 | **UI ظاهر** | `البريد الإلكتروني` |
+| 568 | `src/pages/CustomerAuth.tsx` | 238 | **UI ظاهر** | `كلمة المرور` |
+| 569 | `src/pages/CustomerAuth.tsx` | 262 | **UI ظاهر** | `{loading ? 'جارٍ الدخول...' : 'دخول'}` |
+| 570 | `src/pages/CustomerAuth.tsx` | 274 | **UI ظاهر** | `نسيت كلمة المرور؟` |
+| 571 | `src/pages/CustomerAuth.tsx` | 282 | **UI ظاهر** | `بريدك الإلكتروني` |
+| 572 | `src/pages/CustomerAuth.tsx` | 300 | **UI ظاهر** | `{resetLoading ? 'جارٍ الإرسال...' : 'إرسال رابط إعادة التعيين'}` |
+| 573 | `src/pages/CustomerAuth.tsx` | 316 | **UI ظاهر** | `ليس لديك حساب؟{' '}` |
+| 574 | `src/pages/CustomerAuth.tsx` | 318 | **UI ظاهر** | `إنشاء حساب` |
+| 575 | `src/pages/CustomerAuth.tsx` | 322 | **UI ظاهر** | `العودة للموقع` |
+| 576 | `src/pages/CustomerAuth.tsx` | 356 | **UI ظاهر** | `<span>{googleLoading ? 'جارٍ التحويل إلى جوجل...' : 'المتابعة بحساب جوجل'}</span>` |
+| 577 | `src/pages/CustomerAuth.tsx` | 369 | **UI ظاهر** | `<span className="bg-[#121f35] px-3 text-xs text-navy-400 font-medium absolute">أو</span>` |
+| 578 | `src/pages/CustomerAuth.tsx` | 375 | **UI ظاهر** | `الاسم الكامل` |
+| 579 | `src/pages/CustomerAuth.tsx` | 382 | **attribute** | `placeholder="اسمك الكريم"` |
+| 580 | `src/pages/CustomerAuth.tsx` | 389 | **UI ظاهر** | `البريد الإلكتروني` |
+| 581 | `src/pages/CustomerAuth.tsx` | 404 | **UI ظاهر** | `رقم الموبايل` |
+| 582 | `src/pages/CustomerAuth.tsx` | 419 | **UI ظاهر** | `كلمة المرور` |
+| 583 | `src/pages/CustomerAuth.tsx` | 427 | **attribute** | `placeholder="12 حرف على الأقل"` |
+| 584 | `src/pages/CustomerAuth.tsx` | 439 | **UI ظاهر** | `<p className="text-navy-500 text-xs mt-1.5">لازم 12 حرف على الأقل</p>` |
+| 585 | `src/pages/CustomerAuth.tsx` | 444 | **UI ظاهر** | `تأكيد كلمة المرور` |
+| 586 | `src/pages/CustomerAuth.tsx` | 468 | **UI ظاهر** | `{loading ? 'جارٍ الإنشاء...' : 'إنشاء الحساب'}` |
+| 587 | `src/pages/CustomerAuth.tsx` | 471 | **UI ظاهر** | `لديك حساب بالفعل؟{' '}` |
+| 588 | `src/pages/CustomerAuth.tsx` | 473 | **UI ظاهر** | `تسجيل الدخول` |
+| 589 | `src/pages/CustomerAuth.tsx` | 477 | **UI ظاهر** | `العودة للموقع` |
+| 590 | `src/pages/CustomerRequests.tsx` | 10 | **UI ظاهر** | `new: 'جديد',` |
+| 591 | `src/pages/CustomerRequests.tsx` | 11 | **UI ظاهر** | `contacted: 'تم التواصل',` |
+| 592 | `src/pages/CustomerRequests.tsx` | 12 | **UI ظاهر** | `delivered: 'تم التسليم',` |
+| 593 | `src/pages/CustomerRequests.tsx` | 13 | **UI ظاهر** | `rejected: 'مرفوض',` |
+| 594 | `src/pages/CustomerRequests.tsx` | 35 | **UI ظاهر** | `useNoIndex('طلباتي \| Click Zoon');` |
+| 595 | `src/pages/CustomerRequests.tsx` | 74 | **UI ظاهر** | `<h1 className="text-2xl font-bold">طلباتي</h1>` |
+| 596 | `src/pages/CustomerRequests.tsx` | 77 | **UI ظاهر** | `حسابي` |
+| 597 | `src/pages/CustomerRequests.tsx` | 84 | **UI ظاهر** | `<p className="text-navy-400 mb-4">لا توجد طلبات حتى الآن</p>` |
+| 598 | `src/pages/CustomerRequests.tsx` | 86 | **UI ظاهر** | `اطلب ديمو مجاني` |
+| 599 | `src/pages/CustomerRequests.tsx` | 106 | **UI ظاهر** | `<span className="text-navy-500 text-xs">الاسم:</span>` |
+| 600 | `src/pages/CustomerRequests.tsx` | 110 | **UI ظاهر** | `<span className="text-navy-500 text-xs">الهاتف:</span>` |
+| 601 | `src/pages/CustomerRequests.tsx` | 115 | **UI ظاهر** | `<span className="text-navy-500 text-xs">الرابط:</span>` |
+| 602 | `src/pages/CustomerRequests.tsx` | 130 | **UI ظاهر** | `العودة للموقع` |
+| 603 | `src/pages/NotFound.tsx` | 14 | **attribute** | `<Seo title="الصفحة غير موجودة (404)" noindex={true} />` |
+| 604 | `src/pages/Privacy.tsx` | 14 | **attribute** | `title="سياسة الخصوصية"` |
+| 605 | `src/pages/Privacy.tsx` | 16 | **UI ظاهر** | `description="سياسة خصوصية Click Zoon: نلتزم بحماية بياناتك الشخصية وبيانات نشاطك التجاري ب` |
+| 606 | `src/pages/ResetPassword.tsx` | 31 | **UI ظاهر** | `useNoIndex('إعادة تعيين كلمة المرور \| Click Zoon');` |
+| 607 | `src/pages/ResetPassword.tsx` | 114 | **validation** | `setErrorMessage('كلمة المرور يجب أن تكون 8 أحرف على الأقل');` |
+| 608 | `src/pages/ResetPassword.tsx` | 120 | **validation** | `setErrorMessage('كلمة المرور وتأكيد كلمة المرور غير متطابقين');` |
+| 609 | `src/pages/ResetPassword.tsx` | 133 | **validation** | `setErrorMessage('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');` |
+| 610 | `src/pages/ResetPassword.tsx` | 135 | **validation** | `setErrorMessage(error.message \|\| 'فشل تحديث كلمة المرور. حاول مرة تانية.');` |
+| 611 | `src/pages/ResetPassword.tsx` | 175 | **validation** | `setErrorMessage('تم إرسال عدد كبير من الطلبات، حاول بعد قليل');` |
+| 612 | `src/pages/ResetPassword.tsx` | 177 | **validation** | `setErrorMessage('حدث خطأ غير متوقع أثناء تحديث كلمة المرور. حاول مرة تانية.');` |
+| 613 | `src/pages/ResetPassword.tsx` | 191 | **UI ظاهر** | `<span className="text-navy-300 text-sm font-medium">جارٍ التحقق من رابط إعادة التعيين...</` |
+| 614 | `src/pages/ResetPassword.tsx` | 212 | **UI ظاهر** | `<h1 className="text-xl font-bold text-navy-50 mb-2">رابط غير صالح أو منتهي الصلاحية</h1>` |
+| 615 | `src/pages/ResetPassword.tsx` | 214 | **UI ظاهر** | `رابط إعادة تعيين كلمة المرور انتهت صلاحيته أو تم استخدامه من قبل. يمكنك طلب رابط جديد لإعا` |
+| 616 | `src/pages/ResetPassword.tsx` | 224 | **UI ظاهر** | `طلب رابط جديد (حسابات العملاء)` |
+| 617 | `src/pages/ResetPassword.tsx` | 232 | **UI ظاهر** | `طلب رابط جديد (لوحة التحكم)` |
+| 618 | `src/pages/ResetPassword.tsx` | 239 | **UI ظاهر** | `العودة للصفحة الرئيسية` |
+| 619 | `src/pages/ResetPassword.tsx` | 264 | **UI ظاهر** | `<h1 className="text-2xl font-bold text-navy-50 mb-2">تم تغيير كلمة المرور بنجاح</h1>` |
+| 620 | `src/pages/ResetPassword.tsx` | 266 | **UI ظاهر** | `تم تحديث كلمة المرور الخاصة بحسابك. سيتم تحويلك لصفحة تسجيل الدخول خلال لحظات...` |
+| 621 | `src/pages/ResetPassword.tsx` | 275 | **UI ظاهر** | `الانتقال إلى صفحة الدخول الآن` |
+| 622 | `src/pages/ResetPassword.tsx` | 293 | **UI ظاهر** | `<h1 className="text-2xl font-bold text-navy-50 mb-2">إعادة تعيين كلمة المرور</h1>` |
+| 623 | `src/pages/ResetPassword.tsx` | 294 | **UI ظاهر** | `<p className="text-navy-400 text-sm">أدخل كلمة المرور الجديدة لحسابك</p>` |
+| 624 | `src/pages/ResetPassword.tsx` | 308 | **UI ظاهر** | `كلمة المرور الجديدة` |
+| 625 | `src/pages/ResetPassword.tsx` | 316 | **attribute** | `placeholder="8 أحرف على الأقل"` |
+| 626 | `src/pages/ResetPassword.tsx` | 325 | **attribute** | `aria-label={showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}` |
+| 627 | `src/pages/ResetPassword.tsx` | 330 | **UI ظاهر** | `<p className="text-navy-400 text-xs mt-1.5">يجب أن تكون 8 أحرف على الأقل</p>` |
+| 628 | `src/pages/ResetPassword.tsx` | 336 | **UI ظاهر** | `تأكيد كلمة المرور` |
+| 629 | `src/pages/ResetPassword.tsx` | 353 | **attribute** | `aria-label={showConfirmPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}` |
+| 630 | `src/pages/ResetPassword.tsx` | 370 | **UI ظاهر** | `{status === 'submitting' ? 'جارٍ تحديث كلمة المرور...' : 'تحديث كلمة المرور'}` |
+| 631 | `src/pages/ResetPassword.tsx` | 378 | **UI ظاهر** | `العودة لتسجيل الدخول` |
+| 632 | `src/pages/Showcase.tsx` | 47 | **attribute** | `title={t('showcase.meta_title') \|\| 'معرض الأعمال: مواقع وبرامج جاهزة'}` |
+| 633 | `src/pages/Showcase.tsx` | 48 | **UI ظاهر** | `description={t('showcase.meta_desc') \|\| 'تصفح المواقع والبرامج والمتاجر الإلكترونية التي` |
+| 634 | `src/pages/Showcase.tsx` | 65 | **attribute** | `<div className="flex gap-2 overflow-x-auto pb-2 mb-8" role="tablist" aria-label="تصفية الأ` |
+| 635 | `src/pages/ShowcaseApp.tsx` | 165 | **attribute** | `alt="تكبير الصورة"` |
+| 636 | `src/siteConfig.ts` | 5 | **تعليق برمجي (code comment)** | `// محتوى الموقع — القيم الافتراضية` |
+| 637 | `src/siteConfig.ts` | 6 | **تعليق برمجي (code comment)** | `// يتم استخدامها ك fallback في حال عدم تحميل البيانات من قاعدة البيانات` |
+| 638 | `src/siteConfig.ts` | 11 | **data-from-DB** | `agencyNameAr: 'كليك زون',` |
+| 639 | `src/siteConfig.ts` | 15 | **data-from-DB** | `location: 'خدمة عملاء أونلاين',` |
+| 640 | `src/siteConfig.ts` | 19 | **data-from-DB** | `footerText: 'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجاري` |
+| 641 | `src/siteConfig.ts` | 20 | **data-from-DB** | `promoBarText: 'نبني لك ديمو لموقع نشاطك مجاناً — بدون التزام',` |
+| 642 | `src/siteConfig.ts` | 21 | **attribute** | `seoTitle: 'Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية',` |
+| 643 | `src/siteConfig.ts` | 22 | **data-from-DB** | `seoDescription: 'نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية — بداي` |
+| 644 | `src/siteConfig.ts` | 26 | **data-from-DB** | `general: 'السلام عليكم، عايز أعرف تفاصيل عن عمل موقع لنشاطي',` |
+| 645 | `src/siteConfig.ts` | 27 | **data-from-DB** | `demo: 'السلام عليكم، عايز أطلب ديمو مجاني لموقع نشاطي',` |
+| 646 | `src/siteConfig.ts` | 28 | **data-from-DB** | `pricing: 'السلام عليكم، عايز أعرف تفاصيل أسعار باقة',` |
+| 647 | `src/siteConfig.ts` | 29 | **data-from-DB** | `contact: 'السلام عليكم، عندي استفسار عن خدماتكم',` |
+| 648 | `src/siteConfig.ts` | 33 | **attribute** | `{ icon: 'Gift', title: 'ديمو مجاني', subtitle: 'بدون التزام' },` |
+| 649 | `src/siteConfig.ts` | 34 | **attribute** | `{ icon: 'Zap', title: 'تسليم سريع', subtitle: 'من 3 أيام إلى أسبوع' },` |
+| 650 | `src/siteConfig.ts` | 35 | **attribute** | `{ icon: 'Headphones', title: 'دعم مستمر', subtitle: 'بعد الإطلاق' },` |
+| 651 | `src/siteConfig.ts` | 40 | **data-from-DB** | `name: 'أساسية',` |
+| 652 | `src/siteConfig.ts` | 41 | **data-from-DB** | `tagline: 'مناسبة للأنشطة الصغيرة',` |
+| 653 | `src/siteConfig.ts` | 42 | **data-from-DB** | `features: ['موقع من صفحة واحدة', 'تصميم متجاوب مع الموبايل', 'ربط واتساب واتصال مباشر', 'ت` |
+| 654 | `src/siteConfig.ts` | 47 | **data-from-DB** | `name: 'احترافية',` |
+| 655 | `src/siteConfig.ts` | 48 | **data-from-DB** | `tagline: 'الأكثر طلباً',` |
+| 656 | `src/siteConfig.ts` | 49 | **data-from-DB** | `features: ['موقع متعدد الصفحات', 'تصميم مخصص بالكامل لهويتك', 'معرض صور + آراء العملاء', '` |
+| 657 | `src/siteConfig.ts` | 54 | **data-from-DB** | `name: 'متجر إلكتروني',` |
+| 658 | `src/siteConfig.ts` | 55 | **data-from-DB** | `tagline: 'ابدأ تبيع أونلاين',` |
+| 659 | `src/siteConfig.ts` | 56 | **data-from-DB** | `features: ['متجر إلكتروني متكامل', 'إدارة منتجات وطلبات', 'ربط طرق الدفع الإلكتروني', 'ربط` |
+| 660 | `src/siteConfig.ts` | 94 | **attribute** | `aboutTitle: s?.about_title ?? 'من نحن',` |
+| 661 | `src/__tests__/i18n.test.ts` | 110 | **data-from-DB** | `nav: { home: 'الرئيسية', services: 'الخدمات' },` |
+| 662 | `src/__tests__/i18n.test.ts` | 111 | **UI ظاهر** | `only_in_arabic: 'محتوى عربي فقط',` |
+| 663 | `src/__tests__/i18n.test.ts` | 112 | **UI ظاهر** | `greeting: 'مرحباً {name}!',` |
+| 664 | `src/__tests__/i18n.test.ts` | 126 | **UI ظاهر** | `expect(translateKey('ar', mockAr, mockEn, 'nav.home')).toBe('الرئيسية');` |
+| 665 | `src/__tests__/i18n.test.ts` | 127 | **UI ظاهر** | `expect(translateKey('ar', mockAr, mockEn, 'nav.services')).toBe('الخدمات');` |
+| 666 | `src/__tests__/i18n.test.ts` | 133 | **UI ظاهر** | `expect(result).toBe('محتوى عربي فقط');` |
+| 667 | `src/__tests__/i18n.test.ts` | 138 | **UI ظاهر** | `expect(result).toBe('الرئيسية');` |
+| 668 | `src/__tests__/i18n.test.ts` | 148 | **UI ظاهر** | `expect(translateKey('ar', mockAr, mockEn, 'greeting', { name: 'أحمد' })).toBe('مرحباً أحمد` |
+| 669 | `index.html` | 17 | **UI ظاهر** | `<title>Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية</title>` |
+| 670 | `index.html` | 18 | **UI ظاهر** | `<meta name="description" content="Click Zoon وكالة متخصصة في تصميم وتطوير المواقع والمتاجر` |
+| 671 | `index.html` | 19 | **UI ظاهر** | `<meta name="keywords" content="تصميم مواقع, متاجر إلكترونية, Click Zoon, كليك زون, موقع مط` |
+| 672 | `index.html` | 25 | **UI ظاهر** | `<meta property="og:title" content="Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية` |
+| 673 | `index.html` | 26 | **UI ظاهر** | `<meta property="og:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإ` |
+| 674 | `index.html` | 30 | **UI ظاهر** | `<meta property="og:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترو` |
+| 675 | `index.html` | 36 | **UI ظاهر** | `<meta name="twitter:title" content="Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكتروني` |
+| 676 | `index.html` | 37 | **UI ظاهر** | `<meta name="twitter:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر ال` |
+| 677 | `index.html` | 39 | **UI ظاهر** | `<meta name="twitter:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكتر` |
+| 678 | `index.html` | 47 | **UI ظاهر** | `"alternateName": "كليك زون لتصميم المواقع",` |
+| 679 | `index.html` | 51 | **UI ظاهر** | `"description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التج` |
+| 680 | `index.html` | 53 | **UI ظاهر** | `"المنصورة",` |
+| 681 | `index.html` | 54 | **UI ظاهر** | `"الدقهلية",` |
+| 682 | `index.html` | 55 | **UI ظاهر** | `"مصر"` |
+| 683 | `index.html` | 72 | **UI ظاهر** | `Click Zoon \| تصميم وتطوير المواقع والمتاجر الإلكترونية` |
+| 684 | `index.html` | 75 | **UI ظاهر** | `في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصو` |
+| 685 | `index.html` | 83 | **UI ظاهر** | `<p style="font-size:1.1rem;margin:0 0 8px 0;font-weight:bold;">مرحباً بك في Click Zoon</p>` |
+| 686 | `index.html` | 85 | **UI ظاهر** | `لطلب ديمو مجاني لموقع نشاطك أو الاستفسار المباشر، يمكنك التواصل معنا هاتفياً أو عبر واتساب` |
+| 687 | `public/og-image.svg` | 17 | **UI ظاهر** | `<text x="600" y="340" font-family="Arial, sans-serif" font-size="32" font-weight="400" fil` |
+| 688 | `public/og-image.svg` | 18 | **UI ظاهر** | `<text x="600" y="400" font-family="Arial, sans-serif" font-size="24" font-weight="400" fil` |

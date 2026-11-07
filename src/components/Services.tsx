@@ -55,7 +55,7 @@ function ServiceCard({
 }
 
 export default function Services() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { ref, revealed } = useReveal();
   const { data } = useSiteData();
 
@@ -68,9 +68,11 @@ export default function Services() {
     { icon: 'Shield', title: t('services.continuous_support'), desc: t('services.continuous_support_desc') },
   ];
 
-  const services = data.services.length > 0
-    ? data.services.map((s) => ({ icon: s.icon, title: s.title, desc: s.description }))
-    : fallbackServices;
+  const services = language === 'en'
+    ? fallbackServices
+    : (data.services.length > 0
+        ? data.services.map((s) => ({ icon: s.icon, title: s.title, desc: s.description }))
+        : fallbackServices);
 
   return (
     <section id="services" className="py-20 lg:py-28">
