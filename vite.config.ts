@@ -61,7 +61,7 @@ Sitemap: ${siteUrl}/sitemap.xml
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const siteUrl = (env.VITE_SITE_URL || process.env.VITE_SITE_URL || 'https://click-zoon.vercel.app')
+  const siteUrl = (env.VITE_SITE_URL || process.env.VITE_SITE_URL || 'https://clickzoon.com')
     .trim()
     .replace(/\/+$/, '');
 

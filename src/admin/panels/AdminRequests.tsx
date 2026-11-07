@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { DemoRequest } from '@/lib/types';
 import { AdminPageHeader, AdminCard, DeleteButton } from '@/admin/ui';
-import { Trash2, Inbox, UserCheck, UserX, Search, Download } from 'lucide-react';
+import { Trash2, Inbox, UserCheck, UserX, Search, Download, Copy, Check, Phone, MessageCircle, Sparkles } from 'lucide-react';
 
 const statusLabels: Record<string, string> = {
   new: 'جديد',
@@ -22,7 +22,7 @@ const sourceLabels: Record<string, string> = {
   form: 'النموذج الرئيسي',
   wizard: 'حاسبة الباقات',
   exit_intent: 'نافذة الخروج',
-  showcase: 'معرض الأعمال (اطلب الآن)',
+  showcase: 'معرض الأعمال',
   contact: 'نموذج الاتصال (قديم)',
   demo: 'طلب الديمو (قديم)',
 };
@@ -40,7 +40,7 @@ const sourceOptions = [
   { value: 'form', label: 'النموذج الرئيسي' },
   { value: 'wizard', label: 'حاسبة الباقات' },
   { value: 'exit_intent', label: 'نافذة الخروج' },
-  { value: 'showcase', label: 'معرض الأعمال (اطلب الآن)' },
+  { value: 'showcase', label: 'معرض الأعمال' },
 ];
 
 const statusUpdateOptions = [
@@ -87,6 +87,7 @@ export default function AdminRequests() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [sourceFilter, setSourceFilter] = useState('all');
   const [search, setSearch] = useState('');
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const { data } = await supabase.from('demo_requests').select('*').order('created_at', { ascending: false });
@@ -250,22 +251,22 @@ export default function AdminRequests() {
                   </span>
                 </div>
 
+                {/* Highlight requested showcase design if source is showcase */}
+                {req.source === 'showcase' && (
+                  <div className="flex items-center gap-2 bg-gold-500/15 border border-gold-500/30 text-gold-300 px-3 py-1.5 rounded-xl text-xs font-bold mb-2 w-fit">
+                    <Sparkles size={14} className="text-gold-400" />
+                    <span>المشروع المطلوب من المعرض: {req.business_type}</span>
+                  </div>
+                )}
+
                 <div className="text-navy-300 text-sm space-y-1 mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-navy-400 text-xs font-semibold">النشاط:</span>
-                    <span className="text-navy-100">{req.business_type}</span>
+                    <span className="text-navy-400 text-xs font-semibold">النشاط / التفاصيل:</span>
+                    <span className="text-navy-100 font-semibold">{req.business_type}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-navy-400 text-xs font-semibold">الهاتف / واتساب:</span>
-                    <a
-                      href={`https://wa.me/${req.phone.replace(/^0/, '20')}?text=${encodeURIComponent(`مرحباً أستاذ ${req.name}، بخصوص طلبك من كليك زون`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-green-400 hover:text-green-300 font-bold hover:underline"
-                      dir="ltr"
-                    >
-                      {req.phone} 💬
-                    </a>
+                    <span className="text-navy-400 text-xs font-semibold">الهاتف:</span>
+                    <span className="text-navy-100 font-bold" dir="ltr">{req.phone}</span>
                   </div>
                   {req.notes && (
                     <div className="text-xs text-navy-300 bg-navy-950/60 border border-navy-700/60 p-2.5 rounded-xl mt-1">
@@ -281,6 +282,50 @@ export default function AdminRequests() {
                       </a>
                     </div>
                   )}
+                </div>
+
+                {/* Quick actions for calling, WhatsApp, and copying phone */}
+                <div className="flex items-center gap-2 mt-2 pt-2 border-t border-navy-700/40 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(req.phone);
+                      setCopiedId(req.id);
+                      setTimeout(() => setCopiedId(null), 2000);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-800 hover:bg-navy-700 text-xs font-semibold text-navy-200 hover:text-white border border-navy-600/40 transition-colors"
+                    title="نسخ رقم الهاتف"
+                  >
+                    {copiedId === req.id ? (
+                      <>
+                        <Check size={14} className="text-green-400" />
+                        <span className="text-green-400">تم النسخ</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={14} />
+                        <span>نسخ الرقم</span>
+                      </>
+                    )}
+                  </button>
+
+                  <a
+                    href={`tel:${req.phone}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-500/15 hover:bg-gold-500/25 text-gold-300 border border-gold-500/30 text-xs font-bold transition-colors"
+                  >
+                    <Phone size={14} />
+                    <span>اتصال</span>
+                  </a>
+
+                  <a
+                    href={`https://wa.me/${req.phone.replace(/^0/, '20')}?text=${encodeURIComponent(`مرحباً أستاذ ${req.name}، تواصل معك من كليك زون بخصوص طلبك (${req.business_type})`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-500/15 hover:bg-green-500/25 text-green-300 border border-green-500/30 text-xs font-bold transition-colors"
+                  >
+                    <MessageCircle size={14} />
+                    <span>واتساب</span>
+                  </a>
                 </div>
 
                 <div className="mt-3 flex items-center gap-2">

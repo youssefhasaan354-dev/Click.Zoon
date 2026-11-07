@@ -28,7 +28,7 @@ export const categoryLabels: Record<string, string> = {
 };
 
 /** Fallback sample designs shown only until real projects are added from the admin panel. */
-const fallback: ShowcaseItem[] = [
+export const fallback: ShowcaseItem[] = [
   {
     id: 'sample-1',
     slug: 'sample-restaurant',
@@ -104,7 +104,7 @@ export function normalizeItem(p: PortfolioItem, index: number): ShowcaseItem {
   return {
     ...p,
     slug: p.slug || `project-${p.id || index}`,
-    kind: p.kind ?? 'website',
+    kind: (p.kind as ShowcaseKind) ?? 'website',
     tagline: p.tagline ?? '',
     long_description: p.long_description || p.description,
     features: p.features ?? [],
@@ -112,13 +112,27 @@ export function normalizeItem(p: PortfolioItem, index: number): ShowcaseItem {
   };
 }
 
-export function useShowcaseItems(): { items: ShowcaseItem[]; isSample: boolean } {
-  const { data } = useSiteData();
-  return useMemo(() => {
+export function useShowcaseItems(): {
+  items: ShowcaseItem[];
+  isSample: boolean;
+  loading: boolean;
+  error: string | null;
+  refresh: () => Promise<void>;
+} {
+  const { data, loading, error, refresh } = useSiteData();
+
+  const computed = useMemo(() => {
     const real = (data.portfolio ?? []).filter((p) => p.visible !== false);
     if (real.length > 0) {
       return { items: real.map(normalizeItem), isSample: false };
     }
     return { items: fallback, isSample: true };
   }, [data.portfolio]);
+
+  return {
+    ...computed,
+    loading,
+    error: error ?? null,
+    refresh,
+  };
 }

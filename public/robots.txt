@@ -5,4 +5,4 @@ Disallow: /auth
 Disallow: /account
 Disallow: /my-requests
 
-Sitemap: https://click-zoon.vercel.app/sitemap.xml
+Sitemap: https://clickzoon.com/sitemap.xml

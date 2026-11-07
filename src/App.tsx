@@ -1,33 +1,57 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, lazy, Suspense } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import SocialProofStrip from '@/components/SocialProofStrip';
 import ClientLogosMarquee from '@/components/ClientLogosMarquee';
-import MockupsSection from '@/components/MockupsSection';
-import BeforeAfterSlider from '@/components/BeforeAfterSlider';
-import DemoSection from '@/components/DemoSection';
-import QuoteWizard from '@/components/QuoteWizard';
-import Services from '@/components/Services';
-import CommissionCalculator from '@/components/CommissionCalculator';
-import AboutUs from '@/components/AboutUs';
-import Pricing from '@/components/Pricing';
-import Portfolio from '@/components/Portfolio';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import WhyUs from '@/components/WhyUs';
-import Process from '@/components/Process';
-import FAQ from '@/components/FAQ';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
-import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import StickyMiniCta from '@/components/StickyMiniCta';
-import CookieConsent from '@/components/CookieConsent';
-import ExitIntentModal from '@/components/ExitIntentModal';
 import ScrollProgress from '@/components/ScrollProgress';
 import MobileBottomBar from '@/components/MobileBottomBar';
-import BackToTop from '@/components/BackToTop';
 import Seo from '@/components/Seo';
 import { useLocation } from 'react-router-dom';
 import { useSectionVisibility, useSiteData } from '@/lib/site-data-context';
+
+// Lazy-load below-the-fold sections to boost initial load & mobile LCP/TBT
+const MockupsSection = lazy(() => import('@/components/MockupsSection'));
+const BeforeAfterSlider = lazy(() => import('@/components/BeforeAfterSlider'));
+const DemoSection = lazy(() => import('@/components/DemoSection'));
+const QuoteWizard = lazy(() => import('@/components/QuoteWizard'));
+const Services = lazy(() => import('@/components/Services'));
+const CommissionCalculator = lazy(() => import('@/components/CommissionCalculator'));
+const AboutUs = lazy(() => import('@/components/AboutUs'));
+const WhyUs = lazy(() => import('@/components/WhyUs'));
+const Portfolio = lazy(() => import('@/components/Portfolio'));
+const TestimonialsSection = lazy(() => import('@/components/TestimonialsSection'));
+const Process = lazy(() => import('@/components/Process'));
+const Pricing = lazy(() => import('@/components/Pricing'));
+const FAQ = lazy(() => import('@/components/FAQ'));
+const Contact = lazy(() => import('@/components/Contact'));
+import Footer from '@/components/Footer';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+const StickyMiniCta = lazy(() => import('@/components/StickyMiniCta'));
+const CookieConsent = lazy(() => import('@/components/CookieConsent'));
+const ExitIntentModal = lazy(() => import('@/components/ExitIntentModal'));
+const BackToTop = lazy(() => import('@/components/BackToTop'));
+
+function SectionSuspense({
+  id,
+  children,
+  minHeight = 'min-h-[220px]',
+}: {
+  id?: string;
+  children: React.ReactNode;
+  minHeight?: string;
+}) {
+  return (
+    <Suspense
+      fallback={
+        id ? (
+          <div id={id} className={`w-full ${minHeight} flex items-center justify-center opacity-0 pointer-events-none`} aria-hidden="true" />
+        ) : null
+      }
+    >
+      {children}
+    </Suspense>
+  );
+}
 
 export function ScrollToHash() {
   const { hash, pathname } = useLocation();
@@ -51,7 +75,7 @@ export function ScrollToHash() {
     };
 
     if (!tryScroll()) {
-      const timer = setTimeout(tryScroll, 120);
+      const timer = setTimeout(tryScroll, 160);
       return () => clearTimeout(timer);
     }
   }, [hash, pathname]);
@@ -107,31 +131,111 @@ export default function HomePage() {
       <ScrollProgress />
       <Header />
       <main id="main">
+        {/* Above-the-fold critical rendering path */}
         <Hero />
         <SocialProofStrip />
         <ClientLogosMarquee />
-        {showMockups && <MockupsSection />}
-        <BeforeAfterSlider />
-        {showDemo && <DemoSection />}
-        <QuoteWizard />
-        {showServices && <Services />}
-        {showCalculator && <CommissionCalculator />}
-        {showAbout && <AboutUs />}
-        {showWhyUs && <WhyUs />}
-        {showPortfolio && <Portfolio />}
-        <TestimonialsSection />
-        {showProcess && <Process />}
-        {showPricing && <Pricing />}
-        {showFaq && <FAQ />}
-        {showContact && <Contact />}
+
+        {/* Below-the-fold lazy sections with preserved anchor IDs */}
+        {showMockups && (
+          <SectionSuspense id="mockups">
+            <MockupsSection />
+          </SectionSuspense>
+        )}
+
+        <SectionSuspense id="before-after">
+          <BeforeAfterSlider />
+        </SectionSuspense>
+
+        {showDemo && (
+          <SectionSuspense id="demo">
+            <DemoSection />
+          </SectionSuspense>
+        )}
+
+        <SectionSuspense id="wizard">
+          <QuoteWizard />
+        </SectionSuspense>
+
+        {showServices && (
+          <SectionSuspense id="services">
+            <Services />
+          </SectionSuspense>
+        )}
+
+        {showCalculator && (
+          <SectionSuspense id="calculator">
+            <CommissionCalculator />
+          </SectionSuspense>
+        )}
+
+        {showAbout && (
+          <SectionSuspense id="about">
+            <AboutUs />
+          </SectionSuspense>
+        )}
+
+        {showWhyUs && (
+          <SectionSuspense id="why-us">
+            <WhyUs />
+          </SectionSuspense>
+        )}
+
+        {showPortfolio && (
+          <SectionSuspense id="portfolio">
+            <Portfolio />
+          </SectionSuspense>
+        )}
+
+        <SectionSuspense id="testimonials">
+          <TestimonialsSection />
+        </SectionSuspense>
+
+        {showProcess && (
+          <SectionSuspense id="process">
+            <Process />
+          </SectionSuspense>
+        )}
+
+        {showPricing && (
+          <SectionSuspense id="pricing">
+            <Pricing />
+          </SectionSuspense>
+        )}
+
+        {showFaq && (
+          <SectionSuspense id="faq">
+            <FAQ />
+          </SectionSuspense>
+        )}
+
+        {showContact && (
+          <SectionSuspense id="contact">
+            <Contact />
+          </SectionSuspense>
+        )}
       </main>
+
       <Footer />
       <FloatingWhatsApp />
-      <StickyMiniCta />
-      <CookieConsent />
-      <ExitIntentModal />
+
+      <Suspense fallback={null}>
+        <StickyMiniCta />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <CookieConsent />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <ExitIntentModal />
+      </Suspense>
+
       <MobileBottomBar />
-      <BackToTop />
+
+      <Suspense fallback={null}>
+        <BackToTop />
+      </Suspense>
     </div>
   );
 }
