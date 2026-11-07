@@ -38,30 +38,112 @@
     <meta name="twitter:image" content="https://clickzoon.com/og-image.webp" />
     <meta name="twitter:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية" />
 
-    <!-- Structured Data: Online ProfessionalService -->
+    <!-- Structured Data: WebSite, ProfessionalService, FAQPage (JSON-LD) -->
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": "https://clickzoon.com/#organization",
       "name": "Click Zoon",
       "alternateName": "كليك زون لتصميم المواقع",
       "url": "https://clickzoon.com/",
-      "image": "https://clickzoon.com/og-image.webp",
       "logo": "https://clickzoon.com/og-image.webp",
-      "description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة، الدقهلية، وجميع أنحاء مصر. خدمة عملاء أونلاين ودعم فني مستمر.",
-      "areaServed": [
-        "المنصورة",
-        "الدقهلية",
-        "مصر"
-      ],
+      "image": "https://clickzoon.com/og-image.webp",
+      "description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة، الدقهلية، وجميع أنحاء مصر. ديمو مجاني بدون التزام، تسليم سريع، ودعم فني مستمر.",
       "telephone": "+201020095059",
       "email": "clickzoon30@gmail.com",
+      "priceRange": "$",
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "المنصورة"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "الدقهلية"
+        },
+        {
+          "@type": "Country",
+          "name": "مصر"
+        }
+      ],
       "sameAs": [
         "https://www.facebook.com/ClikZoon",
         "https://www.instagram.com/click_zoon"
-      ],
-      "priceRange": "$$"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://clickzoon.com/#website",
+      "url": "https://clickzoon.com/",
+      "name": "Click Zoon",
+      "alternateName": "كليك زون",
+      "publisher": {
+        "@id": "https://clickzoon.com/#organization"
+      },
+      "inLanguage": [
+        "ar",
+        "en"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://clickzoon.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "كم مدة تجهيز الديمو المجاني؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "الديمو بيتجهز خلال 24 إلى 72 ساعة من وقت طلبك. بنبني لك تصميم كامل على أساس نشاطك عشان تشوف موقعك قبل ما تدفع أي حاجة."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "كم مدة التسليم النهائي للموقع؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "التسليم النهائي من 3 أيام إلى أسبوع حسب متطلبات المشروع. المتاجر الإلكترونية المعقدة ممكن تأخذ وقت أطول قليلاً بسبب ربط الدفع والتوصيل."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل في أي التزام قبل ما أشوف الديمو؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "لا، بدون أي التزام. الديمو مجاني بالكامل — تتطمن عليه، ولو عجبك نكمّل، ولو لأ، مفيش أي التزام عليك."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "من يملك الدومين والاستضافة؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "أنت بتملك الدومين والاستضافة باسمك بالكامل. إحنا بنحجزهم ليك ونربطهم بالموقع، وكل بيانات الدخول بتتسلم لك بالكامل."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ماذا يحدث بعد تسليم الموقع؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بعد التسليم، بنوفّر دعم فني مستمر حسب الباقة. أي تحديث أو تعديل أو استفسار — إحنا معاك ومش بنسيبك لوحدك."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل أقدر أعدّل الموقع بنفسي؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "أيوة. بنسلّمك لوحة تحكم سهلة تقدر منها تعدّل المحتوى، تضيف منتجات، أو تغيّر الصور بدون الحاجة لخبرة تقنية. ولو حابب إحنا نتكفّل بالتعديلات، ده متاح برضه."
+          }
+        }
+      ]
     }
+  ]
+}
     </script>
   </head>
   <body>
