@@ -8,6 +8,7 @@ import { useCustomer } from '@/lib/customer-context';
 import { validateEgyptianPhone, cleanPhoneNumber } from '@/lib/phone';
 import SectionHeader from '@/components/SectionHeader';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useI18n } from '@/i18n';
 
 const RATE_LIMIT_MS = 30_000;
 const MAX_NAME_LEN = 160;
@@ -16,6 +17,7 @@ const MAX_PHONE_LEN = 40;
 const MAX_URL_LEN = 500;
 
 export default function Contact() {
+  const { t } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
   const { user, profile } = useCustomer();
@@ -51,7 +53,7 @@ export default function Contact() {
     if (honeypot) return;
 
     if (!validateEgyptianPhone(form.phone)) {
-      setPhoneError('رقم الموبايل غير صحيح. مثال صحيح: 01020095059');
+      setPhoneError(t('contact.phone_error'));
       phoneInputRef.current?.focus();
       return;
     }
@@ -59,7 +61,7 @@ export default function Contact() {
 
     const now = Date.now();
     if (now - lastSubmitRef.current < RATE_LIMIT_MS) {
-      setRateLimitMsg('لقد أرسلت طلباً للتو. انتظر 30 ثانية قبل إرسال طلب آخر.');
+      setRateLimitMsg(t('contact.rate_limit_recent'));
       setRateLimited(true);
       return;
     }
@@ -127,7 +129,7 @@ ${businessTypeMsg}${trimmedUrl ? `
       if (popupWindow && !popupWindow.closed) {
         popupWindow.close();
       }
-      setRateLimitMsg('لقد تجاوزت الحد المسموح من الطلبات مؤقتاً. يرجى الانتظار والمحاولة لاحقاً.');
+      setRateLimitMsg(t('contact.rate_limit_exceeded'));
       setRateLimited(true);
       setSubmitStatus('idle');
       return;
@@ -166,10 +168,10 @@ ${businessTypeMsg}${trimmedUrl ? `
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           icon={Sparkles}
-          badge="تواصل معنا"
-          title="اطلب ديمو مجاني"
-          highlight="مخصص لنشاطك التجاري"
-          subtitle="بنخدم الأنشطة التجارية في المنصورة والدقهلية وكل مصر. املأ بياناتك وسنرسل طلبك مباشرة إلى واتساب لنبدأ العمل فوراً."
+          badge={t('contact.badge')}
+          title={t('contact.title')}
+          highlight={t('contact.highlight')}
+          subtitle={t('contact.subtitle')}
         />
 
         <div ref={ref} className={`grid lg:grid-cols-2 gap-8 reveal ${revealed ? 'revealed' : ''}`}>
@@ -209,7 +211,7 @@ ${businessTypeMsg}${trimmedUrl ? `
               <div>
                 <label htmlFor="contact-name" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <User size={16} className="text-gold-400" />
-                  الاسم الكريم <span className="text-red-400">*</span>
+                  {t('contact.name_label')} <span className="text-red-400">*</span>
                 </label>
                 <input
                   id="contact-name"
@@ -219,7 +221,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                   maxLength={MAX_NAME_LEN}
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="مثال: أحمد محمد"
+                  placeholder={t('contact.name_placeholder')}
                   className={inputClass}
                 />
               </div>
@@ -227,7 +229,7 @@ ${businessTypeMsg}${trimmedUrl ? `
               <div>
                 <label htmlFor="contact-business" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <Store size={16} className="text-gold-400" />
-                  نوع النشاط <span className="text-red-400">*</span>
+                  {t('contact.business_label')} <span className="text-red-400">*</span>
                 </label>
                 <input
                   id="contact-business"
@@ -237,7 +239,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                   maxLength={MAX_BUSINESS_LEN}
                   value={form.business}
                   onChange={(e) => setForm({ ...form, business: e.target.value })}
-                  placeholder="مثال: مطعم، كافيه، متجر ملابس، عيادة..."
+                  placeholder={t('contact.business_placeholder')}
                   className={inputClass}
                 />
               </div>
@@ -249,7 +251,7 @@ ${businessTypeMsg}${trimmedUrl ? `
               >
                 <label htmlFor="contact-phone" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <Phone size={16} className="text-gold-400" />
-                  رقم الموبايل <span className="text-red-400">*</span>
+                  {t('contact.phone_label')} <span className="text-red-400">*</span>
                 </label>
                 <input
                   ref={phoneInputRef}
@@ -261,7 +263,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                   maxLength={MAX_PHONE_LEN}
                   value={form.phone}
                   onChange={(e) => handlePhoneChange(e.target.value)}
-                  placeholder="01xxxxxxxxx"
+                  placeholder={t('contact.phone_placeholder')}
                   className={`${inputClass} ${phoneError ? 'border-red-500/70 focus:border-red-500' : ''}`}
                   dir="ltr"
                   aria-invalid={Boolean(phoneError)}
@@ -277,7 +279,7 @@ ${businessTypeMsg}${trimmedUrl ? `
               <div>
                 <label htmlFor="contact-page-url" className="text-navy-200 text-sm font-semibold mb-2 flex items-center gap-2">
                   <Link size={16} className="text-gold-400" />
-                  رابط الصفحة أو النشاط <span className="text-navy-300 text-xs font-normal">(اختياري)</span>
+                  {t('contact.url_label')} <span className="text-navy-300 text-xs font-normal">{t('contact.url_optional')}</span>
                 </label>
                 <input
                   id="contact-page-url"
@@ -286,7 +288,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                   maxLength={MAX_URL_LEN}
                   value={form.pageUrl}
                   onChange={(e) => setForm({ ...form, pageUrl: e.target.value })}
-                  placeholder="https://facebook.com/your-business"
+                  placeholder={t('contact.url_placeholder')}
                   className={inputClass}
                   dir="ltr"
                 />
@@ -309,7 +311,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                       className="inline-flex items-center gap-2"
                     >
                       <Loader2 size={20} className="animate-spin text-navy-950" />
-                      <span>جارٍ تجهيز طلبك...</span>
+                      <span>{t('contact.submitting')}</span>
                     </motion.span>
                   ) : submitStatus === 'success' ? (
                     <motion.span
@@ -320,7 +322,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                       className="inline-flex items-center gap-2 text-navy-950"
                     >
                       <CheckCircle2 size={22} className="text-navy-950" />
-                      <span>تم بنجاح — جارٍ فتح واتساب</span>
+                      <span>{t('contact.submit_success')}</span>
                     </motion.span>
                   ) : (
                     <motion.span
@@ -331,7 +333,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                       className="inline-flex items-center gap-2"
                     >
                       <Send size={20} />
-                      <span>اطلب الديمو عبر واتساب</span>
+                      <span>{t('contact.submit_btn')}</span>
                     </motion.span>
                   )}
                 </AnimatePresence>
@@ -339,17 +341,17 @@ ${businessTypeMsg}${trimmedUrl ? `
 
               <p className="text-center text-navy-300 text-sm flex items-center justify-center gap-1.5">
                 <CheckCircle2 size={14} className="text-gold-400" />
-                ديمو مجاني خلال 24-72 ساعة بدون أي التزام مالي
+                {t('contact.guarantee_note')}
               </p>
 
               {rateLimited && (
                 <p className="text-amber-300 text-sm text-center" role="alert">
-                  {rateLimitMsg || 'لقد أرسلت طلباً للتو. انتظر قليلاً قبل إرسال طلب آخر.'}
+                  {rateLimitMsg || t('contact.rate_limit_recent')}
                 </p>
               )}
               {submitStatus === 'error' && (
                 <p className="text-amber-300 text-sm text-center" role="alert">
-                  تم فتح واتساب لتأكيد طلبك مباشرة مع فريق العمل.
+                  {t('contact.whatsapp_opened_note')}
                 </p>
               )}
             </form>
@@ -370,8 +372,8 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <MessageCircle size={24} className="text-green-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">واتساب الدعم الفني</div>
-                <div className="text-navy-50 font-bold" dir="ltr">{cfg.phone}</div>
+                <div className="text-navy-300 text-sm">{t('contact.whatsapp_support')}</div>
+                <div className="text-navy-50 font-bold notranslate" translate="no" dir="ltr">{cfg.phone}</div>
               </div>
             </a>
 
@@ -386,8 +388,8 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <Phone size={24} className="text-gold-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">اتصال هاتفي مباشر</div>
-                <div className="text-navy-50 font-bold" dir="ltr">{cfg.phone}</div>
+                <div className="text-navy-300 text-sm">{t('contact.phone_call')}</div>
+                <div className="text-navy-50 font-bold notranslate" translate="no" dir="ltr">{cfg.phone}</div>
               </div>
             </a>
 
@@ -400,8 +402,8 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <Mail size={24} className="text-teal-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">البريد الإلكتروني الرسمي</div>
-                <div className="text-navy-50 font-bold text-sm" dir="ltr">{cfg.email}</div>
+                <div className="text-navy-300 text-sm">{t('contact.email_official')}</div>
+                <div className="text-navy-50 font-bold text-sm notranslate" translate="no" dir="ltr">{cfg.email}</div>
               </div>
             </a>
 
@@ -410,8 +412,8 @@ ${businessTypeMsg}${trimmedUrl ? `
                 <MapPin size={24} className="text-gold-400" />
               </div>
               <div>
-                <div className="text-navy-300 text-sm">نطاق الخدمة</div>
-                <div className="text-navy-50 font-bold">{cfg.location} — المنصورة وكل مصر</div>
+                <div className="text-navy-300 text-sm">{t('contact.service_area')}</div>
+                <div className="text-navy-50 font-bold">{cfg.location} — {t('contact.service_area_desc')}</div>
               </div>
             </div>
 
@@ -419,7 +421,7 @@ ${businessTypeMsg}${trimmedUrl ? `
             {cfg.mapEmbedUrl && (
               <div className="rounded-2xl overflow-hidden border border-navy-700/50 h-56 shadow-lg">
                 <iframe
-                  title="موقع Click Zoon على خرائط جوجل"
+                  title={t('contact.map_title')}
                   src={cfg.mapEmbedUrl}
                   width="100%"
                   height="100%"
@@ -440,7 +442,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                 className="flex-1 flex items-center justify-center gap-2 bg-navy-800/60 hover:bg-blue-600/20 border border-navy-700/50 hover:border-blue-500/40 rounded-xl py-3.5 transition-colors group"
               >
                 <Facebook size={20} className="text-blue-400" />
-                <span className="text-navy-200 font-semibold text-sm">فيسبوك</span>
+                <span className="text-navy-200 font-semibold text-sm">{t('contact.facebook')}</span>
               </a>
               <a
                 href={cfg.instagram}
@@ -450,7 +452,7 @@ ${businessTypeMsg}${trimmedUrl ? `
                 className="flex-1 flex items-center justify-center gap-2 bg-navy-800/60 hover:bg-pink-600/20 border border-navy-700/50 hover:border-pink-500/40 rounded-xl py-3.5 transition-colors group"
               >
                 <Instagram size={20} className="text-pink-400" />
-                <span className="text-navy-200 font-semibold text-sm">إنستجرام</span>
+                <span className="text-navy-200 font-semibold text-sm">{t('contact.instagram')}</span>
               </a>
             </div>
           </div>

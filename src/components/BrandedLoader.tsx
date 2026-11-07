@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useI18n } from '@/i18n';
 
 export default function BrandedLoader({ onComplete }: { onComplete?: () => void }) {
+  const { t } = useI18n();
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
@@ -18,9 +20,8 @@ export default function BrandedLoader({ onComplete }: { onComplete?: () => void 
       className={`min-h-screen bg-navy-950 flex flex-col items-center justify-center relative overflow-hidden transition-opacity duration-300 ${
         fading ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
-      dir="rtl"
       role="status"
-      aria-label="جارٍ تحميل الموقع"
+      aria-label={t('common.loading')}
     >
       {/* Ambient background glow */}
       <div className="absolute w-72 h-72 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -82,11 +83,11 @@ export default function BrandedLoader({ onComplete }: { onComplete?: () => void 
         transition={{ delay: 0.35, duration: 0.4 }}
         className="mt-4 flex flex-col items-center gap-1.5"
       >
-        <span className="text-gradient-gold text-lg font-extrabold tracking-widest font-mono">
+        <span className="text-gradient-gold text-lg font-extrabold tracking-widest font-mono notranslate" translate="no">
           CLICK ZOON
         </span>
         <span className="text-navy-300 text-xs font-semibold">
-          تصميم وتطوير المواقع والمتاجر
+          {t('common.tagline')}
         </span>
       </motion.div>
     </div>

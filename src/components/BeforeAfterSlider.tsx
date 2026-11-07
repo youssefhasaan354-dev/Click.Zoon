@@ -3,8 +3,10 @@ import { ArrowLeftRight, CheckCircle2, XCircle, Sparkles, AlertTriangle } from '
 import SectionHeader from '@/components/SectionHeader';
 import { usePrefersReducedMotion } from '@/lib/motion';
 import { useReveal } from '@/hooks/useReveal';
+import { useI18n } from '@/i18n';
 
 export default function BeforeAfterSlider() {
+  const { t } = useI18n();
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const [beforeLoaded, setBeforeLoaded] = useState(false);
@@ -82,7 +84,6 @@ export default function BeforeAfterSlider() {
         if (hasInteractedRef.current) return;
         if (!start) start = now;
         const progress = Math.min((now - start) / duration, 1);
-        // Sinusoidal nudge wave: 50 + sin(progress * 2 * PI) * 8
         const offset = Math.sin(progress * 2 * Math.PI) * 8;
         setSliderPosition(50 + offset);
         if (progress < 1) {
@@ -103,21 +104,21 @@ export default function BeforeAfterSlider() {
     <section className="py-20 lg:py-28 bg-navy-900/60 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="التحول والتطوير"
-          title="شاهد الفرق الحقيقي"
-          highlight="قبل وبعد تطوير كليك زون"
-          subtitle="قارن بنفسك بين المواقع التقليدية البطيئة غير المتجاوبة، وبين مواقع كليك زون المصممة لزيادة المبيعات والسرعة الفائقة."
+          badge={t('before_after.badge')}
+          title={t('before_after.title')}
+          highlight={t('before_after.highlight')}
+          subtitle={t('before_after.subtitle')}
         />
 
         {/* Feature badges above */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8 text-center text-xs sm:text-sm">
           <div className="flex items-center justify-center gap-2.5 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 font-semibold shadow-xs">
             <XCircle size={18} className="shrink-0 text-red-400" />
-            <span>قبل: بطيء في التحميل، غير متوافق مع الموبايل، وتشتت للزوار</span>
+            <span>{t('before_after.before_tagline')}</span>
           </div>
           <div className="flex items-center justify-center gap-2.5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 font-semibold shadow-xs">
             <CheckCircle2 size={18} className="shrink-0 text-emerald-400" />
-            <span>بعد: سرعة فائقة، متجاوب بالكامل، وتجربة مستخدم ترفع المبيعات</span>
+            <span>{t('before_after.after_tagline')}</span>
           </div>
         </div>
 
@@ -140,7 +141,7 @@ export default function BeforeAfterSlider() {
               <div className="absolute inset-0 z-30 flex items-center justify-center bg-navy-950/80 backdrop-blur-xs animate-pulse pointer-events-none">
                 <div className="flex flex-col items-center gap-3 text-gold-400/80">
                   <div className="w-10 h-10 border-2 border-gold-400/30 border-t-gold-400 rounded-full animate-spin" />
-                  <span className="text-sm font-semibold text-navy-300">جاري تحميل المعاينة...</span>
+                  <span className="text-sm font-semibold text-navy-300">{t('before_after.loading')}</span>
                 </div>
               </div>
             )}
@@ -150,7 +151,7 @@ export default function BeforeAfterSlider() {
               {!afterError ? (
                 <img
                   src="/before-after/after.webp"
-                  alt="بعد تطوير كليك زون - تصميم عصري فائق السرعة متوافق مع كافة الشاشات"
+                  alt={t('before_after.after_badge')}
                   draggable={false}
                   onLoad={() => setAfterLoaded(true)}
                   onError={() => setAfterError(true)}
@@ -165,15 +166,14 @@ export default function BeforeAfterSlider() {
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-navy-900 to-navy-950 p-6 text-center">
                   <Sparkles size={36} className="text-gold-400 mb-2" />
-                  <p className="text-gold-300 font-bold text-sm">تصميم كليك زون العصري</p>
-                  <p className="text-navy-300 text-xs mt-1">هوية بصرية راقية وأداء فائق السرعة</p>
+                  <p className="text-gold-300 font-bold text-sm">{t('before_after.after_badge')}</p>
                 </div>
               )}
 
               {/* After tag (top left) */}
               <div className="absolute top-4 left-4 z-10 bg-navy-950/90 backdrop-blur-md border border-gold-500/40 text-gold-300 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full shadow-lg pointer-events-none flex items-center gap-1.5">
                 <Sparkles size={14} className="text-gold-400" />
-                <span>بعد كليك زون (حديث وسريع)</span>
+                <span>{t('before_after.after_badge')}</span>
               </div>
             </div>
 
@@ -188,7 +188,7 @@ export default function BeforeAfterSlider() {
               {!beforeError ? (
                 <img
                   src="/before-after/before.webp"
-                  alt="قبل التطوير - موقع قديم بطيء غير متوافق"
+                  alt={t('before_after.before_badge')}
                   draggable={false}
                   onLoad={() => setBeforeLoaded(true)}
                   onError={() => setBeforeError(true)}
@@ -203,15 +203,14 @@ export default function BeforeAfterSlider() {
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-red-950/60 to-navy-950 p-6 text-center">
                   <AlertTriangle size={36} className="text-red-400 mb-2" />
-                  <p className="text-red-300 font-bold text-sm">الموقع التقليدي القديم</p>
-                  <p className="text-navy-300 text-xs mt-1">بطء في التحميل وتجربة مستخدم قديمة</p>
+                  <p className="text-red-300 font-bold text-sm">{t('before_after.before_badge')}</p>
                 </div>
               )}
 
               {/* Before tag (top right) */}
               <div className="absolute top-4 right-4 z-10 bg-red-950/90 backdrop-blur-md border border-red-500/40 text-red-300 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full shadow-lg pointer-events-none flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <span>قبل التطوير (تقليدي قديم)</span>
+                <span>{t('before_after.before_badge')}</span>
               </div>
             </div>
 
@@ -223,7 +222,7 @@ export default function BeforeAfterSlider() {
               <div
                 role="slider"
                 tabIndex={0}
-                aria-label="مؤشر المقارنة التفاعلي بين الموقع قبل وبعد التطوير"
+                aria-label={t('before_after.slider_label')}
                 aria-valuenow={Math.round(sliderPosition)}
                 aria-valuemin={3}
                 aria-valuemax={97}
@@ -236,8 +235,8 @@ export default function BeforeAfterSlider() {
           </div>
         </div>
 
-        <p className="text-center text-xs text-navy-400 mt-4 font-cairo">
-          اسحب المؤشر لليمين واليسار لرؤية الفرق، أو استخدم أزرار الأسهم في لوحة المفاتيح.
+        <p className="text-center text-xs text-navy-400 mt-4">
+          {t('before_after.drag_hint')}
         </p>
       </div>
     </section>

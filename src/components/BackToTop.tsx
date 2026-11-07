@@ -1,7 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useI18n } from '@/i18n';
 
 export default function BackToTop() {
+  const { t } = useI18n();
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
 
@@ -30,11 +32,11 @@ export default function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed right-4 sm:right-6 z-40 w-12 h-12 rounded-full bg-navy-900/90 hover:bg-navy-800 text-gold-400 border border-gold-500/30 backdrop-blur-md flex items-center justify-center shadow-xl shadow-navy-950/60 floating-btn-pos transition-all duration-300 hover:scale-110 group ${
+      className={`fixed end-4 sm:end-6 z-40 w-12 h-12 rounded-full bg-navy-900/90 hover:bg-navy-800 text-gold-400 border border-gold-500/30 backdrop-blur-md flex items-center justify-center shadow-xl shadow-navy-950/60 floating-btn-pos transition-all duration-300 hover:scale-110 group ${
         visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'
       }`}
-      aria-label="الرجوع إلى أعلى الصفحة"
-      title="الرجوع للأعلى"
+      aria-label={t('common.back_to_top')}
+      title={t('common.back_to_top')}
     >
       {/* Circular progress SVG */}
       <svg

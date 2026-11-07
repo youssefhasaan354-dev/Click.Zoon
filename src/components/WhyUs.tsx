@@ -4,19 +4,21 @@ import { siteConfig } from '@/siteConfig';
 import { getIcon } from '@/lib/icons';
 import SectionHeader from '@/components/SectionHeader';
 import Counter from '@/components/Counter';
-
-const fallbackFeatures = [
-  { icon: 'Award', title: 'تصميم احترافي', desc: 'كل موقع مصمم خصيصاً ليُعبّر عن هوية نشاطك.' },
-  { icon: 'Smartphone', title: 'موبايل أولاً', desc: 'أغلب عملائك على الموبايل — وخلي تجربتهم مثالية.' },
-  { icon: 'Zap', title: 'تسليم سريع', desc: 'الديمو في 24-72 ساعة، والتسليم النهائي من 3 أيام إلى أسبوع.' },
-  { icon: 'Headphones', title: 'دعم مستمر', desc: 'مش بنسيبك بعد الإطلاق — دعم فني وتحديثات مستمرة.' },
-  { icon: 'Search', title: 'جاهز لـ SEO', desc: 'مهيّأ لظهور جوجل من اليوم الأول.' },
-  { icon: 'ShieldCheck', title: 'بدون عمولات', desc: 'طلباتك بتوصلك مباشرة — بدون عمولات تطبيقات التوصيل.' },
-];
+import { useI18n } from '@/i18n';
 
 export default function WhyUs() {
+  const { t } = useI18n();
   const { ref: featRef, revealed: featRevealed } = useReveal();
   const { data } = useSiteData();
+
+  const fallbackFeatures = [
+    { icon: 'Award', title: t('why_us.feat1_title'), desc: t('why_us.feat1_desc') },
+    { icon: 'Smartphone', title: t('why_us.feat2_title'), desc: t('why_us.feat2_desc') },
+    { icon: 'Zap', title: t('why_us.feat3_title'), desc: t('why_us.feat3_desc') },
+    { icon: 'Headphones', title: t('why_us.feat4_title'), desc: t('why_us.feat4_desc') },
+    { icon: 'Search', title: t('why_us.feat5_title'), desc: t('why_us.feat5_desc') },
+    { icon: 'ShieldCheck', title: t('why_us.feat6_title'), desc: t('why_us.feat6_desc') },
+  ];
 
   const features = data.features.length > 0
     ? data.features.map((f) => ({ icon: f.icon, title: f.title, desc: f.description }))
@@ -26,10 +28,10 @@ export default function WhyUs() {
     <section id="why-us" className="py-20 lg:py-28 bg-navy-950/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="ليه Click Zoon"
-          title="ليه تختارنا"
-          highlight="لتطوير نشاطك؟"
-          subtitle="مش بس بنعمل موقع — بنبني لك حضوراً رقمياً يخدم نشاطك ويحقق لك عملاء حقيقيين."
+          badge={t('why_us.badge')}
+          title={t('why_us.title')}
+          highlight={t('why_us.highlight')}
+          subtitle={t('why_us.subtitle')}
         />
 
         <div ref={featRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

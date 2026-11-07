@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Counter from '@/components/Counter';
 import { waLink } from '@/siteConfig';
+import { useI18n } from '@/i18n';
 
 interface CaseStudyData {
   slug: string;
@@ -84,6 +85,7 @@ const caseStudies: Record<string, CaseStudyData> = {
 };
 
 export default function CaseStudyPage() {
+  const { t } = useI18n();
   const { slug } = useParams<{ slug: string }>();
   const study = slug ? caseStudies[slug] : null;
 
@@ -121,11 +123,11 @@ export default function CaseStudyPage() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs sm:text-sm text-navy-400 mb-8">
             <Link to="/" className="hover:text-gold-300 transition-colors">
-              الرئيسية
+              {t('nav.home')}
             </Link>
             <span>/</span>
             <Link to="/#portfolio" className="hover:text-gold-300 transition-colors">
-              معرض الأعمال
+              {t('nav.showcase')}
             </Link>
             <span>/</span>
             <span className="text-gold-400 font-semibold">{study.client}</span>

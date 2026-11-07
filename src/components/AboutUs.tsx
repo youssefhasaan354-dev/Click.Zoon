@@ -2,8 +2,10 @@ import { useReveal } from '@/hooks/useReveal';
 import { useSiteConfig } from '@/siteConfig';
 import { useSectionVisibility } from '@/lib/site-data-context';
 import Counter from '@/components/Counter';
+import { useI18n } from '@/i18n';
 
 export default function AboutUs() {
+  const { t } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
   const visible = useSectionVisibility('about');
@@ -70,7 +72,7 @@ export default function AboutUs() {
               {cfg.aboutTitle}
             </div>
             <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-5">
-              <span className="text-gradient-gold">كليك زون</span> — من نحن
+              <span className="text-gradient-gold notranslate" translate="no">{t('about_us.title_prefix')}</span> — {t('about_us.title_suffix')}
             </h2>
             {hasText && (
               <p className="text-navy-200 text-lg leading-relaxed mb-8">

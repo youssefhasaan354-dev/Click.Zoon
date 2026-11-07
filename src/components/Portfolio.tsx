@@ -6,6 +6,7 @@ import SectionHeader from '@/components/SectionHeader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { PortfolioItem } from '@/lib/types';
+import { useI18n } from '@/i18n';
 
 interface ExtendedPortfolioItem extends PortfolioItem {
   slug?: string;
@@ -60,14 +61,8 @@ const fallbackPortfolio: ExtendedPortfolioItem[] = [
   },
 ];
 
-const filters = [
-  { key: 'all', label: 'الكل' },
-  { key: 'restaurants', label: 'مطاعم' },
-  { key: 'stores', label: 'متاجر' },
-  { key: 'cafes', label: 'كافيهات' },
-];
-
 export default function Portfolio() {
+  const { t, dir } = useI18n();
   const { ref, revealed } = useReveal();
   const { data } = useSiteData();
   const [activeFilter, setActiveFilter] = useState('all');
@@ -76,6 +71,13 @@ export default function Portfolio() {
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const touchStartXRef = useRef<number | null>(null);
+
+  const filters = [
+    { key: 'all', label: t('portfolio.filter_all') },
+    { key: 'restaurants', label: t('portfolio.filter_restaurants') },
+    { key: 'stores', label: t('portfolio.filter_stores') },
+    { key: 'cafes', label: t('portfolio.filter_cafes') },
+  ];
 
   const rawProjects = data.portfolio && data.portfolio.length > 0 ? data.portfolio : fallbackPortfolio;
   const projects = rawProjects as ExtendedPortfolioItem[];
@@ -169,10 +171,10 @@ export default function Portfolio() {
     <section id="portfolio" className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="معرض الأعمال والقصص"
-          title="نماذج حقيقية"
-          highlight="من مواقع ومتاجر عملائنا"
-          subtitle="تصفح مشاريع صمّمناها ونفّذناها بالكامل — مواقع حية تزيد المبيعات وتوفر تجربة استثنائية."
+          badge={t('portfolio.badge')}
+          title={t('portfolio.title')}
+          highlight={t('portfolio.highlight')}
+          subtitle={t('portfolio.subtitle')}
         />
 
         {/* Filters */}
@@ -207,7 +209,7 @@ export default function Portfolio() {
                 className={`reveal ${revealed ? 'revealed' : ''}`}
                 style={revealed ? undefined : { transitionDelay: `${i * 80}ms` }}
               >
-                <div className="w-full group relative overflow-hidden rounded-2xl glass-card text-right transition-transform duration-300 hover:-translate-y-2 hover:border-gold-500/40 h-full flex flex-col justify-between">
+                <div className="w-full group relative overflow-hidden rounded-2xl glass-card text-start transition-transform duration-300 hover:-translate-y-2 hover:border-gold-500/40 h-full flex flex-col justify-between">
                   {/* Image with zoom and gentle overlay */}
                   <div className="relative h-56 w-full overflow-hidden bg-navy-950">
                     <img
@@ -230,7 +232,7 @@ export default function Portfolio() {
                     >
                       <span className="btn-gold px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow-xl">
                         <Sparkles size={14} />
-                        <span>معاينة المشروع</span>
+                        <span>{t('portfolio.view_details')}</span>
                       </span>
                     </button>
                   </div>
@@ -251,10 +253,10 @@ export default function Portfolio() {
                           className="text-xs font-bold text-gold-400 hover:text-gold-300 flex items-center gap-1 transition-colors"
                         >
                           <BookOpen size={13} />
-                          <span>دراسة الحالة كاملة</span>
+                          <span>{t('portfolio.case_study')}</span>
                         </Link>
                       ) : (
-                        <span className="text-xs text-navy-400 font-medium">تصميم كليك زون</span>
+                        <span className="text-xs text-navy-400 font-medium">Click Zoon</span>
                       )}
 
                       {(project.live_url || project.link) && (
@@ -264,7 +266,7 @@ export default function Portfolio() {
                           rel="noopener noreferrer"
                           className="text-xs text-navy-300 hover:text-gold-400 flex items-center gap-1 transition-colors"
                         >
-                          <span>الموقع الحي</span>
+                          <span>{t('portfolio.live_preview')}</span>
                           <ExternalLink size={12} />
                         </a>
                       )}
@@ -281,8 +283,8 @@ export default function Portfolio() {
             to="/showcase"
             className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-950 font-bold px-7 py-3.5 rounded-xl transition-all glow-gold-hover"
           >
-            <span>شوف كل المواقع والبرامج واطلب نموذجك</span>
-            <ChevronLeft size={18} />
+            <span>{t('portfolio.all_showcase_btn')}</span>
+            <ChevronLeft size={18} className="rtl:rotate-0 ltr:rotate-180" />
           </Link>
         </div>
       </div>
@@ -307,9 +309,9 @@ export default function Portfolio() {
             {/* Close button with min 44x44px tap target */}
             <button
               ref={closeButtonRef}
-              className="absolute top-5 right-5 text-navy-100 hover:text-gold-400 transition-colors w-11 h-11 rounded-full bg-navy-900/80 border border-navy-700/60 flex items-center justify-center z-10"
+              className="absolute top-5 end-5 text-navy-100 hover:text-gold-400 transition-colors w-11 h-11 rounded-full bg-navy-900/80 border border-navy-700/60 flex items-center justify-center z-10"
               onClick={closeLightbox}
-              aria-label="إغلاق المعاينة"
+              aria-label={t('common.close')}
             >
               <X size={24} />
             </button>
@@ -318,26 +320,26 @@ export default function Portfolio() {
             {filtered.length > 1 && (
               <>
                 <button
-                  className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
+                  className="absolute end-4 sm:end-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
                   onClick={(e) => {
                     e.stopPropagation();
                     prevProject();
                   }}
-                  aria-label="المشروع السابق"
-                  title="السابق"
+                  aria-label={t('mockups.prev_project')}
+                  title={t('mockups.prev')}
                 >
-                  <ChevronRight size={28} />
+                  {dir === 'rtl' ? <ChevronRight size={28} /> : <ChevronLeft size={28} />}
                 </button>
                 <button
-                  className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
+                  className="absolute start-4 sm:start-6 top-1/2 -translate-y-1/2 text-navy-100 hover:text-gold-400 transition-colors w-12 h-12 bg-navy-900/90 border border-navy-700/60 rounded-full flex items-center justify-center z-10"
                   onClick={(e) => {
                     e.stopPropagation();
                     nextProject();
                   }}
-                  aria-label="المشروع التالي"
-                  title="التالي"
+                  aria-label={t('mockups.next_project')}
+                  title={t('mockups.next')}
                 >
-                  <ChevronLeft size={28} />
+                  {dir === 'rtl' ? <ChevronLeft size={28} /> : <ChevronRight size={28} />}
                 </button>
               </>
             )}
@@ -362,10 +364,10 @@ export default function Portfolio() {
                     className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
                       deviceMode === 'desktop' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/40' : 'text-navy-400 hover:text-navy-200'
                     }`}
-                    title="معاينة شاشة الكمبيوتر"
+                    title={t('mockups.desktop_preview')}
                   >
                     <Monitor size={16} />
-                    <span className="hidden sm:inline">كمبيوتر</span>
+                    <span className="hidden sm:inline">{t('mockups.desktop_preview')}</span>
                   </button>
                   <button
                     type="button"
@@ -373,15 +375,15 @@ export default function Portfolio() {
                     className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
                       deviceMode === 'mobile' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/40' : 'text-navy-400 hover:text-navy-200'
                     }`}
-                    title="معاينة شاشة الموبايل"
+                    title={t('mockups.mobile_preview')}
                   >
                     <Smartphone size={16} />
-                    <span className="hidden sm:inline">موبايل</span>
+                    <span className="hidden sm:inline">{t('mockups.mobile_preview')}</span>
                   </button>
                 </div>
 
                 <div className="text-xs text-navy-400">
-                  {lightboxIndex + 1} من {filtered.length}
+                  {lightboxIndex + 1} / {filtered.length}
                 </div>
               </div>
 
@@ -416,7 +418,7 @@ export default function Portfolio() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 hover:text-gold-300 bg-gold-500/10 border border-gold-500/30 px-4 py-2 rounded-xl transition-colors"
                       >
-                        <span>زيارة الموقع الحي</span>
+                        <span>{t('portfolio.live_preview')}</span>
                         <ExternalLink size={14} />
                       </a>
                     )}

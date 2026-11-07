@@ -4,24 +4,27 @@ import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
 import { useSiteData } from '@/lib/site-data-context';
 import { useCustomer } from '@/lib/customer-context';
+import { useI18n } from '@/i18n';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const allNavLinks = [
-  { href: '/#home', id: 'home', label: 'الرئيسية', section: 'hero' },
-  { href: '/#demo', id: 'demo', label: 'الديمو المجاني', section: 'demo' },
-  { href: '/#services', id: 'services', label: 'الخدمات', section: 'services' },
-  { href: '/#pricing', id: 'pricing', label: 'الباقات', section: 'pricing' },
-  { href: '/showcase', id: 'showcase', label: 'معرض الأعمال', section: 'portfolio' },
-  { href: '/#process', id: 'process', label: 'خطوات العمل', section: 'process' },
-  { href: '/#faq', id: 'faq', label: 'الأسئلة الشائعة', section: 'faq' },
-  { href: '/#contact', id: 'contact', label: 'تواصل معنا', section: 'contact' },
+  { href: '/#home', id: 'home', key: 'nav.home', section: 'hero' },
+  { href: '/#demo', id: 'demo', key: 'nav.demo', section: 'demo' },
+  { href: '/#services', id: 'services', key: 'nav.services', section: 'services' },
+  { href: '/#pricing', id: 'pricing', key: 'nav.pricing', section: 'pricing' },
+  { href: '/showcase', id: 'showcase', key: 'nav.showcase', section: 'portfolio' },
+  { href: '/#process', id: 'process', key: 'nav.process', section: 'process' },
+  { href: '/#faq', id: 'faq', key: 'nav.faq', section: 'faq' },
+  { href: '/#contact', id: 'contact', key: 'nav.contact', section: 'contact' },
 ];
 
 export default function Header() {
   const cfg = useSiteConfig();
   const { data } = useSiteData();
   const { user, profile, signOut } = useCustomer();
+  const { t } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -124,16 +127,16 @@ export default function Header() {
     navigate('/');
   };
 
-  const displayName = profile?.full_name || user?.email?.split('@')[0] || 'حسابي';
+  const displayName = profile?.full_name || user?.email?.split('@')[0] || t('common.my_account');
 
   return (
     <>
       {/* Skip to main content link for keyboard accessibility */}
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:bg-gold-500 focus:text-navy-950 focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:end-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:bg-gold-500 focus:text-navy-950 focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none"
       >
-        تخطي إلى المحتوى الرئيسي
+        {t('common.skip_to_content')}
       </a>
 
       {/* Promo banner */}
@@ -144,9 +147,9 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'promo_bar_demo' })}
-          className="underline mr-1 text-navy-950 font-bold hover:text-navy-800 transition-colors whitespace-nowrap"
+          className="underline ms-1 text-navy-950 font-bold hover:text-navy-800 transition-colors whitespace-nowrap"
         >
-          اطلب الآن
+          {t('common.order_now')}
         </a>
       </div>
 
@@ -161,7 +164,11 @@ export default function Header() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="التنقل الرئيسي">
           <div className="flex items-center justify-between h-16 lg:h-20 gap-3">
             {/* Logo */}
-            <Link to="/#home" className="flex items-center gap-2.5 shrink-0 focus-visible:ring-2 focus-visible:ring-gold-400 rounded-lg p-1">
+            <Link
+              to="/#home"
+              className="flex items-center gap-2.5 shrink-0 focus-visible:ring-2 focus-visible:ring-gold-400 rounded-lg p-1 notranslate"
+              translate="no"
+            >
               <span className="text-2xl font-extrabold text-gradient-gold tracking-tight">{cfg.logoText}</span>
               <span className="text-lg font-bold text-navy-50 hidden sm:inline">{cfg.agencyName}</span>
             </Link>
@@ -178,7 +185,7 @@ export default function Header() {
                         isActive ? 'text-gold-400 font-bold' : 'text-navy-100 hover:text-gold-300'
                       }`}
                     >
-                      {link.label}
+                      {t(link.key)}
                       {isActive && (
                         <motion.div
                           layoutId="activeNavUnderline"
@@ -194,6 +201,8 @@ export default function Header() {
 
             {/* Desktop Action Buttons */}
             <div className="hidden xl:flex items-center gap-3 shrink-0">
+              <LanguageSwitcher variant="desktop" />
+
               {user ? (
                 /* User profile dropdown */
                 <div className="relative" ref={userMenuRef}>
@@ -207,14 +216,14 @@ export default function Header() {
                     <ChevronDown size={16} className={`text-navy-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
                   </button>
                   {userMenuOpen && (
-                    <div className="absolute left-0 mt-2 w-48 bg-navy-850 bg-navy-900 border border-navy-700 rounded-xl shadow-2xl py-2 z-50">
+                    <div className="absolute end-0 mt-2 w-48 bg-navy-850 bg-navy-900 border border-navy-700 rounded-xl shadow-2xl py-2 z-50">
                       <Link
                         to="/account"
                         onClick={() => setUserMenuOpen(false)}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-navy-200 hover:bg-navy-800 hover:text-gold-300 transition-colors"
                       >
                         <User size={16} />
-                        حسابي
+                        {t('common.my_account')}
                       </Link>
                       <Link
                         to="/my-requests"
@@ -222,7 +231,7 @@ export default function Header() {
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-navy-200 hover:bg-navy-800 hover:text-gold-300 transition-colors"
                       >
                         <Inbox size={16} />
-                        طلباتي
+                        {t('common.my_requests')}
                       </Link>
                       <div className="border-t border-navy-800 my-1" />
                       <button
@@ -230,7 +239,7 @@ export default function Header() {
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-300 hover:bg-red-500/10 transition-colors"
                       >
                         <LogOut size={16} />
-                        تسجيل الخروج
+                        {t('common.logout')}
                       </button>
                     </div>
                   )}
@@ -242,14 +251,14 @@ export default function Header() {
                     className="inline-flex items-center gap-1.5 border border-navy-600/60 hover:border-gold-500/50 text-navy-100 hover:text-gold-300 font-semibold px-3.5 py-2 rounded-xl transition-all text-sm"
                   >
                     <LogIn size={15} />
-                    تسجيل الدخول
+                    {t('common.login')}
                   </Link>
                   <Link
                     to="/auth?mode=signup"
                     className="inline-flex items-center gap-1.5 bg-navy-800 hover:bg-navy-700 text-gold-300 border border-gold-500/30 font-bold px-3.5 py-2 rounded-xl transition-all text-sm"
                   >
                     <UserPlus size={15} />
-                    إنشاء حساب
+                    {t('common.signup')}
                   </Link>
                 </>
               )}
@@ -261,12 +270,14 @@ export default function Header() {
                 onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'header_demo' })}
                 className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-5 py-2.5 rounded-xl transition-all duration-300 hover:scale-105 glow-gold-hover text-sm shadow-md shadow-gold-500/20"
               >
-                اطلب ديمو مجاني
+                {t('common.request_free_demo')}
               </a>
             </div>
 
             {/* Mobile / Tablet burger button (visible below xl: handles 1024px cleanly) */}
             <div className="flex xl:hidden items-center gap-2">
+              <LanguageSwitcher variant="desktop" />
+
               <a
                 href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.demo)}
                 target="_blank"
@@ -274,7 +285,7 @@ export default function Header() {
                 onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'header_demo_mobile' })}
                 className="inline-flex items-center gap-1.5 bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-3 py-1.5 rounded-lg text-xs"
               >
-                ديمو مجاني
+                {t('common.free_demo')}
               </a>
 
               <button
@@ -283,7 +294,7 @@ export default function Header() {
                 onClick={() => setMenuOpen((o) => !o)}
                 aria-expanded={menuOpen}
                 aria-controls="mobile-nav-drawer"
-                aria-label={menuOpen ? 'إغلاق القائمة' : 'فتح القائمة الرئيسية'}
+                aria-label={menuOpen ? t('nav.close_menu') : t('nav.open_menu')}
               >
                 {menuOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
@@ -318,18 +329,23 @@ export default function Header() {
                             : 'text-navy-100 hover:text-gold-400 hover:bg-navy-800/60'
                         }`}
                       >
-                        {link.label}
+                        {t(link.key)}
                       </Link>
                     </li>
                   );
                 })}
               </ul>
 
-              <div className="border-t border-navy-700/50 pt-4 space-y-2">
+              <div className="border-t border-navy-700/50 pt-4 space-y-3">
+                <div className="p-1 bg-navy-950/40 rounded-xl border border-navy-800/60">
+                  <div className="text-xs font-semibold text-navy-400 mb-1.5 px-2">{t('lang.switcher_label')}</div>
+                  <LanguageSwitcher variant="mobile" onSelect={() => setMenuOpen(false)} />
+                </div>
+
                 {user ? (
                   <>
                     <div className="px-4 py-2 text-sm text-navy-300 font-medium">
-                      أهلاً، <span className="text-gold-300 font-bold">{displayName}</span>
+                      {t('common.welcome')}، <span className="text-gold-300 font-bold">{displayName}</span>
                     </div>
                     <Link
                       to="/account"
@@ -337,7 +353,7 @@ export default function Header() {
                       className="flex items-center gap-3 py-3 px-4 rounded-xl text-navy-200 hover:bg-navy-800/70"
                     >
                       <User size={18} />
-                      حسابي
+                      {t('common.my_account')}
                     </Link>
                     <Link
                       to="/my-requests"
@@ -345,14 +361,14 @@ export default function Header() {
                       className="flex items-center gap-3 py-3 px-4 rounded-xl text-navy-200 hover:bg-navy-800/70"
                     >
                       <Inbox size={18} />
-                      طلباتي
+                      {t('common.my_requests')}
                     </Link>
                     <button
                       onClick={handleSignOut}
-                      className="w-full flex items-center gap-3 py-3 px-4 rounded-xl text-red-300 hover:bg-red-500/10 text-right"
+                      className="w-full flex items-center gap-3 py-3 px-4 rounded-xl text-red-300 hover:bg-red-500/10 text-start"
                     >
                       <LogOut size={18} />
-                      تسجيل الخروج
+                      {t('common.logout')}
                     </button>
                   </>
                 ) : (
@@ -363,7 +379,7 @@ export default function Header() {
                       className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-navy-600/70 text-navy-100 font-semibold text-center text-sm"
                     >
                       <LogIn size={16} />
-                      دخول
+                      {t('common.login')}
                     </Link>
                     <Link
                       to="/auth?mode=signup"
@@ -371,7 +387,7 @@ export default function Header() {
                       className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gold-500 text-navy-900 font-bold text-center text-sm"
                     >
                       <UserPlus size={16} />
-                      حساب جديد
+                      {t('common.signup')}
                     </Link>
                   </div>
                 )}

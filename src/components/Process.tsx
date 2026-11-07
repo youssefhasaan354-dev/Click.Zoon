@@ -3,17 +3,19 @@ import { useSiteData } from '@/lib/site-data-context';
 import { getIcon } from '@/lib/icons';
 import SectionHeader from '@/components/SectionHeader';
 import { motion } from 'framer-motion';
-
-const fallbackSteps = [
-  { icon: 'MessageSquare', title: 'اطلب الديمو', desc: 'ابعت لنا بيانات نشاطك من النموذج أو عبر واتساب لنبدأ فوراً.' },
-  { icon: 'PenTool', title: 'نصمم لك نموذج', desc: 'نجهّز لك تصوراً حقيقياً متجاوباً لنشاطك خلال 24-72 ساعة.' },
-  { icon: 'Rocket', title: 'اعتمد وعدّل', desc: 'راجع النموذج واطلب التعديلات التي تناسب رؤيتك قبل أي التزام.' },
-  { icon: 'Award', title: 'نطلق الموقع', desc: 'نربط الدومين والاستضافة ونسلّمك الموقع جاهزاً مع تدريب ودعم مستمر.' },
-];
+import { useI18n } from '@/i18n';
 
 export default function Process() {
+  const { t, dir } = useI18n();
   const { ref, revealed } = useReveal();
   const { data } = useSiteData();
+
+  const fallbackSteps = [
+    { icon: 'MessageSquare', title: t('process.step_1_title'), desc: t('process.step_1_desc') },
+    { icon: 'PenTool', title: t('process.step_2_title'), desc: t('process.step_2_desc') },
+    { icon: 'Rocket', title: t('process.step_3_title'), desc: t('process.step_3_desc') },
+    { icon: 'Award', title: t('process.step_4_title'), desc: t('process.step_4_desc') },
+  ];
 
   const steps = data.processSteps.length > 0
     ? data.processSteps.map((s) => ({ icon: s.icon, title: s.title, desc: s.description }))
@@ -23,20 +25,20 @@ export default function Process() {
     <section id="process" className="py-20 lg:py-28 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="إزاي بنشتغل"
-          title="من الفكرة الأولى"
-          highlight="وحتى إطلاق موقعك"
-          subtitle="أربع خطوات واضحة ومدروسة — تأخذك من مجرد فكرة إلى موقع حي يعمل باحترافية."
+          badge={t('process.badge')}
+          title={t('process.title')}
+          highlight={t('process.highlight')}
+          subtitle={t('process.subtitle')}
         />
 
         <div ref={ref} className="relative">
           {/* Animated Connecting SVG Line (Desktop) */}
-          <div className="hidden lg:block absolute top-12 right-12 left-12 h-1 pointer-events-none z-0" aria-hidden="true">
+          <div className="hidden lg:block absolute top-12 inset-x-12 h-1 pointer-events-none z-0" aria-hidden="true">
             <svg className="w-full h-8 overflow-visible" preserveAspectRatio="none">
               <motion.line
-                x1="0"
+                x1={dir === 'rtl' ? '100%' : '0%'}
                 y1="4"
-                x2="100%"
+                x2={dir === 'rtl' ? '0%' : '100%'}
                 y2="4"
                 stroke="url(#processLineGradient)"
                 strokeWidth="2.5"
@@ -74,7 +76,7 @@ export default function Process() {
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ type: 'spring', stiffness: 350, damping: 15, delay: 0.15 * i + 0.2 }}
-                      className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-gold-500 text-navy-900 text-sm font-extrabold flex items-center justify-center shadow-md shadow-gold-500/40"
+                      className="absolute -top-1 rtl:-right-1 ltr:-left-1 w-8 h-8 rounded-full bg-gold-500 text-navy-900 text-sm font-extrabold flex items-center justify-center shadow-md shadow-gold-500/40"
                     >
                       {i + 1}
                     </motion.span>

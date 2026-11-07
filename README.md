@@ -93,6 +93,24 @@ npm run build
    - الدالة السحابية `notify-new-request` ترفض أي استدعاء عند عدم تعيين `WEBHOOK_SECRET` لضمان عدم تسريب الإشعارات.
 4. **أمان المتصفح (CSP & Security Headers)**:
    - تفعيل `Content-Security-Policy`، `Strict-Transport-Security`، `X-Frame-Options`، وسياسات التخزين المؤقت للأصول والخطوط في `vercel.json`.
+   - **سياسة CSP ونظام الترجمة**: تم إضافة نطاقات Google Website Translator (`translate.google.com`, `translate.googleapis.com`, `www.gstatic.com`) للـ CSP بدون إضافة `'unsafe-inline'` في `script-src` إطلاقاً. يتم استدعاء الأداة عبر ملف JavaScript مجمع (bundled) ودالة رد اتصال `window.googleTranslateElementInit` دون الحاجة لأي وسوم سكريبت مضمنة (inline scripts).
+   - **محركات البحث واللغات (SEO & hreflang)**: الموقع يعتمد اللغة العربية كمرجع أساسي ومصدر حقيقة لمحركات البحث (Canonical & Default Language). نظراً لأن تبديل اللغة للإنجليزية ولغات أخرى يتم من طرف العميل (Client-side) على نفس مسار الرابط (Single-URL client-side switching) دون وجود مسارات منفصلة مثل `/en/`، فإن وسوم `<link rel="alternate" hreflang>` للصفحات المترجمة غير مطلوبة لتفادي الإشارات المتضاربة لمحركات البحث.
+
+---
+
+## نظام تدويل الموقع وتعدد اللغات (i18n)
+
+- **اللغة الأساسية**: العربية (RTL) مع خط القاهرة (Cairo).
+- **الطبقة الخفيفة (Curated i18n)**:
+  - قاموس عربي مدمج `src/i18n/ar.json` + قاموس إنجليزي محمل بشكل كسول (Lazy-loaded) `src/i18n/en.json` لضمان عدم زيادة حجم الحزمة الأولية.
+  - دعم التبديل التلقائي لسمات `dir` و `lang` على عنصر `<html>`.
+  - احترام الخصائص المنطقية للاتجاه في Tailwind (`start-`, `end-`, `ms-`, `me-`, `ps-`, `pe-`, `text-start`, `text-end`).
+  - حفظ لغة المستخدم المفضلة في `localStorage` (`cz_lang`).
+- **خيار "لغات أخرى" (More Languages)**:
+  - تحميل كسول لأداة Google Website Translator عند النقر فقط.
+  - إخفاء إطارات وشريط Google Translate العلوي مع تخصيص الصندوق بهوية Click Zoon (Navy + Gold).
+  - حماية أسماء العلامات التجارية وأرقام الهواتف عبر فئة `notranslate` وسمة `translate="no"`.
+- **بيانات قاعدة البيانات**: تبقى نصوص الأعمال والتقييمات المخزنة في قاعدة البيانات بلغتها الأصلية المسجلة دون ترجمة آلية قد تشوه الأسماء أو البيانات.
 
 ---
 

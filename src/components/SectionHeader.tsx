@@ -19,7 +19,7 @@ export default function SectionHeader({
   centered = true,
 }: SectionHeaderProps) {
   return (
-    <div className={`mb-12 sm:mb-16 ${centered ? 'text-center' : 'text-right'}`}>
+    <div className={`mb-12 sm:mb-16 ${centered ? 'text-center' : 'text-start'}`}>
       {badge && (
         <div className={`inline-flex items-center gap-2 text-gold-400 text-sm font-bold mb-2 tracking-wider relative`}>
           {Icon && <Icon size={16} className="text-gold-400 shrink-0" />}
@@ -35,7 +35,7 @@ export default function SectionHeader({
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="h-0.5 w-12 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full origin-right"
+            className="h-0.5 w-12 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full rtl:origin-right ltr:origin-left"
           />
         </div>
       )}

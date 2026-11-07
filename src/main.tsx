@@ -12,6 +12,7 @@ import { useSiteConfig } from './siteConfig';
 import { initGoogleAnalytics } from './lib/analytics';
 import BrandedLoader from '@/components/BrandedLoader';
 import { ToastProvider } from '@/lib/toast-context';
+import { I18nProvider } from '@/i18n';
 import { pageTransitionVariants, reducedMotionVariants, usePrefersReducedMotion } from '@/lib/motion';
 
 const AdminApp = lazy(() => import('@/admin/AdminApp'));
@@ -125,16 +126,18 @@ if (rootElement) {
   createRoot(rootElement).render(
     <RootErrorBoundary>
       <BrowserRouter>
-        <AdminProvider>
-          <CustomerProvider>
-            <SiteDataProvider>
-              <ToastProvider>
-                <GAInitializer />
-                <AnimatedAppRoutes />
-              </ToastProvider>
-            </SiteDataProvider>
-          </CustomerProvider>
-        </AdminProvider>
+        <I18nProvider>
+          <AdminProvider>
+            <CustomerProvider>
+              <SiteDataProvider>
+                <ToastProvider>
+                  <GAInitializer />
+                  <AnimatedAppRoutes />
+                </ToastProvider>
+              </SiteDataProvider>
+            </CustomerProvider>
+          </AdminProvider>
+        </I18nProvider>
       </BrowserRouter>
     </RootErrorBoundary>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { Sparkles, Gift, Zap, Headphones, Check, ShoppingBag, ArrowDown } from 'lucide-react';
 import { waLinkIntl, useSiteConfig, useHeroContent, siteConfig } from '@/siteConfig';
 import { trackEvent } from '@/lib/analytics';
+import { useI18n } from '@/i18n';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const badgeIcons: Record<string, typeof Gift> = {
@@ -13,12 +14,16 @@ const badgeIcons: Record<string, typeof Gift> = {
 export default function Hero() {
   const cfg = useSiteConfig();
   const hero = useHeroContent();
+  const { language, isRtl, t } = useI18n();
 
   const words = useMemo(() => {
+    if (language === 'en') {
+      return ['Restaurant', 'Cafe', 'Store', 'Company', 'Brand'];
+    }
     return hero?.rotating_words && hero.rotating_words.length > 0
       ? hero.rotating_words
       : ['مطعمك', 'كافيهك', 'محلك', 'شركتك', 'مشروعك'];
-  }, [hero?.rotating_words]);
+  }, [hero?.rotating_words, language]);
 
   const [wordIdx, setWordIdx] = useState(0);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
@@ -67,12 +72,12 @@ export default function Hero() {
     return words.reduce((a, b) => (b.length > a.length ? b : a), words[0] || '');
   }, [words]);
 
-  const badgeText = hero?.badge_text ?? 'تصميم وتطوير مواقع ومتاجر إلكترونية باحتراف';
-  const line1 = hero?.headline_line1 ?? 'خلّي موقع';
-  const line2 = hero?.headline_line2 ?? 'أونلاين واحترافي';
-  const subtitle = hero?.subtitle ?? 'في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصورة والدقهلية، بداية مجانية بدون التزام وتسليم سريع بدعم مستمر.';
-  const ctaPrimary = hero?.cta_primary ?? 'اطلب ديمو مجاني';
-  const ctaSecondary = hero?.cta_secondary ?? 'شاهد خدماتنا';
+  const badgeText = language === 'en' ? t('hero.badge') : (hero?.badge_text ?? 'تصميم وتطوير مواقع ومتاجر إلكترونية باحتراف');
+  const line1 = language === 'en' ? t('hero.title_prefix') : (hero?.headline_line1 ?? 'خلّي موقع');
+  const line2 = language === 'en' ? t('hero.title_highlight') : (hero?.headline_line2 ?? 'أونلاين واحترافي');
+  const subtitle = language === 'en' ? t('hero.description') : (hero?.subtitle ?? 'في Click Zoon نُصمّم ونطوّر مواقع ومتاجر إلكترونية احترافية لكل الأنشطة التجارية في المنصورة والدقهلية، بداية مجانية بدون التزام وتسليم سريع بدعم مستمر.');
+  const ctaPrimary = language === 'en' ? t('hero.cta_primary') : (hero?.cta_primary ?? 'اطلب ديمو مجاني');
+  const ctaSecondary = language === 'en' ? t('hero.cta_secondary') : (hero?.cta_secondary ?? 'شاهد خدماتنا');
 
   const handleDemoClick = () => {
     trackEvent({ category: 'whatsapp', action: 'click', label: 'hero_demo' });
@@ -123,7 +128,7 @@ export default function Hero() {
 
       {/* Floating mini UI cards (Desktop only, decorative previews) */}
       <div
-        className="hidden 2xl:block absolute right-12 top-1/3 z-10 pointer-events-none select-none transition-transform duration-500 ease-out"
+        className="hidden 2xl:block absolute end-12 top-1/3 z-10 pointer-events-none select-none transition-transform duration-500 ease-out"
         style={{ transform: `translate3d(${-mouseOffset.x * 1.4}px, ${-mouseOffset.y * 1.4}px, 0)` }}
         aria-hidden="true"
       >
@@ -132,14 +137,14 @@ export default function Hero() {
             <ShoppingBag size={20} />
           </div>
           <div>
-            <div className="text-xs text-navy-300">طلب جديد مكتمل</div>
-            <div className="text-sm font-bold text-navy-50">متجر إلكتروني +320 ج.م</div>
+            <div className="text-xs text-navy-300">{language === 'en' ? 'Completed Order' : 'طلب جديد مكتمل'}</div>
+            <div className="text-sm font-bold text-navy-50 notranslate" translate="no">{language === 'en' ? 'Online Store +320 EGP' : 'متجر إلكتروني +320 ج.م'}</div>
           </div>
         </div>
       </div>
 
       <div
-        className="hidden 2xl:block absolute left-12 bottom-1/3 z-10 pointer-events-none select-none transition-transform duration-500 ease-out"
+        className="hidden 2xl:block absolute start-12 bottom-1/3 z-10 pointer-events-none select-none transition-transform duration-500 ease-out"
         style={{ transform: `translate3d(${mouseOffset.x * 1.5}px, ${mouseOffset.y * 1.5}px, 0)` }}
         aria-hidden="true"
       >
@@ -148,8 +153,8 @@ export default function Hero() {
             <Check size={20} />
           </div>
           <div>
-            <div className="text-xs text-navy-300">سرعة التحميل</div>
-            <div className="text-sm font-bold text-green-400">99% على جوجل لايتهاوس</div>
+            <div className="text-xs text-navy-300">{language === 'en' ? 'Load Speed' : 'سرعة التحميل'}</div>
+            <div className="text-sm font-bold text-green-400 notranslate" translate="no">99% Google Lighthouse</div>
           </div>
         </div>
       </div>
@@ -195,7 +200,7 @@ export default function Hero() {
                     exit={{ opacity: 0, y: -14 }}
                     transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                     className="text-gradient-gold font-extrabold inline-block shimmer-text"
-                    dir="rtl"
+                    dir={isRtl ? 'rtl' : 'ltr'}
                   >
                     {currentWord}
                   </motion.span>
@@ -255,8 +260,14 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
         >
-          {siteConfig.trustBadges.map((badge) => {
+          {siteConfig.trustBadges.map((badge, idx) => {
             const Icon = badgeIcons[badge.icon] || Gift;
+            const badgeTitle = language === 'en'
+              ? (idx === 0 ? t('hero.trust_speed') : idx === 1 ? t('hero.trust_no_risk') : t('hero.trust_responsive'))
+              : badge.title;
+            const badgeSub = language === 'en'
+              ? (idx === 0 ? 'Within 48 hours' : idx === 1 ? 'Zero upfront payment' : 'Mobile, Tablet & Desktop')
+              : badge.subtitle;
             return (
               <div
                 key={badge.title}
@@ -265,8 +276,8 @@ export default function Hero() {
                 <div className="w-12 h-12 rounded-full bg-gold-500/10 flex items-center justify-center">
                   <Icon size={24} className="text-gold-400" />
                 </div>
-                <div className="text-navy-50 font-bold">{badge.title}</div>
-                <div className="text-navy-300 text-sm">{badge.subtitle}</div>
+                <div className="text-navy-50 font-bold">{badgeTitle}</div>
+                <div className="text-navy-300 text-sm">{badgeSub}</div>
               </div>
             );
           })}
