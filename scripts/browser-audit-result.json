@@ -1,0 +1,51 @@
+{
+  "totalViolations": 0,
+  "sections": [
+    {
+      "section": "homepage_desktop",
+      "violations": []
+    }
+  ],
+  "pages": [
+    {
+      "page": "showcase",
+      "violations": []
+    },
+    {
+      "page": "showcase-app",
+      "violations": []
+    },
+    {
+      "page": "privacy",
+      "violations": []
+    },
+    {
+      "page": "case-study-delano",
+      "violations": []
+    }
+  ],
+  "modals": [
+    {
+      "modal": "OrderModal",
+      "violations": []
+    }
+  ],
+  "wizardSteps": [
+    {
+      "step": 1,
+      "violations": []
+    },
+    {
+      "step": 2,
+      "violations": []
+    },
+    {
+      "step": 3,
+      "violations": []
+    },
+    {
+      "step": 4,
+      "violations": []
+    }
+  ]
+}
