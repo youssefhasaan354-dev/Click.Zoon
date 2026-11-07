@@ -27,3 +27,6 @@ supabase/.temp/
 
 temp_chrome_profile/
 
+
+temp_prerender_profile/
+
