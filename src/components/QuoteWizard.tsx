@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Utensils,
   ShoppingBag,
@@ -71,6 +71,9 @@ export default function QuoteWizard() {
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
+  const wizardStartRef = useRef<number>(Date.now());
+  const lastSubmitRef = useRef<number>(0);
 
   // Calculate live estimate
   const selectedActivity = activityDefinitions.find((a) => a.id === state.activityType) ?? activityDefinitions[0];
@@ -129,6 +132,13 @@ export default function QuoteWizard() {
 
   const handleSubmitLead = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
+    if (honeypot) return;
+    // Minimum interaction time check (< 2.5s)
+    if (Date.now() - wizardStartRef.current < 2500) return;
+    // Rate limit multiple submissions (15s)
+    if (Date.now() - lastSubmitRef.current < 15000) return;
+    lastSubmitRef.current = Date.now();
+
     const cleaned = cleanPhoneNumber(state.phone);
 
     if (!isValidEgyptianPhone(cleaned)) {
@@ -450,6 +460,18 @@ export default function QuoteWizard() {
 
                   {/* Contact Form */}
                   <form onSubmit={handleSubmitLead} className="space-y-4">
+                    {/* Anti-spam Honeypot */}
+                    <div className="absolute opacity-0 pointer-events-none -z-10 h-0 overflow-hidden" aria-hidden="true">
+                      <label htmlFor="wizard-hp-company">Company</label>
+                      <input
+                        id="wizard-hp-company"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                      />
+                    </div>
                     <h4 className="text-lg font-bold text-navy-50 mb-3">{t('quote_wizard.step4_title')}:</h4>
 
                     <div className="grid sm:grid-cols-2 gap-4">
