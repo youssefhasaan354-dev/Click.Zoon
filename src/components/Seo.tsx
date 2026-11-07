@@ -13,8 +13,8 @@ export interface SeoProps {
 const DEFAULT_TITLE = 'Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية';
 const DEFAULT_DESC =
   'وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة والدقهلية وكل مصر. ديمو مجاني بدون التزام، تسليم سريع، ودعم فني مستمر.';
-const DEFAULT_IMAGE = 'https://click-zoon.vercel.app/og-image.webp';
-const BASE_URL = 'https://click-zoon.vercel.app';
+const BASE_URL = ((import.meta.env.VITE_SITE_URL as string | undefined) || 'https://click-zoon.vercel.app').replace(/\/+$/, '');
+const DEFAULT_IMAGE = `${BASE_URL}/og-image.webp`;
 
 export default function Seo({
   title,

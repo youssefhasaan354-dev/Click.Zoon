@@ -114,7 +114,9 @@ export default function FloatingWhatsApp() {
             href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.general)}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'floating_button' })}
+            onClick={() => {
+              trackEvent({ category: 'whatsapp', action: 'click', label: 'floating_button' });
+            }}
             className="absolute inset-0 rounded-full"
             aria-label="فتح محادثة واتساب مع Click Zoon"
           />

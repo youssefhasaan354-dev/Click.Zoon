@@ -25,9 +25,8 @@ import ExitIntentModal from '@/components/ExitIntentModal';
 import ScrollProgress from '@/components/ScrollProgress';
 import MobileBottomBar from '@/components/MobileBottomBar';
 import BackToTop from '@/components/BackToTop';
-import NotFoundPage from '@/pages/NotFound';
 import Seo from '@/components/Seo';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSectionVisibility, useSiteData } from '@/lib/site-data-context';
 
 export function ScrollToHash() {
@@ -67,7 +66,7 @@ const defaultFaqs = [
   { question: 'من يملك الدومين والاستضافة؟', answer: 'أنت بتملك الدومين والاستضافة باسمك بالكامل وجميع بيانات الدخول بتتسلم لك.' },
 ];
 
-function HomePage() {
+export default function HomePage() {
   const { data } = useSiteData();
   const showMockups = useSectionVisibility('mockups');
   const showDemo = useSectionVisibility('demo');
@@ -105,7 +104,6 @@ function HomePage() {
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
       <Seo canonical="/" jsonLd={jsonLd} />
-      <ScrollToHash />
       <ScrollProgress />
       <Header />
       <main id="main">
@@ -137,17 +135,3 @@ function HomePage() {
     </div>
   );
 }
-
-function AppWithRoutes() {
-  return (
-    <>
-      <ScrollToHash />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </>
-  );
-}
-
-export default AppWithRoutes;

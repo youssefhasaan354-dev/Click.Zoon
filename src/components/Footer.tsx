@@ -57,7 +57,9 @@ export default function Footer() {
                 href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.general)}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'footer_whatsapp' })}
+                onClick={() => {
+                  trackEvent({ category: 'whatsapp', action: 'click', label: 'footer_whatsapp' });
+                }}
                 className="w-11 h-11 rounded-lg bg-navy-800/50 hover:bg-green-600/20 flex items-center justify-center transition-colors"
                 aria-label="واتساب"
               >

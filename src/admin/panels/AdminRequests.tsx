@@ -19,12 +19,12 @@ const statusColors: Record<string, string> = {
 };
 
 const sourceLabels: Record<string, string> = {
+  form: 'النموذج الرئيسي',
   wizard: 'حاسبة الباقات',
   exit_intent: 'نافذة الخروج',
-  contact: 'نموذج الاتصال',
-  demo: 'طلب الديمو',
-  floating_bar: 'الشريط العائم',
-  form: 'نموذج عام',
+  showcase: 'معرض الأعمال (اطلب الآن)',
+  contact: 'نموذج الاتصال (قديم)',
+  demo: 'طلب الديمو (قديم)',
 };
 
 const statusOptions = [
@@ -37,10 +37,10 @@ const statusOptions = [
 
 const sourceOptions = [
   { value: 'all', label: 'كل المصادر' },
+  { value: 'form', label: 'النموذج الرئيسي' },
   { value: 'wizard', label: 'حاسبة الباقات' },
   { value: 'exit_intent', label: 'نافذة الخروج' },
-  { value: 'contact', label: 'نموذج الاتصال' },
-  { value: 'demo', label: 'طلب الديمو' },
+  { value: 'showcase', label: 'معرض الأعمال (اطلب الآن)' },
 ];
 
 const statusUpdateOptions = [

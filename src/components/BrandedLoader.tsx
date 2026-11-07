@@ -5,10 +5,10 @@ export default function BrandedLoader({ onComplete }: { onComplete?: () => void 
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
-    // Guaranteed max duration of 850ms
+    if (!onComplete) return;
     const timer = setTimeout(() => {
       setFading(true);
-      if (onComplete) onComplete();
+      onComplete();
     }, 850);
     return () => clearTimeout(timer);
   }, [onComplete]);

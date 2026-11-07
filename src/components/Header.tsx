@@ -12,7 +12,7 @@ const allNavLinks = [
   { href: '/#demo', id: 'demo', label: 'الديمو المجاني', section: 'demo' },
   { href: '/#services', id: 'services', label: 'الخدمات', section: 'services' },
   { href: '/#pricing', id: 'pricing', label: 'الباقات', section: 'pricing' },
-  { href: '/#portfolio', id: 'portfolio', label: 'معرض الأعمال', section: 'portfolio' },
+  { href: '/showcase', id: 'showcase', label: 'معرض الأعمال', section: 'portfolio' },
   { href: '/#process', id: 'process', label: 'خطوات العمل', section: 'process' },
   { href: '/#faq', id: 'faq', label: 'الأسئلة الشائعة', section: 'faq' },
   { href: '/#contact', id: 'contact', label: 'تواصل معنا', section: 'contact' },

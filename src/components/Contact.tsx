@@ -3,7 +3,7 @@ import { Phone, Mail, MessageCircle, MapPin, Facebook, Instagram, Send, User, St
 import { waLinkIntl, useSiteConfig } from '@/siteConfig';
 import { useReveal } from '@/hooks/useReveal';
 import { trackEvent } from '@/lib/analytics';
-import { supabase } from '@/lib/supabase';
+import { submitDemoRequest } from '@/lib/demo-requests';
 import { useCustomer } from '@/lib/customer-context';
 import { validateEgyptianPhone, cleanPhoneNumber } from '@/lib/phone';
 import SectionHeader from '@/components/SectionHeader';
@@ -97,28 +97,22 @@ ${businessTypeMsg}${trimmedUrl ? `
     let saveError = false;
 
     try {
-      const { error } = await supabase.from('demo_requests').insert({
+      const res = await submitDemoRequest({
         name: trimmedName,
         phone: cleanedPhone,
         business_type: trimmedBusiness,
         page_url: trimmedUrl,
-        user_id: user?.id ?? null,
         message_text: msg,
         source: 'form',
-        status: 'new',
+        honeypot,
       });
 
       lastSubmitRef.current = Date.now();
+      isRateLimited = Boolean(res.isRateLimited);
 
-      isRateLimited = Boolean(
-        error &&
-          (error.message?.includes('rate_limit') ||
-            (typeof error.details === 'string' && error.details.includes('rate_limit')))
-      );
-
-      if (error) {
+      if (!res.success) {
         saveError = true;
-        console.error('Demo request save failed:', error.code, error.message);
+        console.error('Demo request save failed:', res.error);
       } else {
         trackEvent({ category: 'form', action: 'submit', label: 'demo_request' });
       }
@@ -367,7 +361,9 @@ ${businessTypeMsg}${trimmedUrl ? `
               href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.contact)}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackEvent({ category: 'whatsapp', action: 'click', label: 'contact_whatsapp' })}
+              onClick={() => {
+                trackEvent({ category: 'whatsapp', action: 'click', label: 'contact_whatsapp' });
+              }}
               className="flex items-center gap-4 glass-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/40 group"
             >
               <div className="w-12 h-12 rounded-xl bg-green-500/15 flex items-center justify-center shrink-0 group-hover:bg-green-500/25 transition-colors">
@@ -381,7 +377,9 @@ ${businessTypeMsg}${trimmedUrl ? `
 
             <a
               href={`tel:${cfg.phone}`}
-              onClick={() => trackEvent({ category: 'call', action: 'click', label: 'contact_call' })}
+              onClick={() => {
+                trackEvent({ category: 'call', action: 'click', label: 'contact_call' });
+              }}
               className="flex items-center gap-4 glass-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/40 group"
             >
               <div className="w-12 h-12 rounded-xl bg-gold-500/15 flex items-center justify-center shrink-0 group-hover:bg-gold-500/25 transition-colors">
