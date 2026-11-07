@@ -1,5 +1,4 @@
 {
-  "_comment_domain_redirects": "301 permanent redirects from click-zoon.vercel.app and www.clickzoon.com to primary canonical domain https://clickzoon.com. Activated when custom domain DNS is attached in Vercel.",
   "redirects": [
     {
       "source": "/(.*)",
