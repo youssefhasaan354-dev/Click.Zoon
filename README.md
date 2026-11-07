@@ -23,7 +23,7 @@ cp .env.example .env
 |---|---|---|
 | `VITE_SUPABASE_URL` | رابط مشروع Supabase الخاص بك | نعم |
 | `VITE_SUPABASE_ANON_KEY` | المفتاح العام (Anon Public Key) | نعم |
-| `VITE_SITE_URL` | الدومين النهائي (مثال: `https://click-zoon.vercel.app`) | نعم |
+| `VITE_SITE_URL` | الدومين النهائي (مثال: `https://clickzoon.com`) | نعم |
 | `VITE_TURNSTILE_SITE_KEY` | المفتاح العام لـ Cloudflare Turnstile لحماية النماذج من البوتات | اختياري (موصى به) |
 | `VITE_GA_ID` | معرّف Google Analytics (مثل `G-XXXXXXXXXX`) | اختياري |
 

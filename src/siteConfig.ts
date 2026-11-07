@@ -6,7 +6,12 @@ import { SiteSettings, HeroContent, AboutStat } from '@/lib/types';
 // يتم استخدامها ك fallback في حال عدم تحميل البيانات من قاعدة البيانات
 // ============================================================
 
+export const SITE_URL = 'https://clickzoon.com';
+export const SITE_DOMAIN = 'clickzoon.com';
+
 export const siteConfig = {
+  siteUrl: SITE_URL,
+  siteDomain: SITE_DOMAIN,
   agencyName: 'Click Zoon',
   agencyNameAr: 'كليك زون',
   phone: '01020095059',
@@ -96,7 +101,7 @@ export function useSiteConfig() {
     aboutImageUrl: s?.about_image_url ?? '',
     aboutStats: s?.about_stats ?? [],
     mapEmbedUrl: s?.map_embed_url ?? '',
-    googleAnalyticsId: s?.google_analytics_id ?? '',
+    googleAnalyticsId: s?.google_analytics_id || (import.meta.env.VITE_GA_MEASUREMENT_ID as string) || '',
   };
 }
 

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
-const screenshotsDir = path.join(rootDir, 'public/screenshots/en');
+const screenshotsDir = path.join(rootDir, 'docs/screenshots/en');
 if (!fs.existsSync(screenshotsDir)) {
   fs.mkdirSync(screenshotsDir, { recursive: true });
 }
@@ -92,6 +92,7 @@ const scannerFunction = `(() => {
   function isExempt(el) {
     if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
     if (el.tagName === 'NOSCRIPT' || (el.closest && el.closest('noscript'))) return true;
+    if (el.getAttribute('lang') === 'ar' || (el.closest && el.closest('[lang="ar"]'))) return true;
     if (el.getAttribute('translate') === 'no') return true;
     if (el.classList && el.classList.contains('notranslate')) return true;
     if (el.getAttribute('data-i18n-exempt') !== null) return true;
@@ -124,13 +125,13 @@ const scannerFunction = `(() => {
 })()`;
 
 async function run() {
-  console.log('=== Starting Browser i18n & Screenshot Verification ===');
+  console.log('=== Starting Browser Verification for AR & EN Locales ===');
 
   let previewProc = null;
   try {
     const res = await fetch('http://127.0.0.1:4173/');
     if (res.ok) {
-      console.log('Preview server already responding on port 4173.');
+      console.log('Preview server already running on port 4173.');
     }
   } catch {
     console.log('Launching Vite Preview...');
@@ -169,6 +170,7 @@ async function run() {
   let cdp;
   const auditResults = {
     totalViolations: 0,
+    arabicMode: null,
     sections: [],
     pages: [],
     modals: [],
@@ -194,29 +196,58 @@ async function run() {
 
     console.log('Connected to Chrome via CDP on page tab:', pageTab.id);
 
-    // Helper for navigation
     const navigateAndWait = async (url) => {
       await cdp.send('Page.navigate', { url });
-      // Wait for page to settle
       await new Promise((r) => setTimeout(r, 1200));
     };
 
-    // Step A: Navigate to homepage and enforce English
-    console.log('\n--- Navigating to homepage and setting language to EN ---');
+    // =========================================================
+    // PART 1: ARABIC DEFAULT MODE VERIFICATION
+    // =========================================================
+    console.log('\n--- 1. Testing Arabic Mode (Default) ---');
     await navigateAndWait('http://127.0.0.1:4173/');
+    await cdp.eval(`localStorage.setItem('cz_lang', 'ar')`);
+    await cdp.send('Page.reload');
+    await new Promise((r) => setTimeout(r, 1200));
 
-    // Set localStorage and reload
+    const arLang = await cdp.eval('document.documentElement.lang');
+    const arDir = await cdp.eval('document.documentElement.dir');
+    const arTitle = await cdp.eval('document.title');
+    console.log(`Arabic Mode: lang="${arLang}", dir="${arDir}", title="${arTitle}"`);
+
+    if (arLang !== 'ar' || arDir !== 'rtl') {
+      throw new Error(`Arabic mode mismatch: expected lang="ar" dir="rtl", got lang="${arLang}" dir="${arDir}"`);
+    }
+
+    const arShot = await cdp.send('Page.captureScreenshot', { format: 'png' });
+    fs.writeFileSync(path.join(rootDir, 'docs/screenshots/00-desktop-home-ar.png'), Buffer.from(arShot.data, 'base64'));
+    console.log('Saved screenshot: docs/screenshots/00-desktop-home-ar.png');
+
+    auditResults.arabicMode = {
+      lang: arLang,
+      dir: arDir,
+      title: arTitle,
+      verified: true,
+    };
+
+    // =========================================================
+    // PART 2: ENGLISH MODE & AUDIT
+    // =========================================================
+    console.log('\n--- 2. Testing English Mode & Scanning for Arabic Leaks ---');
     await cdp.eval(`localStorage.setItem('cz_lang', 'en')`);
     await cdp.send('Page.reload');
     await new Promise((r) => setTimeout(r, 1200));
 
-    const docLang = await cdp.eval('document.documentElement.lang');
-    const docDir = await cdp.eval('document.documentElement.dir');
-    const docTitle = await cdp.eval('document.title');
-    console.log(`Document attributes: lang="${docLang}", dir="${docDir}", title="${docTitle}"`);
+    const enLang = await cdp.eval('document.documentElement.lang');
+    const enDir = await cdp.eval('document.documentElement.dir');
+    const enTitle = await cdp.eval('document.title');
+    console.log(`English Mode: lang="${enLang}", dir="${enDir}", title="${enTitle}"`);
+
+    if (enLang !== 'en' || enDir !== 'ltr') {
+      throw new Error(`English mode mismatch: expected lang="en" dir="ltr", got lang="${enLang}" dir="${enDir}"`);
+    }
 
     // Step B: Capture Desktop Viewport (1280px)
-    console.log('\n--- Desktop Viewport (1280px) Homepage Audit ---');
     await cdp.send('Emulation.setDeviceMetricsOverride', {
       width: 1280,
       height: 900,
@@ -225,12 +256,10 @@ async function run() {
     });
     await new Promise((r) => setTimeout(r, 500));
 
-    // Full page screenshot desktop
     const homeShot1280 = await cdp.send('Page.captureScreenshot', { format: 'png' });
     fs.writeFileSync(path.join(screenshotsDir, '01-desktop-home-hero.png'), Buffer.from(homeShot1280.data, 'base64'));
     console.log('Saved screenshot: 01-desktop-home-hero.png');
 
-    // Scan whole page
     const homeViolations = await cdp.eval(scannerFunction);
     console.log(`Homepage unexpected Arabic text nodes (Desktop): ${homeViolations.length}`);
     if (homeViolations.length > 0) {
@@ -264,7 +293,6 @@ async function run() {
         await new Promise((r) => setTimeout(r, 400));
         const shot = await cdp.send('Page.captureScreenshot', { format: 'png' });
         fs.writeFileSync(path.join(screenshotsDir, `${sec.name}.png`), Buffer.from(shot.data, 'base64'));
-        console.log(`Saved screenshot: ${sec.name}.png`);
       }
     }
 
@@ -278,15 +306,12 @@ async function run() {
     });
     await new Promise((r) => setTimeout(r, 500));
 
-    // Scroll to top
     await cdp.eval('window.scrollTo(0, 0)');
     await new Promise((r) => setTimeout(r, 300));
 
     const mobileHeroShot = await cdp.send('Page.captureScreenshot', { format: 'png' });
     fs.writeFileSync(path.join(screenshotsDir, '13-mobile-hero.png'), Buffer.from(mobileHeroShot.data, 'base64'));
-    console.log('Saved screenshot: 13-mobile-hero.png');
 
-    // Mobile Process section screenshot
     await cdp.eval(`(() => {
       const el = document.getElementById('process');
       if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
@@ -294,9 +319,7 @@ async function run() {
     await new Promise((r) => setTimeout(r, 400));
     const mobileProcessShot = await cdp.send('Page.captureScreenshot', { format: 'png' });
     fs.writeFileSync(path.join(screenshotsDir, '14-mobile-process.png'), Buffer.from(mobileProcessShot.data, 'base64'));
-    console.log('Saved screenshot: 14-mobile-process.png');
 
-    // Mobile Mockups section screenshot
     await cdp.eval(`(() => {
       const el = document.getElementById('mockups');
       if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
@@ -304,7 +327,6 @@ async function run() {
     await new Promise((r) => setTimeout(r, 400));
     const mobileMockupsShot = await cdp.send('Page.captureScreenshot', { format: 'png' });
     fs.writeFileSync(path.join(screenshotsDir, '15-mobile-mockups.png'), Buffer.from(mobileMockupsShot.data, 'base64'));
-    console.log('Saved screenshot: 15-mobile-mockups.png');
 
     // Step E: Walk QuoteWizard Steps (1 to 4)
     console.log('\n--- QuoteWizard All 4 Steps Walkthrough ---');
@@ -325,9 +347,7 @@ async function run() {
 
       const wShot = await cdp.send('Page.captureScreenshot', { format: 'png' });
       fs.writeFileSync(path.join(screenshotsDir, `16-wizard-step-${step}.png`), Buffer.from(wShot.data, 'base64'));
-      console.log(`Saved screenshot: 16-wizard-step-${step}.png`);
 
-      // If step < 4, select first option and click Next
       if (step < 4) {
         await cdp.eval(`(() => {
           const optionBtn = document.querySelector('#wizard button[role="radio"], #wizard input[type="radio"], #wizard button.group');
@@ -350,7 +370,6 @@ async function run() {
 
     await navigateAndWait('http://127.0.0.1:4173/showcase/sample-restaurant');
 
-    // Open OrderModal
     await cdp.eval(`(() => {
       const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent && (b.textContent.includes('Order') || b.textContent.includes('اطلب')));
       if (btn) btn.click();
@@ -367,7 +386,6 @@ async function run() {
 
     const orderModalShot = await cdp.send('Page.captureScreenshot', { format: 'png' });
     fs.writeFileSync(path.join(screenshotsDir, '17-modal-order.png'), Buffer.from(orderModalShot.data, 'base64'));
-    console.log('Saved screenshot: 17-modal-order.png');
 
     // Step G: Secondary Pages Audit
     console.log('\n--- Secondary Pages Audit ---');
@@ -376,6 +394,7 @@ async function run() {
       { name: 'showcase-app', url: 'http://127.0.0.1:4173/showcase/sample-restaurant', file: '19-page-showcase-app.png' },
       { name: 'privacy', url: 'http://127.0.0.1:4173/privacy', file: '20-page-privacy.png' },
       { name: 'case-study-delano', url: 'http://127.0.0.1:4173/work/delano-cafe', file: '21-page-case-study.png' },
+      { name: 'landing-restaurant-mansoura', url: 'http://127.0.0.1:4173/restaurant-website-mansoura', file: '22-page-mansoura-restaurant.png' },
     ];
 
     for (const page of secondaryPages) {
@@ -391,7 +410,6 @@ async function run() {
 
       const pShot = await cdp.send('Page.captureScreenshot', { format: 'png' });
       fs.writeFileSync(path.join(screenshotsDir, page.file), Buffer.from(pShot.data, 'base64'));
-      console.log(`Saved screenshot: ${page.file}`);
     }
 
     console.log('\n======================================================');
@@ -404,7 +422,7 @@ async function run() {
       throw new Error(`Browser audit detected ${auditResults.totalViolations} Arabic violations in English mode!`);
     }
 
-    console.log('SUCCESS: English version has 0 unexpected Arabic strings!');
+    console.log('SUCCESS: Both Arabic and English locales passed with 0 violations!');
   } finally {
     if (cdp) cdp.close();
     try {

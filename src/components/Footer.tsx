@@ -26,7 +26,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-3xl font-extrabold text-gradient-gold notranslate" translate="no">{cfg.logoText}</span>
               <span className="text-xl font-bold text-navy-50 notranslate" translate="no">{cfg.agencyName}</span>
@@ -72,7 +72,7 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <h4 className="text-navy-50 font-bold mb-4">{t('footer.quick_links')}</h4>
+            <h3 className="text-navy-50 font-bold mb-4">{t('footer.quick_links')}</h3>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.to}>
@@ -87,9 +87,48 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Mansoura Landing Pages */}
+          <div>
+            <h3 className="text-navy-50 font-bold mb-4">{t('footer.mansoura_services')}</h3>
+            <ul className="space-y-2.5">
+              <li>
+                <Link
+                  to="/restaurant-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  {t('footer.mansoura_restaurant')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cafe-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  {t('footer.mansoura_cafe')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/mall-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  {t('footer.mansoura_mall')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/ecommerce-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  {t('footer.mansoura_ecommerce')}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Contact */}
           <div>
-            <h4 className="text-navy-50 font-bold mb-4">{t('footer.contact_us')}</h4>
+            <h3 className="text-navy-50 font-bold mb-4">{t('footer.contact_us')}</h3>
             <ul className="space-y-3">
               <li>
                 <a

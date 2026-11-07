@@ -74,11 +74,19 @@ export default function FloatingWhatsApp() {
             >
               <X size={15} />
             </button>
-            <p className="text-navy-100 text-sm leading-relaxed ps-1 pe-4">
+            <a
+              href={waLinkIntl(cfg.phoneIntl, cfg.whatsappMessages.general)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackEvent({ category: 'whatsapp', action: 'click', label: 'floating_tooltip' });
+              }}
+              className="block text-navy-100 hover:text-gold-300 transition-colors text-sm leading-relaxed ps-1 pe-4"
+            >
               {t('floating_whatsapp.tooltip_title')}
               <br />
               <span className="text-gold-400 font-bold">{t('floating_whatsapp.tooltip_text')}</span>
-            </p>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

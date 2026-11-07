@@ -27,6 +27,7 @@ export default function Contact() {
   const [rateLimited, setRateLimited] = useState(false);
   const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
   const lastSubmitRef = useRef<number>(0);
+  const mountTimeRef = useRef<number>(Date.now());
   const phoneInputRef = useRef<HTMLInputElement>(null);
 
   const [form, setForm] = useState({
@@ -51,6 +52,11 @@ export default function Contact() {
     e.preventDefault();
 
     if (honeypot) return;
+
+    // Minimum interaction time check against automated spam bots (< 2.5s)
+    if (Date.now() - mountTimeRef.current < 2500) {
+      return;
+    }
 
     if (!validateEgyptianPhone(form.phone)) {
       setPhoneError(t('contact.phone_error'));

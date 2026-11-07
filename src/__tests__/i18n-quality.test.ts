@@ -94,6 +94,7 @@ describe('i18n Quality & Completeness Guardians', () => {
     // Explicit, well-documented allowlist of files and patterns permitted to contain Arabic
     const ALLOWED_FILES = new Set([
       'src/siteConfig.ts', // Default fallback text for database admin
+      'src/lib/seo-schema.ts', // Schema.org JSON-LD static graph metadata
       'src/lib/showcase.ts', // Seed portfolio designs
       'src/lib/phone.ts', // Arabic-Indic numeral normalization utility
       'src/lib/demo-requests.ts', // Service fallback error messages
@@ -112,6 +113,8 @@ describe('i18n Quality & Completeness Guardians', () => {
       'src/pages/ResetPassword.tsx', // Password reset error fallbacks
       'src/App.tsx', // defaultFaqs fallback for SEO schema
       'src/main.tsx', // Root ErrorBoundary fallback screen
+      'src/data/landingPages.ts', // Mansoura local business landing pages (Arabic-first content targeting local search intent)
+      'src/pages/ActivityLanding.tsx', // Mansoura landing page template with native lang="ar" and dir="rtl" content
     ]);
 
     it('verifies public components have zero unapproved Arabic strings', () => {

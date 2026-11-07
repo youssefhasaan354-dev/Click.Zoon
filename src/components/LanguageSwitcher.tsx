@@ -170,6 +170,12 @@ export default function LanguageSwitcher({
                 {/* Google Translate element target container */}
                 <div id="google_translate_element" className="min-h-[28px] overflow-hidden rounded-lg" />
 
+                {/* Machine translation note */}
+                <p className="text-[10px] text-navy-400 mt-1.5 pt-1.5 border-t border-navy-800/80 flex items-center gap-1.5 notranslate" translate="no">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-gold-400 shrink-0" />
+                  <span>{t('lang.google_disclaimer')}</span>
+                </p>
+
                 {googleTranslateError && (
                   <p className="text-[11px] text-red-400 mt-1">
                     {googleTranslateError}

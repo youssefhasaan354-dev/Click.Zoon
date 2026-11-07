@@ -2,24 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://click-zoon.vercel.app/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <loc>https://clickzoon.com/</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://click-zoon.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/" />
   </url>
   <url>
-    <loc>https://click-zoon.vercel.app/showcase</loc>
+    <loc>https://clickzoon.com/showcase</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://click-zoon.vercel.app/showcase" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/showcase" />
   </url>
   <url>
-    <loc>https://click-zoon.vercel.app/privacy</loc>
-    <lastmod>2026-11-03</lastmod>
+    <loc>https://clickzoon.com/restaurant-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/restaurant-website-mansoura" />
+  </url>
+  <url>
+    <loc>https://clickzoon.com/cafe-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/cafe-website-mansoura" />
+  </url>
+  <url>
+    <loc>https://clickzoon.com/mall-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/mall-website-mansoura" />
+  </url>
+  <url>
+    <loc>https://clickzoon.com/ecommerce-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/ecommerce-website-mansoura" />
+  </url>
+  <url>
+    <loc>https://clickzoon.com/privacy</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://click-zoon.vercel.app/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://clickzoon.com/privacy" />
   </url>
 </urlset>

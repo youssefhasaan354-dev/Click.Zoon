@@ -57,6 +57,18 @@ export default function ExitIntentModal() {
     };
   }, []);
 
+  // Escape key handler
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [open]);
+
   const handleClose = () => {
     setOpen(false);
     sessionStorage.setItem('cz_exit_intent_seen', 'true');

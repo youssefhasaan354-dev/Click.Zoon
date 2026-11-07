@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0a1628" />
     <meta name="color-scheme" content="dark" />
-    <link rel="canonical" href="https://click-zoon.vercel.app/" />
+    <link rel="canonical" href="https://clickzoon.com/" />
 
     <!-- Self-hosted Cairo font preloads for Arabic subset -->
     <link rel="preload" href="/fonts/cairo-400-arabic-0.woff2" as="font" type="font/woff2" crossorigin />
@@ -25,8 +25,8 @@
     <meta property="og:title" content="Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية" />
     <meta property="og:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام." />
     <meta property="og:site_name" content="Click Zoon" />
-    <meta property="og:url" content="https://click-zoon.vercel.app/" />
-    <meta property="og:image" content="https://click-zoon.vercel.app/og-image.webp" />
+    <meta property="og:url" content="https://clickzoon.com/" />
+    <meta property="og:image" content="https://clickzoon.com/og-image.webp" />
     <meta property="og:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -35,33 +35,115 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية" />
     <meta name="twitter:description" content="وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية. ديمو مجاني بدون التزام." />
-    <meta name="twitter:image" content="https://click-zoon.vercel.app/og-image.webp" />
+    <meta name="twitter:image" content="https://clickzoon.com/og-image.webp" />
     <meta name="twitter:image:alt" content="Click Zoon — تصميم وتطوير المواقع والمتاجر الإلكترونية" />
 
-    <!-- Structured Data: Online ProfessionalService -->
+    <!-- Structured Data: WebSite, ProfessionalService, FAQPage (JSON-LD) -->
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": "https://clickzoon.com/#organization",
       "name": "Click Zoon",
       "alternateName": "كليك زون لتصميم المواقع",
-      "url": "https://click-zoon.vercel.app/",
-      "image": "https://click-zoon.vercel.app/og-image.webp",
-      "logo": "https://click-zoon.vercel.app/og-image.webp",
-      "description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة، الدقهلية، وجميع أنحاء مصر. خدمة عملاء أونلاين ودعم فني مستمر.",
-      "areaServed": [
-        "المنصورة",
-        "الدقهلية",
-        "مصر"
-      ],
+      "url": "https://clickzoon.com/",
+      "logo": "https://clickzoon.com/og-image.webp",
+      "image": "https://clickzoon.com/og-image.webp",
+      "description": "وكالة متخصصة في تصميم وتطوير المواقع والمتاجر الإلكترونية لكل الأنشطة التجارية في المنصورة، الدقهلية، وجميع أنحاء مصر. ديمو مجاني بدون التزام، تسليم سريع، ودعم فني مستمر.",
       "telephone": "+201020095059",
       "email": "clickzoon30@gmail.com",
+      "priceRange": "$",
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "المنصورة"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "الدقهلية"
+        },
+        {
+          "@type": "Country",
+          "name": "مصر"
+        }
+      ],
       "sameAs": [
         "https://www.facebook.com/ClikZoon",
         "https://www.instagram.com/click_zoon"
-      ],
-      "priceRange": "$$"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://clickzoon.com/#website",
+      "url": "https://clickzoon.com/",
+      "name": "Click Zoon",
+      "alternateName": "كليك زون",
+      "publisher": {
+        "@id": "https://clickzoon.com/#organization"
+      },
+      "inLanguage": [
+        "ar",
+        "en"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://clickzoon.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "كم مدة تجهيز الديمو المجاني؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "الديمو بيتجهز خلال 24 إلى 72 ساعة من وقت طلبك. بنبني لك تصميم كامل على أساس نشاطك عشان تشوف موقعك قبل ما تدفع أي حاجة."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "كم مدة التسليم النهائي للموقع؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "التسليم النهائي من 3 أيام إلى أسبوع حسب متطلبات المشروع. المتاجر الإلكترونية المعقدة ممكن تأخذ وقت أطول قليلاً بسبب ربط الدفع والتوصيل."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل في أي التزام قبل ما أشوف الديمو؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "لا، بدون أي التزام. الديمو مجاني بالكامل — تتطمن عليه، ولو عجبك نكمّل، ولو لأ، مفيش أي التزام عليك."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "من يملك الدومين والاستضافة؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "أنت بتملك الدومين والاستضافة باسمك بالكامل. إحنا بنحجزهم ليك ونربطهم بالموقع، وكل بيانات الدخول بتتسلم لك بالكامل."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ماذا يحدث بعد تسليم الموقع؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "بعد التسليم، بنوفّر دعم فني مستمر حسب الباقة. أي تحديث أو تعديل أو استفسار — إحنا معاك ومش بنسيبك لوحدك."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل أقدر أعدّل الموقع بنفسي؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "أيوة. بنسلّمك لوحة تحكم سهلة تقدر منها تعدّل المحتوى، تضيف منتجات، أو تغيّر الصور بدون الحاجة لخبرة تقنية. ولو حابب إحنا نتكفّل بالتعديلات، ده متاح برضه."
+          }
+        }
+      ]
     }
+  ]
+}
     </script>
   </head>
   <body>

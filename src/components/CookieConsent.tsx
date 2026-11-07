@@ -65,14 +65,14 @@ export default function CookieConsent() {
             <button
               type="button"
               onClick={handleDecline}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-navy-400 hover:text-navy-200 transition-colors"
+              className="min-h-[44px] px-4 py-2.5 rounded-xl text-xs font-semibold text-navy-400 hover:text-navy-200 transition-colors"
             >
               {t('cookie_consent.decline')}
             </button>
             <button
               type="button"
               onClick={handleAccept}
-              className="btn-gold px-4 py-1.5 rounded-lg text-xs font-bold inline-flex items-center gap-1 shadow-md shadow-gold-500/20"
+              className="btn-gold min-h-[44px] px-5 py-2.5 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow-md shadow-gold-500/20"
             >
               <Check size={14} />
               <span>{t('cookie_consent.accept')}</span>

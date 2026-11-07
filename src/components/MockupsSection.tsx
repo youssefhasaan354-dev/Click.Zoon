@@ -521,7 +521,7 @@ function MobileScreenContent({
             </span>
             <div
               className="w-10 h-10 rounded-2xl bg-navy-800/90 border border-navy-700/80 flex items-center justify-center text-navy-200 shadow-sm"
-              aria-label="قائمة الموبايل"
+              aria-hidden="true"
             >
               <Menu size={20} className="text-navy-100" />
             </div>
