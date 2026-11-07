@@ -26,6 +26,7 @@ dist-ssr
 supabase/.temp/
 
 temp_chrome_profile/
+temp_chrome_verify/
 
 
 temp_prerender_profile/

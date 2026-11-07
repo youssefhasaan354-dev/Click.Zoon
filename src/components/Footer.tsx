@@ -89,14 +89,14 @@ export default function Footer() {
 
           {/* Mansoura Landing Pages */}
           <div>
-            <h3 className="text-navy-50 font-bold mb-4">خدماتنا في المنصورة</h3>
+            <h3 className="text-navy-50 font-bold mb-4">{t('footer.mansoura_services')}</h3>
             <ul className="space-y-2.5">
               <li>
                 <Link
                   to="/restaurant-website-mansoura"
                   className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
                 >
-                  تصميم موقع مطعم
+                  {t('footer.mansoura_restaurant')}
                 </Link>
               </li>
               <li>
@@ -104,7 +104,7 @@ export default function Footer() {
                   to="/cafe-website-mansoura"
                   className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
                 >
-                  تصميم موقع كافيه
+                  {t('footer.mansoura_cafe')}
                 </Link>
               </li>
               <li>
@@ -112,7 +112,7 @@ export default function Footer() {
                   to="/mall-website-mansoura"
                   className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
                 >
-                  موقع مول ومجمع تجاري
+                  {t('footer.mansoura_mall')}
                 </Link>
               </li>
               <li>
@@ -120,7 +120,7 @@ export default function Footer() {
                   to="/ecommerce-website-mansoura"
                   className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
                 >
-                  متجر إلكتروني في المنصورة
+                  {t('footer.mansoura_ecommerce')}
                 </Link>
               </li>
             </ul>

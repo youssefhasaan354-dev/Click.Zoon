@@ -94,6 +94,7 @@ describe('i18n Quality & Completeness Guardians', () => {
     // Explicit, well-documented allowlist of files and patterns permitted to contain Arabic
     const ALLOWED_FILES = new Set([
       'src/siteConfig.ts', // Default fallback text for database admin
+      'src/lib/seo-schema.ts', // Schema.org JSON-LD static graph metadata
       'src/lib/showcase.ts', // Seed portfolio designs
       'src/lib/phone.ts', // Arabic-Indic numeral normalization utility
       'src/lib/demo-requests.ts', // Service fallback error messages

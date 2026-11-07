@@ -437,7 +437,12 @@
     "crafted_by": "Designed & Developed by",
     "facebook": "Facebook",
     "instagram": "Instagram",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "mansoura_services": "Our Services in Mansoura",
+    "mansoura_restaurant": "Restaurant Website Design",
+    "mansoura_cafe": "Cafe Website Design",
+    "mansoura_mall": "Mall & Complex Website",
+    "mansoura_ecommerce": "E-Commerce Store in Mansoura"
   },
   "sticky_cta": {
     "aria_label": "Quick Demo Request Bar",

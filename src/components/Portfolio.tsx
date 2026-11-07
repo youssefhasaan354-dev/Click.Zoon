@@ -275,13 +275,8 @@ export default function Portfolio() {
                   {/* Image with zoom and gentle overlay */}
                   <div className="relative h-56 w-full overflow-hidden bg-navy-950">
                     <img
-<<<<<<< HEAD
                       src={getSafeImageUrl(project.image_url, i)}
-                      alt={project.title ? `معاينة مشروع ${project.title}` : 'معاينة مشروع من أعمال Click Zoon'}
-=======
-                      src={project.image_url}
                       alt={project.title ? t('portfolio.preview_alt', { title: project.title }) : t('portfolio.preview_alt_default')}
->>>>>>> origin/main
                       loading="lazy"
                       decoding="async"
                       width={600}
@@ -460,13 +455,8 @@ export default function Portfolio() {
                   deviceMode === 'mobile' ? 'w-[280px] h-[480px] border-4 border-navy-700 shadow-inner' : 'w-full max-h-[55vh]'
                 }`}>
                   <img
-<<<<<<< HEAD
                     src={getSafeImageUrl(filtered[lightboxIndex].image_url, lightboxIndex)}
-                    alt={filtered[lightboxIndex].title ? `صورة مشروع ${filtered[lightboxIndex].title}` : 'تفاصيل مشروع Click Zoon'}
-=======
-                    src={filtered[lightboxIndex].image_url}
                     alt={filtered[lightboxIndex].title ? t('portfolio.modal_img_alt', { title: filtered[lightboxIndex].title }) : t('portfolio.modal_img_alt_default')}
->>>>>>> origin/main
                     width={1200}
                     height={675}
                     className="w-full h-full object-cover"

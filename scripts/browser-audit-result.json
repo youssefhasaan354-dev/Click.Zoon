@@ -1,5 +1,11 @@
 {
   "totalViolations": 0,
+  "arabicMode": {
+    "lang": "ar",
+    "dir": "rtl",
+    "title": "Click Zoon | تصميم وتطوير المواقع والمتاجر الإلكترونية",
+    "verified": true
+  },
   "sections": [
     {
       "section": "homepage_desktop",
@@ -21,6 +27,10 @@
     },
     {
       "page": "case-study-delano",
+      "violations": []
+    },
+    {
+      "page": "landing-restaurant-mansoura",
       "violations": []
     }
   ],
