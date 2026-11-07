@@ -71,7 +71,14 @@ function findBrowserBinary() {
   return null;
 }
 
-export async function prerenderRoutes(routes = ['/', '/privacy']) {
+export async function prerenderRoutes(routes = [
+  '/',
+  '/privacy',
+  '/restaurant-website-mansoura',
+  '/cafe-website-mansoura',
+  '/mall-website-mansoura',
+  '/ecommerce-website-mansoura'
+]) {
   console.log(`Starting Prerender for routes: ${routes.join(', ')}...`);
 
   const browserPath = findBrowserBinary();

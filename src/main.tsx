@@ -49,6 +49,7 @@ const ResetPasswordPage = lazy(() => import('@/pages/ResetPassword'));
 const CaseStudyPage = lazy(() => import('@/pages/CaseStudy'));
 const ShowcasePage = lazy(() => import('@/pages/Showcase'));
 const ShowcaseAppPage = lazy(() => import('@/pages/ShowcaseApp'));
+const ActivityLandingPage = lazy(() => import('@/pages/ActivityLanding'));
 
 class RootErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: Error | null }> {
   constructor(props: { children: ReactNode }) {
@@ -135,6 +136,11 @@ function AnimatedAppRoutes() {
             <Route path="/account" element={<Suspense fallback={<BrandedLoader />}><CustomerAccountPage /></Suspense>} />
             <Route path="/my-requests" element={<Suspense fallback={<BrandedLoader />}><CustomerRequestsPage /></Suspense>} />
             <Route path="/privacy" element={<Suspense fallback={<BrandedLoader />}><PrivacyPage /></Suspense>} />
+            <Route path="/restaurant-website-mansoura" element={<Suspense fallback={<BrandedLoader />}><ActivityLandingPage forcedSlug="restaurant-website-mansoura" /></Suspense>} />
+            <Route path="/cafe-website-mansoura" element={<Suspense fallback={<BrandedLoader />}><ActivityLandingPage forcedSlug="cafe-website-mansoura" /></Suspense>} />
+            <Route path="/mall-website-mansoura" element={<Suspense fallback={<BrandedLoader />}><ActivityLandingPage forcedSlug="mall-website-mansoura" /></Suspense>} />
+            <Route path="/ecommerce-website-mansoura" element={<Suspense fallback={<BrandedLoader />}><ActivityLandingPage forcedSlug="ecommerce-website-mansoura" /></Suspense>} />
+            <Route path="/landing/:slug" element={<Suspense fallback={<BrandedLoader />}><ActivityLandingPage /></Suspense>} />
             <Route path="/showcase" element={<Suspense fallback={<BrandedLoader />}><ShowcasePage /></Suspense>} />
             <Route path="/showcase/:slug" element={<Suspense fallback={<BrandedLoader />}><ShowcaseAppPage /></Suspense>} />
             <Route path="/work/:slug" element={<Suspense fallback={<BrandedLoader />}><CaseStudyPage /></Suspense>} />

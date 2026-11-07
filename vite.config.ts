@@ -20,14 +20,49 @@ Sitemap: ${siteUrl}/sitemap.xml
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>${siteUrl}/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/" />
   </url>
   <url>
+    <loc>${siteUrl}/showcase</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/showcase" />
+  </url>
+  <url>
+    <loc>${siteUrl}/restaurant-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/restaurant-website-mansoura" />
+  </url>
+  <url>
+    <loc>${siteUrl}/cafe-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/cafe-website-mansoura" />
+  </url>
+  <url>
+    <loc>${siteUrl}/mall-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/mall-website-mansoura" />
+  </url>
+  <url>
+    <loc>${siteUrl}/ecommerce-website-mansoura</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/ecommerce-website-mansoura" />
+  </url>
+  <url>
     <loc>${siteUrl}/privacy</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="ar-EG" href="${siteUrl}/privacy" />

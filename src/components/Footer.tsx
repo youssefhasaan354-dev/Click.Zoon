@@ -26,7 +26,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-3xl font-extrabold text-gradient-gold notranslate" translate="no">{cfg.logoText}</span>
               <span className="text-xl font-bold text-navy-50 notranslate" translate="no">{cfg.agencyName}</span>
@@ -84,6 +84,45 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Mansoura Landing Pages */}
+          <div>
+            <h4 className="text-navy-50 font-bold mb-4">خدماتنا في المنصورة</h4>
+            <ul className="space-y-2.5">
+              <li>
+                <Link
+                  to="/restaurant-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  تصميم موقع مطعم
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cafe-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  تصميم موقع كافيه
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/mall-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  موقع مول ومجمع تجاري
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/ecommerce-website-mansoura"
+                  className="text-navy-300 hover:text-gold-400 transition-colors text-sm inline-block py-0.5"
+                >
+                  متجر إلكتروني في المنصورة
+                </Link>
+              </li>
             </ul>
           </div>
 
