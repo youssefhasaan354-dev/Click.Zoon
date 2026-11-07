@@ -44,11 +44,44 @@ const defaultTestimonials: ExtendedTestimonial[] = [
   },
 ];
 
+const defaultTestimonialsEn: ExtendedTestimonial[] = [
+  {
+    id: 't-1',
+    name: 'Dr. Ahmed Mansour',
+    business: 'Executive Director, Royal Specialty Clinics',
+    text: 'Click Zoon elevated our clinic presence to an entirely new standard. The WhatsApp smart booking workflow automated our reception desk, and confirmed patient bookings more than doubled in the first month.',
+    rating: 5,
+    live_url: 'https://royal-clinics.clickzoon.com',
+    visible: true,
+    sort_order: 1,
+  },
+  {
+    id: 't-2',
+    name: 'Eng. Karim El-Deeb',
+    business: 'Founder, Delano Café & Bistro',
+    text: 'The free interactive demo delivered within 48 hours was astonishing and matched our brand aesthetic flawlessly. The site is lightning fast and our guests love ordering through the QR menu without app downloads.',
+    rating: 5,
+    live_url: 'https://delano-cafe.clickzoon.com',
+    visible: true,
+    sort_order: 2,
+  },
+  {
+    id: 't-3',
+    name: 'Sarah Fouad',
+    business: 'Founder, Orchid Luxury Boutique',
+    text: 'By far the best web design and development team I have worked with. High professionalism, strict adherence to deadlines, and an intuitive dashboard that lets me manage my online store effortlessly.',
+    rating: 5,
+    live_url: 'https://orchid-boutique.clickzoon.com',
+    visible: true,
+    sort_order: 3,
+  },
+];
+
 export default function TestimonialsSection() {
-  const { t, dir } = useI18n();
+  const { t, dir, language } = useI18n();
   const isVisible = useSectionVisibility('testimonials');
   const { data } = useSiteData();
-  const rawList = data.testimonials && data.testimonials.length > 0 ? data.testimonials : defaultTestimonials;
+  const rawList = language === 'en' ? defaultTestimonialsEn : (data.testimonials && data.testimonials.length > 0 ? data.testimonials : defaultTestimonials);
   const list = rawList as ExtendedTestimonial[];
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -254,7 +287,7 @@ export default function TestimonialsSection() {
                     className={`h-2 rounded-full transition-all ${
                       i === activeIndex ? 'w-6 bg-gold-500' : 'w-2 bg-navy-700'
                     }`}
-                    aria-label={`التقييم ${i + 1}`}
+                    aria-label={t('testimonials.rating_aria', { n: i + 1 })}
                   />
                 ))}
               </div>

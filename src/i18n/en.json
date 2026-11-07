@@ -24,7 +24,8 @@
     "wa_demo_msg": "Hello Click Zoon, I would like to request a free prototype for my business.",
     "wa_general_msg": "Hello, I would like to know details about creating a website for my business.",
     "phone_label": "Phone Number",
-    "email_label": "Email Address"
+    "email_label": "Email Address",
+    "welcome_user": "Welcome, {name}"
   },
   "nav": {
     "home": "Home",
@@ -57,7 +58,12 @@
     "cta_secondary": "Explore Pricing Plans",
     "trust_speed": "Rapid 48-Hour Delivery",
     "trust_no_risk": "Zero Risk or Obligation",
-    "trust_responsive": "100% Mobile Responsive"
+    "trust_responsive": "100% Mobile Responsive",
+    "rotating_words": "Restaurant,Cafe,Store,Company,Brand",
+    "word_fallback": "Brand",
+    "completed_order": "Completed Order",
+    "store_amount": "Online Store +320 EGP",
+    "load_speed": "Load Speed"
   },
   "stats": {
     "projects": "Projects Completed",
@@ -138,7 +144,10 @@
     "feat_support_basic": "1 full month",
     "feat_support_pro": "3 months free",
     "feat_support_ecom": "6 months continuous follow-up",
-    "feat_demo": "Free Demo Preview Before Any Payment"
+    "feat_demo": "Free Demo Preview Before Any Payment",
+    "wa_plan_msg": "Hello, I would like to inquire about the pricing details for the {plan} plan ({cycle})",
+    "billing_onetime_label": "One-time Payment",
+    "billing_monthly_label": "Monthly Subscription"
   },
   "commission_calculator": {
     "badge": "Commission Calculator",
@@ -278,7 +287,8 @@
   "not_found": {
     "code": "404",
     "title": "Page Not Found",
-    "desc": "The page you are looking for does not exist or has been moved."
+    "desc": "The page you are looking for does not exist or has been moved.",
+    "meta_title": "Page Not Found (404) | Click Zoon"
   },
   "faq": {
     "badge": "Clear Answers",
@@ -358,14 +368,15 @@
     "preview_alt_default": "Click Zoon project preview",
     "preview_aria": "Preview details for {title}",
     "modal_img_alt": "Project screenshot: {title}",
-    "modal_img_alt_default": "Click Zoon project details"
+    "modal_img_alt_default": "Click Zoon project details",
+    "preview_dialog_aria": "Project Preview"
   },
   "testimonials": {
     "badge": "Testimonials & Success Stories",
     "title": "What Business Owners Say",
     "highlight": "About Partnering with Click Zoon",
     "subtitle": "Our partners are the heart of our success. We take pride in driving their digital growth and revenue.",
-    "rating_aria": "Rating: {rating} out of 5",
+    "rating_aria": "Rating {n}",
     "visit_live": "Visit Live Website",
     "watch_video": "Watch Video Testimonial"
   },
@@ -468,7 +479,9 @@
     "kind_store": "Online Store",
     "screenshots_aria": "Project Screenshots",
     "zoom_img": "Zoom image {n}",
-    "img_alt": "{title}: Image {n}"
+    "img_alt": "{title}: Image {n}",
+    "filter_aria": "Filter Projects",
+    "zoom_alt": "Zoom image preview"
   },
   "privacy": {
     "title": "Privacy",
@@ -483,7 +496,9 @@
     "rights_text": "You retain full rights to inspect, modify, or erase your data records anytime by messaging us via WhatsApp or email.",
     "updates_title": "Policy Updates",
     "updates_text": "We may update this policy to comply with emerging security standards. Revisions will be published promptly on this page.",
-    "back_btn": "Back to Home"
+    "back_btn": "Back to Home",
+    "meta_title": "Privacy Policy | Click Zoon",
+    "meta_description": "Click Zoon Privacy Policy: We are committed to protecting your personal data and business information with the highest security standards."
   },
   "seo": {
     "default_title": "Click Zoon | Professional Web Development & E-Commerce",
@@ -496,9 +511,12 @@
     "challenges_title": "The Challenge & Pain Points",
     "solution_title": "The Engineering Solution & Delivery",
     "testimonial_title": "Client Feedback",
-    "cta_title": "Ready to achieve similar results for your business?",
-    "cta_subtitle": "Start with a zero-risk free interactive prototype today.",
-    "cta_btn": "Request Free Prototype"
+    "cta_title": "Ready to Achieve the Same Success for Your Business?",
+    "cta_subtitle": "Get a custom demo prototype of your business website within 48 hours for free, with zero financial commitment.",
+    "cta_btn": "Request Free Prototype",
+    "cta_calc_btn": "Calculate Cost & Request Demo",
+    "cta_whatsapp_btn": "Speak with Our Advisor on WhatsApp",
+    "whatsapp_lead": "Hello Click Zoon, I checked the {client} case study and would like to build a website for my business"
   },
   "auth": {
     "login_title": "Sign In",
@@ -552,5 +570,15 @@
     "status_in_progress": "In Progress",
     "status_completed": "Completed",
     "status_cancelled": "Cancelled"
+  },
+  "marquee": {
+    "aria_label": "Our Partners & Businesses We Empower",
+    "subtitle": "Designing & building high-converting digital presence for 50+ businesses across Egypt and the Arab world",
+    "cat_restaurants": "Restaurants & Cafes",
+    "cat_medical": "Specialty Clinics & Medical",
+    "cat_law": "Law & Legal Advisory",
+    "cat_luxury": "Luxury E-Commerce",
+    "cat_realestate": "Real Estate & Property",
+    "cat_gourmet": "Gourmet Foods & Markets"
   }
 }

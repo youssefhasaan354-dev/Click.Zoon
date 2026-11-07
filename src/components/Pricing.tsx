@@ -39,7 +39,7 @@ export default function Pricing() {
     const translatedFallbackPlans = [
     {
       name: t('pricing.plan_basic'),
-      tagline: t('pricing.plan_basic_tagline') || 'مناسبة للأنشطة الصغيرة',
+      tagline: t('pricing.plan_basic_tagline'),
       price: '',
       features: [
         t('pricing.feat_pages_basic'),
@@ -52,7 +52,7 @@ export default function Pricing() {
     },
     {
       name: t('pricing.plan_pro'),
-      tagline: t('pricing.plan_pro_tagline') || 'الأكثر طلباً',
+      tagline: t('pricing.plan_pro_tagline'),
       price: '',
       features: [
         t('pricing.feat_pages_pro'),
@@ -68,7 +68,7 @@ export default function Pricing() {
     },
     {
       name: t('pricing.plan_ecommerce'),
-      tagline: t('pricing.plan_ecommerce_tagline') || 'ابدأ تبيع أونلاين',
+      tagline: t('pricing.plan_ecommerce_tagline'),
       price: '',
       features: [
         t('pricing.feat_pages_ecom'),
@@ -214,7 +214,7 @@ export default function Pricing() {
 
                 {/* CTA */}
                 <a
-                  href={waLink(`${cfg.whatsappMessages.pricing} — باقة: ${plan.name} (${billingCycle === 'monthly' ? 'نظام شهري' : 'دفع لمرة واحدة'})`)}
+                  href={waLink(t('pricing.wa_plan_msg', { plan: plan.name, cycle: billingCycle === 'monthly' ? t('pricing.billing_monthly_label') : t('pricing.billing_onetime_label') }))}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('generate_lead', { event_category: 'pricing', event_label: plan.name })}

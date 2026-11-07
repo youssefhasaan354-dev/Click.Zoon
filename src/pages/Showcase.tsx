@@ -44,8 +44,8 @@ export default function ShowcasePage() {
   return (
     <div className="min-h-screen bg-navy-900 text-navy-50 pb-[4.5rem] sm:pb-0">
       <Seo
-        title={t('showcase.meta_title') || 'معرض الأعمال: مواقع وبرامج جاهزة'}
-        description={t('showcase.meta_desc') || 'تصفح المواقع والبرامج والمتاجر الإلكترونية التي صمّمناها، وشوف الصور والرابط واطلب نموذج مماثل لنشاطك.'}
+        title={t('showcase.meta_title')}
+        description={t('showcase.meta_desc')}
         canonical="/showcase"
       />
       <Header />
@@ -62,7 +62,7 @@ export default function ShowcasePage() {
           )}
         </header>
 
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-8" role="tablist" aria-label="تصفية الأعمال">
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-8" role="tablist" aria-label={t('showcase.filter_aria')}>
           {tabs.map((tItem) => (
             <button
               key={tItem.key}

@@ -142,7 +142,7 @@ export default function ShowcaseAppPage() {
                     <ShowcaseIcon item={r} size={56} />
                     <div className="min-w-0">
                       <p className="text-sm font-bold text-navy-50 truncate">{r.title}</p>
-                      <p className="text-xs text-navy-400">{kindLabels[r.kind]}</p>
+                      <p className="text-xs text-navy-400">{t('showcase.kind_' + r.kind) || kindLabels[r.kind]}</p>
                     </div>
                   </Link>
                 </li>
@@ -162,7 +162,7 @@ export default function ShowcaseAppPage() {
         >
           <img
             src={zoom}
-            alt="تكبير الصورة"
+            alt={t('showcase.zoom_alt')}
             className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain border border-navy-700"
           />
         </div>

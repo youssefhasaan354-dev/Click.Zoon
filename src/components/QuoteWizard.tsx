@@ -146,7 +146,7 @@ ${t('quote_wizard.wa_msg_phone', { phone: state.phone })}`;
         return item ? t(`quote_wizard.${item.labelKey}`) : '';
       })
       .filter(Boolean)
-      .join('، ');
+      .join(', ');
 
     const actLabel = t(`quote_wizard.${selectedActivity.labelKey}`);
     const timelineLabel = t(`quote_wizard.${selectedTimeline.labelKey}`);
@@ -157,7 +157,7 @@ ${t('quote_wizard.wa_msg_phone', { phone: state.phone })}`;
         phone: cleaned,
         business_type: `${actLabel} (${state.businessName || t('quote_wizard.lead_fallback_biz')})`,
         source: 'wizard',
-        message_text: `المميزات: ${featureLabels} | التوقيت: ${timelineLabel} | التقدير: ${estimatedPrice} ${t('quote_wizard.currency')}`,
+        message_text: `${featureLabels} | ${timelineLabel} | ${estimatedPrice} ${t('quote_wizard.currency')}`,
         page_url: window.location.href,
       });
       if (res.success) {

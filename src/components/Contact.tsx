@@ -17,7 +17,7 @@ const MAX_PHONE_LEN = 40;
 const MAX_URL_LEN = 500;
 
 export default function Contact() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
   const { user, profile } = useCustomer();
@@ -412,7 +412,7 @@ ${t('contact.wa_msg_footer')}`;
               </div>
               <div>
                 <div className="text-navy-300 text-sm">{t('contact.service_area')}</div>
-                <div className="text-navy-50 font-bold">{cfg.location} — {t('contact.service_area_desc')}</div>
+                <div className="text-navy-50 font-bold">{(language === 'en' ? t('contact.location_online') : cfg.location)} — {t('contact.service_area_desc')}</div>
               </div>
             </div>
 

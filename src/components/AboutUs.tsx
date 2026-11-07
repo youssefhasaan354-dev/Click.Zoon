@@ -5,14 +5,16 @@ import Counter from '@/components/Counter';
 import { useI18n } from '@/i18n';
 
 export default function AboutUs() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { ref, revealed } = useReveal();
   const cfg = useSiteConfig();
   const visible = useSectionVisibility('about');
 
   const stats: { value: number; suffix: string; label: string }[] = cfg.aboutStats ?? [];
   const hasStats = stats.length > 0;
-  const hasText = Boolean(cfg.aboutText && cfg.aboutText.trim());
+  const activeAboutTitle = language === 'en' ? t('about_us.badge') : cfg.aboutTitle;
+  const activeAboutText = language === 'en' ? t('about_us.description') : cfg.aboutText;
+  const hasText = Boolean(activeAboutText && activeAboutText.trim());
   const hasImage = Boolean(cfg.aboutImageUrl && cfg.aboutImageUrl.trim());
 
   // Early return: nothing renders when both stats and text (and image) are empty, or section is hidden
@@ -24,10 +26,10 @@ export default function AboutUs() {
       <section id="about" className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={ref} className={`reveal ${revealed ? 'revealed' : ''}`}>
-            {cfg.aboutTitle && (
+            {activeAboutTitle && (
               <div className="text-center mb-8">
                 <div className="inline-block text-gold-400 text-sm font-bold tracking-wider">
-                  {cfg.aboutTitle}
+                  {activeAboutTitle}
                 </div>
               </div>
             )}
@@ -56,7 +58,7 @@ export default function AboutUs() {
             <div className="relative rounded-2xl overflow-hidden glass-card">
               <img
                 src={cfg.aboutImageUrl}
-                alt={cfg.aboutTitle ? t('about_us.alt_img', { title: cfg.aboutTitle }) : t('about_us.alt_img_default')}
+                alt={activeAboutTitle ? t('about_us.alt_img', { title: activeAboutTitle }) : t('about_us.alt_img_default')}
                 loading="lazy"
                 decoding="async"
                 width={800}
@@ -69,14 +71,14 @@ export default function AboutUs() {
           {/* Text */}
           <div className={hasImage ? '' : 'lg:col-span-2 text-center max-w-3xl mx-auto'}>
             <div className="inline-block text-gold-400 text-sm font-bold mb-3 tracking-wider">
-              {cfg.aboutTitle}
+              {activeAboutTitle}
             </div>
             <h2 className="text-3xl lg:text-4xl font-extrabold text-navy-50 mb-5">
               <span className="text-gradient-gold notranslate" translate="no">{t('about_us.title_prefix')}</span> — {t('about_us.title_suffix')}
             </h2>
             {hasText && (
               <p className="text-navy-200 text-lg leading-relaxed mb-8">
-                {cfg.aboutText}
+                {activeAboutText}
               </p>
             )}
 

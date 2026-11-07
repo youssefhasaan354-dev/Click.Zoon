@@ -345,7 +345,7 @@ export default function Header() {
                 {user ? (
                   <>
                     <div className="px-4 py-2 text-sm text-navy-300 font-medium">
-                      {t('common.welcome')}، <span className="text-gold-300 font-bold">{displayName}</span>
+                      {t('common.welcome')}, <span className="text-gold-300 font-bold">{displayName}</span>
                     </div>
                     <Link
                       to="/account"
