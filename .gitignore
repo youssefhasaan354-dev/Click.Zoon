@@ -28,6 +28,7 @@ supabase/.temp/
 temp_chrome_profile/
 temp_chrome_verify/
 temp_chrome_csp_verify/
+temp_chrome_real_flow/
 
 
 temp_prerender_profile/

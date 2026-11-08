@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode, lazy, Suspense, useEffect } from 'react';
+import { Component, ErrorInfo, ReactNode, lazy, Suspense, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -97,6 +97,7 @@ class RootErrorBoundary extends Component<{ children: ReactNode }, { hasError: b
 function GAInitializer() {
   const cfg = useSiteConfig();
   const location = useLocation();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     try {
@@ -110,8 +111,14 @@ function GAInitializer() {
   }, [cfg.googleAnalyticsId]);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (isAnalyticsInitialized() && typeof window !== 'undefined' && window.gtag && cfg.googleAnalyticsId) {
-      window.gtag('config', cfg.googleAnalyticsId, {
+      window.gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
         page_path: location.pathname + location.search,
       });
     }
