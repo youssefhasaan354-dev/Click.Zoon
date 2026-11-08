@@ -88,14 +88,28 @@ export function initGoogleAnalytics(measurementId: string) {
   // 1. Initialize dataLayer and queue function BEFORE injecting script
   window.dataLayer = window.dataLayer || [];
   if (!window.gtag) {
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer!.push(args);
+    // MUST push arguments object directly, NOT an array or rest spread
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer!.push(arguments);
     };
   }
-  window.gtag('js', new Date());
-  window.gtag('config', measurementId);
 
-  // 2. Inject Google Tag Manager / GA4 remote script
+  // 2. Grant Consent Mode v2 explicitly before config (analytics only, ads denied)
+  window.gtag('consent', 'update', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  });
+
+  // 3. Queue js and config commands
+  window.gtag('js', new Date());
+  window.gtag('config', measurementId, {
+    send_page_view: true,
+  });
+
+  // 4. Inject Google Tag Manager / GA4 remote script
   const script = document.createElement('script');
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;

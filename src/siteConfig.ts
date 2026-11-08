@@ -8,10 +8,16 @@ import { SiteSettings, HeroContent, AboutStat } from '@/lib/types';
 
 export const SITE_URL = 'https://clickzoon.com';
 export const SITE_DOMAIN = 'clickzoon.com';
+export const DEFAULT_GA_ID = 'G-M5FEL3S4WC';
+
+export function isValidGaMeasurementId(id: unknown): id is string {
+  return typeof id === 'string' && /^G-[A-Z0-9]+$/i.test(id.trim());
+}
 
 export const siteConfig = {
   siteUrl: SITE_URL,
   siteDomain: SITE_DOMAIN,
+  googleAnalyticsId: DEFAULT_GA_ID,
   agencyName: 'Click Zoon',
   agencyNameAr: 'كليك زون',
   phone: '01020095059',
@@ -101,11 +107,17 @@ export function useSiteConfig() {
     aboutImageUrl: s?.about_image_url ?? '',
     aboutStats: s?.about_stats ?? [],
     mapEmbedUrl: s?.map_embed_url ?? '',
-    googleAnalyticsId:
-      s?.google_analytics_id ||
-      (import.meta.env.VITE_GA_MEASUREMENT_ID as string) ||
-      (import.meta.env.VITE_GA_ID as string) ||
-      '',
+    googleAnalyticsId: (() => {
+      const dbId = s?.google_analytics_id?.trim();
+      const envId =
+        (import.meta.env.VITE_GA_MEASUREMENT_ID as string)?.trim() ||
+        (import.meta.env.VITE_GA_ID as string)?.trim();
+      return isValidGaMeasurementId(dbId)
+        ? dbId
+        : isValidGaMeasurementId(envId)
+          ? envId
+          : DEFAULT_GA_ID;
+    })(),
   };
 }
 
