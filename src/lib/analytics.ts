@@ -85,17 +85,25 @@ export function initGoogleAnalytics(measurementId: string) {
     return;
   }
 
+  // 1. Initialize dataLayer and queue function BEFORE injecting script
+  window.dataLayer = window.dataLayer || [];
+  if (!window.gtag) {
+    window.gtag = function gtag(...args: unknown[]) {
+      window.dataLayer!.push(args);
+    };
+  }
+  window.gtag('js', new Date());
+  window.gtag('config', measurementId);
+
+  // 2. Inject Google Tag Manager / GA4 remote script
   const script = document.createElement('script');
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
   document.head.appendChild(script);
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args);
-  };
-  window.gtag('js', new Date());
-  window.gtag('config', measurementId);
-
   gaInjected = true;
+
+  if (import.meta.env.DEV) {
+    console.debug('[GA4] Initialized with measurementId:', measurementId);
+  }
 }
