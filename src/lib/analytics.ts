@@ -95,12 +95,12 @@ export function initGoogleAnalytics(measurementId: string) {
     };
   }
 
-  // 2. Grant Consent Mode v2 explicitly before config
+  // 2. Grant Consent Mode v2 explicitly before config (analytics only, ads denied)
   window.gtag('consent', 'update', {
     analytics_storage: 'granted',
-    ad_storage: 'granted',
-    ad_user_data: 'granted',
-    ad_personalization: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
   });
 
   // 3. Queue js and config commands
