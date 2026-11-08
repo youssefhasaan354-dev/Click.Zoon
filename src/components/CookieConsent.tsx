@@ -26,6 +26,8 @@ export default function CookieConsent() {
     setVisible(false);
     if (cfg.googleAnalyticsId) {
       initGoogleAnalytics(cfg.googleAnalyticsId);
+    } else if (import.meta.env.DEV) {
+      console.warn('[CookieConsent] Consent accepted, but googleAnalyticsId is not set yet (waiting for Supabase or VITE_GA_MEASUREMENT_ID).');
     }
   };
 

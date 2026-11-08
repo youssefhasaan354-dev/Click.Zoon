@@ -34,7 +34,7 @@ import { AdminProvider } from './lib/admin-context.tsx';
 import { CustomerProvider } from './lib/customer-context.tsx';
 import { SiteDataProvider } from './lib/site-data-context.tsx';
 import { useSiteConfig } from './siteConfig';
-import { initGoogleAnalytics } from './lib/analytics';
+import { initGoogleAnalytics, isAnalyticsInitialized } from './lib/analytics';
 import BrandedLoader from '@/components/BrandedLoader';
 import { ToastProvider } from '@/lib/toast-context';
 import { I18nProvider } from '@/i18n';
@@ -96,6 +96,8 @@ class RootErrorBoundary extends Component<{ children: ReactNode }, { hasError: b
 
 function GAInitializer() {
   const cfg = useSiteConfig();
+  const location = useLocation();
+
   useEffect(() => {
     try {
       const consent = typeof window !== 'undefined' ? localStorage.getItem('cz_cookie_consent') : null;
@@ -106,6 +108,15 @@ function GAInitializer() {
       // LocalStorage access may fail in private mode
     }
   }, [cfg.googleAnalyticsId]);
+
+  useEffect(() => {
+    if (isAnalyticsInitialized() && typeof window !== 'undefined' && window.gtag && cfg.googleAnalyticsId) {
+      window.gtag('config', cfg.googleAnalyticsId, {
+        page_path: location.pathname + location.search,
+      });
+    }
+  }, [location.pathname, location.search, cfg.googleAnalyticsId]);
+
   return null;
 }
 
